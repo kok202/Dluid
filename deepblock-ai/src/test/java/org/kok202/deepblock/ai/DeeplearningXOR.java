@@ -56,18 +56,18 @@ public class DeeplearningXOR {
         layer2.getProperties().setOutputSize(1);
 
         AIPropertiesSingleton.getInstance()
-                .getModelProperty()
+                .getModelLayersProperty()
                 .getLayerTree()
                 .setRoot(layer1);
         AIPropertiesSingleton.getInstance()
-                .getModelProperty()
+                .getModelLayersProperty()
                 .getLayerTree()
                 .getRoot()
                 .attach(layer2);
 
-        AIModelSingleton.getInstance().initializeIfNull(
+        AIModelSingleton.getInstance().initialize(
                 AIPropertiesSingleton.getInstance()
-                        .getModelProperty()
+                        .getModelLayersProperty()
                         .getLayerTree());
         AIModelSingleton.getInstance().addTrainListener(
                 NormalTrainingListener.builder()

@@ -11,13 +11,10 @@ import org.kok202.deepblock.application.content.material.insertion.MaterialInser
 @Getter
 public class ContentRootController extends AbstractController {
     private SplitPane mainSplitter;
-    private TabsController tabsController;
     private MaterialContainerController materialContainerController;
+    private TabsController tabsController;
     private ComponentContainerController componentContainerController;
 
-    private TabPane tabContent;
-    private AnchorPane materialContent;
-    private AnchorPane detailContent;
 
     public AnchorPane createView() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/content_root.fxml"));
@@ -36,17 +33,15 @@ public class ContentRootController extends AbstractController {
     }
 
     private void initializeContent(AnchorPane rootPane) throws Exception {
-        MaterialInsertionManager materialInsertionManager = new MaterialInsertionManager();
         mainSplitter = (SplitPane) rootPane.lookup("#mainSplitter");
 
+        MaterialInsertionManager materialInsertionManager = new MaterialInsertionManager();
         materialContainerController = new MaterialContainerController(materialInsertionManager);
-        materialContent = materialContainerController.createView();
-
-        tabsController = new TabsController(materialInsertionManager);
-        tabContent = tabsController.createView();
-
+        tabsController = new TabsController();
         componentContainerController = new ComponentContainerController();
-        detailContent = componentContainerController.createView();
+        AnchorPane materialContent = materialContainerController.createView();
+        TabPane tabContent = tabsController.createView();
+        AnchorPane detailContent = componentContainerController.createView();
 
         materialInsertionManager.setRootPane(rootPane);
         materialInsertionManager.setMainSplitter(mainSplitter);

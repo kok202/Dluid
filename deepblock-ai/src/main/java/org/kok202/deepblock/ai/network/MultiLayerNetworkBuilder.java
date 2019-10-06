@@ -47,7 +47,7 @@ public class MultiLayerNetworkBuilder {
 
     private static MultiLayerConfiguration createNeuralNetLayer(ListBuilder neuralNetLayerBuilder){
         TreeNode<Layer> rootNode = AIPropertiesSingleton.getInstance()
-                .getModelProperty()
+                .getModelLayersProperty()
                 .getLayerTree()
                 .getRoot();
         return LayerBuildingUtil.implementsLayers(neuralNetLayerBuilder, rootNode).build();

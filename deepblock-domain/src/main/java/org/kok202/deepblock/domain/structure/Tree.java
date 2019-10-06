@@ -27,8 +27,4 @@ public class Tree<T> {
     public TreeNode<T> find(T node){
         return root.find(node);
     }
-
-    public void printHierachy() {
-        root.printHierachy();
-    }
 }

@@ -17,7 +17,6 @@ public class LayerBuildingUtil {
         neuralNetLayerBuilder = addLayer(neuralNetLayerBuilder, node.getData());
 
         // TODO : ex. splitter material, dummy material
-        System.out.println(node.getData().getType());
         if(node.isSingleChild())
             implementsLayers(neuralNetLayerBuilder, node.getFirstChild());
         return neuralNetLayerBuilder;

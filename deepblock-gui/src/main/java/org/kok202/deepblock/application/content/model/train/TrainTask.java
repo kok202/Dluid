@@ -5,6 +5,7 @@ import org.kok202.deepblock.ai.global.AIModelSingleton;
 import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
 import org.kok202.deepblock.ai.helper.RunnableTrainingListener;
 import org.kok202.deepblock.ai.helper.RunnableTrainingTaskContainer;
+import org.kok202.deepblock.application.global.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.canvas.util.BlockNodeTreeUtil;
 
@@ -23,20 +24,20 @@ public class TrainTask extends Task<Integer> {
     @Override
     protected Integer call() throws Exception {
         modelTrainController.getTextAreaTrainingLog().clear();
-        modelTrainController.getTextAreaTrainingLog().appendText("Create model. [doing]\n");
-        AIModelSingleton.getInstance().initializeIfNull(
+        modelTrainController.getTextAreaTrainingLog().appendText("Try to create model.\n");
+        AIModelSingleton.getInstance().initialize(
                 BlockNodeTreeUtil.convertToLayerTree(
                         CanvasSingleton.getInstance()
                                 .getBlockNodeManager()
                                 .findMainInputTree()));
-        modelTrainController.getTextAreaTrainingLog().appendText("Create model. [done]\n");
-        modelTrainController.getTextAreaTrainingLog().appendText("Add listener for print log. [doing]\n");
+        modelTrainController.getTextAreaTrainingLog().appendText("Try to create model. [done]\n");
+        modelTrainController.getTextAreaTrainingLog().appendText("Try to add listener for print log.\n");
 
         int epochTaskPeriod = 1;
         int batchTaskPeriod =
-                AIPropertiesSingleton.getInstance().getTrainProperty().getTotalRecordSize() /
+                        AIPropertiesSingleton.getInstance().getTrainProperty().getTotalRecordSize() /
                         AIPropertiesSingleton.getInstance().getTrainProperty().getBatchSize() /
-                        10; // FIXME : 몇으로 할지 고민
+                        10;
         epochTaskPeriod = (epochTaskPeriod <= 0)? 1 : epochTaskPeriod;
         batchTaskPeriod = (batchTaskPeriod <= 0)? 1 : batchTaskPeriod;
 
@@ -63,17 +64,15 @@ public class TrainTask extends Task<Integer> {
                             int percent = (int)(currentProgress / totalProgress * 100);
                             percent = Math.max(0, Math.min(percent, 100));
                             updateProgress(percent, 100);
-
                             updateMessage(String.valueOf(taskContainer.getBatchCounter().calcPercent()));
                             modelTrainController.getTextAreaTrainingLog().appendText("Batch progress : " + taskContainer.getBatchCounter().calcPercent() + " / 100%\n");
                         })
                         .build());
-        modelTrainController.getTextAreaTrainingLog().appendText("Add listener for print log. [done]\n");
-        modelTrainController.getTextAreaTrainingLog().appendText("Train. [doing]\n");
+        modelTrainController.getTextAreaTrainingLog().appendText("Try to add listener for print log. [done]\n");
+        modelTrainController.getTextAreaTrainingLog().appendText("Training start.\n");
         AIModelSingleton.getInstance().train(
                 AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager().getManagedFeatureRecordSet().getNumericRecordSet(),
                 AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager().getManagedResultRecordSet().getNumericRecordSet());
-        modelTrainController.getTextAreaTrainingLog().appendText("Train. [done]\n");
         updateProgress(100, 100);
         updateMessage(String.valueOf(100));
         return 100;
@@ -85,6 +84,10 @@ public class TrainTask extends Task<Integer> {
         modelTrainController.getButtonTrainingOneTime().setDisable(false);
         modelTrainController.getButtonTrainingNTime().setDisable(false);
         modelTrainController.getButtonTrainingStop().setDisable(true);
+        int learnedEpoch = AIPropertiesSingleton.getInstance().getModelInfoProperty().getModelLearnedEpochNumber();
+        int trainedEpoch = AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch();
+        AIPropertiesSingleton.getInstance().getModelInfoProperty().setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
+        AppWidgetSingleton.getInstance().getContentRootController().getTabsController().getTabModelTrainController().refreshModelInfo();
     }
 
     private void stopTraining(){

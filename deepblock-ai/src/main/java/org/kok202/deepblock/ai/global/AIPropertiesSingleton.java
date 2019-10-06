@@ -1,8 +1,8 @@
 package org.kok202.deepblock.ai.global;
 
 import lombok.Data;
-import org.kok202.deepblock.ai.global.structure.ModelProperty;
-import org.kok202.deepblock.ai.global.structure.ModelSettingProperty;
+import org.kok202.deepblock.ai.global.structure.ModelInfoProperty;
+import org.kok202.deepblock.ai.global.structure.ModelLayersProperty;
 import org.kok202.deepblock.ai.global.structure.TestProperty;
 import org.kok202.deepblock.ai.global.structure.TrainProperty;
 
@@ -16,14 +16,14 @@ public class AIPropertiesSingleton {
         return GlobalDataHolder.instance;
     }
 
-    private ModelProperty modelProperty;
-    private ModelSettingProperty modelSettingProperty;
+    private ModelLayersProperty modelLayersProperty;
+    private ModelInfoProperty modelInfoProperty;
     private TrainProperty trainProperty;
     private TestProperty testProperty;
 
     private AIPropertiesSingleton(){
-        modelProperty = new ModelProperty();
-        modelSettingProperty = new ModelSettingProperty();
+        modelLayersProperty = new ModelLayersProperty();
+        modelInfoProperty = new ModelInfoProperty();
         trainProperty = new TrainProperty();
         testProperty = new TestProperty();
     }

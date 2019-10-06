@@ -78,7 +78,7 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
                     .alertType(Alert.AlertType.ERROR)
                     .title("Failed to load data")
                     .headerText("Check cell positions indicate start and end position of table.")
-                    .contentText(exception.getCause().getMessage())
+                    .contentText(exception.getMessage())
                     .build()
                     .showAndWait();
             return;
