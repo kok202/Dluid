@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+
+        <!--============================================================= Titled =============================================================-->
+        <TitledPane fx:id="tiletedPane" animated="false" text="테스트 결과" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                    <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <TableView fx:id="tableViewResultSet" prefHeight="200.0" prefWidth="200.0">
+                                    <columns>
+                                    </columns>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </TableView>
+
+
+
+
+
+                                <HBox alignment="TOP_RIGHT" prefWidth="200.0">
+                                    <children>
+                                        <Button fx:id="buttonExportAsImage" mnemonicParsing="false" text="이미지로 내보내기">
+                                            <HBox.margin>
+                                                <Insets left="5.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                        <Button fx:id="buttonExportAsDocument" mnemonicParsing="false" text="문서로 내보내기">
+                                            <HBox.margin>
+                                                <Insets left="5.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
+        </TitledPane>
+
+    </children>
+</AnchorPane>

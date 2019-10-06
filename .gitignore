@@ -1,0 +1,24 @@
+# Directories #
+*/build/
+*/bin/
+*/target/
+
+# OS Files #
+.DS_Store
+ 
+*.class
+*.iml
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+
+# IntelliJ #
+.idea
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak

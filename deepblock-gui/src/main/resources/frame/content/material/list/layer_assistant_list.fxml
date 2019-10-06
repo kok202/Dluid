@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <TitledPane animated="false" minWidth="-Infinity" text="Assistant Layers" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
+        <content>
+            <AnchorPane>
+                <children>
+                    <VBox fx:id="layerAssistantListBox" minHeight="0.0" minWidth="0.0" prefWidth="220.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                        </children>
+                        <padding>
+                            <Insets bottom="5.0" left="5.0" right="0" top="5.0" />
+                        </padding>
+                    </VBox>
+                </children>
+            </AnchorPane>
+        </content>
+    </TitledPane>
+</AnchorPane>

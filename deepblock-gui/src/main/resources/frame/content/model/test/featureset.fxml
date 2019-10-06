@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+
+        <!--============================================================= Titled =============================================================-->
+        <TitledPane fx:id="tiletedPane" animated="false" text="테스트 데이터" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                    <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <children>
+                                 <TableView fx:id="tableViewDataSet" prefHeight="200.0" prefWidth="200.0">
+                                   <columns>
+                                   </columns>
+                                   <VBox.margin>
+                                      <Insets bottom="10.0" />
+                                   </VBox.margin>
+                                </TableView>
+                             </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
+        </TitledPane>
+
+    </children>
+</AnchorPane>

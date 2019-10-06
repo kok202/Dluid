@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+
+        <!--============================================================= Titled =============================================================-->
+        <TitledPane fx:id="tiletedPane" animated="false" text="모델 정보" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                    <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <GridPane>
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Label fx:id="labelModelName" text="모델 이름 : " GridPane.rowIndex="0" />
+                                    <Label fx:id="labelEpochNumber" text="반복 학습 횟수 : " GridPane.rowIndex="1" />
+                                    <TextField fx:id="textFieldModelName" promptText="My model" text="Untitiled" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <padding>
+                                            <Insets bottom="5.0" top="5.0" />
+                                        </padding>
+                                    </TextField>
+                                    <TextField fx:id="textFieldEpochNumber" disable="true" editable="false" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <padding>
+                                            <Insets bottom="5.0" top="5.0" />
+                                        </padding>
+                                    </TextField>
+                                </children>
+                                <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                </VBox.margin>
+                            </GridPane>
+                            <HBox alignment="TOP_RIGHT" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="buttonInitialize" mnemonicParsing="false" text="초기화">
+                                        <HBox.margin>
+                                            <Insets left="5.0" />
+                                        </HBox.margin>
+                                    </Button>
+                                </children>
+                            </HBox>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
+        </TitledPane>
+
+    </children>
+</AnchorPane>
