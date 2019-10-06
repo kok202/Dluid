@@ -15,6 +15,9 @@ import org.kok202.deepblock.application.global.AppPropertiesSingleton;
 public class TabModelTrainController extends AbstractController {
     @FXML
     private VBox content;
+    private ModelInfoController modelInfoController;
+    private ModelTrainParamController modelTrainParamController;
+    private ModelTrainController modelTrainController;
 
     public Tab createView() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/tab_model_train.fxml"));
@@ -29,8 +32,15 @@ public class TabModelTrainController extends AbstractController {
 
     @Override
     protected void initialize() throws Exception {
-        content.getChildren().add(new ModelInfoController().createView());
-        content.getChildren().add(new ModelTrainParamController().createView());
-        content.getChildren().add(new ModelTrainController().createView());
+        modelInfoController = new ModelInfoController();
+        modelTrainParamController = new ModelTrainParamController();
+        modelTrainController = new ModelTrainController();
+        content.getChildren().add(modelInfoController.createView());
+        content.getChildren().add(modelTrainParamController.createView());
+        content.getChildren().add(modelTrainController.createView());
+    }
+
+    public void refreshModelInfo(){
+        modelInfoController.refreshModelInfoProperty();
     }
 }

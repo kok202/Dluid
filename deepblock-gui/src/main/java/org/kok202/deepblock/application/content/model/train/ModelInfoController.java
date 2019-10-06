@@ -5,11 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.converter.IntegerStringConverter;
 import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
-import org.kok202.deepblock.application.Util.TextFieldUtil;
 
 
 public class ModelInfoController extends AbstractModelTrainController {
@@ -25,28 +22,21 @@ public class ModelInfoController extends AbstractModelTrainController {
         AnchorPane content = fxmlLoader.load();
         return content;
     }
+
     @Override
     protected void initialize() throws Exception {
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldEpochNumber, 0);
-        textFieldModelName.textProperty().addListener(changeListener -> textFieldChangeHandler());
-        textFieldEpochNumber.textProperty().addListener(changeListener -> textFieldChangeHandler());
-        textFieldEpochNumber.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+        textFieldModelName.textProperty().addListener(changeListener -> modelNameChangedHandler());
         buttonInitialize.setOnAction(event -> buttonInitializeActionHandler());
     }
 
-    private void textFieldChangeHandler(){
-        setModelName();
-        setTrainedEpochNumber();
+    public void refreshModelInfoProperty(){
+        textFieldModelName.setText(AIPropertiesSingleton.getInstance().getModelInfoProperty().getModelName());
+        textFieldEpochNumber.setText(AIPropertiesSingleton.getInstance().getModelInfoProperty().getModelLearnedEpochNumber() + "");
     }
 
-    private void setModelName() {
+    private void modelNameChangedHandler() {
         String value = textFieldModelName.getText();
-        AIPropertiesSingleton.getInstance().getModelSettingProperty().setModelName(value);
-    }
-
-    private void setTrainedEpochNumber() {
-        int value = TextFieldUtil.parseInteger(textFieldEpochNumber, 0);
-        AIPropertiesSingleton.getInstance().getModelSettingProperty().setModelLearnedEpochNumber(value);
+        AIPropertiesSingleton.getInstance().getModelInfoProperty().setModelName(value);
     }
 
     private void buttonInitializeActionHandler(){

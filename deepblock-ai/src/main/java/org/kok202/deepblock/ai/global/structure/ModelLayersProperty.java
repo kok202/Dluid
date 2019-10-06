@@ -5,10 +5,10 @@ import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.domain.structure.Tree;
 
 @Data
-public class ModelProperty {
+public class ModelLayersProperty {
     private Tree<Layer> layerTree;
 
-    public ModelProperty() {
+    public ModelLayersProperty() {
         layerTree = new Tree<>(null);
     }
 }

@@ -90,25 +90,10 @@ public class TreeNode<T> {
         return result;
     }
 
-    private void getAllDescendants(List<TreeNode<T>> ts){
+    private void getAllDescendants(List<TreeNode<T>> treeNodes){
         for(TreeNode<T> child : children){
-            ts.add(child);
-            child.getAllDescendants(ts);
+            treeNodes.add(child);
+            child.getAllDescendants(treeNodes);
         }
-    }
-
-    public void printHierachy(){
-        printHierachy(0);
-    }
-
-    public void printHierachy(int depth){
-        String depthString = "";
-        for(int i = 0; i< depth; i++)
-            depthString += "-";
-
-        System.out.println(depthString + data);
-        children.forEach(child -> {
-            child.printHierachy(depth + 1);
-        });
     }
 }

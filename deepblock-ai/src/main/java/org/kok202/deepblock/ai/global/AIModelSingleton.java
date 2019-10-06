@@ -6,6 +6,7 @@ import org.deeplearning4j.optimize.api.TrainingListener;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.helper.DataSetConverter;
 import org.kok202.deepblock.ai.network.MultiLayerNetworkBuilder;
+import org.kok202.deepblock.ai.util.LayerTreeHashUtil;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.structure.Tree;
 import org.nd4j.evaluation.classification.Evaluation;
@@ -26,17 +27,18 @@ public class AIModelSingleton {
     private AIModelSingleton(){
     }
 
+    private int prevLayerTreeHash;
     private MultiLayerNetwork model;
 
-    public void initializeIfNull(Tree<Layer> layerTree) {
-        if(model != null)
-            return;
-        initialize(layerTree);
-    }
-
     public void initialize(Tree<Layer> layerTree) {
-        AIPropertiesSingleton.getInstance()
-                .getModelProperty()
+        int currLayerTreeHash = LayerTreeHashUtil.getHashCode(layerTree);
+        if(prevLayerTreeHash == currLayerTreeHash)
+            return;
+        prevLayerTreeHash = currLayerTreeHash;
+
+        AIPropertiesSingleton
+                .getInstance()
+                .getModelLayersProperty()
                 .setLayerTree(layerTree);
         model = MultiLayerNetworkBuilder.build();
         model.init();
