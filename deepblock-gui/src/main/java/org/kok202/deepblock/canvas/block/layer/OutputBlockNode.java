@@ -13,16 +13,21 @@ public class OutputBlockNode extends LayerBlockNode {
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_DARK_GRAY,
-                        CanvasConstant.COLOR_YELLOW
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND
                 },
                 new Color[]{
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_DARK_GRAY,
-                        CanvasConstant.COLOR_YELLOW
+                        CanvasConstant.COLOR_RED,
+                        CanvasConstant.COLOR_RED,
+                        CanvasConstant.COLOR_RED,
+                        CanvasConstant.COLOR_RED,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND
                 });
+    }
+
+    @Override
+    public boolean isPossibleToAppendBack() {
+        return false;
     }
 }

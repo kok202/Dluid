@@ -35,13 +35,20 @@ public class BlockInsertionHandler {
         Node pickResultNode = pickResult.getIntersectedNode();
         if(pastBlockHexahedronVerticalFace != pickResultNode){
             if(pastBlockHexahedronVerticalFace != null){
-                pastBlockHexahedronVerticalFace.setColor(CanvasConstant.COLOR_YELLOW);
+                pastBlockHexahedronVerticalFace.setColor(CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND);
             }
         }
         if(pickResultNode instanceof HexahedronVerticalFace){
             HexahedronVerticalFace targetFace = (HexahedronVerticalFace) pickResultNode;
-            targetFace.setColor(CanvasConstant.COLOR_RED);
-            pastBlockHexahedronVerticalFace = targetFace;
+            BlockNode targetBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
+            if(pickResultNode instanceof HexahedronTopFace && targetBlockNode.isPossibleToAppendFront()){
+                targetFace.setColor(CanvasConstant.CONTEXT_COLOR_TRY_TO_APPEND);
+                pastBlockHexahedronVerticalFace = targetFace;
+            }
+            else if(pickResultNode instanceof HexahedronBottomFace && targetBlockNode.isPossibleToAppendBack()){
+                targetFace.setColor(CanvasConstant.CONTEXT_COLOR_TRY_TO_APPEND);
+                pastBlockHexahedronVerticalFace = targetFace;
+            }
         }
     }
 
@@ -51,15 +58,15 @@ public class BlockInsertionHandler {
         if(pickResultNode instanceof HexahedronVerticalFace){
             BlockNode targetBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
 
-            if(pickResultNode instanceof HexahedronTopFace){
+            if(pickResultNode instanceof HexahedronTopFace && targetBlockNode.isPossibleToAppendFront()){
                 appendFrontToSpecificBlock(materialInsertionInfoHolder.getLayerType(), targetBlockNode);
             }
-            else if(pickResultNode instanceof HexahedronBottomFace){
+            else if(pickResultNode instanceof HexahedronBottomFace && targetBlockNode.isPossibleToAppendBack()){
                 appendBackToSpecificBlock(materialInsertionInfoHolder.getLayerType(), targetBlockNode);
             }
 
             if(pastBlockHexahedronVerticalFace != null){
-                pastBlockHexahedronVerticalFace.setColor(CanvasConstant.COLOR_YELLOW);
+                pastBlockHexahedronVerticalFace.setColor(CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND);
             }
         }
         else if(pickResultNode instanceof CoordinateGiantMesh){

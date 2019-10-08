@@ -13,16 +13,21 @@ public class InputBlockNode extends LayerBlockNode {
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_DARK_GRAY,
-                        CanvasConstant.COLOR_GRAY
+                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 },
                 new Color[]{
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_DARK_GRAY,
-                        CanvasConstant.COLOR_YELLOW
+                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });
+    }
+
+    @Override
+    public boolean isPossibleToAppendFront() {
+        return false;
     }
 }

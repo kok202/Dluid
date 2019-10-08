@@ -21,6 +21,8 @@ public enum LayerType {
      * NOT REAL LAYER
      **********************************************************/
     INPUT_LAYER,
+    SPLIT_IN_LAYER,
+    SPLIT_OUT_LAYER,
 
     /**********************************************************
      * NOT SUPPORT

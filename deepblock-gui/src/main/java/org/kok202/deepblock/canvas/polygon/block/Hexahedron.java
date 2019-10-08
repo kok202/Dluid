@@ -104,4 +104,9 @@ public class Hexahedron {
     public void addedToScene(Group sceneGroup){
         sceneGroup.getChildren().addAll(faces);
     }
+
+    public void setVisible(boolean visible){
+        for(HexahedronFace face : faces)
+            face.setVisible(visible);
+    }
 }
