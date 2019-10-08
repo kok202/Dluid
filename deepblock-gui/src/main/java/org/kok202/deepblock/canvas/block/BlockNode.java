@@ -26,10 +26,10 @@ public abstract class BlockNode {
     private BlockHexahedron blockActivationModel;
 
     public BlockNode(Layer layer, Point2D topSize, Point2D bottomSize) {
-        Point2D middleSize = getMiddleSize(topSize, bottomSize);
-        blockLayerModel = createBlock(topSize, middleSize, CanvasConstant.NODE_HEIGHT * (1 - CanvasConstant.NODE_ACTIVATION_RATIO));
-        blockActivationModel = createBlock(middleSize, bottomSize, CanvasConstant.NODE_HEIGHT * (CanvasConstant.NODE_ACTIVATION_RATIO));
         blockInfo = new BlockInfo(layer);
+        Point2D middleSize = getMiddleSize(topSize, bottomSize);
+        blockLayerModel = createBlock(topSize, middleSize, getLayerModelHeight());
+        blockActivationModel = createBlock(middleSize, bottomSize, getActivationModelHeight());
     }
 
     protected void setBlockCover(Color[] layerColors, Color[] activationColors){
@@ -38,24 +38,35 @@ public abstract class BlockNode {
         refreshBlockCover();
     }
 
+    protected void refreshBlockCover(){
+        blockLayerModel.setColors(blockInfo.getLayerColors());
+        blockLayerModel.setTextureSources(blockInfo.getLayerTextureSources());
+        blockLayerModel.refreshBlockCover();
+        blockActivationModel.setColors(blockInfo.getActivationColors());
+        blockActivationModel.setTextureSources(blockInfo.getActivationTextureSources());
+        blockActivationModel.refreshBlockCover();
+        blockActivationModel.setVisible(isActivationFunctionExist());
+    }
+
     private boolean isActivationFunctionExist(){
         return blockInfo.getLayer().getProperties().getActivationFunction() != null &&
                 blockInfo.getLayer().getProperties().getActivationFunction() != Activation.IDENTITY;
     }
 
-    protected void refreshBlockCover(){
-        blockLayerModel.setColors(blockInfo.getLayerColors());
-        blockLayerModel.setTextureSources(blockInfo.getLayerTextureSources());
-        blockLayerModel.refreshBlockCover();
-        blockActivationModel.setColors((isActivationFunctionExist())? blockInfo.getActivationColors() : blockInfo.getLayerColors());
-        blockActivationModel.setTextureSources((isActivationFunctionExist())? blockInfo.getActivationTextureSources() : blockInfo.getLayerTextureSources());
-        blockActivationModel.refreshBlockCover();
+    private float getLayerModelHeight(){
+        return !isActivationFunctionExist()? CanvasConstant.NODE_HEIGHT : CanvasConstant.NODE_HEIGHT * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
+    }
+
+    private float getActivationModelHeight(){
+        return !isActivationFunctionExist()? 0 : CanvasConstant.NODE_HEIGHT * (CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private Point2D getMiddleSize(Point2D topSize, Point2D bottomSize){
-        return new Point2D(
-                bottomSize.getX() + (topSize.getX() - bottomSize.getX()) * CanvasConstant.NODE_ACTIVATION_RATIO,
-                bottomSize.getY() + (topSize.getY() - bottomSize.getY()) * CanvasConstant.NODE_ACTIVATION_RATIO);
+        return !isActivationFunctionExist()?
+                    bottomSize :
+                    new Point2D(
+                    bottomSize.getX() + (topSize.getX() - bottomSize.getX()) * CanvasConstant.NODE_ACTIVATION_RATIO,
+                    bottomSize.getY() + (topSize.getY() - bottomSize.getY()) * CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private Point3D getTopBlockPosition(Point3D position){
@@ -67,11 +78,11 @@ public abstract class BlockNode {
     }
 
     private Point3D getTopBlockPosition(double x, double y, double z){
-        return new Point3D(x, y - CanvasConstant.NODE_HEIGHT / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, !isActivationFunctionExist()? y : y - CanvasConstant.NODE_HEIGHT / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
     private Point3D getBottomBlockPosition(double x, double y, double z){
-        return new Point3D(x, y + CanvasConstant.NODE_HEIGHT / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, !isActivationFunctionExist()? 0 : y + CanvasConstant.NODE_HEIGHT / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
     public Point3D getPosition(){
@@ -113,8 +124,8 @@ public abstract class BlockNode {
         deleteHexahedronModel(blockActivationModel);
 
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
-        blockLayerModel = recreateHexahedronModel(topSize, middleSize, CanvasConstant.NODE_HEIGHT * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), getTopBlockPosition(blockInfo.getPosition()));
-        blockActivationModel = recreateHexahedronModel(middleSize, bottomSize, CanvasConstant.NODE_HEIGHT * (CanvasConstant.NODE_ACTIVATION_RATIO), getBottomBlockPosition(blockInfo.getPosition()));
+        blockLayerModel = recreateHexahedronModel(topSize, middleSize, getLayerModelHeight(), getTopBlockPosition(blockInfo.getPosition()));
+        blockActivationModel = recreateHexahedronModel(middleSize, bottomSize, getActivationModelHeight(), getBottomBlockPosition(blockInfo.getPosition()));
         refreshBlockCover();
     }
 
@@ -145,4 +156,6 @@ public abstract class BlockNode {
                 .build();
     }
 
+    public abstract boolean isPossibleToAppendFront();
+    public abstract boolean isPossibleToAppendBack();
 }

@@ -20,12 +20,19 @@ public class CanvasConstant {
     public static final double COORDINATE_MESH_BOLD_THICKNESS = 0.01;
     public static final double COORDINATE_MESH_NORM_THICKNESS = 0.003;
 
+    public static final Color COLOR_LIGHT_GRAY = Color.rgb(128, 128, 128);
     public static final Color COLOR_GRAY = Color.rgb(89, 91, 93);
     public static final Color COLOR_DARK_GRAY = Color.rgb(60, 63, 65);
     public static final Color COLOR_WHITE = Color.rgb(255, 255, 255);
     public static final Color COLOR_YELLOW = Color.rgb(255, 214, 146);
     public static final Color COLOR_RED = Color.rgb(255, 99, 99);
     public static final Color COLOR_BLUE = Color.rgb(77, 210, 255);
+
+    public static final Color CONTEXT_COLOR_POSSIBLE_APPEND = COLOR_YELLOW;
+    public static final Color CONTEXT_COLOR_TRY_TO_APPEND = COLOR_RED;
+    public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_LIGHT_GRAY;
+    public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_DARK_GRAY;
+    public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY;
 
 //    public static final Font BOLD_FONT_IN_CANVAS = Font.font("NanumGothicCoding", FontWeight.BOLD, 64);
     public static final Font BOLD_FONT_IN_CANVAS = Font.font(null, FontWeight.BOLD, 64); // size is detail

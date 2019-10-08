@@ -24,12 +24,12 @@ public class Coordinate extends Group {
             getChildren().add(zAxis);
         }
 
-        getChildren().add(createGiantMesh(CanvasConstant.COORDINATE_SIZE, CanvasConstant.COORDINATE_DEPTH, CanvasConstant.COLOR_DARK_GRAY));
+        getChildren().add(createGiantMesh(CanvasConstant.COORDINATE_SIZE, CanvasConstant.COORDINATE_DEPTH, CanvasConstant.CONTEXT_COLOR_BACKGROUND));
     }
 
     private Box createAxis(double x, double y, double z){
         PhongMaterial material = new PhongMaterial();
-        material.setDiffuseColor(CanvasConstant.COLOR_GRAY);
+        material.setDiffuseColor(CanvasConstant.CONTEXT_COLOR_COORDINATE_AXIS);
         Box box = new Box(x,y,z);
         box.setMaterial(material);
         return box;

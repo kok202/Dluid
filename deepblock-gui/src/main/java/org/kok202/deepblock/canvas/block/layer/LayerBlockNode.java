@@ -4,6 +4,8 @@ import javafx.geometry.Point2D;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
+import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
+import org.kok202.deepblock.domain.structure.TreeNode;
 
 public abstract class LayerBlockNode extends BlockNode {
     public LayerBlockNode(Layer layer) {
@@ -14,22 +16,21 @@ public abstract class LayerBlockNode extends BlockNode {
                 new Point2D(
                         layer.getProperties().getOutputSize()[0] * CanvasConstant.NODE_UNIT,
                         layer.getProperties().getOutputSize()[1] * CanvasConstant.NODE_UNIT));
-//        blockLayerModel.setColors(new Color[]{
-//                CanvasConstant.COLOR_BLUE,
-//                CanvasConstant.COLOR_BLUE,
-//                CanvasConstant.COLOR_BLUE,
-//                CanvasConstant.COLOR_BLUE,
-//                CanvasConstant.COLOR_YELLOW,
-//                CanvasConstant.COLOR_YELLOW});
-//        blockLayerModel.refreshBlockCover();
-//        or
-//        blockLayerModel.setTextures(new String[]{
-//                getClass().getClassLoader().getResource("images/sample_texture.png").toString(),
-//                getClass().getClassLoader().getResource("images/sample_texture.png").toString(),
-//                getClass().getClassLoader().getResource("images/sample_texture.png").toString(),
-//                getClass().getClassLoader().getResource("images/sample_texture.png").toString(),
-//                getClass().getClassLoader().getResource("images/sample_texture.png").toString(),
-//                getClass().getClassLoader().getResource("images/sample_texture.png").toString()});
-//        blockLayerModel.refreshBlockCover();
+    }
+
+    @Override
+    public boolean isPossibleToAppendFront() {
+        TreeNode<BlockNode> frontTreeNode = CanvasSingleton.getInstance()
+                .getBlockNodeManager()
+                .findTreeNodeByLayerId(this.getBlockInfo().getLayer().getId());
+        return frontTreeNode.getParent() == null;
+    }
+
+    @Override
+    public boolean isPossibleToAppendBack() {
+        TreeNode<BlockNode> frontTreeNode = CanvasSingleton.getInstance()
+                .getBlockNodeManager()
+                .findTreeNodeByLayerId(this.getBlockInfo().getLayer().getId());
+        return frontTreeNode.getChildren().isEmpty();
     }
 }
