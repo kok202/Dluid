@@ -57,6 +57,14 @@ public class ComponentManager {
                 componentList.add(new ComponentCommonFunctionController(layer));
                 componentList.add(new ComponentOutputParamController(layer));
                 break;
+            case SPLIT_IN_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentSplitInParamController(layer));
+                break;
+            case SPLIT_OUT_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentSplitOutParamController(layer));
+                break;
             case LSTM:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));

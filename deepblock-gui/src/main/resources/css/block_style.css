@@ -31,3 +31,15 @@
     -fx-background-repeat: no-repeat;
 	-fx-text-fill: white;
 }
+
+.layer-block-image-split-in {
+    -fx-background-image: url("../images/block_split_in.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-split-out {
+    -fx-background-image: url("../images/block_split_out.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}

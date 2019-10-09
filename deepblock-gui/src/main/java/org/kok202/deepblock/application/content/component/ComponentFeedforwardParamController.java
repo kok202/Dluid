@@ -31,17 +31,17 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
     protected void initialize() throws Exception {
         TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSize, 1);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSize, 1);
-        if(layer.getProperties().getInputSize()[0] > 0) {
-            textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        }
-        if(layer.getProperties().getOutputSize()[0] > 0){
-            textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        }
-        textFieldInputSize.textProperty().addListener(changeListener -> textFieldChangeHandler());
-        textFieldOutputSize.textProperty().addListener(changeListener -> textFieldChangeHandler());
+        setTextFieldByLayerProperties();
     }
 
-    private void textFieldChangeHandler(){
+    protected void setTextFieldByLayerProperties(){
+        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
+        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
+    }
+
+    @Override
+    protected void textFieldChangedHandler(){
         changeInputSize();
         changeOutputSize();
         notifyLayerDataChanged();

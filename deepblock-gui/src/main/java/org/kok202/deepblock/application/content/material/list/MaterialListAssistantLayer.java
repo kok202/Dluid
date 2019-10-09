@@ -5,9 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import org.kok202.deepblock.application.content.material.block.AbstractMaterialController;
-import org.kok202.deepblock.application.content.material.block.MaterialInputController;
-import org.kok202.deepblock.application.content.material.block.MaterialOutputController;
+import org.kok202.deepblock.application.content.material.block.*;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionFollower;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
 
@@ -44,6 +42,8 @@ public class MaterialListAssistantLayer extends AbstractMaterialList {
         layerAssistantList = new ArrayList<>();
         layerAssistantList.add(new MaterialInputController());
         layerAssistantList.add(new MaterialOutputController());
+        layerAssistantList.add(new MaterialSplitInController());
+        layerAssistantList.add(new MaterialSplitOutController());
     }
 
     @Override

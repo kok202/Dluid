@@ -17,6 +17,10 @@ public class LayerBlockNodeFactory{
                 return new InputBlockNode(layer);
             case OUTPUT_LAYER:
                 return new OutputBlockNode(layer);
+            case SPLIT_IN_LAYER:
+                return new SplitInBlockNode(layer);
+            case SPLIT_OUT_LAYER:
+                return new SplitOutBlockNode(layer);
         }
         return null;
     }
