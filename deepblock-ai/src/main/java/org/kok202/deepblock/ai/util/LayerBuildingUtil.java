@@ -26,7 +26,7 @@ public class LayerBuildingUtil {
         if(layer == null)
             throw new EmptyNodeException();
 
-        // Input layer is just indicating main model. it just empty shell.
+        // Input mono is just indicating main model. it just empty shell.
         if(layer.getType() == LayerType.INPUT_LAYER)
             return neuralNetLayerBuilder;
 

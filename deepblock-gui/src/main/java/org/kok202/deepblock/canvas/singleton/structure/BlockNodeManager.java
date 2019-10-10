@@ -2,8 +2,11 @@ package org.kok202.deepblock.canvas.singleton.structure;
 
 import javafx.geometry.Point2D;
 import lombok.Data;
+import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
+import org.kok202.deepblock.canvas.block.mono.MonoBlockNode;
+import org.kok202.deepblock.canvas.block.stereo.StereoBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindBlockNodeException;
 import org.kok202.deepblock.domain.exception.CanNotFindTreeNodeException;
@@ -79,22 +82,29 @@ public class BlockNodeManager {
     public void notifyLayerDataChanged(long layerId){
         TreeNode<BlockNode> treeNode = findTreeNodeByLayerId(layerId);
         BlockNode blockNode = treeNode.getData();
-        double inputX = blockNode.getBlockInfo().getLayer().getProperties().getInputSize()[0] * CanvasConstant.NODE_UNIT;
-        double inputY = blockNode.getBlockInfo().getLayer().getProperties().getInputSize()[1] * CanvasConstant.NODE_UNIT;
-        double outputX = blockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[0] * CanvasConstant.NODE_UNIT;
-        double outputY = blockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[1] * CanvasConstant.NODE_UNIT;
-        blockNode.mutateBlockModel(
-                new Point2D(inputX, inputY),
-                new Point2D(outputX, outputY));
+        LayerProperties layerProperties = blockNode.getBlockInfo().getLayer().getProperties();
 
-        if(treeNode.getParent() != null){
-            BlockNode parentBlockNode = treeNode.getParent().getData();
-            LayerType parentLayerType = parentBlockNode.getBlockInfo().getLayer().getType();
-            if(parentLayerType == LayerType.INPUT_LAYER){
-                treeNode.getParent().getData().mutateBlockModel(
-                        new Point2D(inputX, inputY),
-                        new Point2D(inputX, inputY));
+        if(blockNode instanceof MonoBlockNode){
+            MonoBlockNode monoBlockNode = (MonoBlockNode) blockNode;
+            monoBlockNode.reshapeBlockModel(
+                    new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
+                    new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
+
+            if(treeNode.getParent() != null){
+                BlockNode parentBlockNode = treeNode.getParent().getData();
+                LayerType parentLayerType = parentBlockNode.getBlockInfo().getLayer().getType();
+                if(parentLayerType == LayerType.INPUT_LAYER){
+                    MonoBlockNode parentInputBlockNode = (MonoBlockNode) treeNode.getParent().getData();
+                    parentInputBlockNode.reshapeBlockModel(
+                            new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
+                            new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT));
+                }
             }
+        }
+        else if(blockNode instanceof StereoBlockNode){
+            StereoBlockNode stereoBlockNode = (StereoBlockNode) blockNode;
+            stereoBlockNode.reshapeBlockModel(layerProperties);
+            // Split in 의 경우 2개의 layer 를 parent 로 가질 수 있고 parent 가 input 이면 리사이징이 자동으로 되어야한다/
         }
     }
 

@@ -1,9 +1,12 @@
-package org.kok202.deepblock.canvas.block.layer;
+package org.kok202.deepblock.canvas.block;
 
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.canvas.block.mono.*;
+import org.kok202.deepblock.canvas.block.stereo.SplitInBlockNode;
+import org.kok202.deepblock.canvas.block.stereo.SplitOutBlockNode;
 
-public class LayerBlockNodeFactory{
-    public static LayerBlockNode create(Layer layer){
+public class BlockNodeFactory {
+    public static BlockNode create(Layer layer){
         switch (layer.getType()){
             case DENSE_LAYER:
                 return new FeedForwardBlockNode(layer);

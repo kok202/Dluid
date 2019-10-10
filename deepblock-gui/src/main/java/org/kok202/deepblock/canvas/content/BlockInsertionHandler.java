@@ -10,8 +10,7 @@ import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.deepblock.application.global.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.block.layer.LayerBlockNode;
-import org.kok202.deepblock.canvas.block.layer.LayerBlockNodeFactory;
+import org.kok202.deepblock.canvas.block.BlockNodeFactory;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronVerticalFace;
@@ -134,10 +133,9 @@ public class BlockInsertionHandler {
         return layer;
     }
 
-    private LayerBlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){
-        LayerBlockNode layerBlockNode = LayerBlockNodeFactory.create(layer);
-        layerBlockNode.setPosition(insertingPoint.getX(), insertingPoint.getY(), 0);
-        layerBlockNode.addedToScene(sceneRoot);
-        return layerBlockNode;
+    private BlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){
+        BlockNode blockNode = BlockNodeFactory.create(layer);
+        blockNode.addedToScene(sceneRoot, insertingPoint);
+        return blockNode;
     }
 }
