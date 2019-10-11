@@ -16,11 +16,14 @@ public class ComponentSplitInParamController extends AbstractLayerComponentContr
     @FXML private Label labelHeight;
     @FXML private Label labelLeftInput;
     @FXML private Label labelRightInput;
+    @FXML private Label labelOutput;
 
     @FXML private TextField textFieldLeftInputX;
     @FXML private TextField textFieldLeftInputY;
     @FXML private TextField textFieldRightInputX;
     @FXML private TextField textFieldRightInputY;
+    @FXML private TextField textFieldOutputX;
+    @FXML private TextField textFieldOutputY;
 
     public ComponentSplitInParamController(Layer layer) {
         super(layer);
@@ -39,14 +42,18 @@ public class ComponentSplitInParamController extends AbstractLayerComponentContr
         TextFieldUtil.applyPositiveIntegerFilter(textFieldLeftInputY, AppConstant.DEFAULT_INPUT_SIZE);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldRightInputX, AppConstant.DEFAULT_INPUT_SIZE);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldRightInputY, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputX, AppConstant.DEFAULT_OUTPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputY, AppConstant.DEFAULT_OUTPUT_SIZE);
         setTextFieldByLayerProperties();
     }
 
     private void setTextFieldByLayerProperties(){
-        textFieldLeftInputX.setText(String.valueOf(layer.getProperties().getSplitLeftSize()[0]));
-        textFieldLeftInputY.setText(String.valueOf(layer.getProperties().getSplitLeftSize()[1]));
         textFieldRightInputX.setText(String.valueOf(layer.getProperties().getSplitRightSize()[0]));
         textFieldRightInputY.setText(String.valueOf(layer.getProperties().getSplitRightSize()[1]));
+        textFieldLeftInputX.setText(String.valueOf(layer.getProperties().getSplitLeftSize()[0]));
+        textFieldLeftInputY.setText(String.valueOf(layer.getProperties().getSplitLeftSize()[1]));
+        textFieldOutputX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
         attachTextChangedListener(textFieldLeftInputX, textFieldLeftInputY, textFieldRightInputX, textFieldRightInputY);
     }
 
@@ -63,9 +70,9 @@ public class ComponentSplitInParamController extends AbstractLayerComponentContr
                 layer.getProperties().getSplitLeftSize()[0] * layer.getProperties().getSplitLeftSize()[1] +
                 layer.getProperties().getSplitRightSize()[0] * layer.getProperties().getSplitRightSize()[1];
         int[] splitSize = MathUtil.getRecommendedDivisors(concatenatedSize);
-        layer.getProperties().setOutputSize(
-                splitSize[1],
-                splitSize[0]);
+        textFieldOutputX.setText(String.valueOf(splitSize[0]));
+        textFieldOutputY.setText(String.valueOf(splitSize[1]));
+        layer.getProperties().setOutputSize(splitSize[0], splitSize[1]);
         notifyLayerDataChanged();
     }
 }

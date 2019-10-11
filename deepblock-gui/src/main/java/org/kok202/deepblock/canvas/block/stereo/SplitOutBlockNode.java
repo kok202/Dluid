@@ -16,17 +16,27 @@ public class SplitOutBlockNode extends StereoBlockNode {
                 CanvasConstant.COLOR_GRAY,
                 CanvasConstant.COLOR_GRAY,
                 CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
-                CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND};
+                CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND};
         setBlockCover(mainColorCover, mainColorCover);
     }
 
     @Override
     protected void createBlockModel(Layer layer) {
         LayerProperties layerProperties = layer.getProperties();
-        Point2D topSize = new Point2D(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
-        Point2D topPosition = new Point2D(0, 0);
-        Point2D leftSize = new Point2D(layerProperties.getSplitLeftSize()[0], layerProperties.getSplitLeftSize()[1]);
-        Point2D rightSize = new Point2D(layerProperties.getSplitRightSize()[0], layerProperties.getSplitRightSize()[1]);
+        Point2D topSize = new Point2D(
+                layerProperties.getInputSize()[0],
+                layerProperties.getInputSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D topPosition = new Point2D(0, 0)
+                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D leftSize = new Point2D(
+                layerProperties.getSplitLeftSize()[0],
+                layerProperties.getSplitLeftSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D rightSize = new Point2D(
+                layerProperties.getSplitRightSize()[0],
+                layerProperties.getSplitRightSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
         Point2D leftPosition = getLeftPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         BlockHexahedron leftHexahedron = createHexahedron(topSize, topPosition, leftSize, leftPosition, CanvasConstant.NODE_HEIGHT);
@@ -40,10 +50,20 @@ public class SplitOutBlockNode extends StereoBlockNode {
         deleteHexahedron(getMainBlockModel());
         deleteHexahedron(getSubBlockModel());
 
-        Point2D topSize = new Point2D(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
-        Point2D topPosition = new Point2D(0, 0);
-        Point2D leftSize = new Point2D(layerProperties.getSplitLeftSize()[0], layerProperties.getSplitLeftSize()[1]);
-        Point2D rightSize = new Point2D(layerProperties.getSplitRightSize()[0], layerProperties.getSplitRightSize()[1]);
+        Point2D topSize = new Point2D(
+                layerProperties.getInputSize()[0],
+                layerProperties.getInputSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D topPosition = new Point2D(0, 0)
+                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D leftSize = new Point2D(
+                layerProperties.getSplitLeftSize()[0],
+                layerProperties.getSplitLeftSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D rightSize = new Point2D(
+                layerProperties.getSplitRightSize()[0],
+                layerProperties.getSplitRightSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
         Point2D leftPosition = getLeftPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         BlockHexahedron leftHexahedron = reshapeHexahedron(topSize, topPosition, leftSize, leftPosition, CanvasConstant.NODE_HEIGHT, getBlockInfo().getPosition());

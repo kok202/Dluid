@@ -51,13 +51,23 @@ public abstract class StereoBlockNode extends BlockNode {
     }
 
     protected Point2D getLeftPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
-        // FIXME : calc!
-        return new Point2D(0, 0);
+        return new Point2D(-(leftSize.getX() + nodeGap) / 2 , 0);
     }
 
     protected Point2D getRightPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
-        // FIXME : calc!
-        return new Point2D(0, 0);
+        return new Point2D((rightSize.getX() + nodeGap) / 2 , 0);
+    }
+
+    protected Point2D getBalancedLeftPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
+        double totalSize = leftSize.getX() + rightSize.getX() + nodeGap;
+        double leftStart = -totalSize / 2;
+        return new Point2D(leftStart + leftSize.getX() / 2 , 0);
+    }
+
+    protected Point2D getBalancedRightPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
+        double totalSize = leftSize.getX() + rightSize.getX() + nodeGap;
+        double rightEnd = totalSize / 2;
+        return new Point2D(rightEnd - rightSize.getX() / 2 , 0);
     }
 
     @Override

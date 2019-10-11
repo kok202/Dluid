@@ -86,7 +86,7 @@ public class BlockInsertionHandler {
         Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, -CanvasConstant.NODE_HEIGHT, 0));
 
         // Add to global block node set and refresh component box material
-        Layer layer = createLayer(layerType);
+        Layer layer = new Layer(layerType);
         BlockNode insertedBlockNode = insertLayerBlockModelToCanvas(layer, insertingPoint);
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
@@ -102,7 +102,7 @@ public class BlockInsertionHandler {
         Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, CanvasConstant.NODE_HEIGHT, 0));
 
         // Add to global block node set and refresh component box material
-        Layer layer = createLayer(layerType);
+        Layer layer = new Layer(layerType);
         BlockNode insertedBlockNode = insertLayerBlockModelToCanvas(layer, insertingPoint);
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
@@ -115,7 +115,7 @@ public class BlockInsertionHandler {
 
     private void createNewBlock(LayerType layerType, Point3D insertingPoint){
         // Add to global block node set and refresh component box material
-        Layer layer = createLayer(layerType);
+        Layer layer = new Layer(layerType);
         BlockNode insertedBlockNode = insertLayerBlockModelToCanvas(layer, insertingPoint);
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
@@ -124,13 +124,6 @@ public class BlockInsertionHandler {
                 .getComponentContainerController()
                 .getComponentManager()
                 .refreshContainerByLayer(insertedBlockNode.getBlockInfo().getLayer());
-    }
-
-    private Layer createLayer(LayerType layerType){
-        Layer layer = new Layer(layerType);
-        layer.getProperties().setInputSize(10, 1);
-        layer.getProperties().setOutputSize(10, 1);
-        return layer;
     }
 
     private BlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){
