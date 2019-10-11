@@ -29,7 +29,7 @@ public class TrainTask extends Task<Integer> {
                 BlockNodeTreeUtil.convertToLayerTree(
                         CanvasSingleton.getInstance()
                                 .getBlockNodeManager()
-                                .findMainInputTree()));
+                                .findTrainInputTree()));
         modelTrainController.getTextAreaTrainingLog().appendText("Try to create model. [done]\n");
         modelTrainController.getTextAreaTrainingLog().appendText("Try to add listener for print log.\n");
 

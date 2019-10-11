@@ -7,7 +7,6 @@ import org.deeplearning4j.nn.conf.layers.FeedForwardLayer.Builder;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.domain.exception.EmptyNodeException;
 import org.kok202.deepblock.domain.structure.TreeNode;
 
@@ -27,7 +26,7 @@ public class LayerBuildingUtil {
             throw new EmptyNodeException();
 
         // Input mono is just indicating main model. it just empty shell.
-        if(layer.getType() == LayerType.INPUT_LAYER)
+        if(layer.getType().isInputLayerType())
             return neuralNetLayerBuilder;
 
         Builder layerBuilder = BlockLayerUtil.getLayerBuilder(layer);

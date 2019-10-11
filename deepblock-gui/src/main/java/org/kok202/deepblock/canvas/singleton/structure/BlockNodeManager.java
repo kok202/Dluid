@@ -9,6 +9,7 @@ import org.kok202.deepblock.canvas.block.mono.MonoBlockNode;
 import org.kok202.deepblock.canvas.block.stereo.StereoBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindBlockNodeException;
+import org.kok202.deepblock.domain.exception.CanNotFindTreeException;
 import org.kok202.deepblock.domain.exception.CanNotFindTreeNodeException;
 import org.kok202.deepblock.domain.structure.Tree;
 import org.kok202.deepblock.domain.structure.TreeNode;
@@ -93,7 +94,7 @@ public class BlockNodeManager {
             if(treeNode.getParent() != null){
                 BlockNode parentBlockNode = treeNode.getParent().getData();
                 LayerType parentLayerType = parentBlockNode.getBlockInfo().getLayer().getType();
-                if(parentLayerType == LayerType.INPUT_LAYER){
+                if(parentLayerType.isInputLayerType()){
                     MonoBlockNode parentInputBlockNode = (MonoBlockNode) treeNode.getParent().getData();
                     parentInputBlockNode.reshapeBlockModel(
                             new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
@@ -108,24 +109,34 @@ public class BlockNodeManager {
         }
     }
 
-    public Tree<BlockNode> findMainInputTree(){
-        BlockNode inputBlockNode = null;
+    public Tree<BlockNode> findTestInputTree(){
         for(BlockNode blockNode : blockNodeSet){
-            if(blockNode.getBlockInfo().getLayer().getType() == LayerType.INPUT_LAYER){
-                inputBlockNode = blockNode;
-                break;
+            LayerType layerType = blockNode.getBlockInfo().getLayer().getType();
+            if(layerType == LayerType.INPUT_LAYER || layerType == LayerType.TEST_INPUT_LAYER){
+                return findTreeByLayerId(blockNode.getBlockInfo().getLayer().getId());
             }
         }
-        if(inputBlockNode == null)
-            throw new CanNotFindBlockNodeException("input block node");
+        throw new CanNotFindBlockNodeException("Test input block node");
+    }
 
+    public Tree<BlockNode> findTrainInputTree(){
+        for(BlockNode blockNode : blockNodeSet){
+            LayerType layerType = blockNode.getBlockInfo().getLayer().getType();
+            if(layerType == LayerType.INPUT_LAYER || layerType == LayerType.TRAIN_INPUT_LAYER){
+                return findTreeByLayerId(blockNode.getBlockInfo().getLayer().getId());
+            }
+        }
+        throw new CanNotFindBlockNodeException("Train input block node");
+    }
+
+    public Tree<BlockNode> findTreeByLayerId(long layerId){
         for(Tree<BlockNode> blockNodeTree : blockNodeTrees) {
-            TreeNode<BlockNode> targetBlockNode = findTreeNodeByLayerId(blockNodeTree.getRoot(), inputBlockNode.getBlockInfo().getLayer().getId());
+            TreeNode<BlockNode> targetBlockNode = findTreeNodeByLayerId(blockNodeTree.getRoot(), layerId);
             if(targetBlockNode == null)
                 continue;
             return blockNodeTree;
         }
-        throw new CanNotFindBlockNodeException("input block node");
+        throw new CanNotFindTreeException(String.valueOf(layerId));
     }
 
     public TreeNode<BlockNode> findTreeNodeByLayerId(long layerId) {

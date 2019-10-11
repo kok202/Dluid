@@ -5,23 +5,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import org.kok202.deepblock.application.content.material.block.AbstractMaterialController;
-import org.kok202.deepblock.application.content.material.block.MaterialInputController;
-import org.kok202.deepblock.application.content.material.block.MaterialOutputController;
+import org.kok202.deepblock.application.content.material.block.*;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionFollower;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
 
 import java.util.ArrayList;
 
 @Getter
-public class MaterialListAssistantLayer extends AbstractMaterialList {
+public class MaterialListAdvancedLayer extends AbstractMaterialList {
     @FXML
     private VBox layerAssistantListBox;
     private ArrayList<AbstractMaterialController> layerAssistantList;
 
     private MaterialInsertionManager materialInsertionManager;
 
-    public MaterialListAssistantLayer(MaterialInsertionManager materialInsertionManager) {
+    public MaterialListAdvancedLayer(MaterialInsertionManager materialInsertionManager) {
         this.materialInsertionManager = materialInsertionManager;
     }
 
@@ -42,8 +40,10 @@ public class MaterialListAssistantLayer extends AbstractMaterialList {
     @Override
     protected void addBaseBlockToContentList(){
         layerAssistantList = new ArrayList<>();
-        layerAssistantList.add(new MaterialInputController());
-        layerAssistantList.add(new MaterialOutputController());
+        layerAssistantList.add(new MaterialTrainInputController());
+        layerAssistantList.add(new MaterialTestInputController());
+        layerAssistantList.add(new MaterialSplitInController());
+        layerAssistantList.add(new MaterialSplitOutController());
     }
 
     @Override

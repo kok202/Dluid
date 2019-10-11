@@ -21,6 +21,8 @@ public enum LayerType {
      * NOT REAL LAYER
      **********************************************************/
     INPUT_LAYER,
+    TRAIN_INPUT_LAYER,
+    TEST_INPUT_LAYER,
     SPLIT_IN_LAYER,
     SPLIT_OUT_LAYER,
 
@@ -34,4 +36,8 @@ public enum LayerType {
     EMBEDDING_LAYER,
     EMBEDDING_SEQUENCE_LAYER,
     REPEAT_VECTOR;
+
+    public boolean isInputLayerType(){
+        return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER || this == TEST_INPUT_LAYER;
+    }
 }
