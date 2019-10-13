@@ -23,6 +23,10 @@ public class LayerProperties {
     // for output type
     protected LossFunction lossFunction;
 
+    // for split type
+    protected int[] splitLeftSize;
+    protected int[] splitRightSize;
+
     public void setInputSize(int inputSize) {
         this.inputSize = new int[]{inputSize,1};
     }
@@ -40,8 +44,8 @@ public class LayerProperties {
     }
 
     LayerProperties(LayerType layerType) {
-        inputSize = new int[]{1, 1};
-        outputSize = new int[]{1, 1};
+        inputSize = new int[]{10, 1};
+        outputSize = new int[]{10, 1};
         weightInit = WeightInit.ONES;
         activationFunction = Activation.IDENTITY;
         dropout = 0;
@@ -60,6 +64,11 @@ public class LayerProperties {
                 break;
             case OUTPUT_LAYER:
                 lossFunction = LossFunction.MSE;
+                break;
+            case SPLIT_IN_LAYER:
+            case SPLIT_OUT_LAYER:
+                splitLeftSize = new int[]{5,1};
+                splitRightSize = new int[]{5,1};
                 break;
         }
     }

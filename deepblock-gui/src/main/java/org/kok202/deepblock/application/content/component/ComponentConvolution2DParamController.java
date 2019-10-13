@@ -70,7 +70,7 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
         textFieldPaddingSizeY.setText(String.valueOf(layer.getProperties().getPaddingSize()[1]));
         textFieldKernelSizeX.setText(String.valueOf(layer.getProperties().getKernelSize()[0]));
         textFieldKernelSizeY.setText(String.valueOf(layer.getProperties().getKernelSize()[1]));
-        applyTextChangedListener(
+        attachTextChangedListener(
                 textFieldInputSizeX, textFieldKernelSizeX, textFieldStrideSizeX, textFieldPaddingSizeX,
                 textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY);
     }

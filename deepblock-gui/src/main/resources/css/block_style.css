@@ -26,8 +26,32 @@
 	-fx-text-fill: white;
 }
 
+.layer-block-image-train-input {
+    -fx-background-image: url("../images/block_train_input.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-test-input {
+    -fx-background-image: url("../images/block_test_input.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
 .layer-block-image-output {
     -fx-background-image: url("../images/block_output.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-split-in {
+    -fx-background-image: url("../images/block_split_in.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-split-out {
+    -fx-background-image: url("../images/block_split_out.png");
     -fx-background-repeat: no-repeat;
 	-fx-text-fill: white;
 }

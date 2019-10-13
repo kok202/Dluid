@@ -50,12 +50,22 @@ public class ComponentManager {
                 componentList.add(new ComponentConvolution2DParamController(layer));
                 break;
             case INPUT_LAYER:
+            case TRAIN_INPUT_LAYER:
+            case TEST_INPUT_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 break;
             case OUTPUT_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));
                 componentList.add(new ComponentOutputParamController(layer));
+                break;
+            case SPLIT_IN_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentSplitInParamController(layer));
+                break;
+            case SPLIT_OUT_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentSplitOutParamController(layer));
                 break;
             case LSTM:
                 componentList.add(new ComponentCommonInfoController(layer));

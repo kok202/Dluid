@@ -1,11 +1,11 @@
-package org.kok202.deepblock.canvas.block.layer;
+package org.kok202.deepblock.canvas.block.mono;
 
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 
-public class InputBlockNode extends LayerBlockNode {
-    public InputBlockNode(Layer layer) {
+public class TrainInputBlockNode extends MonoBlockNode {
+    public TrainInputBlockNode(Layer layer) {
         super(layer);
         setBlockCover(
                 new Color[]{

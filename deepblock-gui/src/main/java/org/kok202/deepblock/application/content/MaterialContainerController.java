@@ -10,6 +10,7 @@ import org.kok202.deepblock.application.content.material.insertion.MaterialInser
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
 import org.kok202.deepblock.application.content.material.list.MaterialList1DLayer;
 import org.kok202.deepblock.application.content.material.list.MaterialList2DLayer;
+import org.kok202.deepblock.application.content.material.list.MaterialListAdvancedLayer;
 import org.kok202.deepblock.application.content.material.list.MaterialListAssistantLayer;
 
 @Getter
@@ -35,5 +36,6 @@ public class MaterialContainerController extends AbstractController {
         content.getChildren().add(new MaterialListAssistantLayer(materialInsertionManager).createView());
         content.getChildren().add(new MaterialList1DLayer(materialInsertionManager).createView());
         content.getChildren().add(new MaterialList2DLayer(materialInsertionManager).createView());
+        content.getChildren().add(new MaterialListAdvancedLayer(materialInsertionManager).createView());
     }
 }
