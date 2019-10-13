@@ -10,7 +10,7 @@ import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
 import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
 import org.kok202.deepblock.ai.util.LayerBuildingUtil;
 import org.kok202.deepblock.ai.util.OptimizerUtil;
-import org.kok202.deepblock.domain.structure.TreeNode;
+import org.kok202.deepblock.domain.structure.GraphNode;
 import org.kok202.deepblock.domain.util.RandomUtil;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.IUpdater;
@@ -46,9 +46,9 @@ public class MultiLayerNetworkBuilder {
     }
 
     private static MultiLayerConfiguration createNeuralNetLayer(ListBuilder neuralNetLayerBuilder){
-        TreeNode<Layer> rootNode = AIPropertiesSingleton.getInstance()
+        GraphNode<Layer> rootNode = AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTree()
+                .getLayerGraph()
                 .getRoot();
         return LayerBuildingUtil.implementsLayers(neuralNetLayerBuilder, rootNode).build();
     }

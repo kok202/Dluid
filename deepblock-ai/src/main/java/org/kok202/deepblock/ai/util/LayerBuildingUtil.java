@@ -8,10 +8,10 @@ import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.domain.exception.EmptyNodeException;
-import org.kok202.deepblock.domain.structure.TreeNode;
+import org.kok202.deepblock.domain.structure.GraphNode;
 
 public class LayerBuildingUtil {
-    public static NeuralNetConfiguration.ListBuilder implementsLayers(NeuralNetConfiguration.ListBuilder neuralNetLayerBuilder, TreeNode<Layer> node){
+    public static NeuralNetConfiguration.ListBuilder implementsLayers(NeuralNetConfiguration.ListBuilder neuralNetLayerBuilder, GraphNode<Layer> node){
         // TODO : 레이어가 모델에 따라서 동적으로 생성될 수 있도록
         neuralNetLayerBuilder = addLayer(neuralNetLayerBuilder, node.getData());
 

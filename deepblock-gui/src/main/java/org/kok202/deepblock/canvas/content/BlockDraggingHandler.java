@@ -36,7 +36,7 @@ public class BlockDraggingHandler {
                 CanvasSingleton
                         .getInstance()
                         .getBlockNodeManager()
-                        .getAllBlockNodeInTree(pickedBlockNode)
+                        .getAllBlockNodeInGraph(pickedBlockNode)
                         .forEach(blockNode -> {
                             blockNode.translatePosition(delta.getX(), delta.getY(), 0);
                         });
@@ -55,7 +55,7 @@ public class BlockDraggingHandler {
                 CanvasSingleton
                         .getInstance()
                         .getBlockNodeManager()
-                        .getAllBlockNodeInTree(pickedBlockNode)
+                        .getAllBlockNodeInGraph(pickedBlockNode)
                         .forEach(blockNode -> {
                             blockNode.translatePosition(delta.getX(), delta.getY(), 0);
                         });

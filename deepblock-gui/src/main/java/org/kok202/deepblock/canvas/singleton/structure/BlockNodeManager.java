@@ -9,11 +9,10 @@ import org.kok202.deepblock.canvas.block.mono.MonoBlockNode;
 import org.kok202.deepblock.canvas.block.stereo.StereoBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindBlockNodeException;
-import org.kok202.deepblock.domain.exception.CanNotFindTreeException;
-import org.kok202.deepblock.domain.exception.CanNotFindTreeNodeException;
-import org.kok202.deepblock.domain.structure.Tree;
-import org.kok202.deepblock.domain.structure.TreeNode;
-import org.kok202.deepblock.domain.util.ObjectConverter;
+import org.kok202.deepblock.domain.exception.CanNotFindGraphException;
+import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
+import org.kok202.deepblock.domain.structure.Graph;
+import org.kok202.deepblock.domain.structure.GraphNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,67 +21,67 @@ import java.util.stream.Collectors;
 @Data
 public class BlockNodeManager {
     private List<BlockNode> blockNodeSet;
-    private ArrayList<Tree<BlockNode>> blockNodeTrees;
+    private ArrayList<Graph<BlockNode>> blockNodeGraphs;
 
     public BlockNodeManager() {
         blockNodeSet = new ArrayList<>();
-        blockNodeTrees = new ArrayList<>();
+        blockNodeGraphs = new ArrayList<>();
     }
 
     public void registerIndependentBlockNode(BlockNode blockNode){
         blockNodeSet.add(blockNode);
-        blockNodeTrees.add(new Tree<>(blockNode));
+        blockNodeGraphs.add(new Graph<>(blockNode));
     }
 
-    public void appendFrontToBlockNode(BlockNode targetBlockNode, BlockNode blockNode){
-        blockNodeSet.add(blockNode);
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees){
-            TreeNode<BlockNode> targetTreeNode = blockNodeTree.find(targetBlockNode);
-            if(targetTreeNode != null){
-                TreeNode<BlockNode> targetParentTreeNode = targetTreeNode.getParent();
-                TreeNode<BlockNode> treeNode = new TreeNode<>(blockNode);
-                treeNode.attach(targetTreeNode);
-                if(targetParentTreeNode == null)
-                    blockNodeTree.setRoot(treeNode);
+    public void appendFrontToNewBlockNode(BlockNode targetBlockNode, BlockNode newBlockNode){
+        blockNodeSet.add(newBlockNode);
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs){
+            GraphNode<BlockNode> targetGraphNode = blockNodeGraph.find(targetBlockNode);
+            if(targetGraphNode != null){
+                GraphNode<BlockNode> targetParentGraphNode = targetGraphNode.getParent();
+                GraphNode<BlockNode> newGraphNode = new GraphNode<>(newBlockNode);
+                newGraphNode.attach(targetGraphNode);
+                if(targetParentGraphNode == null)
+                    blockNodeGraph.setRoot(graphNode);
                 else
-                    treeNode.setParent(targetParentTreeNode);
+                    graphNode.setParent(targetParentGraphNode);
                 return;
             }
         }
-        throw new CanNotFindTreeNodeException(targetBlockNode.toString());
+        throw new CanNotFindGraphNodeException(targetBlockNode.toString());
     }
 
     public void appendBackToBlockNode(BlockNode targetBlockNode, BlockNode blockNode){
         blockNodeSet.add(blockNode);
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees){
-            TreeNode<BlockNode> targetTreeNode = blockNodeTree.find(targetBlockNode);
-            if(targetTreeNode != null){
-                targetTreeNode.attach(blockNode);
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs){
+            GraphNode<BlockNode> targetGraphNode = blockNodeGraph.find(targetBlockNode);
+            if(targetGraphNode != null){
+                targetGraphNode.attach(blockNode);
                 return;
             }
         }
-        throw new CanNotFindTreeNodeException(targetBlockNode.toString());
+        throw new CanNotFindGraphNodeException(targetBlockNode.toString());
     }
 
     public void removeBranchByLayerId(long layerId) {
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees) {
-            TreeNode<BlockNode> targetBlockNode = findTreeNodeByLayerId(blockNodeTree.getRoot(), layerId);
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs) {
+            GraphNode<BlockNode> targetBlockNode = findGraphNodeByLayerId(blockNodeGraph.getRoot(), layerId);
             if(targetBlockNode == null)
                 continue;
             targetBlockNode.removeWithDescendants(blockNode -> {
                 blockNodeSet.remove(blockNode);
                 blockNode.deleteBlockModel();
             });
-            if(targetBlockNode == blockNodeTree.getRoot()) {
-                blockNodeTrees.remove(blockNodeTree);
+            if(targetBlockNode == blockNodeGraph.getRoot()) {
+                blockNodeGraphs.remove(blockNodeGraph);
                 return;
             }
         }
     }
 
     public void notifyLayerDataChanged(long layerId){
-        TreeNode<BlockNode> treeNode = findTreeNodeByLayerId(layerId);
-        BlockNode blockNode = treeNode.getData();
+        GraphNode<BlockNode> graphNode = findGraphNodeByLayerId(layerId);
+        BlockNode blockNode = graphNode.getData();
         LayerProperties layerProperties = blockNode.getBlockInfo().getLayer().getProperties();
 
         if(blockNode instanceof MonoBlockNode){
@@ -91,11 +90,11 @@ public class BlockNodeManager {
                     new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
                     new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
 
-            if(treeNode.getParent() != null){
-                BlockNode parentBlockNode = treeNode.getParent().getData();
+            if(graphNode.getParent() != null){
+                BlockNode parentBlockNode = graphNode.getParent().getData();
                 LayerType parentLayerType = parentBlockNode.getBlockInfo().getLayer().getType();
                 if(parentLayerType.isInputLayerType()){
-                    MonoBlockNode parentInputBlockNode = (MonoBlockNode) treeNode.getParent().getData();
+                    MonoBlockNode parentInputBlockNode = (MonoBlockNode) graphNode.getParent().getData();
                     parentInputBlockNode.reshapeBlockModel(
                             new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
                             new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT));
@@ -109,39 +108,39 @@ public class BlockNodeManager {
         }
     }
 
-    public Tree<BlockNode> findTestInputTree(){
+    public Graph<BlockNode> findTestInputGraph(){
         for(BlockNode blockNode : blockNodeSet){
             LayerType layerType = blockNode.getBlockInfo().getLayer().getType();
             if(layerType == LayerType.INPUT_LAYER || layerType == LayerType.TEST_INPUT_LAYER){
-                return findTreeByLayerId(blockNode.getBlockInfo().getLayer().getId());
+                return findGraphByLayerId(blockNode.getBlockInfo().getLayer().getId());
             }
         }
         throw new CanNotFindBlockNodeException("Test input block node");
     }
 
-    public Tree<BlockNode> findTrainInputTree(){
+    public Graph<BlockNode> findTrainInputGraph(){
         for(BlockNode blockNode : blockNodeSet){
             LayerType layerType = blockNode.getBlockInfo().getLayer().getType();
             if(layerType == LayerType.INPUT_LAYER || layerType == LayerType.TRAIN_INPUT_LAYER){
-                return findTreeByLayerId(blockNode.getBlockInfo().getLayer().getId());
+                return findGraphByLayerId(blockNode.getBlockInfo().getLayer().getId());
             }
         }
         throw new CanNotFindBlockNodeException("Train input block node");
     }
 
-    public Tree<BlockNode> findTreeByLayerId(long layerId){
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees) {
-            TreeNode<BlockNode> targetBlockNode = findTreeNodeByLayerId(blockNodeTree.getRoot(), layerId);
+    public Graph<BlockNode> findGraphByLayerId(long layerId){
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs) {
+            GraphNode<BlockNode> targetBlockNode = findGraphNodeByLayerId(blockNodeGraph.getRoot(), layerId);
             if(targetBlockNode == null)
                 continue;
-            return blockNodeTree;
+            return blockNodeGraph;
         }
-        throw new CanNotFindTreeException(String.valueOf(layerId));
+        throw new CanNotFindGraphException(String.valueOf(layerId));
     }
 
-    public TreeNode<BlockNode> findTreeNodeByLayerId(long layerId) {
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees) {
-            TreeNode<BlockNode> targetBlockNode = findTreeNodeByLayerId(blockNodeTree.getRoot(), layerId);
+    public GraphNode<BlockNode> findGraphNodeByLayerId(long layerId) {
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs) {
+            GraphNode<BlockNode> targetBlockNode = findGraphNodeByLayerId(blockNodeGraph.getRoot(), layerId);
             if(targetBlockNode == null)
                 continue;
             return targetBlockNode;
@@ -150,8 +149,8 @@ public class BlockNodeManager {
     }
 
     public BlockNode findBlockNodeByLayerId(long layerId) {
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees) {
-            TreeNode<BlockNode> targetBlockNode = findTreeNodeByLayerId(blockNodeTree.getRoot(), layerId);
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs) {
+            GraphNode<BlockNode> targetBlockNode = findGraphNodeByLayerId(blockNodeGraph.getRoot(), layerId);
             if(targetBlockNode == null)
                 continue;
             return targetBlockNode.getData();
@@ -159,63 +158,57 @@ public class BlockNodeManager {
         throw new CanNotFindBlockNodeException(String.valueOf(layerId));
     }
 
-    private TreeNode<BlockNode> findTreeNodeByLayerId(TreeNode<BlockNode> currentTreeNode, long layerId) {
-        if (currentTreeNode == null || currentTreeNode.getChildren() == null)
+    private GraphNode<BlockNode> findGraphNodeByLayerId(GraphNode<BlockNode> currentGraphNode, long layerId) {
+        if (currentGraphNode == null || currentGraphNode.getAdjacentNodes() == null)
             return null;
 
-        for(TreeNode<BlockNode> childTreeNode : currentTreeNode.getChildren()) {
-            TreeNode<BlockNode> result = findTreeNodeByLayerId(childTreeNode, layerId);
+        for(GraphNode<BlockNode> childGraphNode : currentGraphNode.getAdjacentNodes()) {
+            GraphNode<BlockNode> result = findGraphNodeByLayerId(childGraphNode, layerId);
             if(result != null)
                 return result;
         }
 
-        if (currentTreeNode.getData().getBlockInfo().getLayer().getId() == layerId)
-            return currentTreeNode;
+        if (currentGraphNode.getData().getBlockInfo().getLayer().getId() == layerId)
+            return currentGraphNode;
         return null;
     }
 
-    public List<BlockNode> getAllBlockNodeInTree(BlockNode blockNode){
-        Tree<BlockNode> startTree = null;
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees){
-            TreeNode<BlockNode> targetTreeNode = blockNodeTree.find(blockNode);
-            if(targetTreeNode != null){
-                startTree = blockNodeTree;
+    public List<BlockNode> getAllBlockNodeInGraph(BlockNode blockNode){
+        Graph<BlockNode> startGraph = null;
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs){
+            GraphNode<BlockNode> targetGraphNode = blockNodeGraph.find(blockNode);
+            if(targetGraphNode != null){
+                startGraph = blockNodeGraph;
                 break;
             }
         }
-        if(startTree == null)
-            throw new CanNotFindTreeNodeException("Block id : " + blockNode.getBlockInfo().getId());
+        if(startGraph == null)
+            throw new CanNotFindGraphNodeException("Block id : " + blockNode.getBlockInfo().getId());
 
-        List<BlockNode> allWithoutRoot = startTree.getRoot()
+        List<BlockNode> allWithoutRoot = startGraph.getRoot()
                 .getAllDescendants()
                 .stream()
-                .map(blockNodeTreeNode -> blockNodeTreeNode.getData())
+                .map(blockNodeGraphNode -> blockNodeGraphNode.getData())
                 .collect(Collectors.toList());
-        allWithoutRoot.add(startTree.getRoot().getData());
+        allWithoutRoot.add(startGraph.getRoot().getData());
         return allWithoutRoot;
     }
 
     public List<BlockNode> getAllBlockNodeInDescendant(BlockNode blockNode){
-        TreeNode<BlockNode> startTreeNode = null;
-        for(Tree<BlockNode> blockNodeTree : blockNodeTrees){
-            TreeNode<BlockNode> targetTreeNode = blockNodeTree.find(blockNode);
-            if(targetTreeNode != null){
-                startTreeNode = targetTreeNode;
+        GraphNode<BlockNode> startGraphNode = null;
+        for(Graph<BlockNode> blockNodeGraph : blockNodeGraphs){
+            GraphNode<BlockNode> targetGraphNode = blockNodeGraph.find(blockNode);
+            if(targetGraphNode != null){
+                startGraphNode = targetGraphNode;
                 break;
             }
         }
-        if(startTreeNode == null)
-            throw new CanNotFindTreeNodeException("Block id : " + blockNode.getBlockInfo().getId());
+        if(startGraphNode == null)
+            throw new CanNotFindGraphNodeException("Block id : " + blockNode.getBlockInfo().getId());
 
-        return startTreeNode.getAllDescendants()
+        return startGraphNode.getAllDescendants()
                 .stream()
-                .map(blockNodeTreeNode -> blockNodeTreeNode.getData())
+                .map(blockNodeGraphNode -> blockNodeGraphNode.getData())
                 .collect(Collectors.toList());
-    }
-
-    @Deprecated
-    public void showManagement(){
-        System.out.println(ObjectConverter.toJson(blockNodeSet));
-        System.out.println(ObjectConverter.toJson(blockNodeTrees));
     }
 }

@@ -6,9 +6,9 @@ import org.deeplearning4j.optimize.api.TrainingListener;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.helper.DataSetConverter;
 import org.kok202.deepblock.ai.network.MultiLayerNetworkBuilder;
-import org.kok202.deepblock.ai.util.LayerTreeHashUtil;
+import org.kok202.deepblock.ai.util.LayerGraphHashUtil;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
-import org.kok202.deepblock.domain.structure.Tree;
+import org.kok202.deepblock.domain.structure.Graph;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -27,19 +27,19 @@ public class AIModelSingleton {
     private AIModelSingleton(){
     }
 
-    private int prevLayerTreeHash;
+    private int prevLayerGraphHash;
     private MultiLayerNetwork model;
 
-    public void initialize(Tree<Layer> layerTree) {
-        int currLayerTreeHash = LayerTreeHashUtil.getHashCode(layerTree);
-        if(prevLayerTreeHash == currLayerTreeHash)
+    public void initialize(Graph<Layer> layerGraph) {
+        int currLayerGraphHash = LayerGraphHashUtil.getHashCode(layerGraph);
+        if(prevLayerGraphHash == currLayerGraphHash)
             return;
-        prevLayerTreeHash = currLayerTreeHash;
+        prevLayerGraphHash = currLayerGraphHash;
 
         AIPropertiesSingleton
                 .getInstance()
                 .getModelLayersProperty()
-                .setLayerTree(layerTree);
+                .setLayerGraph(layerGraph);
         model = MultiLayerNetworkBuilder.build();
         model.init();
     }
