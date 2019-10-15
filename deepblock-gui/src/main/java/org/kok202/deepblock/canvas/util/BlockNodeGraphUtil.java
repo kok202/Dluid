@@ -8,7 +8,6 @@ import org.kok202.deepblock.domain.structure.GraphNode;
 public class BlockNodeGraphUtil {
 
     public static Graph<Layer> convertToLayerGraph(Graph<BlockNode> blockNodeGraph){
-        GraphNode<Layer> rootLayerGraphNode = convertToLayerGraphNode(blockNodeGraph.getRoot());
         Graph<Layer> layerGraph = new Graph<>(rootLayerGraphNode);
         return layerGraph;
     }
