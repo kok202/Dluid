@@ -21,7 +21,7 @@ public class GraphManager<T> {
         graphNodeMap.put(data, new GraphNode<>(data));
     }
 
-    public void linkFromNewData(T destinationData, T sourceNewData){
+    public void linkFromNewData(T sourceNewData, T destinationData){
         GraphNode<T> sourceGraphNode = new GraphNode<>(sourceNewData);
         GraphNode<T> destinationGraphNode = graphNodeMap.get(destinationData);
         if(destinationGraphNode == null)

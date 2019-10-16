@@ -90,7 +90,7 @@ public class BlockInsertionHandler {
         BlockNode insertedBlockNode = insertLayerBlockModelToCanvas(layer, insertingPoint);
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
-                .linkFromNewData(targetBlockNode, insertedBlockNode);
+                .linkFromNewData(insertedBlockNode, targetBlockNode);
         AppWidgetSingleton.getInstance()
                 .getComponentContainerController()
                 .getComponentManager()
