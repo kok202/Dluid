@@ -57,21 +57,21 @@ public class GraphNode<T> {
                 .collect(toList());
     }
 
-    public void createEdgeTo(GraphNode<T> to){
+    void createEdgeTo(GraphNode<T> to){
         // TODO : For safe it needs for cycle validation.
         GraphEdge<T> newEdge = new GraphEdge<>(this, to);
         this.edges.add(newEdge);
         to.edges.add(newEdge);
     }
 
-    public void createEdgeFrom(GraphNode<T> from){
+    void createEdgeFrom(GraphNode<T> from){
         // TODO : For safe it needs for cycle validation.
         GraphEdge<T> newEdge = new GraphEdge<>(from, this);
         this.edges.add(newEdge);
         from.edges.add(newEdge);
     }
 
-    public void removeEdge(T data){
+    void removeEdge(T data){
         edges.stream()
             .filter(graphEdge ->
                     graphEdge.getSourceGraphNode().getData() == data ||
@@ -79,21 +79,21 @@ public class GraphNode<T> {
             .forEach(this::removeEdge);
     }
 
-    public void removeEdge(GraphEdge<T> graphEdge){
+    void removeEdge(GraphEdge<T> graphEdge){
         graphEdge.getSourceGraphNode().edges.remove(graphEdge);
         graphEdge.getDestinationGraphNode().edges.remove(graphEdge);
         graphEdge.setSourceGraphNode(null);
         graphEdge.setDestinationGraphNode(null);
     }
 
-    public void remove(){
+    void remove(){
         edges.stream().forEach(this::removeEdge);
         edges = null;
         data = null;
     }
 
     // TODO : IMPORTANT : if it possible, graph must not have cycle
-    public void removeAllWithReachableNode(){
+    void removeAllWithReachableNode(){
         getOutgoingNodes().forEach(GraphNode::remove);
         remove();
     }
