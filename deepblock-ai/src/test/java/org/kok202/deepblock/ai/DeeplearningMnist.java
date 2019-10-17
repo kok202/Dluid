@@ -43,15 +43,15 @@ public class DeeplearningMnist {
 
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTreeManager()
+                .getLayerGraphManager()
                 .registerSoloNode(layer1);
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTreeManager()
+                .getLayerGraphManager()
                 .linkToNewData(layer1, layer2);
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTreeManager()
+                .getLayerGraphManager()
                 .linkToNewData(layer2, layer3);
 
         DataSetIterator mnistTrain = new MnistDataSetIterator(128, true, 123);
@@ -60,7 +60,7 @@ public class DeeplearningMnist {
         AIModelSingleton.getInstance().initialize(
                 AIPropertiesSingleton.getInstance()
                         .getModelLayersProperty()
-                        .getLayerTreeManager());
+                        .getLayerGraphManager());
         AIModelSingleton.getInstance().addTrainListener(
                 NormalTrainingListener.builder()
                         .epochPrintPeriod(1)

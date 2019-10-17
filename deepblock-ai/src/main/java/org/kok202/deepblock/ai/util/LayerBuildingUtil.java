@@ -9,70 +9,70 @@ import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
-import org.kok202.deepblock.domain.structure.TreeManager;
-import org.kok202.deepblock.domain.structure.TreeNode;
+import org.kok202.deepblock.domain.structure.GraphManager;
+import org.kok202.deepblock.domain.structure.GraphNode;
 
 import java.util.List;
 
 public class LayerBuildingUtil {
-    public static GraphBuilder implementsLayers(GraphBuilder neuralNetLayerBuilder, TreeManager<Layer> layerTreeManager){
-        for(TreeNode<Layer> layerTreeNode : layerTreeManager.getTreeNodeMap().values()){
-            neuralNetLayerBuilder = addLayer(neuralNetLayerBuilder, layerTreeNode);
+    public static GraphBuilder implementsLayers(GraphBuilder neuralNetLayerBuilder, GraphManager<Layer> layerGraphManager){
+        for(GraphNode<Layer> layerGraphNode : layerGraphManager.getGraphNodeMap().values()){
+            neuralNetLayerBuilder = addLayer(neuralNetLayerBuilder, layerGraphNode);
         }
         return neuralNetLayerBuilder;
     }
 
-    private static GraphBuilder addLayer(GraphBuilder neuralNetLayerBuilder, TreeNode<Layer> layerTreeNode){
+    private static GraphBuilder addLayer(GraphBuilder neuralNetLayerBuilder, GraphNode<Layer> layerGraphNode){
         Builder layerBuilder;
-        switch(layerTreeNode.getData().getType()){
+        switch(layerGraphNode.getData().getType()){
             case INPUT_LAYER:
             case TRAIN_INPUT_LAYER:
             case TEST_INPUT_LAYER:
-                String currentInput = getCurrentNodeId(layerTreeNode);
+                String currentInput = getCurrentNodeId(layerGraphNode);
                 neuralNetLayerBuilder.addInputs(currentInput);
                 break;
             case SPLIT_IN_LAYER:
-                String currentVertex = getCurrentNodeId(layerTreeNode);
-                String mergeFromA = String.valueOf(layerTreeNode.getIncomingNodes().get(0).getData().getId());
-                String mergeFromB = String.valueOf(layerTreeNode.getIncomingNodes().get(0).getData().getId());
+                String currentVertex = getCurrentNodeId(layerGraphNode);
+                String mergeFromA = String.valueOf(layerGraphNode.getIncomingNodes().get(0).getData().getId());
+                String mergeFromB = String.valueOf(layerGraphNode.getIncomingNodes().get(0).getData().getId());
                 neuralNetLayerBuilder.addVertex(currentVertex, new MergeVertex(), mergeFromA, mergeFromB);
                 break;
             case SPLIT_OUT_LAYER:
                 break;
             case OUTPUT_LAYER:
-                String output = getCurrentNodeId(layerTreeNode);
-                String outputFrom = getFromNodeId(layerTreeNode);
-                layerBuilder = BlockLayerUtil.getLayerBuilder(layerTreeNode.getData());
-                setCommonProperties(layerTreeNode.getData(), layerBuilder);
-                setAddOnProperties(layerTreeNode.getData(), layerBuilder);
+                String output = getCurrentNodeId(layerGraphNode);
+                String outputFrom = getFromNodeId(layerGraphNode);
+                layerBuilder = BlockLayerUtil.getLayerBuilder(layerGraphNode.getData());
+                setCommonProperties(layerGraphNode.getData(), layerBuilder);
+                setAddOnProperties(layerGraphNode.getData(), layerBuilder);
                 neuralNetLayerBuilder.addLayer(output, layerBuilder.build(), outputFrom);
-                neuralNetLayerBuilder.setOutputs(String.valueOf(layerTreeNode.getData().getId()));
+                neuralNetLayerBuilder.setOutputs(String.valueOf(layerGraphNode.getData().getId()));
                 break;
             default:
-                String currentLayer = getCurrentNodeId(layerTreeNode);
-                String currentLayerFrom = getFromNodeId(layerTreeNode);
-                layerBuilder = BlockLayerUtil.getLayerBuilder(layerTreeNode.getData());
-                setCommonProperties(layerTreeNode.getData(), layerBuilder);
-                setAddOnProperties(layerTreeNode.getData(), layerBuilder);
+                String currentLayer = getCurrentNodeId(layerGraphNode);
+                String currentLayerFrom = getFromNodeId(layerGraphNode);
+                layerBuilder = BlockLayerUtil.getLayerBuilder(layerGraphNode.getData());
+                setCommonProperties(layerGraphNode.getData(), layerBuilder);
+                setAddOnProperties(layerGraphNode.getData(), layerBuilder);
                 neuralNetLayerBuilder.addLayer(currentLayer, layerBuilder.build(), currentLayerFrom);
                 break;
         }
         return neuralNetLayerBuilder;
     }
 
-    private static String getCurrentNodeId(TreeNode<Layer> layerTreeNode){
-        return String.valueOf(layerTreeNode.getData().getId());
+    private static String getCurrentNodeId(GraphNode<Layer> layerGraphNode){
+        return String.valueOf(layerGraphNode.getData().getId());
     }
 
-    private static String getFromNodeId(TreeNode<Layer> layerTreeNode){
-        List<TreeNode<Layer>> incomingNodes = layerTreeNode.getIncomingNodes();
+    private static String getFromNodeId(GraphNode<Layer> layerGraphNode){
+        List<GraphNode<Layer>> incomingNodes = layerGraphNode.getIncomingNodes();
         if(incomingNodes.isEmpty())
             return "";
-        TreeNode<Layer> parentLayerTreeNode = incomingNodes.get(0);
-        if(parentLayerTreeNode.getData().getType() == LayerType.SPLIT_OUT_LAYER){
-            return getFromNodeId(parentLayerTreeNode);
+        GraphNode<Layer> parentLayerGraphNode = incomingNodes.get(0);
+        if(parentLayerGraphNode.getData().getType() == LayerType.SPLIT_OUT_LAYER){
+            return getFromNodeId(parentLayerGraphNode);
         }
-        return String.valueOf(parentLayerTreeNode.getData().getId());
+        return String.valueOf(parentLayerGraphNode.getData().getId());
     }
 
     private static Builder setCommonProperties(Layer layer, Builder layerBuilder){

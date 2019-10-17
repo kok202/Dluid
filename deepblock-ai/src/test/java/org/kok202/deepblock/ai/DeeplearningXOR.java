@@ -57,17 +57,17 @@ public class DeeplearningXOR {
 
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTreeManager()
+                .getLayerGraphManager()
                 .registerSoloNode(layer1);
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTreeManager()
+                .getLayerGraphManager()
                 .linkToNewData(layer1, layer2);
 
         AIModelSingleton.getInstance().initialize(
                 AIPropertiesSingleton.getInstance()
                         .getModelLayersProperty()
-                        .getLayerTreeManager());
+                        .getLayerGraphManager());
         AIModelSingleton.getInstance().addTrainListener(
                 NormalTrainingListener.builder()
                         .epochPrintPeriod(100)

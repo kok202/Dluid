@@ -10,7 +10,7 @@ import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
 import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
 import org.kok202.deepblock.ai.util.LayerBuildingUtil;
 import org.kok202.deepblock.ai.util.OptimizerUtil;
-import org.kok202.deepblock.domain.structure.TreeManager;
+import org.kok202.deepblock.domain.structure.GraphManager;
 import org.kok202.deepblock.domain.util.RandomUtil;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.IUpdater;
@@ -46,10 +46,10 @@ public class NetworkBuilder {
     }
 
     private static ComputationGraphConfiguration createNeuralNetLayer(GraphBuilder neuralNetLayerBuilder){
-        TreeManager<Layer> layerTreeManager = AIPropertiesSingleton.getInstance()
+        GraphManager<Layer> layerGraphManager = AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTreeManager();
-        return LayerBuildingUtil.implementsLayers(neuralNetLayerBuilder, layerTreeManager).build();
+                .getLayerGraphManager();
+        return LayerBuildingUtil.implementsLayers(neuralNetLayerBuilder, layerGraphManager).build();
     }
 
     private static ComputationGraph buildNetwork(ComputationGraphConfiguration computationGraphConfiguration){

@@ -7,7 +7,7 @@ import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.helper.DataSetConverter;
 import org.kok202.deepblock.ai.network.NetworkBuilder;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
-import org.kok202.deepblock.domain.structure.TreeManager;
+import org.kok202.deepblock.domain.structure.GraphManager;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -26,19 +26,19 @@ public class AIModelSingleton {
     private AIModelSingleton(){
     }
 
-    private int prevLayerTreeHash;
+    private int prevLayerGraphHash;
     private ComputationGraph model;
 
-    public void initialize(TreeManager<Layer> layerTreeManager) {
-        int currLayerTreeHash = layerTreeManager.getHashCode();
-        if(prevLayerTreeHash == currLayerTreeHash)
+    public void initialize(GraphManager<Layer> layerGraphManager) {
+        int currLayerGraphHash = layerGraphManager.getHashCode();
+        if(prevLayerGraphHash == currLayerGraphHash)
             return;
-        prevLayerTreeHash = currLayerTreeHash;
+        prevLayerGraphHash = currLayerGraphHash;
 
         AIPropertiesSingleton
                 .getInstance()
                 .getModelLayersProperty()
-                .setLayerTreeManager(layerTreeManager);
+                .setLayerGraphManager(layerGraphManager);
         model = NetworkBuilder.build();
         model.init();
     }
