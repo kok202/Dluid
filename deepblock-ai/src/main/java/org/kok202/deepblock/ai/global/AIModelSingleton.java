@@ -1,14 +1,13 @@
 package org.kok202.deepblock.ai.global;
 
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.optimize.api.TrainingListener;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.helper.DataSetConverter;
-import org.kok202.deepblock.ai.network.MultiLayerNetworkBuilder;
-import org.kok202.deepblock.ai.util.LayerGraphHashUtil;
+import org.kok202.deepblock.ai.network.NetworkBuilder;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
-import org.kok202.deepblock.domain.structure.Graph;
+import org.kok202.deepblock.domain.structure.TreeManager;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -27,20 +26,20 @@ public class AIModelSingleton {
     private AIModelSingleton(){
     }
 
-    private int prevLayerGraphHash;
-    private MultiLayerNetwork model;
+    private int prevLayerTreeHash;
+    private ComputationGraph model;
 
-    public void initialize(Graph<Layer> layerGraph) {
-        int currLayerGraphHash = LayerGraphHashUtil.getHashCode(layerGraph);
-        if(prevLayerGraphHash == currLayerGraphHash)
+    public void initialize(TreeManager<Layer> layerTreeManager) {
+        int currLayerTreeHash = layerTreeManager.getHashCode();
+        if(prevLayerTreeHash == currLayerTreeHash)
             return;
-        prevLayerGraphHash = currLayerGraphHash;
+        prevLayerTreeHash = currLayerTreeHash;
 
         AIPropertiesSingleton
                 .getInstance()
                 .getModelLayersProperty()
-                .setLayerGraph(layerGraph);
-        model = MultiLayerNetworkBuilder.build();
+                .setLayerTreeManager(layerTreeManager);
+        model = NetworkBuilder.build();
         model.init();
     }
 
@@ -68,7 +67,8 @@ public class AIModelSingleton {
     }
 
     public Evaluation test(DataSet dataSet){
-        INDArray output = model.output(dataSet.getFeatures());
+        // TODO : 테스트가 필요하다 WORK?
+        INDArray output = model.outputSingle(dataSet.getFeatures());
         Evaluation evaluation = new Evaluation();
         evaluation.eval(dataSet.getLabels(), output);
         return evaluation;

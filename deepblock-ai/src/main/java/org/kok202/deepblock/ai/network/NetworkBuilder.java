@@ -1,27 +1,27 @@
 package org.kok202.deepblock.ai.network;
 
-import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
+import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
+import org.deeplearning4j.nn.conf.ComputationGraphConfiguration.GraphBuilder;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
-import org.deeplearning4j.nn.conf.NeuralNetConfiguration.ListBuilder;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
 import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
 import org.kok202.deepblock.ai.util.LayerBuildingUtil;
 import org.kok202.deepblock.ai.util.OptimizerUtil;
-import org.kok202.deepblock.domain.structure.GraphNode;
+import org.kok202.deepblock.domain.structure.TreeManager;
 import org.kok202.deepblock.domain.util.RandomUtil;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.IUpdater;
 
-public class MultiLayerNetworkBuilder {
-    public static MultiLayerNetwork build(){
+public class NetworkBuilder {
+    public static ComputationGraph build(){
         IUpdater optimizer = initOptimizer();
         WeightInit weightInit = initWeightInitializer();
-        ListBuilder neuralNetLayerBuilder = initModelConfiguration(optimizer, weightInit);
-        MultiLayerConfiguration multiLayerConfiguration = createNeuralNetLayer(neuralNetLayerBuilder);
-        return buildMultiLayerNetwork(multiLayerConfiguration);
+        GraphBuilder neuralNetLayerBuilder = initModelConfiguration(optimizer, weightInit);
+        ComputationGraphConfiguration computationGraphConfiguration = createNeuralNetLayer(neuralNetLayerBuilder);
+        return buildNetwork(computationGraphConfiguration);
     }
 
     private static IUpdater initOptimizer(){
@@ -35,25 +35,24 @@ public class MultiLayerNetworkBuilder {
         return weightInit;
     }
 
-    private static ListBuilder initModelConfiguration(IUpdater optimizer, WeightInit weightInit){
+    private static GraphBuilder initModelConfiguration(IUpdater optimizer, WeightInit weightInit){
         Nd4j.getRandom().setSeed(RandomUtil.getLong());
         return new NeuralNetConfiguration.Builder()
                     .seed(RandomUtil.getLong())
                     .updater(optimizer)
                     .weightInit(weightInit)
                     // .l2(1e-4) // FIXME : 지원해야할까?
-                    .list();
+                    .graphBuilder();
     }
 
-    private static MultiLayerConfiguration createNeuralNetLayer(ListBuilder neuralNetLayerBuilder){
-        GraphNode<Layer> rootNode = AIPropertiesSingleton.getInstance()
+    private static ComputationGraphConfiguration createNeuralNetLayer(GraphBuilder neuralNetLayerBuilder){
+        TreeManager<Layer> layerTreeManager = AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerGraph()
-                .getRoot();
-        return LayerBuildingUtil.implementsLayers(neuralNetLayerBuilder, rootNode).build();
+                .getLayerTreeManager();
+        return LayerBuildingUtil.implementsLayers(neuralNetLayerBuilder, layerTreeManager).build();
     }
 
-    private static MultiLayerNetwork buildMultiLayerNetwork(MultiLayerConfiguration multiLayerConfiguration){
-        return new MultiLayerNetwork(multiLayerConfiguration);
+    private static ComputationGraph buildNetwork(ComputationGraphConfiguration computationGraphConfiguration){
+        return new ComputationGraph(computationGraphConfiguration);
     }
 }

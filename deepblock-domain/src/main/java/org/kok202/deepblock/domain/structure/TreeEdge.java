@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 // Directional edge
-public class GraphEdge<T> {
-    private GraphNode<T> sourceGraphNode;
-    private GraphNode<T> destinationGraphNode;
+public class TreeEdge<T> {
+    private TreeNode<T> sourceTreeNode;
+    private TreeNode<T> destinationTreeNode;
 }

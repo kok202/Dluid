@@ -37,7 +37,7 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
         buttonDelete.setOnAction((event -> {
             CanvasSingleton.getInstance()
                     .getBlockNodeManager()
-                    .removeReachableGraphNode(layer.getId());
+                    .removeReachableTreeNode(layer.getId());
             AppWidgetSingleton.getInstance()
                     .getComponentContainerController()
                     .getComponentManager()

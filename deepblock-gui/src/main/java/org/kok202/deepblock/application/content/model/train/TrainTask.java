@@ -7,7 +7,7 @@ import org.kok202.deepblock.ai.helper.RunnableTrainingListener;
 import org.kok202.deepblock.ai.helper.RunnableTrainingTaskContainer;
 import org.kok202.deepblock.application.global.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
-import org.kok202.deepblock.canvas.util.BlockNodeGraphUtil;
+import org.kok202.deepblock.canvas.util.BlockNodeTreeUtil;
 
 public class TrainTask extends Task<Integer> {
     private ModelTrainController modelTrainController;
@@ -26,10 +26,10 @@ public class TrainTask extends Task<Integer> {
         modelTrainController.getTextAreaTrainingLog().clear();
         modelTrainController.getTextAreaTrainingLog().appendText("Try to create model.\n");
         AIModelSingleton.getInstance().initialize(
-                BlockNodeGraphUtil.convertToLayerGraph(
+                BlockNodeTreeUtil.convertToLayerTree(
                         CanvasSingleton.getInstance()
                                 .getBlockNodeManager()
-                                .findTrainInputGraphNode()));
+                                .findTrainInputTreeNode()));
         modelTrainController.getTextAreaTrainingLog().appendText("Try to create model. [done]\n");
         modelTrainController.getTextAreaTrainingLog().appendText("Try to add listener for print log.\n");
 

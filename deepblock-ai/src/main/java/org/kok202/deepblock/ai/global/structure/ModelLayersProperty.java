@@ -2,13 +2,13 @@ package org.kok202.deepblock.ai.global.structure;
 
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.domain.structure.Graph;
+import org.kok202.deepblock.domain.structure.TreeManager;
 
 @Data
 public class ModelLayersProperty {
-    private Graph<Layer> layerGraph;
+    private TreeManager<Layer> layerTreeManager;
 
     public ModelLayersProperty() {
-        layerGraph = new Graph<>(null);
+        layerTreeManager = new TreeManager<>();
     }
 }

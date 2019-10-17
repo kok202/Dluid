@@ -8,7 +8,7 @@ import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
-import org.kok202.deepblock.domain.structure.GraphNode;
+import org.kok202.deepblock.domain.structure.TreeNode;
 import org.nd4j.linalg.activations.Activation;
 
 public abstract class MonoBlockNode extends BlockNode {
@@ -122,17 +122,17 @@ public abstract class MonoBlockNode extends BlockNode {
 
     @Override
     public boolean isPossibleToAppendFront() {
-        GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
+        TreeNode<BlockNode> frontTreeNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
-        return frontGraphNode.isNoWay();
+                .findTreeNodeByLayerId(this.getBlockInfo().getLayer().getId());
+        return frontTreeNode.isNoWay();
     }
 
     @Override
     public boolean isPossibleToAppendBack() {
-        GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
+        TreeNode<BlockNode> frontTreeNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
-        return frontGraphNode.getAdjacentNodes().isEmpty();
+                .findTreeNodeByLayerId(this.getBlockInfo().getLayer().getId());
+        return frontTreeNode.getAdjacentNodes().isEmpty();
     }
 }

@@ -1,38 +1,78 @@
 package org.kok202.deepblock.ai.util;
 
-import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.ComputationGraphConfiguration.GraphBuilder;
+import org.deeplearning4j.nn.conf.graph.MergeVertex;
 import org.deeplearning4j.nn.conf.layers.ConvolutionLayer;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.FeedForwardLayer.Builder;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.domain.exception.EmptyNodeException;
-import org.kok202.deepblock.domain.structure.GraphNode;
+import org.kok202.deepblock.ai.entity.enumerator.LayerType;
+import org.kok202.deepblock.domain.structure.TreeManager;
+import org.kok202.deepblock.domain.structure.TreeNode;
+
+import java.util.List;
 
 public class LayerBuildingUtil {
-    public static NeuralNetConfiguration.ListBuilder implementsLayers(NeuralNetConfiguration.ListBuilder neuralNetLayerBuilder, GraphNode<Layer> node){
-        // TODO : 레이어가 모델에 따라서 동적으로 생성될 수 있도록
-        neuralNetLayerBuilder = addLayer(neuralNetLayerBuilder, node.getData());
-
-        // TODO : ex. splitter material, dummy material
-        if(node.isSingleWay())
-            implementsLayers(neuralNetLayerBuilder, node.getFirstChild());
+    public static GraphBuilder implementsLayers(GraphBuilder neuralNetLayerBuilder, TreeManager<Layer> layerTreeManager){
+        for(TreeNode<Layer> layerTreeNode : layerTreeManager.getTreeNodeMap().values()){
+            neuralNetLayerBuilder = addLayer(neuralNetLayerBuilder, layerTreeNode);
+        }
         return neuralNetLayerBuilder;
     }
 
-    private static NeuralNetConfiguration.ListBuilder addLayer(NeuralNetConfiguration.ListBuilder neuralNetLayerBuilder, Layer layer){
-        if(layer == null)
-            throw new EmptyNodeException();
+    private static GraphBuilder addLayer(GraphBuilder neuralNetLayerBuilder, TreeNode<Layer> layerTreeNode){
+        Builder layerBuilder;
+        switch(layerTreeNode.getData().getType()){
+            case INPUT_LAYER:
+            case TRAIN_INPUT_LAYER:
+            case TEST_INPUT_LAYER:
+                String currentInput = getCurrentNodeId(layerTreeNode);
+                neuralNetLayerBuilder.addInputs(currentInput);
+                break;
+            case SPLIT_IN_LAYER:
+                String currentVertex = getCurrentNodeId(layerTreeNode);
+                String mergeFromA = String.valueOf(layerTreeNode.getIncomingNodes().get(0).getData().getId());
+                String mergeFromB = String.valueOf(layerTreeNode.getIncomingNodes().get(0).getData().getId());
+                neuralNetLayerBuilder.addVertex(currentVertex, new MergeVertex(), mergeFromA, mergeFromB);
+                break;
+            case SPLIT_OUT_LAYER:
+                break;
+            case OUTPUT_LAYER:
+                String output = getCurrentNodeId(layerTreeNode);
+                String outputFrom = getFromNodeId(layerTreeNode);
+                layerBuilder = BlockLayerUtil.getLayerBuilder(layerTreeNode.getData());
+                setCommonProperties(layerTreeNode.getData(), layerBuilder);
+                setAddOnProperties(layerTreeNode.getData(), layerBuilder);
+                neuralNetLayerBuilder.addLayer(output, layerBuilder.build(), outputFrom);
+                neuralNetLayerBuilder.setOutputs(String.valueOf(layerTreeNode.getData().getId()));
+                break;
+            default:
+                String currentLayer = getCurrentNodeId(layerTreeNode);
+                String currentLayerFrom = getFromNodeId(layerTreeNode);
+                layerBuilder = BlockLayerUtil.getLayerBuilder(layerTreeNode.getData());
+                setCommonProperties(layerTreeNode.getData(), layerBuilder);
+                setAddOnProperties(layerTreeNode.getData(), layerBuilder);
+                neuralNetLayerBuilder.addLayer(currentLayer, layerBuilder.build(), currentLayerFrom);
+                break;
+        }
+        return neuralNetLayerBuilder;
+    }
 
-        // Input mono is just indicating main model. it just empty shell.
-        if(layer.getType().isInputLayerType())
-            return neuralNetLayerBuilder;
+    private static String getCurrentNodeId(TreeNode<Layer> layerTreeNode){
+        return String.valueOf(layerTreeNode.getData().getId());
+    }
 
-        Builder layerBuilder = BlockLayerUtil.getLayerBuilder(layer);
-        setCommonProperties(layer, layerBuilder);
-        setAddOnProperties(layer, layerBuilder);
-        return neuralNetLayerBuilder.layer(layerBuilder.build());
+    private static String getFromNodeId(TreeNode<Layer> layerTreeNode){
+        List<TreeNode<Layer>> incomingNodes = layerTreeNode.getIncomingNodes();
+        if(incomingNodes.isEmpty())
+            return "";
+        TreeNode<Layer> parentLayerTreeNode = incomingNodes.get(0);
+        if(parentLayerTreeNode.getData().getType() == LayerType.SPLIT_OUT_LAYER){
+            return getFromNodeId(parentLayerTreeNode);
+        }
+        return String.valueOf(parentLayerTreeNode.getData().getId());
     }
 
     private static Builder setCommonProperties(Layer layer, Builder layerBuilder){
