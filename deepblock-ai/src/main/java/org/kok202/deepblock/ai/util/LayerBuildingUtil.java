@@ -12,11 +12,13 @@ import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.domain.structure.GraphManager;
 import org.kok202.deepblock.domain.structure.GraphNode;
 
+import java.util.Collection;
 import java.util.List;
 
 public class LayerBuildingUtil {
     public static GraphBuilder implementsLayers(GraphBuilder neuralNetLayerBuilder, GraphManager<Layer> layerGraphManager){
-        for(GraphNode<Layer> layerGraphNode : layerGraphManager.getGraphNodeMap().values()){
+        Collection<GraphNode<Layer>> values = layerGraphManager.getGraphNodes();
+        for(GraphNode<Layer> layerGraphNode : values){
             neuralNetLayerBuilder = addLayer(neuralNetLayerBuilder, layerGraphNode);
         }
         return neuralNetLayerBuilder;

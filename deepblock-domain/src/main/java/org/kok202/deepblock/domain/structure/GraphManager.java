@@ -3,62 +3,71 @@ package org.kok202.deepblock.domain.structure;
 import lombok.Getter;
 import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 // Directed Acyclic Graph
 public class GraphManager<T> {
     @Getter
-    private Map<T, GraphNode<T>> graphNodeMap;
+    private List<GraphNode<T>> graphNodes;
+    @Getter
+    private List<T> dataNodes;
 
     public GraphManager() {
-        graphNodeMap = new HashMap<>();
+        graphNodes = new ArrayList<>();
+        dataNodes = new ArrayList<>();
     }
 
     public void registerSoloNode(T data){
-        graphNodeMap.put(data, new GraphNode<>(data));
-    }
-
-    public void linkFromNewData(T sourceNewData, T destinationData){
-        GraphNode<T> sourceGraphNode = new GraphNode<>(sourceNewData);
-        GraphNode<T> destinationGraphNode = graphNodeMap.get(destinationData);
-        if(destinationGraphNode == null)
-            throw new CanNotFindGraphNodeException(destinationData.toString());
-        destinationGraphNode.createEdgeFrom(sourceGraphNode);
-        graphNodeMap.put(sourceNewData, sourceGraphNode);
-    }
-
-    public void linkToNewData(T sourceData, T destinationNewData){
-        GraphNode<T> sourceGraphNode = graphNodeMap.get(sourceData);
-        GraphNode<T> destinationGraphNode = new GraphNode<>(destinationNewData);
-        if(sourceGraphNode == null)
-            throw new CanNotFindGraphNodeException(sourceGraphNode.toString());
-        sourceGraphNode.createEdgeTo(destinationGraphNode);
-        graphNodeMap.put(destinationNewData, destinationGraphNode);
-    }
-
-    public void removeReachableGraphNode(Predicate predicate) {
-        for(T data : graphNodeMap.keySet()) {
-            if(predicate.test(data))
-                graphNodeMap.get(data).removeAllWithReachableNode();
-        }
+        graphNodes.add(new GraphNode<>(data));
+        dataNodes.add(data);
     }
 
     public GraphNode<T> findGraphNode(Predicate predicate) {
-        for(T data : graphNodeMap.keySet()) {
-            if(predicate.test(data))
-                return graphNodeMap.get(data);
+        for(GraphNode<T> graphNode : graphNodes){
+            if(predicate.test(graphNode.getData()))
+                return graphNode;
         }
         throw new CanNotFindGraphNodeException("predicator");
     }
 
+    public GraphNode<T> findGraphNodeByData(T data){
+        for(GraphNode<T> graphNode : graphNodes){
+            if(graphNode.getData() == data)
+                return graphNode;
+        }
+        throw new CanNotFindGraphNodeException(data.toString());
+    }
+
+    public void linkFromNewData(T sourceNewData, T destinationData){
+        GraphNode<T> sourceGraphNode = new GraphNode<>(sourceNewData);
+        GraphNode<T> destinationGraphNode = findGraphNodeByData(destinationData);
+        destinationGraphNode.createEdgeFrom(sourceGraphNode);
+        graphNodes.add(sourceGraphNode);
+        dataNodes.add(sourceNewData);
+    }
+
+    public void linkToNewData(T sourceData, T destinationNewData){
+        GraphNode<T> sourceGraphNode = findGraphNodeByData(sourceData);
+        GraphNode<T> destinationGraphNode = new GraphNode<>(destinationNewData);
+        if(sourceGraphNode == null)
+            throw new CanNotFindGraphNodeException(sourceData.toString());
+        sourceGraphNode.createEdgeTo(destinationGraphNode);
+        graphNodes.add(destinationGraphNode);
+        dataNodes.add(destinationNewData);
+    }
+
+    public void removeReachableGraphNode(Predicate predicate) {
+        for(GraphNode<T> graphNode : graphNodes) {
+            if(predicate.test(graphNode.getData()))
+                graphNode.removeAllWithReachableNode();
+        }
+    }
+
     public List<T> getAllLinkedNodesData(T selectedData){
-        GraphNode<T> selectedGraphNode = graphNodeMap.get(selectedData);
-        if(selectedGraphNode == null)
-            throw new CanNotFindGraphNodeException(selectedGraphNode.toString());
+        GraphNode<T> selectedGraphNode = findGraphNodeByData(selectedData);
         return selectedGraphNode.getAllLinkedNodes()
                 .stream()
                 .map(GraphNode::getData)
@@ -66,13 +75,13 @@ public class GraphManager<T> {
     }
 
     public int getHashCode(){
-        if(graphNodeMap == null)
+        if(graphNodes == null || dataNodes == null)
             return 0;
         StringBuilder hashString = new StringBuilder();
-        for(T data : graphNodeMap.keySet())
-            hashString.append(data.hashCode());
-        for(GraphNode<T> graphNode : graphNodeMap.values())
+        for(GraphNode<T> graphNode : graphNodes)
             hashString.append(graphNode.hashCode());
+        for(T data : dataNodes)
+            hashString.append(data.hashCode());
         return hashString.toString().hashCode();
     }
 }

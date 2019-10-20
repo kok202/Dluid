@@ -3,7 +3,10 @@ package org.kok202.deepblock.domain.structure;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -38,9 +41,10 @@ public class GraphNode<T> {
     }
 
     public List<GraphNode<T>> getAdjacentNodes(){
-        return edges.stream()
-                .map(GraphEdge::getDestinationGraphNode)
-                .collect(toList());
+        return Stream.of(getOutgoingNodes(), getIncomingNodes())
+                .flatMap(Collection::stream)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public List<GraphNode<T>> getOutgoingNodes(){
@@ -113,14 +117,19 @@ public class GraphNode<T> {
     }
 
     private void getAllReachableNodes(List<GraphNode<T>> result){
-        for(GraphNode<T> outgoingNodes : getOutgoingNodes()){
-            result.add(outgoingNodes);
-            outgoingNodes.getAllReachableNodes(result);
+        List<GraphNode<T>> outgoingNodes = getOutgoingNodes();
+        for(GraphNode<T> outgoingNode : outgoingNodes){
+            result.add(outgoingNode);
+            outgoingNode.getAllReachableNodes(result);
         }
     }
 
     private void getAllLinkedNodes(List<GraphNode<T>> result){
-        for(GraphNode<T> adjacentNode : getAdjacentNodes()){
+        result.add(this);
+        List<GraphNode<T>> getAdjacentNodes = getAdjacentNodes();
+        for(GraphNode<T> adjacentNode : getAdjacentNodes){
+            if(result.contains(adjacentNode))
+                continue;
             result.add(adjacentNode);
             adjacentNode.getAllLinkedNodes(result);
         }

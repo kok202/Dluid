@@ -12,6 +12,8 @@ import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.deepblock.domain.structure.GraphManager;
 import org.kok202.deepblock.domain.structure.GraphNode;
 
+import java.util.Collection;
+
 @Data
 public class BlockNodeManager extends GraphManager<BlockNode>{
 
@@ -23,19 +25,20 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
     }
 
     public GraphNode<BlockNode> findTestInputGraphNode(){
-        for(BlockNode blockNode : getGraphNodeMap().keySet()) {
+        for(BlockNode blockNode : getDataNodes()) {
             LayerType layerType = blockNode.getBlockInfo().getLayer().getType();
             if (layerType == LayerType.INPUT_LAYER || layerType == LayerType.TEST_INPUT_LAYER)
-                return getGraphNodeMap().get(blockNode);
+                return findGraphNodeByData(blockNode);
         }
         throw new CanNotFindGraphNodeException("Test input block node");
     }
 
     public GraphNode<BlockNode> findTrainInputGraphNode(){
-        for(BlockNode blockNode : getGraphNodeMap().keySet()) {
+        Collection<BlockNode> blockNodes = getDataNodes();
+        for(BlockNode blockNode : blockNodes) {
             LayerType layerType = blockNode.getBlockInfo().getLayer().getType();
             if(layerType == LayerType.INPUT_LAYER || layerType == LayerType.TRAIN_INPUT_LAYER)
-                return getGraphNodeMap().get(blockNode);
+                return findGraphNodeByData(blockNode);
         }
         throw new CanNotFindGraphNodeException("Train input block node");
     }
