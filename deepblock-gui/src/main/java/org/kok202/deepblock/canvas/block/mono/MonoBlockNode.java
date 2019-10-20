@@ -125,7 +125,7 @@ public abstract class MonoBlockNode extends BlockNode {
         GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
-        return frontGraphNode.isNoWay();
+        return frontGraphNode.getIncomingNodes().isEmpty();
     }
 
     @Override
@@ -133,6 +133,6 @@ public abstract class MonoBlockNode extends BlockNode {
         GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
-        return frontGraphNode.getAdjacentNodes().isEmpty();
+        return frontGraphNode.getOutgoingNodes().isEmpty();
     }
 }

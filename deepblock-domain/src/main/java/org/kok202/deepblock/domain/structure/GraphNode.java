@@ -112,6 +112,7 @@ public class GraphNode<T> {
     // TODO : IMPORTANT : if it possible, it must not have cycle
     public List<GraphNode<T>> getAllLinkedNodes(){
         List<GraphNode<T>> result = new ArrayList<>();
+        result.add(this);
         getAllLinkedNodes(result);
         return result;
     }
@@ -125,7 +126,6 @@ public class GraphNode<T> {
     }
 
     private void getAllLinkedNodes(List<GraphNode<T>> result){
-        result.add(this);
         List<GraphNode<T>> getAdjacentNodes = getAdjacentNodes();
         for(GraphNode<T> adjacentNode : getAdjacentNodes){
             if(result.contains(adjacentNode))
