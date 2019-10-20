@@ -48,17 +48,9 @@ public class AIModelSingleton {
         model.addListeners(trainingListener);
     }
 
-    public void addTrainListener(TrainingListener trainingListener){
-        model.addListeners(trainingListener);
-    }
-
     public void train(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
         DataSetConverter trainDataSetConverter = new DataSetConverter(featureDataSet, resultDataSet);
         train(trainDataSetConverter.toDataSet());
-    }
-
-    public void train(DataSetIterator dataSetIterator){
-        model.fit(dataSetIterator, AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch());
     }
 
     public void train(DataSet dataSet){
@@ -66,8 +58,12 @@ public class AIModelSingleton {
         train(dataSetIterator);
     }
 
+    public void train(DataSetIterator dataSetIterator){
+        // If using ComputationGraph with dataSetIterator, it can work only if input layer is unique.
+        model.fit(dataSetIterator, AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch());
+    }
+
     public Evaluation test(DataSet dataSet){
-        // TODO : 테스트가 필요하다 WORK?
         INDArray output = model.outputSingle(dataSet.getFeatures());
         Evaluation evaluation = new Evaluation();
         evaluation.eval(dataSet.getLabels(), output);

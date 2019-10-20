@@ -46,7 +46,7 @@ public class LayerBuildingUtil {
                 setCommonProperties(layerGraphNode.getData(), layerBuilder);
                 setAddOnProperties(layerGraphNode.getData(), layerBuilder);
                 neuralNetLayerBuilder.addLayer(output, layerBuilder.build(), outputFrom);
-                neuralNetLayerBuilder.setOutputs(String.valueOf(layerGraphNode.getData().getId()));
+                neuralNetLayerBuilder.setOutputs(output);
                 break;
             default:
                 String currentLayer = getCurrentNodeId(layerGraphNode);

@@ -52,7 +52,7 @@ public class GraphNode<T> {
 
     public List<GraphNode<T>> getIncomingNodes(){
         return edges.stream()
-                .filter(graphEdge -> graphEdge.getSourceGraphNode() == this)
+                .filter(graphEdge -> graphEdge.getDestinationGraphNode() == this)
                 .map(GraphEdge::getSourceGraphNode)
                 .collect(toList());
     }

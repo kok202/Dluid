@@ -22,6 +22,7 @@ public class DeeplearningMnist {
         AIPropertiesSingleton.getInstance().getTrainProperty().setWeightInit(WeightInit.XAVIER);
         AIPropertiesSingleton.getInstance().getTrainProperty().setLossFunction(LossFunction.NEGATIVELOGLIKELIHOOD);
 
+        Layer layer0 = new Layer(LayerType.INPUT_LAYER);
         Layer layer1 = new Layer(LayerType.DENSE_LAYER);
         layer1.getProperties().setWeightInit(WeightInit.XAVIER);
         layer1.getProperties().setActivationFunction(Activation.RELU);
@@ -44,7 +45,11 @@ public class DeeplearningMnist {
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
                 .getLayerGraphManager()
-                .registerSoloNode(layer1);
+                .registerSoloNode(layer0);
+        AIPropertiesSingleton.getInstance()
+                .getModelLayersProperty()
+                .getLayerGraphManager()
+                .linkToNewData(layer0, layer1);
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
                 .getLayerGraphManager()
@@ -61,7 +66,7 @@ public class DeeplearningMnist {
                 AIPropertiesSingleton.getInstance()
                         .getModelLayersProperty()
                         .getLayerGraphManager());
-        AIModelSingleton.getInstance().addTrainListener(
+        AIModelSingleton.getInstance().setTrainListener(
                 NormalTrainingListener.builder()
                         .epochPrintPeriod(1)
                         .epochSize(AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch())

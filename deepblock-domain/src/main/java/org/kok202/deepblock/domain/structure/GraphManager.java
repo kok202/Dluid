@@ -28,7 +28,7 @@ public class GraphManager<T> {
         if(destinationGraphNode == null)
             throw new CanNotFindGraphNodeException(destinationData.toString());
         destinationGraphNode.createEdgeFrom(sourceGraphNode);
-        graphNodeMap.put(sourceNewData, new GraphNode<>(sourceNewData));
+        graphNodeMap.put(sourceNewData, sourceGraphNode);
     }
 
     public void linkToNewData(T sourceData, T destinationNewData){
@@ -37,6 +37,7 @@ public class GraphManager<T> {
         if(sourceGraphNode == null)
             throw new CanNotFindGraphNodeException(sourceGraphNode.toString());
         sourceGraphNode.createEdgeTo(destinationGraphNode);
+        graphNodeMap.put(destinationNewData, destinationGraphNode);
     }
 
     public void removeReachableGraphNode(Predicate predicate) {
