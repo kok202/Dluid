@@ -22,6 +22,7 @@ public class DeeplearningMnist {
         AIPropertiesSingleton.getInstance().getTrainProperty().setWeightInit(WeightInit.XAVIER);
         AIPropertiesSingleton.getInstance().getTrainProperty().setLossFunction(LossFunction.NEGATIVELOGLIKELIHOOD);
 
+        Layer layer0 = new Layer(LayerType.INPUT_LAYER);
         Layer layer1 = new Layer(LayerType.DENSE_LAYER);
         layer1.getProperties().setWeightInit(WeightInit.XAVIER);
         layer1.getProperties().setActivationFunction(Activation.RELU);
@@ -43,19 +44,20 @@ public class DeeplearningMnist {
 
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTree()
-                .setRoot(layer1);
+                .getLayerGraphManager()
+                .registerSoloNode(layer0);
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTree()
-                .getRoot()
-                .attach(layer2);
+                .getLayerGraphManager()
+                .linkToNewData(layer0, layer1);
         AIPropertiesSingleton.getInstance()
                 .getModelLayersProperty()
-                .getLayerTree()
-                .getRoot()
-                .getChild(0)
-                .attach(layer3);
+                .getLayerGraphManager()
+                .linkToNewData(layer1, layer2);
+        AIPropertiesSingleton.getInstance()
+                .getModelLayersProperty()
+                .getLayerGraphManager()
+                .linkToNewData(layer2, layer3);
 
         DataSetIterator mnistTrain = new MnistDataSetIterator(128, true, 123);
         DataSetIterator mnistTest = new MnistDataSetIterator(128, false, 123);
@@ -63,8 +65,8 @@ public class DeeplearningMnist {
         AIModelSingleton.getInstance().initialize(
                 AIPropertiesSingleton.getInstance()
                         .getModelLayersProperty()
-                        .getLayerTree());
-        AIModelSingleton.getInstance().addTrainListener(
+                        .getLayerGraphManager());
+        AIModelSingleton.getInstance().setTrainListener(
                 NormalTrainingListener.builder()
                         .epochPrintPeriod(1)
                         .epochSize(AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch())

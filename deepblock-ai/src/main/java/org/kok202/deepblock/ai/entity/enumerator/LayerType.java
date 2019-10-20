@@ -14,7 +14,6 @@ public enum LayerType {
     RNN_LOSS_LAYER,
 
     OUTPUT_LAYER,
-    DROPOUT_LAYER,
     BATCH_NORMALIZATION,
 
     /**********************************************************
@@ -29,6 +28,7 @@ public enum LayerType {
     /**********************************************************
      * NOT SUPPORT
      **********************************************************/
+    DROPOUT_LAYER,
     BASE_PRETAIN_NETWORK,
     PRELU_LAYER,
 
@@ -39,5 +39,17 @@ public enum LayerType {
 
     public boolean isInputLayerType(){
         return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER || this == TEST_INPUT_LAYER;
+    }
+
+    public boolean isTrainInputLayerType(){
+        return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER;
+    }
+
+    public boolean isTestInputLayerType(){
+        return this == INPUT_LAYER || this == TEST_INPUT_LAYER;
+    }
+
+    public boolean isOutputLayerType(){
+        return this == OUTPUT_LAYER;
     }
 }

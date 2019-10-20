@@ -61,7 +61,8 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
         splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getLossFunction());
     }
 
-    private void textFieldChangeHandler(){
+    @Override
+    protected void textFieldChangedHandler(){
         changeInputSize();
         changeOutputSize();
         notifyLayerDataChanged();

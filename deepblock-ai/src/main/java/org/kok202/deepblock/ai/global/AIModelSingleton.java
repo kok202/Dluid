@@ -1,14 +1,13 @@
 package org.kok202.deepblock.ai.global;
 
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.optimize.api.TrainingListener;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.helper.DataSetConverter;
-import org.kok202.deepblock.ai.network.MultiLayerNetworkBuilder;
-import org.kok202.deepblock.ai.util.LayerTreeHashUtil;
+import org.kok202.deepblock.ai.network.NetworkBuilder;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
-import org.kok202.deepblock.domain.structure.Tree;
+import org.kok202.deepblock.domain.structure.GraphManager;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -27,20 +26,20 @@ public class AIModelSingleton {
     private AIModelSingleton(){
     }
 
-    private int prevLayerTreeHash;
-    private MultiLayerNetwork model;
+    private int prevLayerGraphHash;
+    private ComputationGraph model;
 
-    public void initialize(Tree<Layer> layerTree) {
-        int currLayerTreeHash = LayerTreeHashUtil.getHashCode(layerTree);
-        if(prevLayerTreeHash == currLayerTreeHash)
+    public void initialize(GraphManager<Layer> layerGraphManager) {
+        int currLayerGraphHash = layerGraphManager.getHashCode();
+        if(prevLayerGraphHash == currLayerGraphHash)
             return;
-        prevLayerTreeHash = currLayerTreeHash;
+        prevLayerGraphHash = currLayerGraphHash;
 
         AIPropertiesSingleton
                 .getInstance()
                 .getModelLayersProperty()
-                .setLayerTree(layerTree);
-        model = MultiLayerNetworkBuilder.build();
+                .setLayerGraphManager(layerGraphManager);
+        model = NetworkBuilder.build();
         model.init();
     }
 
@@ -49,17 +48,9 @@ public class AIModelSingleton {
         model.addListeners(trainingListener);
     }
 
-    public void addTrainListener(TrainingListener trainingListener){
-        model.addListeners(trainingListener);
-    }
-
     public void train(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
         DataSetConverter trainDataSetConverter = new DataSetConverter(featureDataSet, resultDataSet);
         train(trainDataSetConverter.toDataSet());
-    }
-
-    public void train(DataSetIterator dataSetIterator){
-        model.fit(dataSetIterator, AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch());
     }
 
     public void train(DataSet dataSet){
@@ -67,8 +58,13 @@ public class AIModelSingleton {
         train(dataSetIterator);
     }
 
+    public void train(DataSetIterator dataSetIterator){
+        // If using ComputationGraph with dataSetIterator, it can work only if input layer is unique.
+        model.fit(dataSetIterator, AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch());
+    }
+
     public Evaluation test(DataSet dataSet){
-        INDArray output = model.output(dataSet.getFeatures());
+        INDArray output = model.outputSingle(dataSet.getFeatures());
         Evaluation evaluation = new Evaluation();
         evaluation.eval(dataSet.getLabels(), output);
         return evaluation;
