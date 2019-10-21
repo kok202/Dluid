@@ -16,7 +16,7 @@ public class BlockDraggingHandler {
 
     public static void setOnMousePressed(MouseEvent mouseEvent){
         PickResult pickResult = mouseEvent.getPickResult();
-        if(PickResultNodeUtil.isBlockNode(pickResult)){
+        if(PickResultNodeUtil.isBlockNodeSideFace(pickResult)){
             isPicking = true;
             pickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
         }
