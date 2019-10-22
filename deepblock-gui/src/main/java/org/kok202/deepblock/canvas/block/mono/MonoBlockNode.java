@@ -17,6 +17,7 @@ public abstract class MonoBlockNode extends BlockNode {
         createBlockModel(layer);
     }
 
+    @Override
     protected void createBlockModel(Layer layer){
         Point2D topSize = new Point2D(
                 layer.getProperties().getInputSize()[0] * CanvasConstant.NODE_UNIT,

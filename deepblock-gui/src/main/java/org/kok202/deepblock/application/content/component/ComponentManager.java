@@ -52,6 +52,7 @@ public class ComponentManager {
             case INPUT_LAYER:
             case TRAIN_INPUT_LAYER:
             case TEST_INPUT_LAYER:
+            case PIPE_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 break;
             case OUTPUT_LAYER:

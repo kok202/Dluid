@@ -40,6 +40,7 @@ public class LayerBuildingUtil {
                 neuralNetLayerBuilder.addVertex(currentVertex, new MergeVertex(), mergeFromA, mergeFromB);
                 break;
             case SPLIT_OUT_LAYER:
+            case PIPE_LAYER:
                 break;
             case OUTPUT_LAYER:
                 String output = getCurrentNodeId(layerGraphNode);
@@ -71,7 +72,8 @@ public class LayerBuildingUtil {
         if(incomingNodes.isEmpty())
             return "";
         GraphNode<Layer> parentLayerGraphNode = incomingNodes.get(0);
-        if(parentLayerGraphNode.getData().getType() == LayerType.SPLIT_OUT_LAYER){
+        if(parentLayerGraphNode.getData().getType() == LayerType.SPLIT_OUT_LAYER ||
+                parentLayerGraphNode.getData().getType() == LayerType.PIPE_LAYER){
             return getFromNodeId(parentLayerGraphNode);
         }
         return String.valueOf(parentLayerGraphNode.getData().getId());

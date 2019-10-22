@@ -7,8 +7,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
+import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.polygon.Pipe;
+import org.kok202.deepblock.canvas.block.BlockNodeFactory;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronTopFace;
@@ -32,14 +34,15 @@ public class BlockConnectionHandler {
                 if(pastPickedBlockNode == currentPickedBlockNode)
                     return;
 
-                // TODO : pipe 도 블락으로 간주하기
                 if(isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronBottomFace){
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pastPickedBlockNode);
-                    drawPipe(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
+                    BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pipeBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, pastPickedBlockNode);
                 }
                 else if(!isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronTopFace){
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, currentPickedBlockNode);
-                    drawPipe(sceneRoot, pastPickedBlockNode, currentPickedBlockNode);
+                    BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, pastPickedBlockNode, currentPickedBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, pipeBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, currentPickedBlockNode);
                 }
                 releaseConnectionProcess();
             }
@@ -52,10 +55,10 @@ public class BlockConnectionHandler {
                     releaseConnectionProcess();
                     return;
                 }
-                pastPickedBlockNode = pickedBlockNode;
-                pastPickedBlockNodeFace = (HexahedronVerticalFace) pickResultNode;
+                pastPickedBlockNodeFace = PickResultNodeUtil.convertToBlockHexahedronFace(pickResult);
                 // FIXME : 색이 안변해...
                 pastPickedBlockNodeFace.setColor(CanvasConstant.CONTEXT_COLOR_TRY_TO_APPEND);
+                System.out.println(pastPickedBlockNodeFace);
             }
         }
         else{
@@ -69,19 +72,20 @@ public class BlockConnectionHandler {
         }
     }
 
-    private static void drawPipe(Group sceneRoot, BlockNode sourceBlockNode, BlockNode destinationBlockNode){
-        Pipe pipe = Pipe.builder()
-                .leftTopFront(new Point3D(-1, -1, -1))
-                .leftTopBack(new Point3D(-1, -1, 1))
-                .rightTopFront(new Point3D(1, -1, -1))
-                .rightTopBack(new Point3D(1, -1, 1))
-                .rightBottomFront(new Point3D(0, 1, -1))
-                .rightBottomBack(new Point3D(0, 1, 1))
-                .leftBottomFront(new Point3D(-2, 1, -1))
-                .leftBottomBack(new Point3D(-2, 1, 1))
-                .build();
-        sceneRoot.getChildren().addAll(pipe.getFaces());
+    private static BlockNode insertPipeBlockNode(Group sceneRoot, BlockNode sourceBlockNode, BlockNode destinationBlockNode){
+        // FIXME
+        Layer layer = new Layer(LayerType.PIPE_LAYER);
+        layer.getProperties();
+
+        Point3D position = sourceBlockNode.getPosition();
+        position = position.add(destinationBlockNode.getPosition());
+        position = position.multiply(0.5);
+
+        BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
+        pipeBlockNode.addedToScene(sceneRoot, position);
+        return pipeBlockNode;
     }
+
     private static void releaseConnectionProcess(){
         if(pastPickedBlockNodeFace != null)
             pastPickedBlockNodeFace.setColor(CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND);

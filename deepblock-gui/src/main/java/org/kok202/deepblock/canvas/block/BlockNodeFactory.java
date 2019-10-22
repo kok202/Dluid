@@ -28,6 +28,8 @@ public class BlockNodeFactory {
                 return new SplitInBlockNode(layer);
             case SPLIT_OUT_LAYER:
                 return new SplitOutBlockNode(layer);
+            case PIPE_LAYER:
+                return new PipeBlockNode(layer);
         }
         return null;
     }
