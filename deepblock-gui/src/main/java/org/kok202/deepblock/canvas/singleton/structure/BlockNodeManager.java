@@ -2,6 +2,7 @@ package org.kok202.deepblock.canvas.singleton.structure;
 
 import javafx.geometry.Point2D;
 import lombok.Data;
+import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
@@ -53,7 +54,8 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
     public void notifyLayerDataChanged(long layerId){
         GraphNode<BlockNode> graphNode = findGraphNodeByLayerId(layerId);
         BlockNode blockNode = graphNode.getData();
-        LayerProperties layerProperties = blockNode.getBlockInfo().getLayer().getProperties();
+        Layer layer = blockNode.getBlockInfo().getLayer();
+        LayerProperties layerProperties = layer.getProperties();
 
         if(blockNode instanceof MonoBlockNode){
             MonoBlockNode monoBlockNode = (MonoBlockNode) blockNode;
@@ -63,7 +65,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         }
         else if(blockNode instanceof StereoBlockNode){
             StereoBlockNode stereoBlockNode = (StereoBlockNode) blockNode;
-            stereoBlockNode.reshapeBlockModel(layerProperties);
+            stereoBlockNode.reshapeBlockModel(layer);
         }
 
         graphNode.getIncomingNodes().forEach(incomingNode -> {

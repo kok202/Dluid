@@ -48,7 +48,6 @@ public abstract class BlockNode {
         Point3D targetPosition = currentPosition.add(x,y,z);
         setPosition(targetPosition.getX(), targetPosition.getY(), targetPosition.getZ());
     }
-
     public Point3D getPosition(){
         return blockInfo.getPosition();
     }

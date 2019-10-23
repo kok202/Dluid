@@ -5,6 +5,7 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.canvas.entity.PipeBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
@@ -39,28 +40,22 @@ public class PipeBlockNode extends MonoBlockNode {
         Point2D bottomSize = new Point2D(
                 layer.getProperties().getOutputSize()[0] * CanvasConstant.NODE_UNIT,
                 layer.getProperties().getOutputSize()[1] * CanvasConstant.NODE_UNIT);
-        //FIXME
-        Point2D topPosition = new Point2D(
-                0,
-                0);
-        Point2D bottomPosition = new Point2D(
-                0,
-                0);
-        float height = 0;
+
+        PipeBlockProperty pipeBlockProperty = (PipeBlockProperty) layer.getExtra();
         BlockHexahedron layerHexahedron = createHexahedron(
-                topSize, topPosition,
-                bottomSize, bottomPosition,
-                height);
+                topSize, pipeBlockProperty.getTopSkewed(),
+                bottomSize, pipeBlockProperty.getBottomSkewed(),
+                pipeBlockProperty.getHeight());
         setMainBlockModel(layerHexahedron);
     }
 
     private BlockHexahedron createHexahedron(
             Point2D topSize, Point2D topPosition,
             Point2D bottomSize, Point2D bottomPosition,
-            float height) {
+            double height) {
         topSize = topSize.multiply(0.5);
         bottomSize = bottomSize.multiply(0.5);
-        float halfNodeHeight = height / 2;
+        double halfNodeHeight = height / 2;
         return BlockHexahedron.builder()
                 .leftTopFront(new Point3D(-topSize.getX() + topPosition.getX(), -halfNodeHeight, -topSize.getY() + topPosition.getY()))
                 .leftTopBack(new Point3D(-topSize.getX()  + topPosition.getX(), -halfNodeHeight, topSize.getY() + topPosition.getY()))
@@ -79,18 +74,12 @@ public class PipeBlockNode extends MonoBlockNode {
     @Override
     public void reshapeBlockModel(Point2D topSize, Point2D bottomSize) {
         deleteHexahedron(getMainBlockModel());
-        //FIXME
-        Point2D topPosition = new Point2D(
-                0,
-                0);
-        Point2D bottomPosition = new Point2D(
-                0,
-                0);
-        float height = 0;
+
+        PipeBlockProperty pipeBlockProperty = (PipeBlockProperty) getBlockInfo().getLayer().getExtra();
         BlockHexahedron layerHexahedron = reshapeHexahedron(
-                topSize, topPosition,
-                bottomSize, bottomPosition,
-                height, getBlockInfo().getPosition());
+                topSize, pipeBlockProperty.getTopSkewed(),
+                bottomSize, pipeBlockProperty.getBottomSkewed(),
+                pipeBlockProperty.getHeight(), getBlockInfo().getPosition());
         setMainBlockModel(layerHexahedron);
         refreshBlockCover();
     }
@@ -98,7 +87,7 @@ public class PipeBlockNode extends MonoBlockNode {
     private BlockHexahedron reshapeHexahedron(
             Point2D topSize, Point2D topPosition,
             Point2D bottomSize, Point2D bottomPosition,
-            float height, Point3D position){
+            double height, Point3D position){
         Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
         BlockHexahedron blockHexahedron = createHexahedron(topSize, topPosition, bottomSize, bottomPosition, height);
         blockHexahedron.setPosition(position.getX(), position.getY(), position.getZ());

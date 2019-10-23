@@ -4,6 +4,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
+import org.kok202.deepblock.canvas.entity.SplitBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 
@@ -23,13 +24,14 @@ public class SplitInBlockNode extends StereoBlockNode {
     @Override
     protected void createBlockModel(Layer layer) {
         LayerProperties layerProperties = layer.getProperties();
+        SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
         Point2D leftSize = new Point2D(
-                layerProperties.getSplitLeftSize()[0],
-                layerProperties.getSplitLeftSize()[1])
+                splitBlockProperty.getSplitLeftSize()[0],
+                splitBlockProperty.getSplitLeftSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D rightSize = new Point2D(
-                layerProperties.getSplitRightSize()[0],
-                layerProperties.getSplitRightSize()[1])
+                splitBlockProperty.getSplitRightSize()[0],
+                splitBlockProperty.getSplitRightSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D bottomSize = new Point2D(
                 layerProperties.getOutputSize()[0],
@@ -46,17 +48,19 @@ public class SplitInBlockNode extends StereoBlockNode {
     }
 
     @Override
-    public void reshapeBlockModel(LayerProperties layerProperties) {
+    public void reshapeBlockModel(Layer layer) {
         deleteHexahedron(getMainBlockModel());
         deleteHexahedron(getSubBlockModel());
 
+        LayerProperties layerProperties = layer.getProperties();
+        SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
         Point2D leftSize = new Point2D(
-                layerProperties.getSplitLeftSize()[0],
-                layerProperties.getSplitLeftSize()[1])
+                splitBlockProperty.getSplitLeftSize()[0],
+                splitBlockProperty.getSplitLeftSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D rightSize = new Point2D(
-                layerProperties.getSplitRightSize()[0],
-                layerProperties.getSplitRightSize()[1])
+                splitBlockProperty.getSplitRightSize()[0],
+                splitBlockProperty.getSplitRightSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D bottomSize = new Point2D(
                 layerProperties.getOutputSize()[0],

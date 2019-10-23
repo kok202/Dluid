@@ -23,10 +23,6 @@ public class LayerProperties {
     // for output type
     protected LossFunction lossFunction;
 
-    // for split type
-    protected int[] splitLeftSize;
-    protected int[] splitRightSize;
-
     public void setInputSize(int inputSize) {
         this.inputSize = new int[]{inputSize,1};
     }
@@ -64,11 +60,6 @@ public class LayerProperties {
                 break;
             case OUTPUT_LAYER:
                 lossFunction = LossFunction.MSE;
-                break;
-            case SPLIT_IN_LAYER:
-            case SPLIT_OUT_LAYER:
-                splitLeftSize = new int[]{5,1};
-                splitRightSize = new int[]{5,1};
                 break;
         }
     }

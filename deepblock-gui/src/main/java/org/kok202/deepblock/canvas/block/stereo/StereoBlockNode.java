@@ -4,7 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
@@ -37,7 +36,7 @@ public abstract class StereoBlockNode extends BlockNode {
                 .build();
     }
 
-    public abstract void reshapeBlockModel(LayerProperties layerProperties);
+    public abstract void reshapeBlockModel(Layer layer);
 
     protected BlockHexahedron reshapeHexahedron(
             Point2D topSize, Point2D topPosition,
