@@ -43,14 +43,13 @@ public class SplitOutBlockNode extends StereoBlockNode {
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         BlockHexahedron leftHexahedron = createHexahedron(topSize, topPosition, leftSize, leftPosition, CanvasConstant.NODE_HEIGHT);
         BlockHexahedron rightHexahedron = createHexahedron(topSize, topPosition, rightSize, rightPosition,  CanvasConstant.NODE_HEIGHT);
-        setMainBlockModel(leftHexahedron);
-        setSubBlockModel(rightHexahedron);
+        getBlockHexahedronList().add(leftHexahedron);
+        getBlockHexahedronList().add(rightHexahedron);
     }
 
     @Override
     public void reshapeBlockModel(Layer layer) {
-        deleteHexahedron(getMainBlockModel());
-        deleteHexahedron(getSubBlockModel());
+        getBlockHexahedronList().forEach(this::deleteHexahedron);
 
         LayerProperties layerProperties = layer.getProperties();
         SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
@@ -72,8 +71,8 @@ public class SplitOutBlockNode extends StereoBlockNode {
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         BlockHexahedron leftHexahedron = reshapeHexahedron(topSize, topPosition, leftSize, leftPosition, CanvasConstant.NODE_HEIGHT, getBlockInfo().getPosition());
         BlockHexahedron rightHexahedron = reshapeHexahedron(topSize, topPosition, rightSize, rightPosition,  CanvasConstant.NODE_HEIGHT, getBlockInfo().getPosition());
-        setMainBlockModel(leftHexahedron);
-        setSubBlockModel(rightHexahedron);
+        getBlockHexahedronList().add(leftHexahedron);
+        getBlockHexahedronList().add(rightHexahedron);
         refreshBlockCover();
     }
 

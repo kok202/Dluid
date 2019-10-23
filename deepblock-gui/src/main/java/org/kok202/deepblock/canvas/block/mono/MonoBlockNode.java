@@ -12,6 +12,9 @@ import org.kok202.deepblock.domain.structure.GraphNode;
 import org.nd4j.linalg.activations.Activation;
 
 public abstract class MonoBlockNode extends BlockNode {
+    public static final int LAYER_BLOCK_INDEX = 0;
+    public static final int ACTIVATION_BLOCK_INDEX = 1;
+
     public MonoBlockNode(Layer layer) {
         super(layer);
         createBlockModel(layer);
@@ -28,8 +31,8 @@ public abstract class MonoBlockNode extends BlockNode {
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
         BlockHexahedron layerHexahedron = createHexahedron(topSize, middleSize, getLayerModelHeight());
         BlockHexahedron activationHexahedron = createHexahedron(middleSize, bottomSize, getActivationModelHeight());
-        setMainBlockModel(layerHexahedron);
-        setSubBlockModel(activationHexahedron);
+        getBlockHexahedronList().add(layerHexahedron);
+        getBlockHexahedronList().add(activationHexahedron);
     }
 
     private BlockHexahedron createHexahedron(Point2D topSize, Point2D bottomSize, float height) {
@@ -52,14 +55,13 @@ public abstract class MonoBlockNode extends BlockNode {
     }
 
     public void reshapeBlockModel(Point2D topSize, Point2D bottomSize) {
-        deleteHexahedron(getMainBlockModel());
-        deleteHexahedron(getSubBlockModel());
+        getBlockHexahedronList().forEach(this::deleteHexahedron);
 
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
         BlockHexahedron layerHexahedron = reshapeHexahedron(topSize, middleSize, getLayerModelHeight(), getLayerBlockPosition(getBlockInfo().getPosition()));
         BlockHexahedron activationHexahedron = reshapeHexahedron(middleSize, bottomSize, getActivationModelHeight(), getActivationBlockPosition(getBlockInfo().getPosition()));
-        setMainBlockModel(layerHexahedron);
-        setSubBlockModel(activationHexahedron);
+        getBlockHexahedronList().add(layerHexahedron);
+        getBlockHexahedronList().add(activationHexahedron);
         refreshBlockCover();
     }
 
@@ -74,13 +76,13 @@ public abstract class MonoBlockNode extends BlockNode {
     @Override
     public void refreshBlockCover(){
         super.refreshBlockCover();
-        getSubBlockModel().setVisible(isActivationFunctionExist());
+        getBlockHexahedronList().get(ACTIVATION_BLOCK_INDEX).setVisible(isActivationFunctionExist());
     }
 
     @Override
     public void setPosition(double x, double y, double z){
-        getMainBlockModel().setPosition(getLayerBlockPosition(x, y, z));
-        getSubBlockModel().setPosition(getActivationBlockPosition(x, y, z));
+        getBlockHexahedronList().get(LAYER_BLOCK_INDEX).setPosition(getLayerBlockPosition(x, y, z));
+        getBlockHexahedronList().get(ACTIVATION_BLOCK_INDEX).setPosition(getActivationBlockPosition(x, y, z));
         getBlockInfo().setPosition(x, y, z);
     }
 

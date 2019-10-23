@@ -21,14 +21,6 @@ public class PipeBlockNode extends MonoBlockNode {
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
-                },
-                new Color[]{
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
-                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });
     }
 
@@ -46,7 +38,7 @@ public class PipeBlockNode extends MonoBlockNode {
                 topSize, pipeBlockProperty.getTopSkewed(),
                 bottomSize, pipeBlockProperty.getBottomSkewed(),
                 pipeBlockProperty.getHeight());
-        setMainBlockModel(layerHexahedron);
+        getBlockHexahedronList().add(layerHexahedron);
     }
 
     private BlockHexahedron createHexahedron(
@@ -73,14 +65,14 @@ public class PipeBlockNode extends MonoBlockNode {
 
     @Override
     public void reshapeBlockModel(Point2D topSize, Point2D bottomSize) {
-        deleteHexahedron(getMainBlockModel());
+        getBlockHexahedronList().forEach(this::deleteHexahedron);
 
         PipeBlockProperty pipeBlockProperty = (PipeBlockProperty) getBlockInfo().getLayer().getExtra();
         BlockHexahedron layerHexahedron = reshapeHexahedron(
                 topSize, pipeBlockProperty.getTopSkewed(),
                 bottomSize, pipeBlockProperty.getBottomSkewed(),
                 pipeBlockProperty.getHeight(), getBlockInfo().getPosition());
-        setMainBlockModel(layerHexahedron);
+        getBlockHexahedronList().add(layerHexahedron);
         refreshBlockCover();
     }
 
@@ -98,11 +90,5 @@ public class PipeBlockNode extends MonoBlockNode {
     @Override
     public void refreshBlockCover(){
         super.refreshBlockCover();
-    }
-
-    @Override
-    public void setPosition(double x, double y, double z){
-        getMainBlockModel().setPosition(x, y, z);
-        getBlockInfo().setPosition(x, y, z);
     }
 }

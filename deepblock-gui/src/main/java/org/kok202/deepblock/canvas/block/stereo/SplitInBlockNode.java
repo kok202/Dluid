@@ -18,7 +18,9 @@ public class SplitInBlockNode extends StereoBlockNode {
                 CanvasConstant.COLOR_GRAY,
                 CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
                 CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND};
-        setBlockCover(mainColorCover, mainColorCover);
+        setBlockCover(
+                mainColorCover,
+                mainColorCover);
     }
 
     @Override
@@ -43,14 +45,13 @@ public class SplitInBlockNode extends StereoBlockNode {
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         BlockHexahedron leftHexahedron = createHexahedron(leftSize, leftPosition, bottomSize, bottomPosition, CanvasConstant.NODE_HEIGHT);
         BlockHexahedron rightHexahedron = createHexahedron(rightSize, rightPosition, bottomSize, bottomPosition, CanvasConstant.NODE_HEIGHT);
-        setMainBlockModel(leftHexahedron);
-        setSubBlockModel(rightHexahedron);
+        getBlockHexahedronList().add(leftHexahedron);
+        getBlockHexahedronList().add(rightHexahedron);
     }
 
     @Override
     public void reshapeBlockModel(Layer layer) {
-        deleteHexahedron(getMainBlockModel());
-        deleteHexahedron(getSubBlockModel());
+        getBlockHexahedronList().forEach(this::deleteHexahedron);
 
         LayerProperties layerProperties = layer.getProperties();
         SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
@@ -72,8 +73,8 @@ public class SplitInBlockNode extends StereoBlockNode {
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         BlockHexahedron leftHexahedron = reshapeHexahedron(leftSize, leftPosition, bottomSize, bottomPosition, CanvasConstant.NODE_HEIGHT, getBlockInfo().getPosition());
         BlockHexahedron rightHexahedron = reshapeHexahedron(rightSize, rightPosition, bottomSize, bottomPosition,  CanvasConstant.NODE_HEIGHT, getBlockInfo().getPosition());
-        setMainBlockModel(leftHexahedron);
-        setSubBlockModel(rightHexahedron);
+        getBlockHexahedronList().add(leftHexahedron);
+        getBlockHexahedronList().add(rightHexahedron);
         refreshBlockCover();
     }
 

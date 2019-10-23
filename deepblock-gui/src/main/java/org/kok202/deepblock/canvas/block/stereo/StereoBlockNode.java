@@ -9,6 +9,9 @@ import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 
 public abstract class StereoBlockNode extends BlockNode {
+    public static final int LEFT_BLOCK_INDEX = 0;
+    public static final int RIGHT_BLOCK_INDEX = 1;
+
     public StereoBlockNode(Layer layer) {
         super(layer);
         createBlockModel(layer);
@@ -71,12 +74,11 @@ public abstract class StereoBlockNode extends BlockNode {
 
     @Override
     public void refreshBlockCover() {
-        getMainBlockModel().setColors(getBlockInfo().getLayerColors());
-        getMainBlockModel().setTextureSources(getBlockInfo().getLayerTextureSources());
-        getMainBlockModel().refreshBlockCover();
-        getSubBlockModel().setColors(getBlockInfo().getActivationColors());
-        getSubBlockModel().setTextureSources(getBlockInfo().getActivationTextureSources());
-        getSubBlockModel().refreshBlockCover();
+        for(int i = 0; i < getBlockHexahedronList().size(); i++){
+            getBlockHexahedronList().get(i).setColors(getBlockInfo().getColorsList().get(i));
+            getBlockHexahedronList().get(i).setTextureSources(getBlockInfo().getTextureSourcesList().get(i));
+            getBlockHexahedronList().get(i).refreshBlockCover();
+        }
     }
 
     @Override
