@@ -17,6 +17,7 @@ import org.kok202.deepblock.canvas.polygon.block.HexahedronVerticalFace;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.canvas.util.PickResultNodeUtil;
+import org.kok202.deepblock.domain.exception.IllegalConnectionRequest;
 
 public class BlockConnectionHandler {
     private static boolean isClicked = false;
@@ -38,13 +39,14 @@ public class BlockConnectionHandler {
 
                 if(isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronBottomFace){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pipeBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, pastPickedBlockNode);
                 }
                 else if(!isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronTopFace){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, pastPickedBlockNode, currentPickedBlockNode);
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, pipeBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, currentPickedBlockNode);
+                    System.out.println(pipeBlockNode);
                 }
                 releaseConnectionProcess();
             }
@@ -81,11 +83,17 @@ public class BlockConnectionHandler {
 
         Point2D topSkewed = new Point2D(
                 sourceBlockNode.getPosition().getX() - position.getX(),
-                sourceBlockNode.getPosition().getY() - position.getY());
+                sourceBlockNode.getPosition().getZ() - position.getZ());
         Point2D bottomSkewed = new Point2D(
                 destinationBlockNode.getPosition().getX() - position.getX(),
-                destinationBlockNode.getPosition().getY() - position.getY());
-        double height = sourceBlockNode.getPosition().getZ() - destinationBlockNode.getPosition().getZ();
+                destinationBlockNode.getPosition().getZ() - position.getZ());
+
+        double height = destinationBlockNode.getPosition().getY() - sourceBlockNode.getPosition().getY(); // Caused by coordination.
+        height = height - sourceBlockNode.getBlockInfo().getHeight()/2 - destinationBlockNode.getBlockInfo().getHeight()/2;
+        if(height < 0){
+            releaseConnectionProcess();
+            throw new IllegalConnectionRequest();
+        }
 
         PipeBlockProperty pipeBlockProperty = new PipeBlockProperty();
         pipeBlockProperty.setTopSkewed(topSkewed);

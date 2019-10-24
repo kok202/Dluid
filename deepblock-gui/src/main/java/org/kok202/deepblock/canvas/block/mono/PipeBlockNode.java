@@ -2,15 +2,14 @@ package org.kok202.deepblock.canvas.block.mono;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.entity.PipeBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
-import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 
-public class PipeBlockNode extends MonoBlockNode {
+public class PipeBlockNode extends BlockNode {
     public PipeBlockNode(Layer layer) {
         super(layer);
         setBlockCover(
@@ -64,31 +63,12 @@ public class PipeBlockNode extends MonoBlockNode {
     }
 
     @Override
-    public void reshapeBlockModel(Point2D topSize, Point2D bottomSize) {
-        getBlockHexahedronList().forEach(this::deleteHexahedron);
-
-        PipeBlockProperty pipeBlockProperty = (PipeBlockProperty) getBlockInfo().getLayer().getExtra();
-        BlockHexahedron layerHexahedron = reshapeHexahedron(
-                topSize, pipeBlockProperty.getTopSkewed(),
-                bottomSize, pipeBlockProperty.getBottomSkewed(),
-                pipeBlockProperty.getHeight(), getBlockInfo().getPosition());
-        getBlockHexahedronList().add(layerHexahedron);
-        refreshBlockCover();
-    }
-
-    private BlockHexahedron reshapeHexahedron(
-            Point2D topSize, Point2D topPosition,
-            Point2D bottomSize, Point2D bottomPosition,
-            double height, Point3D position){
-        Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
-        BlockHexahedron blockHexahedron = createHexahedron(topSize, topPosition, bottomSize, bottomPosition, height);
-        blockHexahedron.setPosition(position.getX(), position.getY(), position.getZ());
-        blockHexahedron.addedToScene(sceneRoot);
-        return blockHexahedron;
+    public boolean isPossibleToAppendFront() {
+        return true;
     }
 
     @Override
-    public void refreshBlockCover(){
-        super.refreshBlockCover();
+    public boolean isPossibleToAppendBack() {
+        return true;
     }
 }

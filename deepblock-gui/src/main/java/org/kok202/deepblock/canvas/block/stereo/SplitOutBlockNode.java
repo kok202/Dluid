@@ -4,11 +4,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
+import org.kok202.deepblock.canvas.block.SplitBlockNode;
 import org.kok202.deepblock.canvas.entity.SplitBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 
-public class SplitOutBlockNode extends StereoBlockNode {
+public class SplitOutBlockNode extends SplitBlockNode {
     public SplitOutBlockNode(Layer layer) {
         super(layer);
         Color[] mainColorCover = new Color[]{
@@ -41,16 +42,15 @@ public class SplitOutBlockNode extends StereoBlockNode {
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D leftPosition = getLeftPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
-        BlockHexahedron leftHexahedron = createHexahedron(topSize, topPosition, leftSize, leftPosition, CanvasConstant.NODE_HEIGHT);
-        BlockHexahedron rightHexahedron = createHexahedron(topSize, topPosition, rightSize, rightPosition,  CanvasConstant.NODE_HEIGHT);
+        BlockHexahedron leftHexahedron = createHexahedron(topSize, topPosition, leftSize, leftPosition, getBlockInfo().getHeight());
+        BlockHexahedron rightHexahedron = createHexahedron(topSize, topPosition, rightSize, rightPosition,  getBlockInfo().getHeight());
         getBlockHexahedronList().add(leftHexahedron);
         getBlockHexahedronList().add(rightHexahedron);
     }
 
     @Override
     public void reshapeBlockModel(Layer layer) {
-        getBlockHexahedronList().forEach(this::deleteHexahedron);
-
+        deleteHexahedrons();
         LayerProperties layerProperties = layer.getProperties();
         SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
         Point2D topSize = new Point2D(
@@ -69,15 +69,10 @@ public class SplitOutBlockNode extends StereoBlockNode {
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D leftPosition = getLeftPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
         Point2D rightPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP);
-        BlockHexahedron leftHexahedron = reshapeHexahedron(topSize, topPosition, leftSize, leftPosition, CanvasConstant.NODE_HEIGHT, getBlockInfo().getPosition());
-        BlockHexahedron rightHexahedron = reshapeHexahedron(topSize, topPosition, rightSize, rightPosition,  CanvasConstant.NODE_HEIGHT, getBlockInfo().getPosition());
+        BlockHexahedron leftHexahedron = reshapeHexahedron(topSize, topPosition, leftSize, leftPosition, getBlockInfo().getHeight(), getBlockInfo().getPosition());
+        BlockHexahedron rightHexahedron = reshapeHexahedron(topSize, topPosition, rightSize, rightPosition,  getBlockInfo().getHeight(), getBlockInfo().getPosition());
         getBlockHexahedronList().add(leftHexahedron);
         getBlockHexahedronList().add(rightHexahedron);
         refreshBlockCover();
-    }
-
-    @Override
-    public boolean isPossibleToAppendBack() {
-        return false;
     }
 }

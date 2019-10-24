@@ -4,6 +4,7 @@ import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.util.RandomUtil;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 public class BlockInfo {
     protected long id;
+    protected float height;
     protected Layer layer;
     protected Point3D position;
     protected List<String[]> textureSourcesList;
@@ -19,6 +21,7 @@ public class BlockInfo {
 
     public BlockInfo(Layer layer) {
         this.id = RandomUtil.getLong();
+        this.height = CanvasConstant.NODE_DEFAULTHEIGHT;
         this.layer = layer;
         this.position = new Point3D(0,0,0);
         this.colorsList = new ArrayList<>();

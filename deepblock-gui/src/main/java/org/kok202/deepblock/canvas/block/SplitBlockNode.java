@@ -1,20 +1,18 @@
-package org.kok202.deepblock.canvas.block.stereo;
+package org.kok202.deepblock.canvas.block;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 
-public abstract class StereoBlockNode extends BlockNode {
+public abstract class SplitBlockNode extends BlockNode {
     public static final int LEFT_BLOCK_INDEX = 0;
     public static final int RIGHT_BLOCK_INDEX = 1;
 
-    public StereoBlockNode(Layer layer) {
+    public SplitBlockNode(Layer layer) {
         super(layer);
-        createBlockModel(layer);
     }
 
     protected BlockHexahedron createHexahedron(
@@ -70,15 +68,6 @@ public abstract class StereoBlockNode extends BlockNode {
         double totalSize = leftSize.getX() + rightSize.getX() + nodeGap;
         double rightEnd = totalSize / 2;
         return new Point2D(rightEnd - rightSize.getX() / 2 , 0);
-    }
-
-    @Override
-    public void refreshBlockCover() {
-        for(int i = 0; i < getBlockHexahedronList().size(); i++){
-            getBlockHexahedronList().get(i).setColors(getBlockInfo().getColorsList().get(i));
-            getBlockHexahedronList().get(i).setTextureSources(getBlockInfo().getTextureSourcesList().get(i));
-            getBlockHexahedronList().get(i).refreshBlockCover();
-        }
     }
 
     @Override

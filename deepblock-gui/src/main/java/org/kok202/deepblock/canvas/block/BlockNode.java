@@ -3,7 +3,10 @@ package org.kok202.deepblock.canvas.block;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
@@ -20,12 +23,12 @@ public abstract class BlockNode {
     private BlockInfo blockInfo;
 
     @Getter(AccessLevel.PROTECTED)
-    @Setter(AccessLevel.PROTECTED)
     private List<BlockHexahedron> blockHexahedronList;
 
     public BlockNode(Layer layer) {
         blockInfo = new BlockInfo(layer);
         blockHexahedronList = new ArrayList<>();
+        createBlockModel(layer);
     }
 
     protected void setBlockCover(Color[]... colorsList){
@@ -36,8 +39,10 @@ public abstract class BlockNode {
 
     public void refreshBlockCover(){
         for(int i = 0; i < blockHexahedronList.size(); i++){
-            blockHexahedronList.get(i).setColors(getBlockInfo().getColorsList().get(i));
-            blockHexahedronList.get(i).setTextureSources(getBlockInfo().getTextureSourcesList().get(i));
+            if(i < getBlockInfo().getColorsList().size())
+                blockHexahedronList.get(i).setColors(getBlockInfo().getColorsList().get(i));
+            if(i < getBlockInfo().getTextureSourcesList().size())
+                blockHexahedronList.get(i).setTextureSources(getBlockInfo().getTextureSourcesList().get(i));
             blockHexahedronList.get(i).refreshBlockCover();
         }
     }
@@ -61,17 +66,12 @@ public abstract class BlockNode {
         blockHexahedronList.forEach(blockHexahedron -> blockHexahedron.addedToScene(sceneRoot));
     }
 
-    public void deleteBlockModel(){
+    protected void deleteHexahedrons(){
         Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
-        for(int i = 0; i < blockHexahedronList.size(); i++){
-            blockHexahedronList.get(i).removedFromScene(sceneRoot);
-            blockHexahedronList.remove(i);
-        }
-    }
-
-    protected void deleteHexahedron(BlockHexahedron targetHexahedron){
-        Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
-        targetHexahedron.removedFromScene(sceneRoot);
+        blockHexahedronList.forEach(blockHexahedron -> {
+            blockHexahedron.removedFromScene(sceneRoot);
+        });
+        blockHexahedronList.clear();
     }
 
     protected abstract void createBlockModel(Layer layer);

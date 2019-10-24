@@ -2,9 +2,10 @@ package org.kok202.deepblock.canvas.block.mono;
 
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.canvas.block.ActivationBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 
-public class Deconvolution2DBlockNode extends MonoBlockNode {
+public class Deconvolution2DBlockNode extends ActivationBlockNode {
     public Deconvolution2DBlockNode(Layer layer) {
         super(layer);
         setBlockCover(

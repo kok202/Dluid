@@ -1,23 +1,21 @@
-package org.kok202.deepblock.canvas.block.mono;
+package org.kok202.deepblock.canvas.block;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.domain.structure.GraphNode;
 import org.nd4j.linalg.activations.Activation;
 
-public abstract class MonoBlockNode extends BlockNode {
+public abstract class ActivationBlockNode extends BlockNode {
     public static final int LAYER_BLOCK_INDEX = 0;
     public static final int ACTIVATION_BLOCK_INDEX = 1;
 
-    public MonoBlockNode(Layer layer) {
+    public ActivationBlockNode(Layer layer) {
         super(layer);
-        createBlockModel(layer);
     }
 
     @Override
@@ -55,8 +53,7 @@ public abstract class MonoBlockNode extends BlockNode {
     }
 
     public void reshapeBlockModel(Point2D topSize, Point2D bottomSize) {
-        getBlockHexahedronList().forEach(this::deleteHexahedron);
-
+        deleteHexahedrons();
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
         BlockHexahedron layerHexahedron = reshapeHexahedron(topSize, middleSize, getLayerModelHeight(), getLayerBlockPosition(getBlockInfo().getPosition()));
         BlockHexahedron activationHexahedron = reshapeHexahedron(middleSize, bottomSize, getActivationModelHeight(), getActivationBlockPosition(getBlockInfo().getPosition()));
@@ -92,11 +89,11 @@ public abstract class MonoBlockNode extends BlockNode {
     }
 
     private float getLayerModelHeight(){
-        return !isActivationFunctionExist()? CanvasConstant.NODE_HEIGHT : CanvasConstant.NODE_HEIGHT * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
+        return !isActivationFunctionExist()? getBlockInfo().getHeight() : getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private float getActivationModelHeight(){
-        return !isActivationFunctionExist()? 0 : CanvasConstant.NODE_HEIGHT * (CanvasConstant.NODE_ACTIVATION_RATIO);
+        return !isActivationFunctionExist()? 0 : getBlockInfo().getHeight() * (CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private Point2D getMiddleSize(Point2D topSize, Point2D bottomSize){
@@ -116,11 +113,11 @@ public abstract class MonoBlockNode extends BlockNode {
     }
 
     private Point3D getLayerBlockPosition(double x, double y, double z){
-        return new Point3D(x, !isActivationFunctionExist()? y : y - CanvasConstant.NODE_HEIGHT / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, !isActivationFunctionExist()? y : y - getBlockInfo().getHeight() / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
     private Point3D getActivationBlockPosition(double x, double y, double z){
-        return new Point3D(x, !isActivationFunctionExist()? 0 : y + CanvasConstant.NODE_HEIGHT / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, !isActivationFunctionExist()? 0 : y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
     @Override
