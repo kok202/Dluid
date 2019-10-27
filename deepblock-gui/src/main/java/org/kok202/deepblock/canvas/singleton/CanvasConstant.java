@@ -1,8 +1,6 @@
 package org.kok202.deepblock.canvas.singleton;
 
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class CanvasConstant {
     public static final float NODE_UNIT = 0.1f;
@@ -34,7 +32,4 @@ public class CanvasConstant {
     public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_LIGHT_GRAY;
     public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_DARK_GRAY;
     public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY;
-
-//    public static final Font BOLD_FONT_IN_CANVAS = Font.font("NanumGothicCoding", FontWeight.BOLD, 64);
-    public static final Font BOLD_FONT_IN_CANVAS = Font.font(null, FontWeight.BOLD, 64); // size is detail
 }

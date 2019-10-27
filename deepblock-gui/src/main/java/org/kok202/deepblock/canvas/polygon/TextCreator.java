@@ -20,13 +20,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import lombok.Data;
-import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 
 @Data
 public class TextCreator {
     public static Group create(String text, Color color, float size, Point3D position, Point3D rotation) {
         Text textComponent = new Text(text);
-        textComponent.setFont(CanvasConstant.BOLD_FONT_IN_CANVAS);
         Bounds bounds = textComponent.getLayoutBounds();
 
         Canvas canvas = new Canvas(bounds.getWidth(), bounds.getHeight());
@@ -36,7 +34,6 @@ public class TextCreator {
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         context.setFill(Color.WHITE);
-        context.setFont(CanvasConstant.BOLD_FONT_IN_CANVAS);
         context.fillText(text, canvas.getWidth() * 0.5, canvas.getHeight() * 0.5);
 
         SnapshotParameters snapshotParameters = new SnapshotParameters();
