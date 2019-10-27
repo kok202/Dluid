@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('../fonts/NanumBarunGothic.ttf');
+}
+
+*{
+    -fx-dark: #222222;
+    -fx-primary: #EEEEEE;
+    -fx-secondary: #FFFF8D;
+    -fx-third: #8DFF8D;
+    -fx-primarytext: #B2B2B2;
+    -fx-font-family: 'NanumBarunGothic';
+    -fx-font-size: 14
+}
+/*
+.root{
+    -fx-background-color: -fx-primary;
+}
+
+.button{
+    -fx-text-fill: -fx-secondary;
+    -fx-border-color: -fx-third;
+    -fx-background-radius: 5px;
+}
+
+.button:hover{
+    -fx-text-fill: -fx-dark;
+    -fx-border-color: -fx-third;
+    -fx-background-color: -fx-third;
+    -fx-background-radius: 5px;
+}
+
+.text-field{
+    -fx-text-fill: -fx-dark;
+    -fx-font-size: 10pt;
+}
+*/
