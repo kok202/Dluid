@@ -4,8 +4,8 @@ import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 
-public class TestInputBlockNode extends MonoBlockNode {
-    public TestInputBlockNode(Layer layer) {
+public class ReshapeBlockNode extends MonoBlockNode {
+    public ReshapeBlockNode(Layer layer) {
         super(layer);
         setBlockCover(
                 new Color[]{
@@ -13,13 +13,18 @@ public class TestInputBlockNode extends MonoBlockNode {
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });
     }
 
     @Override
     public boolean isPossibleToAppendFront() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean isPossibleToAppendBack() {
+        return true;
     }
 }

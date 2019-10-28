@@ -4,7 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
-import org.kok202.deepblock.canvas.block.SplitBlockNode;
 import org.kok202.deepblock.canvas.entity.SplitBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;

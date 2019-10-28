@@ -1,15 +1,11 @@
 package org.kok202.deepblock.canvas.content;
 
-import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.*;
-import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.block.BlockNodeFactory;
-import org.kok202.deepblock.canvas.entity.PipeBlockProperty;
+import org.kok202.deepblock.canvas.entity.SkewedBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronTopFace;
@@ -38,15 +34,12 @@ public class BlockConnectionHandler {
                     return;
 
                 if(isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronBottomFace){
-                    BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
-                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pipeBlockNode);
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, pastPickedBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pastPickedBlockNode);
+                    reshapeSourceBlocNode(currentPickedBlockNode, pastPickedBlockNode);
                 }
                 else if(!isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronTopFace){
-                    BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, pastPickedBlockNode, currentPickedBlockNode);
-                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, pipeBlockNode);
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, currentPickedBlockNode);
-                    System.out.println(pipeBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, currentPickedBlockNode);
+                    reshapeSourceBlocNode(pastPickedBlockNode, currentPickedBlockNode);
                 }
                 releaseConnectionProcess();
             }
@@ -76,35 +69,23 @@ public class BlockConnectionHandler {
         }
     }
 
-    private static BlockNode insertPipeBlockNode(Group sceneRoot, BlockNode sourceBlockNode, BlockNode destinationBlockNode){
-        Point3D position = sourceBlockNode.getPosition();
-        position = position.add(destinationBlockNode.getPosition());
-        position = position.multiply(0.5);
-
-        Point2D topSkewed = new Point2D(
-                sourceBlockNode.getPosition().getX() - position.getX(),
-                sourceBlockNode.getPosition().getZ() - position.getZ());
-        Point2D bottomSkewed = new Point2D(
-                destinationBlockNode.getPosition().getX() - position.getX(),
-                destinationBlockNode.getPosition().getZ() - position.getZ());
+    private static void reshapeSourceBlocNode(BlockNode sourceBlockNode, BlockNode destinationBlockNode){
+        Point3D topSkewed = new Point3D(0,0, 0);
+        Point3D bottomSkewed = new Point3D(destinationBlockNode.getPosition().getX() - sourceBlockNode.getPosition().getX(), 0,0);
 
         double height = destinationBlockNode.getPosition().getY() - sourceBlockNode.getPosition().getY(); // Caused by coordination.
-        height = height - sourceBlockNode.getBlockInfo().getHeight()/2 - destinationBlockNode.getBlockInfo().getHeight()/2;
+        height = height - destinationBlockNode.getBlockInfo().getHeight()/2;
         if(height < 0){
             releaseConnectionProcess();
             throw new IllegalConnectionRequest();
         }
 
-        PipeBlockProperty pipeBlockProperty = new PipeBlockProperty();
-        pipeBlockProperty.setTopSkewed(topSkewed);
-        pipeBlockProperty.setBottomSkewed(bottomSkewed);
-        pipeBlockProperty.setHeight(height);
-        Layer layer = new Layer(LayerType.PIPE_LAYER);
-        layer.setExtra(pipeBlockProperty);
-
-        BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
-        pipeBlockNode.addedToScene(sceneRoot, position);
-        return pipeBlockNode;
+        SkewedBlockProperty skewedBlockProperty = new SkewedBlockProperty();
+        skewedBlockProperty.setTopSkewed(topSkewed);
+        skewedBlockProperty.setBottomSkewed(bottomSkewed);
+        sourceBlockNode.getBlockInfo().setHeight((float) height);
+        sourceBlockNode.getBlockInfo().getLayer().setExtra(skewedBlockProperty);
+        CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(sourceBlockNode.getBlockInfo().getLayer().getId());
     }
 
     private static void releaseConnectionProcess(){

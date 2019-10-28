@@ -1,9 +1,10 @@
-package org.kok202.deepblock.canvas.block;
+package org.kok202.deepblock.canvas.block.stereo;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 

@@ -1,7 +1,11 @@
 package org.kok202.deepblock.canvas.block;
 
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.block.mono.*;
+import org.kok202.deepblock.canvas.block.activation.*;
+import org.kok202.deepblock.canvas.block.mono.InputBlockNode;
+import org.kok202.deepblock.canvas.block.mono.ReshapeBlockNode;
+import org.kok202.deepblock.canvas.block.mono.TestInputBlockNode;
+import org.kok202.deepblock.canvas.block.mono.TrainInputBlockNode;
 import org.kok202.deepblock.canvas.block.stereo.SplitInBlockNode;
 import org.kok202.deepblock.canvas.block.stereo.SplitOutBlockNode;
 import org.kok202.deepblock.canvas.entity.SplitBlockProperty;
@@ -33,8 +37,8 @@ public class BlockNodeFactory {
                 SplitBlockProperty splitOutBlockProperty = new SplitBlockProperty();
                 layer.setExtra(splitOutBlockProperty);
                 return new SplitOutBlockNode(layer);
-            case PIPE_LAYER:
-                return new PipeBlockNode(layer);
+            case RESHAPE_LAYER:
+                return new ReshapeBlockNode(layer);
         }
         return null;
     }

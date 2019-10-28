@@ -5,9 +5,9 @@ import lombok.Data;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
-import org.kok202.deepblock.canvas.block.ActivationBlockNode;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.block.SplitBlockNode;
+import org.kok202.deepblock.canvas.block.activation.ActivationBlockNode;
+import org.kok202.deepblock.canvas.block.stereo.SplitBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.deepblock.domain.structure.GraphManager;
@@ -60,6 +60,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         if(blockNode instanceof ActivationBlockNode){
             ActivationBlockNode activationBlockNode = (ActivationBlockNode) blockNode;
             activationBlockNode.reshapeBlockModel(
+                    layer,
                     new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
                     new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
         }
@@ -73,6 +74,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
             if(parentLayerType.isInputLayerType()) {
                 ActivationBlockNode parentInputBlockNode = (ActivationBlockNode) incomingNode.getData();
                 parentInputBlockNode.reshapeBlockModel(
+                        layer,
                         new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
                         new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT));
             }
