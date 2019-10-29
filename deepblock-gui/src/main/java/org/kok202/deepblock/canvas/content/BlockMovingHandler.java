@@ -9,7 +9,7 @@ import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.canvas.util.Math3D;
 import org.kok202.deepblock.canvas.util.PickResultNodeUtil;
 
-public class BlockDraggingHandler {
+public class BlockMovingHandler {
 
     private static boolean isPicking;
     private static BlockNode pickedBlockNode;
