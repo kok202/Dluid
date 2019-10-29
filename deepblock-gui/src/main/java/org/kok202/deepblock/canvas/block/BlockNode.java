@@ -52,14 +52,6 @@ public abstract class BlockNode {
         Point3D targetPosition = currentPosition.add(x,y,z);
         setPosition(targetPosition.getX(), targetPosition.getY(), targetPosition.getZ());
     }
-    public Point3D getPosition(){
-        return blockInfo.getPosition();
-    }
-
-    public void setPosition(double x, double y, double z){
-        blockInfo.setPosition(x, y, z);
-        blockHexahedronList.forEach(blockHexahedron -> blockHexahedron.setPosition(x,y,z));
-    }
 
     public void addedToScene(Group sceneRoot, Point3D insertingPoint) {
         setPosition(insertingPoint.getX(), insertingPoint.getY(), 0);
@@ -74,7 +66,13 @@ public abstract class BlockNode {
         blockHexahedronList.clear();
     }
 
+    public abstract void setHeight(double height);
+
+    public abstract void setPosition(double x, double y, double z);
+
     protected abstract void createBlockModel(Layer layer);
+
     public abstract boolean isPossibleToAppendFront();
+
     public abstract boolean isPossibleToAppendBack();
 }

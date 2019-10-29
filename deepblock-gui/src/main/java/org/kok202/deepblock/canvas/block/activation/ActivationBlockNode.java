@@ -21,7 +21,7 @@ public abstract class ActivationBlockNode extends BlockNode {
     }
 
     @Override
-    protected void createBlockModel(Layer layer){
+    protected final void createBlockModel(Layer layer){
         Point2D topSize = new Point2D(
                 layer.getProperties().getInputSize()[0] * CanvasConstant.NODE_UNIT,
                 layer.getProperties().getInputSize()[1] * CanvasConstant.NODE_UNIT);
@@ -62,7 +62,7 @@ public abstract class ActivationBlockNode extends BlockNode {
                 .build();
     }
 
-    public void reshapeBlockModel(Layer layer, Point2D topSize, Point2D bottomSize) {
+    public final void reshapeBlockModel(Layer layer, Point2D topSize, Point2D bottomSize) {
         deleteHexahedrons();
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
         Point3D topSkewed = getTopSkewed(layer);
@@ -76,7 +76,7 @@ public abstract class ActivationBlockNode extends BlockNode {
         refreshBlockCover();
     }
 
-    private BlockHexahedron reshapeHexahedron(Point2D topSize, Point3D topSkewed, Point2D bottomSize, Point3D bottomSkewed, float height, Point3D position){
+    private BlockHexahedron reshapeHexahedron(Point2D topSize, Point3D topSkewed, Point2D bottomSize, Point3D bottomSkewed, double height, Point3D position){
         Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
         BlockHexahedron blockHexahedron = createHexahedron(topSize, topSkewed, bottomSize, bottomSkewed, height);
         blockHexahedron.setPosition(position.getX(), position.getY(), position.getZ());
@@ -85,13 +85,18 @@ public abstract class ActivationBlockNode extends BlockNode {
     }
 
     @Override
-    public void refreshBlockCover(){
+    public final void refreshBlockCover(){
         super.refreshBlockCover();
         getBlockHexahedronList().get(ACTIVATION_BLOCK_INDEX).setVisible(isActivationFunctionExist());
     }
 
     @Override
-    public void setPosition(double x, double y, double z){
+    public void setHeight(double height){
+        getBlockInfo().setHeight(height);
+    }
+
+    @Override
+    public final void setPosition(double x, double y, double z){
         getBlockHexahedronList().get(LAYER_BLOCK_INDEX).setPosition(getLayerBlockPosition(x, y, z));
         getBlockHexahedronList().get(ACTIVATION_BLOCK_INDEX).setPosition(getActivationBlockPosition(x, y, z));
         getBlockInfo().setPosition(x, y, z);
@@ -102,11 +107,11 @@ public abstract class ActivationBlockNode extends BlockNode {
                 getBlockInfo().getLayer().getProperties().getActivationFunction() != Activation.IDENTITY;
     }
 
-    private float getLayerModelHeight(){
+    private double getLayerModelHeight(){
         return !isActivationFunctionExist()? getBlockInfo().getHeight() : getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
-    private float getActivationModelHeight(){
+    private double getActivationModelHeight(){
         return !isActivationFunctionExist()? 0 : getBlockInfo().getHeight() * (CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 

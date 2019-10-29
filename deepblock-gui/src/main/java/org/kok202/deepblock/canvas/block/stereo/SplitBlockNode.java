@@ -16,13 +16,13 @@ public abstract class SplitBlockNode extends BlockNode {
         super(layer);
     }
 
-    protected BlockHexahedron createHexahedron(
+    protected final BlockHexahedron createHexahedron(
             Point2D topSize, Point2D topPosition,
             Point2D bottomSize, Point2D bottomPosition,
-            float height) {
+            double height) {
         topSize = topSize.multiply(0.5);
         bottomSize = bottomSize.multiply(0.5);
-        float halfNodeHeight = height / 2;
+        double halfNodeHeight = height / 2;
         return BlockHexahedron.builder()
                 .leftTopFront(new Point3D(-topSize.getX() + topPosition.getX(), -halfNodeHeight, -topSize.getY() + topPosition.getY()))
                 .leftTopBack(new Point3D(-topSize.getX()  + topPosition.getX(), -halfNodeHeight, topSize.getY() + topPosition.getY()))
@@ -40,10 +40,10 @@ public abstract class SplitBlockNode extends BlockNode {
 
     public abstract void reshapeBlockModel(Layer layer);
 
-    protected BlockHexahedron reshapeHexahedron(
+    protected final BlockHexahedron reshapeHexahedron(
             Point2D topSize, Point2D topPosition,
             Point2D bottomSize, Point2D bottomPosition,
-            float height, Point3D position){
+            double height, Point3D position){
         Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
         BlockHexahedron blockHexahedron = createHexahedron(topSize, topPosition, bottomSize, bottomPosition, height);
         blockHexahedron.setPosition(position.getX(), position.getY(), position.getZ());
@@ -51,24 +51,35 @@ public abstract class SplitBlockNode extends BlockNode {
         return blockHexahedron;
     }
 
-    protected Point2D getLeftPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
+    protected final Point2D getLeftPosition(Point2D leftSize, Point2D rightSize, double nodeGap){
         return new Point2D(-(leftSize.getX() + nodeGap) / 2 , 0);
     }
 
-    protected Point2D getRightPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
+    protected final Point2D getRightPosition(Point2D leftSize, Point2D rightSize, double nodeGap){
         return new Point2D((rightSize.getX() + nodeGap) / 2 , 0);
     }
 
-    protected Point2D getBalancedLeftPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
+    protected final Point2D getBalancedLeftPosition(Point2D leftSize, Point2D rightSize, double nodeGap){
         double totalSize = leftSize.getX() + rightSize.getX() + nodeGap;
         double leftStart = -totalSize / 2;
         return new Point2D(leftStart + leftSize.getX() / 2 , 0);
     }
 
-    protected Point2D getBalancedRightPosition(Point2D leftSize, Point2D rightSize, float nodeGap){
+    protected final Point2D getBalancedRightPosition(Point2D leftSize, Point2D rightSize, double nodeGap){
         double totalSize = leftSize.getX() + rightSize.getX() + nodeGap;
         double rightEnd = totalSize / 2;
         return new Point2D(rightEnd - rightSize.getX() / 2 , 0);
+    }
+
+    @Override
+    public void setHeight(double height){
+        getBlockInfo().setHeight(height);
+    }
+
+    @Override
+    public void setPosition(double x, double y, double z){
+        getBlockHexahedronList().forEach(blockHexahedron -> blockHexahedron.setPosition(x,y,z));
+        getBlockInfo().setPosition(x, y, z);
     }
 
     @Override

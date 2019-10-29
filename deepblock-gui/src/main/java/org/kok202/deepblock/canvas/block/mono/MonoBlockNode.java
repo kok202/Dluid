@@ -15,7 +15,7 @@ public abstract class MonoBlockNode extends BlockNode {
     }
 
     @Override
-    protected void createBlockModel(Layer layer){
+    protected final void createBlockModel(Layer layer){
         Point2D topSize = new Point2D(
                 layer.getProperties().getInputSize()[0] * CanvasConstant.NODE_UNIT,
                 layer.getProperties().getInputSize()[1] * CanvasConstant.NODE_UNIT);
@@ -51,6 +51,17 @@ public abstract class MonoBlockNode extends BlockNode {
                 .colors(null)
                 .blockNode(this)
                 .build();
+    }
+
+    @Override
+    public void setHeight(double height){
+        getBlockInfo().setHeight(height);
+    }
+
+    @Override
+    public void setPosition(double x, double y, double z){
+        getBlockHexahedronList().forEach(blockHexahedron -> blockHexahedron.setPosition(x,y,z));
+        getBlockInfo().setPosition(x, y, z);
     }
 
     @Override

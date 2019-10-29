@@ -3,10 +3,10 @@ package org.kok202.deepblock.canvas.singleton;
 import javafx.scene.paint.Color;
 
 public class CanvasConstant {
-    public static final float NODE_UNIT = 0.1f;
-    public static final float NODE_DEFAULTHEIGHT = 0.5f;
-    public static final float NODE_GAP = 0.4f;
-    public static final float NODE_ACTIVATION_RATIO = 0.2f;
+    public static final double NODE_UNIT = 0.1f;
+    public static final double NODE_DEFAULT_HEIGHT = 0.5f;
+    public static final double NODE_GAP = 0.4f;
+    public static final double NODE_ACTIVATION_RATIO = 0.2f;
     public static final double CAMERA_DEPTH_MAX = -5;
     public static final double CAMERA_DEPTH_MIN = -50;
     public static final double CAMERA_FAR_CLIP = 1000;

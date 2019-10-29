@@ -34,12 +34,12 @@ public class BlockConnectionHandler {
                     return;
 
                 if(isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronBottomFace){
-                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pastPickedBlockNode);
-                    reshapeSourceBlocNode(currentPickedBlockNode, pastPickedBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pastPickedBlockNode);
+                    reshapeSourceBlockNode(currentPickedBlockNode, pastPickedBlockNode);
                 }
                 else if(!isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronTopFace){
-                    CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, currentPickedBlockNode);
-                    reshapeSourceBlocNode(pastPickedBlockNode, currentPickedBlockNode);
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, currentPickedBlockNode);
+                    reshapeSourceBlockNode(pastPickedBlockNode, currentPickedBlockNode);
                 }
                 releaseConnectionProcess();
             }
@@ -69,12 +69,19 @@ public class BlockConnectionHandler {
         }
     }
 
-    private static void reshapeSourceBlocNode(BlockNode sourceBlockNode, BlockNode destinationBlockNode){
+    private static void reshapeSourceBlockNode(BlockNode sourceBlockNode, BlockNode destinationBlockNode){
         Point3D topSkewed = new Point3D(0,0, 0);
-        Point3D bottomSkewed = new Point3D(destinationBlockNode.getPosition().getX() - sourceBlockNode.getPosition().getX(), 0,0);
+        Point3D bottomSkewed = new Point3D(destinationBlockNode.getBlockInfo().getPosition().getX() - sourceBlockNode.getBlockInfo().getPosition().getX(), 0,0);
+        Point3D newPosition = new Point3D(
+                (sourceBlockNode.getBlockInfo().getPosition().getX() + destinationBlockNode.getBlockInfo().getPosition().getX()) / 2 -
+                        (bottomSkewed.getX() / 2),
+                ((sourceBlockNode.getBlockInfo().getPosition().getY() - sourceBlockNode.getBlockInfo().getHeight() / 2) +
+                        (destinationBlockNode.getBlockInfo().getPosition().getY() - destinationBlockNode.getBlockInfo().getHeight() / 2)) / 2,
+                (sourceBlockNode.getBlockInfo().getPosition().getZ() + destinationBlockNode.getBlockInfo().getPosition().getZ()) / 2);
 
-        double height = destinationBlockNode.getPosition().getY() - sourceBlockNode.getPosition().getY(); // Caused by coordination.
-        height = height - destinationBlockNode.getBlockInfo().getHeight()/2;
+        double height = destinationBlockNode.getBlockInfo().getPosition().getY() - sourceBlockNode.getBlockInfo().getPosition().getY(); // Caused by coordination.
+        height -= destinationBlockNode.getBlockInfo().getHeight()/2;
+        height += sourceBlockNode.getBlockInfo().getHeight()/2;
         if(height < 0){
             releaseConnectionProcess();
             throw new IllegalConnectionRequest();
@@ -83,7 +90,8 @@ public class BlockConnectionHandler {
         SkewedBlockProperty skewedBlockProperty = new SkewedBlockProperty();
         skewedBlockProperty.setTopSkewed(topSkewed);
         skewedBlockProperty.setBottomSkewed(bottomSkewed);
-        sourceBlockNode.getBlockInfo().setHeight((float) height);
+        sourceBlockNode.setHeight(height);
+        sourceBlockNode.setPosition(newPosition.getX(), newPosition.getY(), newPosition.getZ());
         sourceBlockNode.getBlockInfo().getLayer().setExtra(skewedBlockProperty);
         CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(sourceBlockNode.getBlockInfo().getLayer().getId());
     }
