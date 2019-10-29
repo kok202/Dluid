@@ -59,6 +59,14 @@ public class GraphManager<T> {
         dataNodes.add(destinationNewData);
     }
 
+    public void link(T sourceData, T destinationData){
+        GraphNode<T> sourceGraphNode = findGraphNodeByData(sourceData);
+        GraphNode<T> destinationGraphNode = findGraphNodeByData(destinationData);
+        if(sourceGraphNode == null)
+            throw new CanNotFindGraphNodeException(sourceData.toString());
+        sourceGraphNode.createEdgeTo(destinationGraphNode);
+    }
+
     public void removeReachableGraphNode(Predicate predicate) {
         for(GraphNode<T> graphNode : graphNodes) {
             if(predicate.test(graphNode.getData()))

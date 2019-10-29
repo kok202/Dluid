@@ -2,11 +2,12 @@ package org.kok202.deepblock.canvas.singleton.structure;
 
 import javafx.geometry.Point2D;
 import lombok.Data;
+import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.block.mono.MonoBlockNode;
-import org.kok202.deepblock.canvas.block.stereo.StereoBlockNode;
+import org.kok202.deepblock.canvas.block.activation.ActivationBlockNode;
+import org.kok202.deepblock.canvas.block.stereo.SplitBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.deepblock.domain.structure.GraphManager;
@@ -53,24 +54,27 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
     public void notifyLayerDataChanged(long layerId){
         GraphNode<BlockNode> graphNode = findGraphNodeByLayerId(layerId);
         BlockNode blockNode = graphNode.getData();
-        LayerProperties layerProperties = blockNode.getBlockInfo().getLayer().getProperties();
+        Layer layer = blockNode.getBlockInfo().getLayer();
+        LayerProperties layerProperties = layer.getProperties();
 
-        if(blockNode instanceof MonoBlockNode){
-            MonoBlockNode monoBlockNode = (MonoBlockNode) blockNode;
-            monoBlockNode.reshapeBlockModel(
+        if(blockNode instanceof ActivationBlockNode){
+            ActivationBlockNode activationBlockNode = (ActivationBlockNode) blockNode;
+            activationBlockNode.reshapeBlockModel(
+                    layer,
                     new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
                     new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
         }
-        else if(blockNode instanceof StereoBlockNode){
-            StereoBlockNode stereoBlockNode = (StereoBlockNode) blockNode;
-            stereoBlockNode.reshapeBlockModel(layerProperties);
+        else if(blockNode instanceof SplitBlockNode){
+            SplitBlockNode splitBlockNode = (SplitBlockNode) blockNode;
+            splitBlockNode.reshapeBlockModel(layer);
         }
 
         graphNode.getIncomingNodes().forEach(incomingNode -> {
             LayerType parentLayerType = incomingNode.getData().getBlockInfo().getLayer().getType();
             if(parentLayerType.isInputLayerType()) {
-                MonoBlockNode parentInputBlockNode = (MonoBlockNode) incomingNode.getData();
+                ActivationBlockNode parentInputBlockNode = (ActivationBlockNode) incomingNode.getData();
                 parentInputBlockNode.reshapeBlockModel(
+                        layer,
                         new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
                         new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT));
             }

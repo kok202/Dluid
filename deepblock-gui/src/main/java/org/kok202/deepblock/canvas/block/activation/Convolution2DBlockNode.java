@@ -1,11 +1,11 @@
-package org.kok202.deepblock.canvas.block.mono;
+package org.kok202.deepblock.canvas.block.activation;
 
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 
-public class FeedForwardBlockNode extends MonoBlockNode {
-    public FeedForwardBlockNode(Layer layer) {
+public class Convolution2DBlockNode extends ActivationBlockNode {
+    public Convolution2DBlockNode(Layer layer) {
         super(layer);
         setBlockCover(
                 new Color[]{

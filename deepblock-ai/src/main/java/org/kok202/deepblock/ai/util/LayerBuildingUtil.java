@@ -40,6 +40,7 @@ public class LayerBuildingUtil {
                 neuralNetLayerBuilder.addVertex(currentVertex, new MergeVertex(), mergeFromA, mergeFromB);
                 break;
             case SPLIT_OUT_LAYER:
+            case RESHAPE_LAYER:
                 break;
             case OUTPUT_LAYER:
                 String output = getCurrentNodeId(layerGraphNode);

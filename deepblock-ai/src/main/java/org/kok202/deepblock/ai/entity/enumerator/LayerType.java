@@ -24,6 +24,7 @@ public enum LayerType {
     TEST_INPUT_LAYER,
     SPLIT_IN_LAYER,
     SPLIT_OUT_LAYER,
+    RESHAPE_LAYER,
 
     /**********************************************************
      * NOT SUPPORT

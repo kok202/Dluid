@@ -16,7 +16,7 @@ public class BlockDraggingHandler {
 
     public static void setOnMousePressed(MouseEvent mouseEvent){
         PickResult pickResult = mouseEvent.getPickResult();
-        if(PickResultNodeUtil.isBlockNode(pickResult)){
+        if(PickResultNodeUtil.isBlockNodeSideFace(pickResult)){
             isPicking = true;
             pickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
         }
@@ -50,7 +50,7 @@ public class BlockDraggingHandler {
                         0,
                         targetPoint,
                         cameraPoint);
-                Point3D deltaMousePoint3D = intersectedPoint.subtract(pickedBlockNode.getPosition());
+                Point3D deltaMousePoint3D = intersectedPoint.subtract(pickedBlockNode.getBlockInfo().getPosition());
                 final Point3D delta = deltaMousePoint3D;
                 CanvasSingleton
                         .getInstance()

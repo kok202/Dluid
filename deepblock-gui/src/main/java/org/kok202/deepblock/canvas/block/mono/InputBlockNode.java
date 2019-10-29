@@ -15,14 +15,6 @@ public class InputBlockNode extends MonoBlockNode {
                         CanvasConstant.COLOR_GRAY,
                         CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
-                },
-                new Color[]{
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND,
-                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });
     }
 

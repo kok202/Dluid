@@ -11,6 +11,7 @@ import org.kok202.deepblock.application.Util.DialogUtil;
 import org.kok202.deepblock.application.Util.MathUtil;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.global.AppConstant;
+import org.kok202.deepblock.canvas.entity.SplitBlockProperty;
 
 public class ComponentSplitOutParamController extends AbstractLayerComponentController {
 
@@ -50,12 +51,13 @@ public class ComponentSplitOutParamController extends AbstractLayerComponentCont
 
     private void setTextFieldByLayerProperties(){
         detachTextChangedListener(textFieldInputX, textFieldInputY, textFieldLeftOutputX, textFieldLeftOutputY);
+        SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
         textFieldInputX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldInputY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldLeftOutputX.setText(String.valueOf(layer.getProperties().getSplitLeftSize()[0]));
-        textFieldLeftOutputY.setText(String.valueOf(layer.getProperties().getSplitLeftSize()[1]));
-        textFieldRightOutputX.setText(String.valueOf(layer.getProperties().getSplitRightSize()[0]));
-        textFieldRightOutputY.setText(String.valueOf(layer.getProperties().getSplitRightSize()[1]));
+        textFieldLeftOutputX.setText(String.valueOf(splitBlockProperty.getSplitLeftSize()[0]));
+        textFieldLeftOutputY.setText(String.valueOf(splitBlockProperty.getSplitLeftSize()[1]));
+        textFieldRightOutputX.setText(String.valueOf(splitBlockProperty.getSplitRightSize()[0]));
+        textFieldRightOutputY.setText(String.valueOf(splitBlockProperty.getSplitRightSize()[1]));
         attachTextChangedListener(textFieldInputX, textFieldInputY, textFieldLeftOutputX, textFieldLeftOutputY);
     }
 
@@ -82,10 +84,12 @@ public class ComponentSplitOutParamController extends AbstractLayerComponentCont
         layer.getProperties().setInputSize(
                 TextFieldUtil.parseInteger(textFieldInputX),
                 TextFieldUtil.parseInteger(textFieldInputY));
-        layer.getProperties().setSplitLeftSize(new int[]{
+
+        SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
+        splitBlockProperty.setSplitLeftSize(new int[]{
                 TextFieldUtil.parseInteger(textFieldLeftOutputX),
                 TextFieldUtil.parseInteger(textFieldLeftOutputY)});
-        layer.getProperties().setSplitRightSize(new int[]{
+        splitBlockProperty.setSplitRightSize(new int[]{
                 TextFieldUtil.parseInteger(textFieldRightOutputX),
                 TextFieldUtil.parseInteger(textFieldRightOutputY)});
         notifyLayerDataChanged();

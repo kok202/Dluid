@@ -83,7 +83,7 @@ public class BlockInsertionHandler {
 
     private void appendFrontToSpecificBlock(LayerType layerType, BlockNode targetBlockNode){
         Point3D selectedBlockPosition = targetBlockNode.getBlockInfo().getPosition();
-        Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, -CanvasConstant.NODE_HEIGHT, 0));
+        Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, -targetBlockNode.getBlockInfo().getHeight(), 0));
 
         // Add to global block node set and refresh component box material
         Layer layer = new Layer(layerType);
@@ -99,7 +99,7 @@ public class BlockInsertionHandler {
 
     private void appendBackToSpecificBlock(LayerType layerType, BlockNode targetBlockNode){
         Point3D selectedBlockPosition = targetBlockNode.getBlockInfo().getPosition();
-        Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, CanvasConstant.NODE_HEIGHT, 0));
+        Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, targetBlockNode.getBlockInfo().getHeight(), 0));
 
         // Add to global block node set and refresh component box material
         Layer layer = new Layer(layerType);
