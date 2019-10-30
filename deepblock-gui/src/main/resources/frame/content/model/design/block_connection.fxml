@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.CubicCurve?>
+<Pane fx:id="root_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100" prefWidth="100" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+	   <CubicCurve fx:id="cubicCurve"
+				   startX="10" startY="10"
+				   controlX1="10" controlX2="90"
+				   controlY1="90" controlY2="10"
+				   endX="90" endY="90"
+				   fill="#00000000"
+				   stroke="BLACK"
+				   strokeWidth="5.0" />
+   </children>
+</Pane>

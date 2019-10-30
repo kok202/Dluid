@@ -23,7 +23,7 @@ public class MainScene {
         sceneNode = new SubScene(sceneRoot, width, height, true, SceneAntialiasing.BALANCED);
         sceneNode.setCamera(camera = new Camera());
         sceneNode.setFill(CanvasConstant.COLOR_DARK_GRAY);
-        MouseEventListeners.setMouseEventListener(sceneNode, sceneRoot, camera);
+        MouseEventListeners.setMouseEventListener(sceneNode, camera);
     }
 
     public void refreshSceneSize(){

@@ -1,5 +1,6 @@
 package org.kok202.deepblock.canvas.singleton;
 
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class CanvasConstant {
@@ -32,4 +33,9 @@ public class CanvasConstant {
     public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_LIGHT_GRAY;
     public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_DARK_GRAY;
     public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY;
+
+    public static final int CUBIC_CURVE_OFFSET_X = 1;
+    public static final int CUBIC_CURVE_OFFSET_Y = 1;
+    // For escaping pickResult always indicating cubic curve
+    public static final Point2D CUBIC_CURVE_END_GAP = new Point2D(3, -5);
 }

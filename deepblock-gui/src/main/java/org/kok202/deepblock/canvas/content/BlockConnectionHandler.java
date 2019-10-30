@@ -1,12 +1,14 @@
 package org.kok202.deepblock.canvas.content;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.PickResult;
+import org.kok202.deepblock.application.global.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.entity.SkewedBlockProperty;
-import org.kok202.deepblock.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronVerticalFace;
@@ -21,50 +23,77 @@ public class BlockConnectionHandler {
     private static BlockNode pastPickedBlockNode = null;
     private static HexahedronFace pastPickedBlockNodeFace = null;
 
-    public static void setOnMouseClicked(MouseEvent mouseEvent, Group sceneRoot){
+    public static void setOnMousePressed(MouseEvent mouseEvent){
         if(mouseEvent.getButton() != MouseButton.PRIMARY)
             return;
 
         PickResult pickResult = mouseEvent.getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
         if(pickResultNode instanceof HexahedronVerticalFace){
-            if(isClicked){
-                BlockNode currentPickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
-                if(pastPickedBlockNode == currentPickedBlockNode)
-                    return;
-
-                if(isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronBottomFace){
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pastPickedBlockNode);
-                    reshapeSourceBlockNode(currentPickedBlockNode, pastPickedBlockNode);
-                }
-                else if(!isClickedOnTop && pickResult.getIntersectedNode() instanceof HexahedronTopFace){
-                    CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, currentPickedBlockNode);
-                    reshapeSourceBlockNode(pastPickedBlockNode, currentPickedBlockNode);
-                }
-                releaseConnectionProcess();
-            }
-            else{
-                isClicked = true;
-                isClickedOnTop = pickResult.getIntersectedNode() instanceof HexahedronTopFace;
-                BlockNode pickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
-                if((isClickedOnTop && !pickedBlockNode.isPossibleToAppendFront()) ||
+            isClicked = true;
+            isClickedOnTop = pickResult.getIntersectedNode() instanceof HexahedronTopFace;
+            BlockNode pickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
+            if((isClickedOnTop && !pickedBlockNode.isPossibleToAppendFront()) ||
                     (!isClickedOnTop && !pickedBlockNode.isPossibleToAppendBack())){
-                    releaseConnectionProcess();
-                    return;
-                }
-                pastPickedBlockNode = pickedBlockNode;
-                pastPickedBlockNodeFace = PickResultNodeUtil.convertToBlockHexahedronFace(pickResult);
-                // FIXME : 색이 안변해...
-                pastPickedBlockNodeFace.setColor(CanvasConstant.CONTEXT_COLOR_TRY_TO_APPEND);
+                releaseConnectionProcess();
+                return;
             }
+            pastPickedBlockNode = pickedBlockNode;
+            pastPickedBlockNodeFace = PickResultNodeUtil.convertToBlockHexahedronFace(pickResult);
+            pastPickedBlockNodeFace.setColor(CanvasConstant.CONTEXT_COLOR_TRY_TO_APPEND);
+            AppWidgetSingleton.getInstance()
+                    .getContentRootController()
+                    .getTabsController()
+                    .getTabModelDesignController()
+                    .getBlockConnectionManager()
+                    .setStart(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
+            AppWidgetSingleton.getInstance()
+                    .getContentRootController()
+                    .getTabsController()
+                    .getTabModelDesignController()
+                    .getBlockConnectionManager()
+                    .setEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
+            AppWidgetSingleton.getInstance()
+                    .getContentRootController()
+                    .getTabsController()
+                    .getTabModelDesignController()
+                    .getBlockConnectionManager()
+                    .setVisible(true);
         }
         else{
             releaseConnectionProcess();
         }
     }
 
-    public static void setOnKeyTyped(KeyEvent keyEvent){
-        if(keyEvent.getCode() == KeyCode.ESCAPE){
+    public static void setOnMouseDragged(MouseEvent mouseEvent){
+        if(isClicked){
+            AppWidgetSingleton.getInstance()
+                    .getContentRootController()
+                    .getTabsController()
+                    .getTabModelDesignController()
+                    .getBlockConnectionManager()
+                    .setEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()).add(CanvasConstant.CUBIC_CURVE_END_GAP));
+        }
+    }
+
+    public static void setOnMouseReleased(MouseEvent mouseEvent){
+        if(isClicked){
+            PickResult pickResult = mouseEvent.getPickResult();
+            Node pickResultNode = pickResult.getIntersectedNode();
+            if(pickResultNode instanceof HexahedronFace){
+                BlockNode currentPickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
+                if(pastPickedBlockNode == currentPickedBlockNode)
+                    return;
+
+                if(isClickedOnTop && currentPickedBlockNode.isPossibleToAppendBack()){
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pastPickedBlockNode);
+                    reshapeSourceBlockNode(currentPickedBlockNode, pastPickedBlockNode);
+                }
+                else if(!isClickedOnTop && currentPickedBlockNode.isPossibleToAppendFront()){
+                    CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, currentPickedBlockNode);
+                    reshapeSourceBlockNode(pastPickedBlockNode, currentPickedBlockNode);
+                }
+            }
             releaseConnectionProcess();
         }
     }
@@ -102,5 +131,11 @@ public class BlockConnectionHandler {
         isClicked = false;
         pastPickedBlockNode = null;
         pastPickedBlockNodeFace = null;
+        AppWidgetSingleton.getInstance()
+                .getContentRootController()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getBlockConnectionManager()
+                .setVisible(false);
     }
 }
