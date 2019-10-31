@@ -19,11 +19,16 @@ import java.util.Collection;
 @Data
 public class BlockNodeManager extends GraphManager<BlockNode>{
 
-    public void removeReachableGraphNode(long layerId) {
-        removeReachableGraphNode(blockNodeObj -> {
-            BlockNode blockNode = (BlockNode) blockNodeObj;
-            return blockNode.getBlockInfo().getLayer().getId() == layerId;
-        });
+    public void removeGraphNode(long layerId) {
+        removeGraphNode(
+                blockNodeObj -> {
+                    BlockNode blockNode = (BlockNode) blockNodeObj;
+                    return blockNode.getBlockInfo().getLayer().getId() == layerId;
+                },
+                graphNode -> {
+                    GraphNode<BlockNode> blockGraphNode = (GraphNode<BlockNode>) graphNode;
+                    blockGraphNode.getData().deleteHexahedrons();
+                });
     }
 
     public GraphNode<BlockNode> findTestInputGraphNode(){
