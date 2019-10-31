@@ -90,7 +90,8 @@ public class BlockConnectionHandler {
 
                 if(isClickedStartAtTop && currentPickedBlockNode.isPossibleToAppendBack()){
                     CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pastPickedBlockNode);
-                    reshapeBottomBlockNode(currentPickedBlockNode, pastPickedBlockNode);
+                    reshapeTopBlockNode(currentPickedBlockNode, pastPickedBlockNode);
+//                    reshapeBottomBlockNode(currentPickedBlockNode, pastPickedBlockNode);
                 }
                 else if(!isClickedStartAtTop && currentPickedBlockNode.isPossibleToAppendFront()){
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, currentPickedBlockNode);

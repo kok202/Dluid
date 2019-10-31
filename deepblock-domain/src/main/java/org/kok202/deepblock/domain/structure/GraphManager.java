@@ -69,16 +69,17 @@ public class GraphManager<T> {
     }
 
     public void removeGraphNode(Predicate predicate, Consumer callback) {
-        List<GraphNode> deleteList = new ArrayList<>();
-        for(GraphNode<T> graphNode : graphNodes) {
-            if(predicate.test(graphNode.getData())) {
+        List<GraphNode<T>> deleteNodeList = new ArrayList<>();
+        for (GraphNode<T> graphNode : graphNodes) {
+            if (predicate.test(graphNode.getData())) {
                 callback.accept(graphNode);
                 dataNodes.remove(graphNode.getData());
                 graphNode.remove();
-                deleteList.add(graphNode);
+                deleteNodeList.add(graphNode);
             }
         }
-        graphNodes.removeAll(deleteList);
+        graphNodes.removeAll(deleteNodeList);
+        System.out.println("");
     }
 
     public List<T> getAllLinkedNodesData(T selectedData){
