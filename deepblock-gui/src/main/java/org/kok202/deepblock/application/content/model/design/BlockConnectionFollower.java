@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.CubicCurve;
 import org.kok202.deepblock.application.common.AbstractController;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
@@ -17,7 +16,7 @@ public class BlockConnectionFollower extends AbstractController {
 	@FXML
 	private CubicCurve cubicCurve;
 
-	public Pane createView() throws Exception{
+	public CubicCurve createView() throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/design/block_connection.fxml"));
 		fxmlLoader.setController(this);
         return fxmlLoader.load();

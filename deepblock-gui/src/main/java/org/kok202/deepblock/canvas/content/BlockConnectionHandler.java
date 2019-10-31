@@ -19,7 +19,7 @@ import org.kok202.deepblock.domain.exception.IllegalConnectionRequest;
 
 public class BlockConnectionHandler {
     private static boolean isClicked = false;
-    private static boolean isClickedOnTop = false;
+    private static boolean isClickedStartAtTop = false;
     private static BlockNode pastPickedBlockNode = null;
     private static HexahedronFace pastPickedBlockNodeFace = null;
 
@@ -31,10 +31,10 @@ public class BlockConnectionHandler {
         Node pickResultNode = pickResult.getIntersectedNode();
         if(pickResultNode instanceof HexahedronVerticalFace){
             isClicked = true;
-            isClickedOnTop = pickResult.getIntersectedNode() instanceof HexahedronTopFace;
+            isClickedStartAtTop = pickResult.getIntersectedNode() instanceof HexahedronTopFace;
             BlockNode pickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
-            if((isClickedOnTop && !pickedBlockNode.isPossibleToAppendFront()) ||
-                    (!isClickedOnTop && !pickedBlockNode.isPossibleToAppendBack())){
+            if((isClickedStartAtTop && !pickedBlockNode.isPossibleToAppendFront()) ||
+                    (!isClickedStartAtTop && !pickedBlockNode.isPossibleToAppendBack())){
                 releaseConnectionProcess();
                 return;
             }
@@ -72,7 +72,10 @@ public class BlockConnectionHandler {
                     .getTabsController()
                     .getTabModelDesignController()
                     .getBlockConnectionManager()
-                    .setEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()).add(CanvasConstant.CUBIC_CURVE_END_GAP));
+                    .setEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()).add(
+                            isClickedStartAtTop?
+                                CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_START_AT_TOP :
+                                CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_START_AT_BOTTOM));
         }
     }
 
@@ -85,20 +88,21 @@ public class BlockConnectionHandler {
                 if(pastPickedBlockNode == currentPickedBlockNode)
                     return;
 
-                if(isClickedOnTop && currentPickedBlockNode.isPossibleToAppendBack()){
+                if(isClickedStartAtTop && currentPickedBlockNode.isPossibleToAppendBack()){
                     CanvasSingleton.getInstance().getBlockNodeManager().link(currentPickedBlockNode, pastPickedBlockNode);
-                    reshapeSourceBlockNode(currentPickedBlockNode, pastPickedBlockNode);
+                    reshapeTopBlockNode(currentPickedBlockNode, pastPickedBlockNode);
+//                    reshapeBottomBlockNode(currentPickedBlockNode, pastPickedBlockNode);
                 }
-                else if(!isClickedOnTop && currentPickedBlockNode.isPossibleToAppendFront()){
+                else if(!isClickedStartAtTop && currentPickedBlockNode.isPossibleToAppendFront()){
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pastPickedBlockNode, currentPickedBlockNode);
-                    reshapeSourceBlockNode(pastPickedBlockNode, currentPickedBlockNode);
+                    reshapeTopBlockNode(pastPickedBlockNode, currentPickedBlockNode);
                 }
             }
             releaseConnectionProcess();
         }
     }
 
-    private static void reshapeSourceBlockNode(BlockNode sourceBlockNode, BlockNode destinationBlockNode){
+    private static void reshapeTopBlockNode(BlockNode sourceBlockNode, BlockNode destinationBlockNode){
         Point3D topSkewed = new Point3D(0,0, 0);
         Point3D bottomSkewed = new Point3D(destinationBlockNode.getBlockInfo().getPosition().getX() - sourceBlockNode.getBlockInfo().getPosition().getX(), 0,0);
         Point3D newPosition = new Point3D(
@@ -123,6 +127,33 @@ public class BlockConnectionHandler {
         sourceBlockNode.setPosition(newPosition.getX(), newPosition.getY(), newPosition.getZ());
         sourceBlockNode.getBlockInfo().getLayer().setExtra(skewedBlockProperty);
         CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(sourceBlockNode.getBlockInfo().getLayer().getId());
+    }
+
+    private static void reshapeBottomBlockNode(BlockNode sourceBlockNode, BlockNode destinationBlockNode){
+        Point3D topSkewed = new Point3D(sourceBlockNode.getBlockInfo().getPosition().getX() - destinationBlockNode.getBlockInfo().getPosition().getX(),0, 0);
+        Point3D bottomSkewed = new Point3D(0, 0,0);
+        Point3D newPosition = new Point3D(
+                (sourceBlockNode.getBlockInfo().getPosition().getX() + destinationBlockNode.getBlockInfo().getPosition().getX()) / 2 -
+                        (topSkewed.getX() / 2),
+                ((sourceBlockNode.getBlockInfo().getPosition().getY() + sourceBlockNode.getBlockInfo().getHeight() / 2) +
+                        (destinationBlockNode.getBlockInfo().getPosition().getY() + destinationBlockNode.getBlockInfo().getHeight() / 2)) / 2,
+                (sourceBlockNode.getBlockInfo().getPosition().getZ() + destinationBlockNode.getBlockInfo().getPosition().getZ()) / 2);
+
+        double height = destinationBlockNode.getBlockInfo().getPosition().getY() - sourceBlockNode.getBlockInfo().getPosition().getY(); // Caused by coordination.
+        height -= destinationBlockNode.getBlockInfo().getHeight()/2;
+        height += sourceBlockNode.getBlockInfo().getHeight()/2;
+        if(height < 0){
+            releaseConnectionProcess();
+            throw new IllegalConnectionRequest();
+        }
+
+        SkewedBlockProperty skewedBlockProperty = new SkewedBlockProperty();
+        skewedBlockProperty.setTopSkewed(topSkewed);
+        skewedBlockProperty.setBottomSkewed(bottomSkewed);
+        destinationBlockNode.setHeight(height);
+        destinationBlockNode.setPosition(newPosition.getX(), newPosition.getY(), newPosition.getZ());
+        destinationBlockNode.getBlockInfo().getLayer().setExtra(skewedBlockProperty);
+        CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(destinationBlockNode.getBlockInfo().getLayer().getId());
     }
 
     private static void releaseConnectionProcess(){

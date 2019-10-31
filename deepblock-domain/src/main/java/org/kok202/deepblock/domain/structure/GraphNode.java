@@ -75,23 +75,14 @@ public class GraphNode<T> {
         from.edges.add(newEdge);
     }
 
-    void removeEdge(T data){
-        edges.stream()
-            .filter(graphEdge ->
-                    graphEdge.getSourceGraphNode().getData() == data ||
-                    graphEdge.getDestinationGraphNode().getData() == data)
-            .forEach(this::removeEdge);
-    }
-
-    void removeEdge(GraphEdge<T> graphEdge){
-        graphEdge.getSourceGraphNode().edges.remove(graphEdge);
-        graphEdge.getDestinationGraphNode().edges.remove(graphEdge);
-        graphEdge.setSourceGraphNode(null);
-        graphEdge.setDestinationGraphNode(null);
-    }
-
     void remove(){
-        edges.stream().forEach(this::removeEdge);
+        List<GraphEdge> graphEdgeClones = new ArrayList<>(edges);
+        for (GraphEdge graphEdge : graphEdgeClones) {
+            graphEdge.getSourceGraphNode().edges.remove(graphEdge);
+            graphEdge.getDestinationGraphNode().edges.remove(graphEdge);
+            graphEdge.setSourceGraphNode(null);
+            graphEdge.setDestinationGraphNode(null);
+        }
         edges = null;
         data = null;
     }
