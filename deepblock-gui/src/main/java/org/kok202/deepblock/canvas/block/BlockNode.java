@@ -58,7 +58,7 @@ public abstract class BlockNode {
         blockHexahedronList.forEach(blockHexahedron -> blockHexahedron.addedToScene(sceneRoot));
     }
 
-    protected void deleteHexahedrons(){
+    public final void deleteHexahedrons(){
         Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
         blockHexahedronList.forEach(blockHexahedron -> {
             blockHexahedron.removedFromScene(sceneRoot);

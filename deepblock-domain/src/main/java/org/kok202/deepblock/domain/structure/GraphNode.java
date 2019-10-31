@@ -97,32 +97,11 @@ public class GraphNode<T> {
     }
 
     // TODO : IMPORTANT : if it possible, it must not have cycle
-    void removeAllWithReachableNode(){
-        getOutgoingNodes().forEach(GraphNode::remove);
-        remove();
-    }
-
-    // TODO : IMPORTANT : if it possible, it must not have cycle
-    public List<GraphNode<T>> getAllReachableNodes(){
-        List<GraphNode<T>> result = new ArrayList<>();
-        getAllReachableNodes(result);
-        return result;
-    }
-
-    // TODO : IMPORTANT : if it possible, it must not have cycle
     public List<GraphNode<T>> getAllLinkedNodes(){
         List<GraphNode<T>> result = new ArrayList<>();
         result.add(this);
         getAllLinkedNodes(result);
         return result;
-    }
-
-    private void getAllReachableNodes(List<GraphNode<T>> result){
-        List<GraphNode<T>> outgoingNodes = getOutgoingNodes();
-        for(GraphNode<T> outgoingNode : outgoingNodes){
-            result.add(outgoingNode);
-            outgoingNode.getAllReachableNodes(result);
-        }
     }
 
     private void getAllLinkedNodes(List<GraphNode<T>> result){

@@ -5,6 +5,7 @@ import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -67,11 +68,17 @@ public class GraphManager<T> {
         sourceGraphNode.createEdgeTo(destinationGraphNode);
     }
 
-    public void removeReachableGraphNode(Predicate predicate) {
+    public void removeGraphNode(Predicate predicate, Consumer callback) {
+        List<GraphNode> deleteList = new ArrayList<>();
         for(GraphNode<T> graphNode : graphNodes) {
-            if(predicate.test(graphNode.getData()))
-                graphNode.removeAllWithReachableNode();
+            if(predicate.test(graphNode.getData())) {
+                callback.accept(graphNode);
+                dataNodes.remove(graphNode.getData());
+                graphNode.remove();
+                deleteList.add(graphNode);
+            }
         }
+        graphNodes.removeAll(deleteList);
     }
 
     public List<T> getAllLinkedNodesData(T selectedData){
