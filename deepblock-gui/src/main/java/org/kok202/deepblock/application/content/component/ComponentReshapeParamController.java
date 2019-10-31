@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.global.AppConstant;
-import org.kok202.deepblock.canvas.entity.SplitBlockProperty;
 
 public class ComponentReshapeParamController extends AbstractLayerComponentController {
 
@@ -44,11 +43,10 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
 
     private void setTextFieldByLayerProperties(){
         detachTextChangedListener(textFieldInputX, textFieldInputY, textFieldOutputX, textFieldOutputY);
-        SplitBlockProperty splitBlockProperty = (SplitBlockProperty) layer.getExtra();
         textFieldInputX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldInputY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputX.setText(String.valueOf(splitBlockProperty.getSplitLeftSize()[0]));
-        textFieldOutputY.setText(String.valueOf(splitBlockProperty.getSplitLeftSize()[1]));
+        textFieldOutputX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
         attachTextChangedListener(textFieldInputX, textFieldInputY, textFieldOutputX, textFieldOutputY);
     }
 

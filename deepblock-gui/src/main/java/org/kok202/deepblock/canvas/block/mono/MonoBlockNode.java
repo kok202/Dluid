@@ -2,11 +2,13 @@ package org.kok202.deepblock.canvas.block.mono;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
+import javafx.scene.Group;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.entity.SkewedBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.BlockHexahedron;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
+import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 
 public abstract class MonoBlockNode extends BlockNode {
 
@@ -23,10 +25,11 @@ public abstract class MonoBlockNode extends BlockNode {
                 layer.getProperties().getOutputSize()[0] * CanvasConstant.NODE_UNIT,
                 layer.getProperties().getOutputSize()[1] * CanvasConstant.NODE_UNIT);
 
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
+        Point3D topSkewed = getTopSkewed(layer);
+        Point3D bottomSkewed = getBottomSkewed(layer);
         BlockHexahedron layerHexahedron = createHexahedron(
-                topSize, skewedBlockProperty.getTopSkewed(),
-                bottomSize, skewedBlockProperty.getBottomSkewed(),
+                topSize, topSkewed,
+                bottomSize, bottomSkewed,
                 getBlockInfo().getHeight());
         getBlockHexahedronList().add(layerHexahedron);
     }
@@ -53,6 +56,28 @@ public abstract class MonoBlockNode extends BlockNode {
                 .build();
     }
 
+    public final void reshapeBlockModel(Layer layer, Point2D topSize, Point2D bottomSize) {
+        deleteHexahedrons();
+        Point3D topSkewed = getTopSkewed(layer);
+        Point3D bottomSkewed = getBottomSkewed(layer);
+
+        BlockHexahedron layerHexahedron = reshapeHexahedron(
+                topSize, topSkewed,
+                bottomSize, bottomSkewed,
+                getBlockInfo().getHeight(),
+                getBlockInfo().getPosition());
+        getBlockHexahedronList().add(layerHexahedron);
+        refreshBlockCover();
+    }
+
+    private BlockHexahedron reshapeHexahedron(Point2D topSize, Point3D topSkewed, Point2D bottomSize, Point3D bottomSkewed, double height, Point3D position){
+        Group sceneRoot = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneRoot();
+        BlockHexahedron blockHexahedron = createHexahedron(topSize, topSkewed, bottomSize, bottomSkewed, height);
+        blockHexahedron.setPosition(position.getX(), position.getY(), position.getZ());
+        blockHexahedron.addedToScene(sceneRoot);
+        return blockHexahedron;
+    }
+
     @Override
     public void setHeight(double height){
         getBlockInfo().setHeight(height);
@@ -72,5 +97,23 @@ public abstract class MonoBlockNode extends BlockNode {
     @Override
     public boolean isPossibleToAppendBack() {
         return true;
+    }
+
+    private Point3D getTopSkewed(Layer layer){
+        if(layer.getExtra() == null)
+            return new Point3D(0, 0, 0);
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
+        return (skewedBlockProperty.getTopSkewed() == null)?
+                new Point3D(0, 0, 0):
+                skewedBlockProperty.getTopSkewed();
+    }
+
+    private Point3D getBottomSkewed(Layer layer){
+        if(layer.getExtra() == null)
+            return new Point3D(0, 0, 0);
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
+        return (skewedBlockProperty.getBottomSkewed() == null)?
+                new Point3D(0, 0, 0):
+                skewedBlockProperty.getBottomSkewed();
     }
 }

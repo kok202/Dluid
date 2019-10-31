@@ -7,6 +7,7 @@ import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.block.activation.ActivationBlockNode;
+import org.kok202.deepblock.canvas.block.mono.MonoBlockNode;
 import org.kok202.deepblock.canvas.block.stereo.SplitBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
@@ -60,6 +61,13 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         if(blockNode instanceof ActivationBlockNode){
             ActivationBlockNode activationBlockNode = (ActivationBlockNode) blockNode;
             activationBlockNode.reshapeBlockModel(
+                    layer,
+                    new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
+                    new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
+        }
+        else if(blockNode instanceof MonoBlockNode){
+            MonoBlockNode monoBlockNode = (MonoBlockNode) blockNode;
+            monoBlockNode.reshapeBlockModel(
                     layer,
                     new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
                     new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
