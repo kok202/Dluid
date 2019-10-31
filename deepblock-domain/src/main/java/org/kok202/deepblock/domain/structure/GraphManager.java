@@ -68,11 +68,11 @@ public class GraphManager<T> {
         sourceGraphNode.createEdgeTo(destinationGraphNode);
     }
 
-    public void removeGraphNode(Predicate predicate, Consumer callback) {
+    public void removeGraphNode(Predicate predicate, Consumer removeBefore) {
         List<GraphNode<T>> graphNodeClones = new ArrayList<>(graphNodes);
         for (GraphNode<T> graphNode : graphNodeClones) {
             if (predicate.test(graphNode.getData())) {
-                callback.accept(graphNode);
+                removeBefore.accept(graphNode);
                 dataNodes.remove(graphNode.getData());
                 graphNode.remove();
                 graphNodes.remove(graphNode);
