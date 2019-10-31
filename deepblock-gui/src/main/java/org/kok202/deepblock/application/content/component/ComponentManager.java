@@ -52,7 +52,6 @@ public class ComponentManager {
             case INPUT_LAYER:
             case TRAIN_INPUT_LAYER:
             case TEST_INPUT_LAYER:
-            case RESHAPE_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 break;
             case OUTPUT_LAYER:
@@ -67,6 +66,10 @@ public class ComponentManager {
             case SPLIT_OUT_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentSplitOutParamController(layer));
+                break;
+            case RESHAPE_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentReshapeParamController(layer));
                 break;
             case LSTM:
                 componentList.add(new ComponentCommonInfoController(layer));

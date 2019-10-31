@@ -44,6 +44,7 @@ public class MaterialListAdvancedLayer extends AbstractMaterialList {
         layerAssistantList.add(new MaterialTestInputController());
         layerAssistantList.add(new MaterialSplitInController());
         layerAssistantList.add(new MaterialSplitOutController());
+        layerAssistantList.add(new MaterialReshapeController());
     }
 
     @Override
