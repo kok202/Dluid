@@ -76,8 +76,8 @@ public class GraphNode<T> {
     }
 
     void remove(){
-        List<GraphEdge> graphEdgeClone = new ArrayList<>(edges);
-        for (GraphEdge graphEdge : graphEdgeClone) {
+        List<GraphEdge> graphEdgeClones = new ArrayList<>(edges);
+        for (GraphEdge graphEdge : graphEdgeClones) {
             graphEdge.getSourceGraphNode().edges.remove(graphEdge);
             graphEdge.getDestinationGraphNode().edges.remove(graphEdge);
             graphEdge.setSourceGraphNode(null);
