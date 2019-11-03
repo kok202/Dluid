@@ -6,9 +6,6 @@ import org.kok202.deepblock.canvas.block.mono.InputBlockNode;
 import org.kok202.deepblock.canvas.block.mono.ReshapeBlockNode;
 import org.kok202.deepblock.canvas.block.mono.TestInputBlockNode;
 import org.kok202.deepblock.canvas.block.mono.TrainInputBlockNode;
-import org.kok202.deepblock.canvas.block.stereo.SplitInBlockNode;
-import org.kok202.deepblock.canvas.block.stereo.SplitOutBlockNode;
-import org.kok202.deepblock.canvas.entity.SplitBlockProperty;
 
 public class BlockNodeFactory {
     public static BlockNode create(Layer layer){
@@ -29,14 +26,6 @@ public class BlockNodeFactory {
                 return new TestInputBlockNode(layer);
             case OUTPUT_LAYER:
                 return new OutputBlockNode(layer);
-            case SPLIT_IN_LAYER:
-                SplitBlockProperty splitInBlockProperty = new SplitBlockProperty();
-                layer.setExtra(splitInBlockProperty);
-                return new SplitInBlockNode(layer);
-            case SPLIT_OUT_LAYER:
-                SplitBlockProperty splitOutBlockProperty = new SplitBlockProperty();
-                layer.setExtra(splitOutBlockProperty);
-                return new SplitOutBlockNode(layer);
             case RESHAPE_LAYER:
                 return new ReshapeBlockNode(layer);
         }
