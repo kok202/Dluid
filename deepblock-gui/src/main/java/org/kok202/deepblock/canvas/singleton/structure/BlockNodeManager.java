@@ -1,20 +1,18 @@
 package org.kok202.deepblock.canvas.singleton.structure;
 
-import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.block.activation.ActivationBlockNode;
-import org.kok202.deepblock.canvas.block.mono.MonoBlockNode;
-import org.kok202.deepblock.canvas.block.stereo.SplitBlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.deepblock.domain.structure.GraphManager;
 import org.kok202.deepblock.domain.structure.GraphNode;
 
 import java.util.Collection;
+import java.util.List;
 
 @Data
 public class BlockNodeManager extends GraphManager<BlockNode>{
@@ -62,34 +60,66 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         BlockNode blockNode = graphNode.getData();
         Layer layer = blockNode.getBlockInfo().getLayer();
         LayerProperties layerProperties = layer.getProperties();
-
-        if(blockNode instanceof ActivationBlockNode){
-            ActivationBlockNode activationBlockNode = (ActivationBlockNode) blockNode;
-            activationBlockNode.reshapeBlockModel(
-                    layer,
-                    new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
-                    new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
-        }
-        else if(blockNode instanceof MonoBlockNode){
-            MonoBlockNode monoBlockNode = (MonoBlockNode) blockNode;
-            monoBlockNode.reshapeBlockModel(
-                    layer,
-                    new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
-                    new Point2D(layerProperties.getOutputSize()[0] * CanvasConstant.NODE_UNIT,layerProperties.getOutputSize()[1] * CanvasConstant.NODE_UNIT));
-        }
-        else if(blockNode instanceof SplitBlockNode){
-            SplitBlockNode splitBlockNode = (SplitBlockNode) blockNode;
-            splitBlockNode.reshapeBlockModel(layer);
-        }
+        blockNode.reshapeBlockModel();
 
         graphNode.getIncomingNodes().forEach(incomingNode -> {
             LayerType parentLayerType = incomingNode.getData().getBlockInfo().getLayer().getType();
             if(parentLayerType.isInputLayerType()) {
-                ActivationBlockNode parentInputBlockNode = (ActivationBlockNode) incomingNode.getData();
-                parentInputBlockNode.reshapeBlockModel(
-                        layer,
-                        new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT),
-                        new Point2D(layerProperties.getInputSize()[0] * CanvasConstant.NODE_UNIT, layerProperties.getInputSize()[1] * CanvasConstant.NODE_UNIT));
+                incomingNode.getData().getBlockInfo().getLayer().getProperties().setInputSize(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
+                incomingNode.getData().getBlockInfo().getLayer().getProperties().setOutputSize(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
+                incomingNode.getData().reshapeBlockModel();
+            }
+        });
+    }
+
+    public void alignBlockNode(){
+        getGraphNodes().forEach(blockNodeGraphNode -> {
+            switch(blockNodeGraphNode.getData().getBlockInfo().getLayer().getType()){
+                case SPLIT_OUT_LAYER:
+                    break;
+                case SPLIT_IN_LAYER:
+                    break;
+                default:
+                    List<GraphNode<BlockNode>> incomingNodes = blockNodeGraphNode.getIncomingNodes();
+                    List<GraphNode<BlockNode>> outgoingNodes = blockNodeGraphNode.getOutgoingNodes();
+                    if(incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
+                        // Independent node
+                        blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
+                        blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
+                        blockNodeGraphNode.getData().reshapeBlockModel();
+                    }
+                    else if(incomingNodes.isEmpty() && !outgoingNodes.isEmpty()){
+                        // Top node
+                        blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
+                        blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
+                        GraphNode<BlockNode> outgoingBlockNodeGraphNode = outgoingNodes.get(0);
+                        Point3D pivotPosition = outgoingBlockNodeGraphNode.getData()
+                                .getTopCenterPosition(0)
+                                .add(0,-blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
+                        blockNodeGraphNode.getData().setPosition(
+                                pivotPosition.getX(),
+                                pivotPosition.getY(),
+                                pivotPosition.getZ());
+                        blockNodeGraphNode.getData().reshapeBlockModel();
+                    }
+                    else if(!incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
+                        // Bottom node
+                        blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
+                        blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
+                        GraphNode<BlockNode> incomingBlockNodeGraphNode = incomingNodes.get(0);
+                        Point3D pivotPosition = incomingBlockNodeGraphNode.getData()
+                                .getBottomCenterPosition(0)
+                                .add(0,blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
+                        blockNodeGraphNode.getData().setPosition(
+                                pivotPosition.getX(),
+                                pivotPosition.getY(),
+                                pivotPosition.getZ());
+                        blockNodeGraphNode.getData().reshapeBlockModel();
+                    }
+                    else {
+                        // Middle node
+                    }
+                    break;
             }
         });
     }

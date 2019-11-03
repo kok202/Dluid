@@ -62,8 +62,13 @@ public abstract class ActivationBlockNode extends BlockNode {
                 .build();
     }
 
-    public final void reshapeBlockModel(Layer layer, Point2D topSize, Point2D bottomSize) {
+    public final void reshapeBlockModel() {
         deleteHexahedrons();
+        Layer layer = getBlockInfo().getLayer();
+        Point2D topSize = new Point2D(layer.getProperties().getInputSize()[0], layer.getProperties().getInputSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D bottomSize = new Point2D(layer.getProperties().getOutputSize()[0], layer.getProperties().getOutputSize()[1])
+                .multiply(CanvasConstant.NODE_UNIT);
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
         Point3D topSkewed = getTopSkewed(layer);
         Point3D bottomSkewed = getBottomSkewed(layer);
@@ -180,5 +185,19 @@ public abstract class ActivationBlockNode extends BlockNode {
                 .getBlockNodeManager()
                 .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
         return frontGraphNode.getOutgoingNodes().isEmpty();
+    }
+
+    @Override
+    public Point3D getTopCenterPosition(int index){
+        return getBlockInfo().getPosition()
+                .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
+                .add(getTopSkewed(getBlockInfo().getLayer()));
+    }
+
+    @Override
+    public Point3D getBottomCenterPosition(int index){
+        return getBlockInfo().getPosition()
+                .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
+                .add(getBottomSkewed(getBlockInfo().getLayer()));
     }
 }

@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class SkewedBlockProperty {
-    private Point3D topSkewed;
-    private Point3D bottomSkewed;
+    private Point3D topSkewed; // NOTICE : Ignore y skewed
+    private Point3D bottomSkewed; // NOTICE : Ignore y skewed
 }
