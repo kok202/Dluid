@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 public class OptimizerUtil {
     private static HashMap<String, Optimizer> optimizerHashMap;
-    private static HashMap<Optimizer, IUpdater> iUpdaterHashMap;
 
     private static HashMap<String, Optimizer> getOptimizerHashMap(){
         if(optimizerHashMap == null){
@@ -30,25 +29,33 @@ public class OptimizerUtil {
         return getOptimizerHashMap().get(optimizerString);
     }
 
-    private static HashMap<Optimizer, IUpdater> getIUpdaterHashMap(){
-        if(iUpdaterHashMap == null){
-            iUpdaterHashMap = new HashMap<>();
-            iUpdaterHashMap.put(Optimizer.ADAM, new Adam());
-            iUpdaterHashMap.put(Optimizer.ADA_DELTA, new AdaDelta());
-            iUpdaterHashMap.put(Optimizer.ADA_GRAD, new AdaGrad());
-            iUpdaterHashMap.put(Optimizer.ADA_MAX, new AdaMax());
-            iUpdaterHashMap.put(Optimizer.AMS_GRAD, new AMSGrad());
-            iUpdaterHashMap.put(Optimizer.NADAM, new Nadam());
-            iUpdaterHashMap.put(Optimizer.NESTEROVS, new Nesterovs());
-            iUpdaterHashMap.put(Optimizer.NOOP, new NoOp());
-            iUpdaterHashMap.put(Optimizer.RMS_PROP, new RmsProp());
-            iUpdaterHashMap.put(Optimizer.SGD, new Sgd());
+    private static IUpdater createIUpdater(Optimizer optimizer, double learningRate){
+        switch (optimizer){
+            case ADAM:
+                return new Adam(learningRate);
+            case ADA_DELTA:
+                return new AdaDelta();
+            case ADA_GRAD:
+                return new AdaGrad(learningRate);
+            case ADA_MAX:
+                return new AdaMax(learningRate);
+            case AMS_GRAD:
+                return new AMSGrad(learningRate);
+            case NADAM:
+                return new Nadam(learningRate);
+            case NESTEROVS:
+                return new Nesterovs(learningRate);
+            case NOOP:
+                return new NoOp();
+            case RMS_PROP:
+                return new RmsProp(learningRate);
+            case SGD:
+            default:
+                return new Sgd(learningRate);
         }
-        return iUpdaterHashMap;
     }
 
     public static IUpdater createIUpdaterFromString(Optimizer optimizer, double learningRate){
-        IUpdater iUpdater = getIUpdaterHashMap().get(optimizer);
-        return (iUpdater != null)? iUpdater : new Sgd(learningRate);
+        return createIUpdater(optimizer, learningRate);
     }
 }
