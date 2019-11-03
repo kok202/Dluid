@@ -72,7 +72,13 @@ public abstract class BlockNode {
 
     protected abstract void createBlockModel(Layer layer);
 
+    public abstract void reshapeBlockModel();
+
     public abstract boolean isPossibleToAppendFront();
 
     public abstract boolean isPossibleToAppendBack();
+
+    public abstract Point3D getTopCenterPosition(int index);
+
+    public abstract Point3D getBottomCenterPosition(int index);
 }

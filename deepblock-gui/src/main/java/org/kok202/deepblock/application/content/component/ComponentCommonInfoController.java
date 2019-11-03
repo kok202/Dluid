@@ -42,6 +42,9 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
                     .getComponentContainerController()
                     .getComponentManager()
                     .clearComponentContainer();
+            CanvasSingleton.getInstance()
+                    .getBlockNodeManager()
+                    .alignBlockNode();
         }));
     }
 }
