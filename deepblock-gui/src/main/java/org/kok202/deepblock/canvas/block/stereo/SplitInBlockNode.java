@@ -38,8 +38,8 @@ public class SplitInBlockNode extends SplitBlockNode {
         Point2D rightTopPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP).add(getRightTopSkewed());
         Point2D leftBottomPosition = new Point2D(0,0).add(getLeftBottomSkewed());
         Point2D rightBottomPosition = new Point2D(0,0).add(getRightBottomSkewed());
-        BlockHexahedron leftHexahedron = createHexahedron(leftSize, leftTopPosition, bottomSize, leftBottomPosition, getBlockInfo().getHeight());
-        BlockHexahedron rightHexahedron = createHexahedron(rightSize, rightTopPosition, bottomSize, rightBottomPosition, getBlockInfo().getHeight());
+        BlockHexahedron leftHexahedron = createHexahedron(leftSize, leftTopPosition, bottomSize, leftBottomPosition, getLeftHeight());
+        BlockHexahedron rightHexahedron = createHexahedron(rightSize, rightTopPosition, bottomSize, rightBottomPosition, getRightHeight());
         getBlockHexahedronList().add(leftHexahedron);
         getBlockHexahedronList().add(rightHexahedron);
     }
@@ -60,8 +60,8 @@ public class SplitInBlockNode extends SplitBlockNode {
         Point2D rightTopPosition = getRightPosition(leftSize, rightSize, CanvasConstant.NODE_GAP).add(getRightTopSkewed());
         Point2D leftBottomPosition = new Point2D(0,0).add(getLeftBottomSkewed());
         Point2D rightBottomPosition = new Point2D(0,0).add(getRightBottomSkewed());
-        BlockHexahedron leftHexahedron = reshapeHexahedron(leftSize, leftTopPosition, bottomSize, leftBottomPosition, getBlockInfo().getHeight(), getBlockInfo().getPosition());
-        BlockHexahedron rightHexahedron = reshapeHexahedron(rightSize, rightTopPosition, bottomSize, rightBottomPosition,  getBlockInfo().getHeight(), getBlockInfo().getPosition());
+        BlockHexahedron leftHexahedron = reshapeHexahedron(leftSize, leftTopPosition, bottomSize, leftBottomPosition, getLeftHeight(), getBlockInfo().getPosition());
+        BlockHexahedron rightHexahedron = reshapeHexahedron(rightSize, rightTopPosition, bottomSize, rightBottomPosition,  getRightHeight(), getBlockInfo().getPosition());
         getBlockHexahedronList().add(leftHexahedron);
         getBlockHexahedronList().add(rightHexahedron);
         refreshBlockCover();
@@ -74,7 +74,7 @@ public class SplitInBlockNode extends SplitBlockNode {
 
     @Override
     public boolean isPossibleToAppendBack() {
-        return true;
+        return false;
     }
 
     @Override

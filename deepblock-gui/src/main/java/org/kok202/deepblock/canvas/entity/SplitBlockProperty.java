@@ -8,9 +8,11 @@ public class SplitBlockProperty {
     private int[] splitLeftSize;
     private int[] splitRightSize;
 
+    private double leftHeight;
     private Point3D leftTopSkewed; // NOTICE : Ignore y skewed
     private Point3D leftBottomSkewed; // NOTICE : Ignore y skewed
 
+    private double rightHeight;
     private Point3D rightTopSkewed; // NOTICE : Ignore y skewed
     private Point3D rightBottomSkewed; // NOTICE : Ignore y skewed
 

@@ -50,6 +50,20 @@ public abstract class SplitBlockNode extends BlockNode {
         return blockHexahedron;
     }
 
+    protected final double getLeftHeight(){
+        if(getBlockInfo().getLayer().getExtra() == null)
+            return getBlockInfo().getHeight();
+        SplitBlockProperty splitBlockProperty = (SplitBlockProperty) getBlockInfo().getLayer().getExtra();
+        return (splitBlockProperty.getLeftHeight() > 0)? splitBlockProperty.getLeftHeight() : getBlockInfo().getHeight();
+    }
+
+    protected final double getRightHeight(){
+        if(getBlockInfo().getLayer().getExtra() == null)
+            return getBlockInfo().getHeight();
+        SplitBlockProperty splitBlockProperty = (SplitBlockProperty) getBlockInfo().getLayer().getExtra();
+        return (splitBlockProperty.getLeftHeight() > 0)? splitBlockProperty.getLeftHeight() : getBlockInfo().getHeight();
+    }
+
     protected final Point2D getLeftSize(){
         if(getBlockInfo().getLayer().getExtra() == null)
             return new Point2D(0,0);
