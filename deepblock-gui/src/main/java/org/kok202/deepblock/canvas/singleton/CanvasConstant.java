@@ -37,6 +37,6 @@ public class CanvasConstant {
     public static final int CUBIC_CURVE_OFFSET_X = 1;
     public static final int CUBIC_CURVE_OFFSET_Y = 1;
     // For escaping pickResult always indicating cubic curve
-    public static final Point2D CUBIC_CURVE_END_GAP_WHEN_START_AT_TOP = new Point2D(2, 5);
-    public static final Point2D CUBIC_CURVE_END_GAP_WHEN_START_AT_BOTTOM = new Point2D(2, -5);
+    public static final Point2D CUBIC_CURVE_END_GAP_WHEN_UPWARD = new Point2D(2, 5);
+    public static final Point2D CUBIC_CURVE_END_GAP_WHEN_DOWNWARD = new Point2D(2, -5);
 }

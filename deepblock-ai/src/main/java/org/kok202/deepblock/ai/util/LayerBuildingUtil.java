@@ -29,6 +29,7 @@ public class LayerBuildingUtil {
     private static GraphBuilder addLayer(GraphBuilder graphBuilder, GraphNode<Layer> layerGraphNode){
         Builder layerBuilder;
         switch(layerGraphNode.getData().getType()){
+            case PIPE_LAYER:
             case RESHAPE_LAYER:
                 break;
             case INPUT_LAYER:
@@ -76,7 +77,8 @@ public class LayerBuildingUtil {
 
         List<String> resultStrings = new ArrayList<>();
         for (GraphNode<Layer> incomingNode : incomingNodes) {
-            if(incomingNode.getData().getType() == LayerType.RESHAPE_LAYER){
+            if(incomingNode.getData().getType() == LayerType.RESHAPE_LAYER ||
+                incomingNode.getData().getType() == LayerType.PIPE_LAYER){
                 resultStrings.addAll(getFromNodeIdStrings(incomingNode));
             }
             else {

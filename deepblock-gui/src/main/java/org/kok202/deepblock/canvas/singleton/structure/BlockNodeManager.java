@@ -88,7 +88,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
                 GraphNode<BlockNode> outgoingBlockNodeGraphNode = outgoingNodes.get(0);
                 Point3D pivotPosition = outgoingBlockNodeGraphNode.getData()
-                        .getTopCenterPosition(0)
+                        .getTopCenterPosition()
                         .add(0,-blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
                 blockNodeGraphNode.getData().setPosition(
                         pivotPosition.getX(),
@@ -102,7 +102,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
                 GraphNode<BlockNode> incomingBlockNodeGraphNode = incomingNodes.get(0);
                 Point3D pivotPosition = incomingBlockNodeGraphNode.getData()
-                        .getBottomCenterPosition(0)
+                        .getBottomCenterPosition()
                         .add(0,blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
                 blockNodeGraphNode.getData().setPosition(
                         pivotPosition.getX(),

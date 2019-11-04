@@ -2,10 +2,7 @@ package org.kok202.deepblock.canvas.block;
 
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.canvas.block.activation.*;
-import org.kok202.deepblock.canvas.block.mono.InputBlockNode;
-import org.kok202.deepblock.canvas.block.mono.ReshapeBlockNode;
-import org.kok202.deepblock.canvas.block.mono.TestInputBlockNode;
-import org.kok202.deepblock.canvas.block.mono.TrainInputBlockNode;
+import org.kok202.deepblock.canvas.block.mono.*;
 
 public class BlockNodeFactory {
     public static BlockNode create(Layer layer){
@@ -26,6 +23,8 @@ public class BlockNodeFactory {
                 return new TestInputBlockNode(layer);
             case OUTPUT_LAYER:
                 return new OutputBlockNode(layer);
+            case PIPE_LAYER:
+                return new PipeBlockNode(layer);
             case RESHAPE_LAYER:
                 return new ReshapeBlockNode(layer);
         }

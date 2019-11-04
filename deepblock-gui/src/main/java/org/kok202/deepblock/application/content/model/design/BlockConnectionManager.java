@@ -22,4 +22,6 @@ public class BlockConnectionManager {
     public void setEnd(Point2D position) {
         blockConnectionFollower.setEnd(position);
     }
+
+    public boolean isUpward(){ return (blockConnectionFollower.getStart().getY() - blockConnectionFollower.getEnd().getY()) > 0; }
 }

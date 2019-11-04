@@ -78,7 +78,7 @@ public abstract class BlockNode {
 
     public abstract boolean isPossibleToAppendBack();
 
-    public abstract Point3D getTopCenterPosition(int index);
+    public abstract Point3D getTopCenterPosition();
 
-    public abstract Point3D getBottomCenterPosition(int index);
+    public abstract Point3D getBottomCenterPosition();
 }

@@ -59,6 +59,9 @@ public class ComponentManager {
                 componentList.add(new ComponentCommonFunctionController(layer));
                 componentList.add(new ComponentOutputParamController(layer));
                 break;
+            case PIPE_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                break;
             case RESHAPE_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentReshapeParamController(layer));
