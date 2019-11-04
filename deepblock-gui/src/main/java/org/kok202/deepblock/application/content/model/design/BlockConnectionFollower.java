@@ -53,4 +53,16 @@ public class BlockConnectionFollower extends AbstractController {
         cubicCurve.setEndX(position.getX());
         cubicCurve.setEndY(position.getY());
     }
+
+    Point2D getStart() {
+        return new Point2D(
+                cubicCurve.getStartX(),
+                cubicCurve.getStartY());
+    }
+
+    Point2D getEnd() {
+        return new Point2D(
+            cubicCurve.getEndX(),
+            cubicCurve.getEndY());
+    }
 }

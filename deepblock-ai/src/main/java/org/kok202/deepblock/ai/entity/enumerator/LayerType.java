@@ -22,8 +22,7 @@ public enum LayerType {
     INPUT_LAYER,
     TRAIN_INPUT_LAYER,
     TEST_INPUT_LAYER,
-    SPLIT_IN_LAYER,
-    SPLIT_OUT_LAYER,
+    PIPE_LAYER,
     RESHAPE_LAYER,
 
     /**********************************************************

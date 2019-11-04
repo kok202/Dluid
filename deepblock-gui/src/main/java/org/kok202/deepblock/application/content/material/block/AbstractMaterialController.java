@@ -51,11 +51,8 @@ public abstract class AbstractMaterialController extends AbstractController {
             case OUTPUT_LAYER:
                 itself.getStyleClass().add("layer-block-image-output");
                 break;
-            case SPLIT_IN_LAYER:
-                itself.getStyleClass().add("layer-block-image-split-in");
-                break;
-            case SPLIT_OUT_LAYER:
-                itself.getStyleClass().add("layer-block-image-split-out");
+            case PIPE_LAYER:
+                itself.getStyleClass().add("layer-block-image-pipe");
                 break;
             case RESHAPE_LAYER:
                 itself.getStyleClass().add("layer-block-image-reshape");

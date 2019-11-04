@@ -123,14 +123,14 @@ public abstract class MonoBlockNode extends BlockNode {
     }
 
     @Override
-    public Point3D getTopCenterPosition(int index){
+    public Point3D getTopCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
                 .add(getTopSkewed(getBlockInfo().getLayer()));
     }
 
     @Override
-    public Point3D getBottomCenterPosition(int index){
+    public Point3D getBottomCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
                 .add(getBottomSkewed(getBlockInfo().getLayer()));

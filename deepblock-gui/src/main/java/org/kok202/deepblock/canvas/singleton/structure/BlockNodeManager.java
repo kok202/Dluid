@@ -74,52 +74,44 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
 
     public void alignBlockNode(){
         getGraphNodes().forEach(blockNodeGraphNode -> {
-            switch(blockNodeGraphNode.getData().getBlockInfo().getLayer().getType()){
-                case SPLIT_OUT_LAYER:
-                    break;
-                case SPLIT_IN_LAYER:
-                    break;
-                default:
-                    List<GraphNode<BlockNode>> incomingNodes = blockNodeGraphNode.getIncomingNodes();
-                    List<GraphNode<BlockNode>> outgoingNodes = blockNodeGraphNode.getOutgoingNodes();
-                    if(incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
-                        // Independent node
-                        blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
-                        blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
-                        blockNodeGraphNode.getData().reshapeBlockModel();
-                    }
-                    else if(incomingNodes.isEmpty() && !outgoingNodes.isEmpty()){
-                        // Top node
-                        blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
-                        blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
-                        GraphNode<BlockNode> outgoingBlockNodeGraphNode = outgoingNodes.get(0);
-                        Point3D pivotPosition = outgoingBlockNodeGraphNode.getData()
-                                .getTopCenterPosition(0)
-                                .add(0,-blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
-                        blockNodeGraphNode.getData().setPosition(
-                                pivotPosition.getX(),
-                                pivotPosition.getY(),
-                                pivotPosition.getZ());
-                        blockNodeGraphNode.getData().reshapeBlockModel();
-                    }
-                    else if(!incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
-                        // Bottom node
-                        blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
-                        blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
-                        GraphNode<BlockNode> incomingBlockNodeGraphNode = incomingNodes.get(0);
-                        Point3D pivotPosition = incomingBlockNodeGraphNode.getData()
-                                .getBottomCenterPosition(0)
-                                .add(0,blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
-                        blockNodeGraphNode.getData().setPosition(
-                                pivotPosition.getX(),
-                                pivotPosition.getY(),
-                                pivotPosition.getZ());
-                        blockNodeGraphNode.getData().reshapeBlockModel();
-                    }
-                    else {
-                        // Middle node
-                    }
-                    break;
+            List<GraphNode<BlockNode>> incomingNodes = blockNodeGraphNode.getIncomingNodes();
+            List<GraphNode<BlockNode>> outgoingNodes = blockNodeGraphNode.getOutgoingNodes();
+            if(incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
+                // Independent node
+                blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
+                blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
+                blockNodeGraphNode.getData().reshapeBlockModel();
+            }
+            else if(incomingNodes.isEmpty() && !outgoingNodes.isEmpty()){
+                // Top node
+                blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
+                blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
+                GraphNode<BlockNode> outgoingBlockNodeGraphNode = outgoingNodes.get(0);
+                Point3D pivotPosition = outgoingBlockNodeGraphNode.getData()
+                        .getTopCenterPosition()
+                        .add(0,-blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
+                blockNodeGraphNode.getData().setPosition(
+                        pivotPosition.getX(),
+                        pivotPosition.getY(),
+                        pivotPosition.getZ());
+                blockNodeGraphNode.getData().reshapeBlockModel();
+            }
+            else if(!incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
+                // Bottom node
+                blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
+                blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
+                GraphNode<BlockNode> incomingBlockNodeGraphNode = incomingNodes.get(0);
+                Point3D pivotPosition = incomingBlockNodeGraphNode.getData()
+                        .getBottomCenterPosition()
+                        .add(0,blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
+                blockNodeGraphNode.getData().setPosition(
+                        pivotPosition.getX(),
+                        pivotPosition.getY(),
+                        pivotPosition.getZ());
+                blockNodeGraphNode.getData().reshapeBlockModel();
+            }
+            else {
+                // Middle node
             }
         });
     }
