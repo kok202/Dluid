@@ -1,4 +1,4 @@
-package org.kok202.deepblock.canvas.singleton;
+package org.kok202.deepblock.canvas.interfaces;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;

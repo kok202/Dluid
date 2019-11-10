@@ -10,7 +10,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
-import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
+import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
 import org.kok202.deepblock.domain.structure.Vector2D;
 
 @Data
@@ -52,11 +52,7 @@ public class MaterialInsertionManager {
                 // Send dragging event to canvas block handler
                 MaterialInsertionInfoHolder materialInsertionInfoHolder = (MaterialInsertionInfoHolder) dragEvent.getDragboard().getContent(MaterialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK);
                 materialInsertionInfoHolder.setDragEvent(dragEvent);
-                CanvasSingleton.getInstance()
-                        .getMainCanvas()
-                        .getMainContent()
-                        .getBlockInsertionHandler()
-                        .hoveringListener(materialInsertionInfoHolder);
+                CanvasInterface.hoveringListener(materialInsertionInfoHolder);
             }
         });
 
@@ -70,12 +66,7 @@ public class MaterialInsertionManager {
                 content.put(materialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK, materialInsertionInfoHolder);
                 dragEvent.getDragboard().setContent(content);
                 dragEvent.setDropCompleted(true);
-
-                CanvasSingleton.getInstance()
-                        .getMainCanvas()
-                        .getMainContent()
-                        .getBlockInsertionHandler()
-                        .insertListener(materialInsertionInfoHolder);
+                CanvasInterface.insertListener(materialInsertionInfoHolder);
             }
         });
 
@@ -89,6 +80,9 @@ public class MaterialInsertionManager {
     public EventHandler<MouseEvent> startBlockInsertion(LayerType layerType){
         // seq 0 : When user start clicking material.material for dragging
         return (MouseEvent event) -> {
+            if(!CanvasInterface.isPossibleToAddLayerType(layerType))
+                return;
+
             // create container and set on clipboard
             MaterialInsertionInfoHolder materialInsertionInfoHolder = new MaterialInsertionInfoHolder();
             materialInsertionInfoHolder.setLayerType(layerType);

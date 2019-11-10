@@ -25,7 +25,7 @@ public class CanvasSingleton {
         this.mainCanvas = mainCanvas;
     }
 
-    public void afterAllWidgetWasSet(){
+    public void afterAllWidgetSet(){
         this.mainCanvas.setResizingListener();
     }
 

@@ -4,7 +4,7 @@ import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.singleton.CanvasConstant;
+import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
 import org.kok202.deepblock.domain.util.RandomUtil;
 
 import java.util.ArrayList;

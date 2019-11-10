@@ -11,10 +11,10 @@ import org.kok202.deepblock.application.content.material.insertion.MaterialInser
 import org.kok202.deepblock.application.global.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.block.BlockNodeFactory;
+import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronVerticalFace;
-import org.kok202.deepblock.canvas.singleton.CanvasConstant;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.canvas.util.Math3D;
 import org.kok202.deepblock.canvas.util.PickResultNodeUtil;

@@ -2,7 +2,7 @@ package org.kok202.deepblock.canvas.block.activation;
 
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.singleton.CanvasConstant;
+import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
 
 public class Convolution2DBlockNode extends ActivationBlockNode {
     public Convolution2DBlockNode(Layer layer) {

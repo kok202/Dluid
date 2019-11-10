@@ -3,7 +3,7 @@ package org.kok202.deepblock.application.content.component;
 import javafx.beans.InvalidationListener;
 import javafx.scene.control.TextField;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
+import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
 
 public abstract class AbstractLayerComponentController extends AbstractComponentController {
     private InvalidationListener changeListener = (changeListener) -> textFieldChangedHandler();
@@ -27,6 +27,6 @@ public abstract class AbstractLayerComponentController extends AbstractComponent
     }
 
     protected void notifyLayerDataChanged(){
-        CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(layer.getId());
+        CanvasInterface.notifyLayerDataChanged(layer.getId());
     }
 }
