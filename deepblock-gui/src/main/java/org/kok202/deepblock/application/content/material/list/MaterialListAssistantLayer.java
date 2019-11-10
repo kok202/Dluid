@@ -5,19 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import org.kok202.deepblock.application.content.material.block.AbstractMaterialController;
 import org.kok202.deepblock.application.content.material.block.MaterialInputController;
 import org.kok202.deepblock.application.content.material.block.MaterialOutputController;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionFollower;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
 
-import java.util.ArrayList;
-
 @Getter
 public class MaterialListAssistantLayer extends AbstractMaterialList {
     @FXML
     private VBox layerAssistantListBox;
-    private ArrayList<AbstractMaterialController> layerAssistantList;
 
     private MaterialInsertionManager materialInsertionManager;
 
@@ -35,22 +31,8 @@ public class MaterialListAssistantLayer extends AbstractMaterialList {
     @Override
     protected void initialize() throws Exception {
         ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
-        addBaseBlockToContentList();
-        addBaseBlockToContentBoxWithEvent();
-    }
-
-    @Override
-    protected void addBaseBlockToContentList(){
-        layerAssistantList = new ArrayList<>();
-        layerAssistantList.add(new MaterialInputController());
-        layerAssistantList.add(new MaterialOutputController());
-    }
-
-    @Override
-    protected void addBaseBlockToContentBoxWithEvent() throws Exception {
-        for(AbstractMaterialController baseBlockController : layerAssistantList){
-            layerAssistantListBox.getChildren().add(baseBlockController.createView());
-            baseBlockController.setOnDragDetected(materialInsertionManager.startBlockInsertion(baseBlockController.getLayerType()));
-        }
+        addAbstractMaterialController(new MaterialInputController());
+        addAbstractMaterialController(new MaterialOutputController());
+        addAbstractMaterialControllerToVBox(layerAssistantListBox, materialInsertionManager);
     }
 }

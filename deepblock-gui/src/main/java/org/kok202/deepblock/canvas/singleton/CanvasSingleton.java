@@ -7,12 +7,12 @@ import org.kok202.deepblock.canvas.singleton.structure.BlockNodeManager;
 
 @Data
 public class CanvasSingleton {
-    private static class CanvasResizerHolder{
+    private static class CanvasSingletonHolder {
         private static final CanvasSingleton instance = new CanvasSingleton();
     }
 
     public static CanvasSingleton getInstance(){
-        return CanvasSingleton.CanvasResizerHolder.instance;
+        return CanvasSingletonHolder.instance;
     }
 
     private MainCanvas mainCanvas;
