@@ -17,16 +17,10 @@ public abstract class AbstractMaterialController extends AbstractController {
     @Setter(AccessLevel.PROTECTED)
     protected LayerType layerType;
 
-    private boolean isUseable = true;
-
     public Pane createView() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/material/block/base_block.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
-    }
-
-    public boolean isUseable() {
-        return isUseable;
     }
 
     protected void setStyleByBlockType(LayerType layerType){

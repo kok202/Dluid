@@ -27,7 +27,7 @@ public class CanvasInterface {
 
     public boolean isPossibleToAddTestInputLayer(){
         for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
-            if(graphNode.getData().getBlockInfo().getLayer().getType().isTrainInputLayerType())
+            if(graphNode.getData().getBlockInfo().getLayer().getType().isTestInputLayerType())
                 return false;
         }
         return true;
@@ -35,7 +35,7 @@ public class CanvasInterface {
 
     public boolean isPossibleToAddOutputLayer(){
         for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
-            if(graphNode.getData().getBlockInfo().getLayer().getType().isTrainInputLayerType())
+            if(graphNode.getData().getBlockInfo().getLayer().getType().isOutputLayerType())
                 return false;
         }
         return true;

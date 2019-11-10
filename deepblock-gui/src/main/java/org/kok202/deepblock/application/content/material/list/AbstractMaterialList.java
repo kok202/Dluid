@@ -26,9 +26,7 @@ public abstract class AbstractMaterialList extends AbstractController {
     protected void addAbstractMaterialControllerToVBox(VBox vBox, MaterialInsertionManager materialInsertionManager) throws Exception {
         for(AbstractMaterialController abstractMaterialController : getAbstractMaterialControllerList()){
             vBox.getChildren().add(abstractMaterialController.createView());
-            if(abstractMaterialController.isUseable()){
-                abstractMaterialController.setOnDragDetected(materialInsertionManager.startBlockInsertion(abstractMaterialController.getLayerType()));
-            }
+            abstractMaterialController.setOnDragDetected(materialInsertionManager.startBlockInsertion(abstractMaterialController.getLayerType()));
         }
     }
 }
