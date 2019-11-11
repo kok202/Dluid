@@ -11,7 +11,7 @@ import org.kok202.deepblock.application.content.model.test.ModelFeatureSetContro
 import org.kok202.deepblock.application.content.model.test.ModelFeatureSetLoaderController;
 import org.kok202.deepblock.application.content.model.test.ModelResultSetController;
 import org.kok202.deepblock.application.content.model.test.ModelTestController;
-import org.kok202.deepblock.application.global.AppPropertiesSingleton;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Data
 public class TabModelTestController extends AbstractController {

@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import lombok.Data;
-import org.kok202.deepblock.application.global.AppWidgetSingleton;
+import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
 
 import java.io.File;
 import java.util.ArrayList;

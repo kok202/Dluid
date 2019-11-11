@@ -1,4 +1,4 @@
-package org.kok202.deepblock.application.global;
+package org.kok202.deepblock.application.facade;
 
 public class AppConstant {
     public static final int DEFAULT_INPUT_SIZE = 1;

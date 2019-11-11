@@ -1,10 +1,10 @@
-package org.kok202.deepblock.ai.global;
+package org.kok202.deepblock.ai.singleton;
 
 import lombok.Data;
-import org.kok202.deepblock.ai.global.structure.ModelInfoProperty;
-import org.kok202.deepblock.ai.global.structure.ModelLayersProperty;
-import org.kok202.deepblock.ai.global.structure.TestProperty;
-import org.kok202.deepblock.ai.global.structure.TrainProperty;
+import org.kok202.deepblock.ai.singleton.structure.ModelInfoProperty;
+import org.kok202.deepblock.ai.singleton.structure.ModelLayersProperty;
+import org.kok202.deepblock.ai.singleton.structure.TestProperty;
+import org.kok202.deepblock.ai.singleton.structure.TrainProperty;
 
 @Data
 public class AIPropertiesSingleton {

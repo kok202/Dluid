@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
+import org.kok202.deepblock.ai.facade.AIFacade;
 
 
 public class ModelInfoController extends AbstractModelTrainController {
@@ -30,13 +30,12 @@ public class ModelInfoController extends AbstractModelTrainController {
     }
 
     public void refreshModelInfoProperty(){
-        textFieldModelName.setText(AIPropertiesSingleton.getInstance().getModelInfoProperty().getModelName());
-        textFieldEpochNumber.setText(AIPropertiesSingleton.getInstance().getModelInfoProperty().getModelLearnedEpochNumber() + "");
+        textFieldModelName.setText(AIFacade.getModelName());
+        textFieldEpochNumber.setText(AIFacade.getModelLearnedEpochNumber() + "");
     }
 
     private void modelNameChangedHandler() {
-        String value = textFieldModelName.getText();
-        AIPropertiesSingleton.getInstance().getModelInfoProperty().setModelName(value);
+        AIFacade.setModelName(textFieldModelName.getText());
     }
 
     private void buttonInitializeActionHandler(){

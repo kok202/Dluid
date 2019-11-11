@@ -10,10 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.kok202.deepblock.application.content.ContentRootController;
-import org.kok202.deepblock.application.global.AppPropertiesSingleton;
-import org.kok202.deepblock.application.global.AppWidgetSingleton;
 import org.kok202.deepblock.application.menu.MenuController;
-import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
+import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
+import org.kok202.deepblock.canvas.facade.CanvasFacade;
 
 public class Main extends Application {
     private MenuBar menuBar;
@@ -54,7 +54,7 @@ public class Main extends Application {
         AppWidgetSingleton.getInstance().setPrimaryStage(primaryStage);
         AppWidgetSingleton.getInstance().setMenuBar(menuBar);
         AppWidgetSingleton.getInstance().setContentRootController(contentRootController);
-        CanvasSingleton.getInstance().afterAllWidgetWasSet();
+        CanvasFacade.initialize();
     }
 
     private void initWindowFrame(Stage primaryStage, Parent fxmlRoot){

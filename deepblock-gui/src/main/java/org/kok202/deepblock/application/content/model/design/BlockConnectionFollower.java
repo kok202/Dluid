@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.CubicCurve;
 import org.kok202.deepblock.application.common.AbstractController;
-import org.kok202.deepblock.canvas.singleton.CanvasConstant;
+import org.kok202.deepblock.canvas.facade.CanvasConstant;
 
 public class BlockConnectionFollower extends AbstractController {
 

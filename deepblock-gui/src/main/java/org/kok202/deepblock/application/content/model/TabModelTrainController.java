@@ -9,7 +9,7 @@ import org.kok202.deepblock.application.common.AbstractController;
 import org.kok202.deepblock.application.content.model.train.ModelInfoController;
 import org.kok202.deepblock.application.content.model.train.ModelTrainController;
 import org.kok202.deepblock.application.content.model.train.ModelTrainParamController;
-import org.kok202.deepblock.application.global.AppPropertiesSingleton;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 
 public class TabModelTrainController extends AbstractController {

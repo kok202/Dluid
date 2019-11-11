@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import org.kok202.deepblock.application.common.AbstractController;
 import org.kok202.deepblock.application.content.model.design.BlockConnectionManager;
-import org.kok202.deepblock.application.global.AppPropertiesSingleton;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.canvas.MainCanvas;
 
 public class TabModelDesignController extends AbstractController {

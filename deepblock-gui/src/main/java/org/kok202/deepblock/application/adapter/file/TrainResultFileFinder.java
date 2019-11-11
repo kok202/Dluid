@@ -2,8 +2,8 @@ package org.kok202.deepblock.application.adapter.file;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
-import org.kok202.deepblock.ai.global.structure.ManagedRecordSet;
+import org.kok202.deepblock.ai.facade.AIFacade;
+import org.kok202.deepblock.ai.singleton.structure.ManagedRecordSet;
 
 public class TrainResultFileFinder extends ExtendedFileFinder {
 
@@ -13,9 +13,6 @@ public class TrainResultFileFinder extends ExtendedFileFinder {
 
     @Override
     public ManagedRecordSet getManagedRecordSet() {
-        return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
-                .getDataSetManager()
-                .getManagedResultRecordSet();
+        return AIFacade.getTrainResultSet();
     }
 }
