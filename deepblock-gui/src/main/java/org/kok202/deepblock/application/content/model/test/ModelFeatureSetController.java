@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
-import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
+import org.kok202.deepblock.ai.interfaces.AIInterface;
 import org.kok202.deepblock.application.adapter.NumericTableViewAdapter;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
@@ -33,11 +33,7 @@ public class ModelFeatureSetController extends AbstractModelTestController {
     }
 
     public void refreshTableView(){
-        NumericRecordSet testNumericRecordSet = AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
-                .getManagedFeatureRecordSet()
-                .getNumericRecordSet();
+        NumericRecordSet testNumericRecordSet = AIInterface.getTestFeatureSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
     }
 }

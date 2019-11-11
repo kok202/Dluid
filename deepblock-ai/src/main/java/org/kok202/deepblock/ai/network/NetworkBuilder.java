@@ -7,7 +7,7 @@ import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
-import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
+import org.kok202.deepblock.ai.singleton.AIPropertiesSingleton;
 import org.kok202.deepblock.ai.util.LayerBuildingUtil;
 import org.kok202.deepblock.ai.util.OptimizerUtil;
 import org.kok202.deepblock.domain.structure.GraphManager;

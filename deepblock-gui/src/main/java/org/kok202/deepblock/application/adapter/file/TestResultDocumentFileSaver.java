@@ -2,7 +2,7 @@ package org.kok202.deepblock.application.adapter.file;
 
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
+import org.kok202.deepblock.ai.interfaces.AIInterface;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.StringRecordSet;
 import org.kok202.deepblock.domain.stream.csv.CsvWriter;
@@ -22,11 +22,7 @@ public class TestResultDocumentFileSaver extends FileSaver{
     @Override
     protected void saveContent(File file) {
         String filePath = file.getPath();
-        NumericRecordSet numericRecordSet = AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
-                .getManagedResultRecordSet()
-                .getNumericRecordSet();
+        NumericRecordSet numericRecordSet = AIInterface.getTestResultSet().getNumericRecordSet();
         StringRecordSet stringRecordSet = numericRecordSet.toStringRecordSet();
 
         if(filePath.endsWith(".xls")) {

@@ -1,4 +1,4 @@
-package org.kok202.deepblock.ai.global;
+package org.kok202.deepblock.ai.singleton;
 
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.graph.ComputationGraph;

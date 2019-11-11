@@ -1,4 +1,4 @@
-package org.kok202.deepblock.ai.global.structure;
+package org.kok202.deepblock.ai.singleton.structure;
 
 import lombok.Data;
 import org.deeplearning4j.nn.weights.WeightInit;

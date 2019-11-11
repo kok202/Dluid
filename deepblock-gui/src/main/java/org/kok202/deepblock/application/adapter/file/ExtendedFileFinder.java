@@ -3,7 +3,7 @@ package org.kok202.deepblock.application.adapter.file;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import org.kok202.deepblock.ai.global.structure.ManagedRecordSet;
+import org.kok202.deepblock.ai.singleton.structure.ManagedRecordSet;
 import org.kok202.deepblock.application.adapter.PopUpExtension;
 import org.kok202.deepblock.application.content.popup.CsvManagementPopUpController;
 import org.kok202.deepblock.application.content.popup.ExcelManagementPopUpController;
