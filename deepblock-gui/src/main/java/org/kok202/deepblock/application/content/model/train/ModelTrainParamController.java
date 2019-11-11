@@ -14,7 +14,7 @@ import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.SplitMenuAdapter;
 import org.kok202.deepblock.application.adapter.file.TrainFeatureFileFinder;
 import org.kok202.deepblock.application.adapter.file.TrainResultFileFinder;
-import org.kok202.deepblock.application.global.AppConstant;
+import org.kok202.deepblock.application.interfaces.AppConstant;
 
 
 public class ModelTrainParamController extends AbstractModelTrainController {

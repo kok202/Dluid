@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.DirectoryChooser;
 import lombok.Data;
-import org.kok202.deepblock.application.global.AppWidgetSingleton;
+import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
 
 import java.io.File;
 import java.util.function.Consumer;

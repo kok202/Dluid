@@ -5,7 +5,7 @@ import org.kok202.deepblock.ai.global.AIModelSingleton;
 import org.kok202.deepblock.ai.global.AIPropertiesSingleton;
 import org.kok202.deepblock.ai.helper.RunnableTrainingListener;
 import org.kok202.deepblock.ai.helper.RunnableTrainingTaskContainer;
-import org.kok202.deepblock.application.global.AppWidgetSingleton;
+import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
 import org.kok202.deepblock.canvas.util.BlockNodeGraphUtil;
 

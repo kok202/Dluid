@@ -1,4 +1,4 @@
-package org.kok202.deepblock.application.global;
+package org.kok202.deepblock.application.singleton;
 
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;

@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.application.global.AppWidgetSingleton;
+import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
 
 public class ComponentCommonInfoController extends AbstractLayerComponentController {

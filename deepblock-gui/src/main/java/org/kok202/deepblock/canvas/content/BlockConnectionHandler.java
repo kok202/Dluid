@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
-import org.kok202.deepblock.application.global.AppWidgetSingleton;
+import org.kok202.deepblock.application.interfaces.AppInterface;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.block.BlockNodeFactory;
 import org.kok202.deepblock.canvas.entity.SkewedBlockProperty;
@@ -36,24 +36,9 @@ public class BlockConnectionHandler {
             }
 
             isClicked = true;
-            AppWidgetSingleton.getInstance()
-                    .getContentRootController()
-                    .getTabsController()
-                    .getTabModelDesignController()
-                    .getBlockConnectionManager()
-                    .setStart(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
-            AppWidgetSingleton.getInstance()
-                    .getContentRootController()
-                    .getTabsController()
-                    .getTabModelDesignController()
-                    .getBlockConnectionManager()
-                    .setEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
-            AppWidgetSingleton.getInstance()
-                    .getContentRootController()
-                    .getTabsController()
-                    .getTabModelDesignController()
-                    .getBlockConnectionManager()
-                    .setVisible(true);
+            AppInterface.setConnectionArrowStart(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
+            AppInterface.setConnectionArrowEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
+            AppInterface.setConnectionArrowVisible(true);
         }
         else{
             releaseConnectionProcess();
@@ -63,21 +48,12 @@ public class BlockConnectionHandler {
     // While
     public static void setOnMouseMoved(Group sceneRoot, MouseEvent mouseEvent){
         if(isClicked){
-            boolean isUpward = AppWidgetSingleton.getInstance()
-                    .getContentRootController()
-                    .getTabsController()
-                    .getTabModelDesignController()
-                    .getBlockConnectionManager()
-                    .isUpward();
-            AppWidgetSingleton.getInstance()
-                    .getContentRootController()
-                    .getTabsController()
-                    .getTabModelDesignController()
-                    .getBlockConnectionManager()
-                    .setEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()).add(
-                            isUpward?
-                                CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_UPWARD :
-                                CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_DOWNWARD));
+            boolean isUpward = AppInterface.isConnectionArrowUpward();
+            AppInterface.setConnectionArrowEnd(new
+                    Point2D(mouseEvent.getX(),mouseEvent.getY())
+                    .add(isUpward?
+                            CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_UPWARD :
+                            CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_DOWNWARD));
         }
     }
 
@@ -94,12 +70,7 @@ public class BlockConnectionHandler {
                     return;
                 }
 
-                boolean isUpward = AppWidgetSingleton.getInstance()
-                        .getContentRootController()
-                        .getTabsController()
-                        .getTabModelDesignController()
-                        .getBlockConnectionManager()
-                        .isUpward();
+                boolean isUpward = AppInterface.isConnectionArrowUpward();
                 if(isUpward && currentPickedBlockNode.isPossibleToAppendBack()){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pipeBlockNode);
@@ -144,11 +115,6 @@ public class BlockConnectionHandler {
     private static void releaseConnectionProcess(){
         isClicked = false;
         pastPickedBlockNode = null;
-        AppWidgetSingleton.getInstance()
-                .getContentRootController()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getBlockConnectionManager()
-                .setVisible(false);
+        AppInterface.setConnectionArrowVisible(false);
     }
 }

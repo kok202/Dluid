@@ -20,7 +20,7 @@ public class CanvasInterface {
     /*************************************************************************************************
     /* Canvas -> MainContent
     *************************************************************************************************/
-     public static void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
+    public static void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
         CanvasSingleton.getInstance()
                 .getMainCanvas()
                 .getMainContent()

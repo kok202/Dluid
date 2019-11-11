@@ -8,7 +8,7 @@ import javafx.scene.shape.Box;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionInfoHolder;
-import org.kok202.deepblock.application.global.AppWidgetSingleton;
+import org.kok202.deepblock.application.interfaces.AppInterface;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.block.BlockNodeFactory;
 import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
@@ -91,10 +91,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkFromNewData(insertedBlockNode, targetBlockNode);
-        AppWidgetSingleton.getInstance()
-                .getComponentContainerController()
-                .getComponentManager()
-                .refreshContainerByLayer(insertedBlockNode.getBlockInfo().getLayer());
+        AppInterface.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
     }
 
     private void appendBackToSpecificBlock(LayerType layerType, BlockNode targetBlockNode){
@@ -107,10 +104,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkToNewData(targetBlockNode, insertedBlockNode);
-        AppWidgetSingleton.getInstance()
-                .getComponentContainerController()
-                .getComponentManager()
-                .refreshContainerByLayer(insertedBlockNode.getBlockInfo().getLayer());
+        AppInterface.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
     }
 
     private void createNewBlock(LayerType layerType, Point3D insertingPoint){
@@ -120,10 +114,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .registerSoloNode(insertedBlockNode);
-        AppWidgetSingleton.getInstance()
-                .getComponentContainerController()
-                .getComponentManager()
-                .refreshContainerByLayer(insertedBlockNode.getBlockInfo().getLayer());
+        AppInterface.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
     }
 
     private BlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){

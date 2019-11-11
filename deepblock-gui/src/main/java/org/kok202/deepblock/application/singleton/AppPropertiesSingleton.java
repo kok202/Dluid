@@ -1,4 +1,4 @@
-package org.kok202.deepblock.application.global;
+package org.kok202.deepblock.application.singleton;
 
 import org.kok202.deepblock.application.Main;
 

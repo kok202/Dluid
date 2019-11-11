@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.util.ConvolutionCalculatorUtil;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
-import org.kok202.deepblock.application.global.AppConstant;
+import org.kok202.deepblock.application.interfaces.AppConstant;
 
 public class ComponentConvolution2DParamController extends AbstractConvolutionLayerComponentController {
 
