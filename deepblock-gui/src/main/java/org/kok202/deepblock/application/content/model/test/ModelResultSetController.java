@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
-import org.kok202.deepblock.ai.interfaces.AIInterface;
+import org.kok202.deepblock.ai.facade.AIFacade;
 import org.kok202.deepblock.application.adapter.NumericTableViewAdapter;
 import org.kok202.deepblock.application.adapter.file.DirectoryChooserAdapter;
 import org.kok202.deepblock.application.adapter.file.TestResultDocumentFileSaver;
@@ -55,12 +55,12 @@ public class ModelResultSetController extends AbstractModelTestController {
     }
 
     public void refreshTableView(){
-        NumericRecordSet testNumericRecordSet = AIInterface.getTestResultSet().getNumericRecordSet();
+        NumericRecordSet testNumericRecordSet = AIFacade.getTestResultSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
     }
 
     private void convertTableViewToResultDataSet(){
-        AIInterface.getTestResultSet().setNumericRecordSet(numericTableViewAdapter.toNumericRecordSet());
+        AIFacade.getTestResultSet().setNumericRecordSet(numericTableViewAdapter.toNumericRecordSet());
     }
 
     @Deprecated

@@ -8,11 +8,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
-import org.kok202.deepblock.application.interfaces.AppInterface;
+import org.kok202.deepblock.application.facade.AppFacade;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.block.BlockNodeFactory;
 import org.kok202.deepblock.canvas.entity.SkewedBlockProperty;
-import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
+import org.kok202.deepblock.canvas.facade.CanvasConstant;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronFace;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.canvas.util.PickResultNodeUtil;
@@ -36,9 +36,9 @@ public class BlockConnectionHandler {
             }
 
             isClicked = true;
-            AppInterface.setConnectionArrowStart(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
-            AppInterface.setConnectionArrowEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
-            AppInterface.setConnectionArrowVisible(true);
+            AppFacade.setConnectionArrowStart(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
+            AppFacade.setConnectionArrowEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
+            AppFacade.setConnectionArrowVisible(true);
         }
         else{
             releaseConnectionProcess();
@@ -48,8 +48,8 @@ public class BlockConnectionHandler {
     // While
     public static void setOnMouseMoved(Group sceneRoot, MouseEvent mouseEvent){
         if(isClicked){
-            boolean isUpward = AppInterface.isConnectionArrowUpward();
-            AppInterface.setConnectionArrowEnd(new
+            boolean isUpward = AppFacade.isConnectionArrowUpward();
+            AppFacade.setConnectionArrowEnd(new
                     Point2D(mouseEvent.getX(),mouseEvent.getY())
                     .add(isUpward?
                             CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_UPWARD :
@@ -70,7 +70,7 @@ public class BlockConnectionHandler {
                     return;
                 }
 
-                boolean isUpward = AppInterface.isConnectionArrowUpward();
+                boolean isUpward = AppFacade.isConnectionArrowUpward();
                 if(isUpward && currentPickedBlockNode.isPossibleToAppendBack()){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pipeBlockNode);
@@ -115,6 +115,6 @@ public class BlockConnectionHandler {
     private static void releaseConnectionProcess(){
         isClicked = false;
         pastPickedBlockNode = null;
-        AppInterface.setConnectionArrowVisible(false);
+        AppFacade.setConnectionArrowVisible(false);
     }
 }

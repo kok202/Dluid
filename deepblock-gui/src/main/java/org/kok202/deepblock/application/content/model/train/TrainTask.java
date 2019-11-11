@@ -2,10 +2,10 @@ package org.kok202.deepblock.application.content.model.train;
 
 import javafx.concurrent.Task;
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.ai.facade.AIFacade;
 import org.kok202.deepblock.ai.helper.RunnableTrainingTaskContainer;
-import org.kok202.deepblock.ai.interfaces.AIInterface;
 import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
-import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
+import org.kok202.deepblock.canvas.facade.CanvasFacade;
 import org.kok202.deepblock.canvas.util.BlockNodeGraphUtil;
 import org.kok202.deepblock.domain.structure.GraphManager;
 
@@ -25,17 +25,17 @@ public class TrainTask extends Task<Integer> {
     protected Integer call() throws Exception {
         modelTrainController.getTextAreaTrainingLog().clear();
         modelTrainController.getTextAreaTrainingLog().appendText("Try to create model.\n");
-        GraphManager<Layer> layerGraphManager = BlockNodeGraphUtil.convertToLayerGraph(CanvasInterface.findTrainInputGraphNode());
-        AIInterface.initializeModel(layerGraphManager);
+        GraphManager<Layer> layerGraphManager = BlockNodeGraphUtil.convertToLayerGraph(CanvasFacade.findTrainInputGraphNode());
+        AIFacade.initializeModel(layerGraphManager);
         modelTrainController.getTextAreaTrainingLog().appendText("Try to create model. [done]\n");
 
         modelTrainController.getTextAreaTrainingLog().appendText("Try to add listener for print log.\n");
         int epochTaskPeriod = 1;
-        int batchTaskPeriod = AIInterface.getTrainTotalRecordSize() / AIInterface.getTrainBatchSize() / 10;
+        int batchTaskPeriod = AIFacade.getTrainTotalRecordSize() / AIFacade.getTrainBatchSize() / 10;
         epochTaskPeriod = (epochTaskPeriod <= 0)? 1 : epochTaskPeriod;
         batchTaskPeriod = (batchTaskPeriod <= 0)? 1 : batchTaskPeriod;
 
-        AIInterface.initializeTrainListener(
+        AIFacade.initializeTrainListener(
                 epochTaskPeriod,
                 batchTaskPeriod,
                 (taskContainerObj) -> {
@@ -59,7 +59,7 @@ public class TrainTask extends Task<Integer> {
                 });
         modelTrainController.getTextAreaTrainingLog().appendText("Try to add listener for print log. [done]\n");
         modelTrainController.getTextAreaTrainingLog().appendText("Training start.\n");
-        AIInterface.trainModel();
+        AIFacade.trainModel();
         updateProgress(100, 100);
         updateMessage(String.valueOf(100));
         return 100;
@@ -71,9 +71,9 @@ public class TrainTask extends Task<Integer> {
         modelTrainController.getButtonTrainingOneTime().setDisable(false);
         modelTrainController.getButtonTrainingNTime().setDisable(false);
         modelTrainController.getButtonTrainingStop().setDisable(true);
-        int learnedEpoch = AIInterface.getModelLearnedEpochNumber();
-        int trainedEpoch = AIInterface.getTrainEpoch();
-        AIInterface.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
+        int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
+        int trainedEpoch = AIFacade.getTrainEpoch();
+        AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
         AppWidgetSingleton.getInstance().getContentRootController().getTabsController().getTabModelTrainController().refreshModelInfo();
     }
 

@@ -13,7 +13,7 @@ import org.kok202.deepblock.application.content.ContentRootController;
 import org.kok202.deepblock.application.menu.MenuController;
 import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
-import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
+import org.kok202.deepblock.canvas.facade.CanvasFacade;
 
 public class Main extends Application {
     private MenuBar menuBar;
@@ -54,7 +54,7 @@ public class Main extends Application {
         AppWidgetSingleton.getInstance().setPrimaryStage(primaryStage);
         AppWidgetSingleton.getInstance().setMenuBar(menuBar);
         AppWidgetSingleton.getInstance().setContentRootController(contentRootController);
-        CanvasInterface.initialize();
+        CanvasFacade.initialize();
     }
 
     private void initWindowFrame(Stage primaryStage, Parent fxmlRoot){

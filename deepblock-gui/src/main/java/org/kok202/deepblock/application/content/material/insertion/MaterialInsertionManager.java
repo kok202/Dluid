@@ -10,7 +10,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
-import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
+import org.kok202.deepblock.canvas.facade.CanvasFacade;
 import org.kok202.deepblock.domain.structure.Vector2D;
 
 @Data
@@ -52,7 +52,7 @@ public class MaterialInsertionManager {
                 // Send dragging event to canvas block handler
                 MaterialInsertionInfoHolder materialInsertionInfoHolder = (MaterialInsertionInfoHolder) dragEvent.getDragboard().getContent(MaterialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK);
                 materialInsertionInfoHolder.setDragEvent(dragEvent);
-                CanvasInterface.hoveringListener(materialInsertionInfoHolder);
+                CanvasFacade.hoveringListener(materialInsertionInfoHolder);
             }
         });
 
@@ -66,7 +66,7 @@ public class MaterialInsertionManager {
                 content.put(materialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK, materialInsertionInfoHolder);
                 dragEvent.getDragboard().setContent(content);
                 dragEvent.setDropCompleted(true);
-                CanvasInterface.insertListener(materialInsertionInfoHolder);
+                CanvasFacade.insertListener(materialInsertionInfoHolder);
             }
         });
 
@@ -80,7 +80,7 @@ public class MaterialInsertionManager {
     public EventHandler<MouseEvent> startBlockInsertion(LayerType layerType){
         // seq 0 : When user start clicking material.material for dragging
         return (MouseEvent event) -> {
-            if(!CanvasInterface.isPossibleToAddLayerType(layerType))
+            if(!CanvasFacade.isPossibleToAddLayerType(layerType))
                 return;
 
             // create container and set on clipboard

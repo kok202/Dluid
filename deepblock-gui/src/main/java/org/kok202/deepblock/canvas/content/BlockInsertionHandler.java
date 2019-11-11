@@ -8,10 +8,10 @@ import javafx.scene.shape.Box;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionInfoHolder;
-import org.kok202.deepblock.application.interfaces.AppInterface;
+import org.kok202.deepblock.application.facade.AppFacade;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.block.BlockNodeFactory;
-import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
+import org.kok202.deepblock.canvas.facade.CanvasConstant;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronVerticalFace;
@@ -91,7 +91,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkFromNewData(insertedBlockNode, targetBlockNode);
-        AppInterface.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
+        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
     }
 
     private void appendBackToSpecificBlock(LayerType layerType, BlockNode targetBlockNode){
@@ -104,7 +104,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkToNewData(targetBlockNode, insertedBlockNode);
-        AppInterface.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
+        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
     }
 
     private void createNewBlock(LayerType layerType, Point3D insertingPoint){
@@ -114,7 +114,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .registerSoloNode(insertedBlockNode);
-        AppInterface.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
+        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
     }
 
     private BlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){

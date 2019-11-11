@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
-import org.kok202.deepblock.application.interfaces.AppConstant;
+import org.kok202.deepblock.application.facade.AppConstant;
 
 public class ComponentReshapeParamController extends AbstractLayerComponentController {
 

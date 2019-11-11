@@ -1,4 +1,4 @@
-package org.kok202.deepblock.canvas.interfaces;
+package org.kok202.deepblock.canvas.facade;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;

@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
-import org.kok202.deepblock.canvas.interfaces.CanvasInterface;
+import org.kok202.deepblock.canvas.facade.CanvasFacade;
 
 public class ComponentCommonInfoController extends AbstractLayerComponentController {
     @FXML private Label labelLayerId;
@@ -35,12 +35,12 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
         textFieldLayerId.setText(String.valueOf(layer.getId()));
         textFieldLayerType.setText(layer.getType().toString());
         buttonDelete.setOnAction((event -> {
-            CanvasInterface.removeGraphNode(layer.getId());
+            CanvasFacade.removeGraphNode(layer.getId());
             AppWidgetSingleton.getInstance()
                     .getComponentContainerController()
                     .getComponentManager()
                     .clearComponentContainer();
-            CanvasInterface.alignBlockNode();
+            CanvasFacade.alignBlockNode();
         }));
     }
 }

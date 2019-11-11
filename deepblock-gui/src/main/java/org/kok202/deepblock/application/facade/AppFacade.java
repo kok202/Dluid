@@ -1,11 +1,11 @@
-package org.kok202.deepblock.application.interfaces;
+package org.kok202.deepblock.application.facade;
 
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
 
-public class AppInterface {
+public class AppFacade {
 
     /*************************************************************************************************
      /* Canvas size

@@ -6,7 +6,7 @@ import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
+import org.kok202.deepblock.canvas.facade.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.deepblock.domain.structure.GraphManager;
 import org.kok202.deepblock.domain.structure.GraphNode;

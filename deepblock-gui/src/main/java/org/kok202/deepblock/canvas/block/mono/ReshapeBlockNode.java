@@ -2,7 +2,7 @@ package org.kok202.deepblock.canvas.block.mono;
 
 import javafx.scene.paint.Color;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.interfaces.CanvasConstant;
+import org.kok202.deepblock.canvas.facade.CanvasConstant;
 
 public class ReshapeBlockNode extends MonoBlockNode {
     public ReshapeBlockNode(Layer layer) {

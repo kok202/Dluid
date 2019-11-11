@@ -1,4 +1,4 @@
-package org.kok202.deepblock.canvas.interfaces;
+package org.kok202.deepblock.canvas.facade;
 
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
@@ -8,7 +8,7 @@ import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.domain.structure.GraphNode;
 
 @Data
-public class CanvasInterface {
+public class CanvasFacade {
 
     /*************************************************************************************************
      /* Singleton itself

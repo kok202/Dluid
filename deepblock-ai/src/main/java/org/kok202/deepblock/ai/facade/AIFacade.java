@@ -1,4 +1,4 @@
-package org.kok202.deepblock.ai.interfaces;
+package org.kok202.deepblock.ai.facade;
 
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.Layer;
@@ -11,7 +11,7 @@ import org.kok202.deepblock.domain.structure.GraphManager;
 
 import java.util.function.Consumer;
 
-public class AIInterface {
+public class AIFacade {
     /*************************************************************************************************
      /* AI model
      *************************************************************************************************/

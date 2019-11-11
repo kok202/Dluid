@@ -9,12 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
-import org.kok202.deepblock.ai.interfaces.AIInterface;
+import org.kok202.deepblock.ai.facade.AIFacade;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.SplitMenuAdapter;
 import org.kok202.deepblock.application.adapter.file.TrainFeatureFileFinder;
 import org.kok202.deepblock.application.adapter.file.TrainResultFileFinder;
-import org.kok202.deepblock.application.interfaces.AppConstant;
+import org.kok202.deepblock.application.facade.AppConstant;
 
 
 public class ModelTrainParamController extends AbstractModelTrainController {
@@ -71,55 +71,55 @@ public class ModelTrainParamController extends AbstractModelTrainController {
 
     private void setLearningRate() {
         double value = TextFieldUtil.parseDouble(textFieldLearningRate);
-        AIInterface.setTrainLearningRate(value);
+        AIFacade.setTrainLearningRate(value);
     }
 
     private void setBatchSize() {
         int value = TextFieldUtil.parseInteger(textFieldBatchSize);
-        AIInterface.setTrainBatchSize(value);
+        AIFacade.setTrainBatchSize(value);
     }
 
     private void setRecordSize() {
         int value = TextFieldUtil.parseInteger(textFieldRecordSize);
-        AIInterface.setTrainTotalRecordSize(value);
+        AIFacade.setTrainTotalRecordSize(value);
     }
 
     private void setEpoch() {
         int value = TextFieldUtil.parseInteger(textFieldEpoch);
-        AIInterface.setTrainEpoch(value);
+        AIFacade.setTrainEpoch(value);
     }
 
     private void setButtonFeatureFinderActionHandler(){
         TrainFeatureFileFinder trainFeatureFileFinder = new TrainFeatureFileFinder(textFieldFindTrainingFeature, buttonFindTrainingFeature);
         trainFeatureFileFinder.initialize();
-        trainFeatureFileFinder.setCallbackAfterLoad(() -> textFieldRecordSize.setText(AIInterface.getTrainTotalRecordSize() + ""));
+        trainFeatureFileFinder.setCallbackAfterLoad(() -> textFieldRecordSize.setText(AIFacade.getTrainTotalRecordSize() + ""));
     }
 
     private void setButtonResultFinderActionHandler(){
         TrainResultFileFinder trainResultFileFinder = new TrainResultFileFinder(textFieldFindTrainingResult, buttonFindTrainingResult);
         trainResultFileFinder.initialize();
-        trainResultFileFinder.setCallbackAfterLoad(() -> textFieldRecordSize.setText(AIInterface.getTrainTotalRecordSize() + ""));
+        trainResultFileFinder.setCallbackAfterLoad(() -> textFieldRecordSize.setText(AIFacade.getTrainTotalRecordSize() + ""));
         //FIXME : feature 랑 result 랑 사이즈가 맞는지도 비교
     }
 
     private void initializeSplitMenuWeightInit(){
         SplitMenuAdapter<WeightInit> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuWeightInit);
-        splitMenuAdapter.setMenuItemChangedListener(AIInterface::setTrainWeightInit);
+        splitMenuAdapter.setMenuItemChangedListener(AIFacade::setTrainWeightInit);
         splitMenuAdapter.addMenuItem("1로 초기화", WeightInit.ONES);
         splitMenuAdapter.addMenuItem("0으로 초기화", WeightInit.ZERO);
         splitMenuAdapter.addMenuItem("Xavier 초기화", WeightInit.XAVIER);
         splitMenuAdapter.addMenuItem("Uniform 초기화", WeightInit.UNIFORM);
         splitMenuAdapter.addMenuItem("Distribution 초기화", WeightInit.DISTRIBUTION);
         splitMenuAdapter.addMenuItem("Normal 초기화", WeightInit.NORMAL);
-        splitMenuAdapter.setDefaultMenuItem(AIInterface.getTrainWeightInit());
+        splitMenuAdapter.setDefaultMenuItem(AIFacade.getTrainWeightInit());
     }
 
     private void initializeSplitMenuOptimizer(){
         SplitMenuAdapter<Optimizer> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuOptimizer);
-        splitMenuAdapter.setMenuItemChangedListener(AIInterface::setTrainOptimizer);
+        splitMenuAdapter.setMenuItemChangedListener(AIFacade::setTrainOptimizer);
         splitMenuAdapter.addMenuItem("Gradient descent optimizer", Optimizer.SGD);
         splitMenuAdapter.addMenuItem("ADAM optimizer", Optimizer.ADAM);
         splitMenuAdapter.addMenuItem("No optimizer", Optimizer.NOOP);
-        splitMenuAdapter.setDefaultMenuItem(AIInterface.getTrainOptimizer());
+        splitMenuAdapter.setDefaultMenuItem(AIFacade.getTrainOptimizer());
     }
 }
