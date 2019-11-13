@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.deepblock.ai.facade.AIFacade;
@@ -18,6 +19,7 @@ import org.kok202.deepblock.domain.stream.StringRecordSet;
 @Data
 public class ModelResultSetController extends AbstractModelTestController {
 
+    @FXML private TitledPane tiltedPane;
     @FXML private TableView tableViewResultSet;
     @FXML private Button buttonExportAsImage;
     @FXML private Button buttonExportAsDocument;

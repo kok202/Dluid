@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <!--============================================================= Titled =============================================================-->
+        <TitledPane fx:id="tiltedPane" animated="false" text="랜덤 테스트 데이터 생성" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                    <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <VBox>
+                                    <GridPane>
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="10.0" prefWidth="100.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                        <children>
+                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                                <children>
+                                                    <Label fx:id="labelRandomInputWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                                <children>
+                                                    <Label fx:id="labelRandomInputHeight" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                </children>
+                                            </AnchorPane>
+                                            <Label fx:id="labelRandomInputSize" text="Input size : " GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <children>
+                                                    <TextField fx:id="textFieldRandomInputSizeX" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    </TextField>
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                <children>
+                                                    <TextField fx:id="textFieldRandomInputSizeY" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    </TextField>
+                                                </children>
+                                            </AnchorPane>
+
+
+
+                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <children>
+                                                    <Label fx:id="labelRandomMin" alignment="CENTER" text="Min" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                <children>
+                                                    <Label fx:id="labelRandomMax" alignment="CENTER" text="Max" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                </children>
+                                            </AnchorPane>
+                                            <Label fx:id="labelRandom" text="Random range : " GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <children>
+                                                    <TextField fx:id="textFieldRandomInputRangeMin" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    </TextField>
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                <children>
+                                                    <TextField fx:id="textFieldRandomInputRangeMax" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    </TextField>
+                                                </children>
+                                            </AnchorPane>
+                                        </children>
+                                    </GridPane>
+                                    <HBox alignment="CENTER_RIGHT">
+                                        <Button fx:id="buttonGenerateRandomData" text="Generate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        </Button>
+                                    </HBox>
+                                </VBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+
+    </children>
+</AnchorPane>

@@ -3,6 +3,7 @@ package org.kok202.deepblock.application.content.model.test;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.deepblock.ai.facade.AIFacade;
@@ -12,7 +13,7 @@ import org.kok202.deepblock.domain.stream.NumericRecordSet;
 
 @Data
 public class ModelFeatureSetController extends AbstractModelTestController {
-
+    @FXML private TitledPane tiltedPane;
     @FXML private TableView tableViewDataSet;
     private NumericTableViewAdapter numericTableViewAdapter;
 
