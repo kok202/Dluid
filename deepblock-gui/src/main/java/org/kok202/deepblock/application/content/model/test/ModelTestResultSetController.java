@@ -17,7 +17,7 @@ import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.StringRecordSet;
 
 @Data
-public class ModelResultSetController extends AbstractModelTestController {
+public class ModelTestResultSetController extends AbstractModelTestController {
 
     @FXML private TitledPane tiltedPane;
     @FXML private TableView tableViewResultSet;
@@ -27,7 +27,7 @@ public class ModelResultSetController extends AbstractModelTestController {
     private DirectoryChooserAdapter testResultImageDirectoryChooser;
     private TestResultDocumentFileSaver testResultDocumentFileSaver;
 
-    public ModelResultSetController(TabModelTestController tabModelTestController) {
+    public ModelTestResultSetController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 

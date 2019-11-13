@@ -12,12 +12,12 @@ import org.kok202.deepblock.application.content.model.TabModelTestController;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 
 @Data
-public class ModelFeatureSetController extends AbstractModelTestController {
+public class ModelTestFeatureSetController extends AbstractModelTestController {
     @FXML private TitledPane tiltedPane;
     @FXML private TableView tableViewDataSet;
     private NumericTableViewAdapter numericTableViewAdapter;
 
-    public ModelFeatureSetController(TabModelTestController tabModelTestController) {
+    public ModelTestFeatureSetController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 

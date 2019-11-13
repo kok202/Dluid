@@ -12,14 +12,14 @@ import org.kok202.deepblock.application.adapter.file.TestFeatureFileFinder;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
 
 @Data
-public class ModelFeatureSetFileLoaderController extends AbstractModelTestController {
+public class ModelTestFeatureSetFileLoaderController extends AbstractModelTestController {
     @FXML private TitledPane tiltedPane;
     @FXML private Label labelTestDataFromFile;
     @FXML private TextField textFieldFindTestData;
     @FXML private Button buttonFindTestData;
     // 랜덤으로 데이터 불러오는 버튼이 필요
 
-    public ModelFeatureSetFileLoaderController(TabModelTestController tabModelTestController) {
+    public ModelTestFeatureSetFileLoaderController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 
@@ -38,6 +38,6 @@ public class ModelFeatureSetFileLoaderController extends AbstractModelTestContro
     private void setButtonFinderActionHandler(){
         TestFeatureFileFinder testFeatureFileFinder = new TestFeatureFileFinder(textFieldFindTestData, buttonFindTestData);
         testFeatureFileFinder.initialize();
-        testFeatureFileFinder.setCallbackAfterLoad(() -> getTabModelTestController().getModelFeatureSetController().refreshTableView());
+        testFeatureFileFinder.setCallbackAfterLoad(() -> getTabModelTestController().getModelTestFeatureSetController().refreshTableView());
     }
 }
