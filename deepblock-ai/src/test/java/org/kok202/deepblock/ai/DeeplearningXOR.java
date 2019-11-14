@@ -4,8 +4,7 @@ import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
-import org.kok202.deepblock.ai.helper.DataSetConverter;
-import org.kok202.deepblock.ai.helper.NormalTrainingListener;
+import org.kok202.deepblock.ai.listener.NormalTrainingListener;
 import org.kok202.deepblock.ai.singleton.AIModelSingleton;
 import org.kok202.deepblock.ai.singleton.AIPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
@@ -31,8 +30,6 @@ public class DeeplearningXOR {
         NumericRecordSet trainResult = NumericRecordSet.convertFrom(resultSet);
         NumericRecordSet testFeature = NumericRecordSet.convertFrom(dataSet);
         NumericRecordSet testResult = NumericRecordSet.convertFrom(resultSet);
-        DataSetConverter trainDataSetConverter = new DataSetConverter(trainFeature, trainResult);
-        DataSetConverter testDataSetConverter = new DataSetConverter(testFeature, testResult);
 
         AIPropertiesSingleton.getInstance().getTrainProperty().setBatchSize(4);
         AIPropertiesSingleton.getInstance().getTrainProperty().setTotalRecordSize(4);
@@ -81,8 +78,8 @@ public class DeeplearningXOR {
                         .batchPrintPeriod(1)
                         .totalRecordSize(AIPropertiesSingleton.getInstance().getTrainProperty().getTotalRecordSize())
                         .build());
-        AIModelSingleton.getInstance().train(trainDataSetConverter.toDataSet());
-        System.out.println(AIModelSingleton.getInstance().test(testDataSetConverter.toDataSet()).stats());
+        AIModelSingleton.getInstance().train(trainFeature, trainResult);
+        System.out.println(AIModelSingleton.getInstance().test(testFeature, testResult).stats());
 
     }
 }

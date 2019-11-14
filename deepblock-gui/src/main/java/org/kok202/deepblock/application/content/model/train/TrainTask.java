@@ -3,7 +3,7 @@ package org.kok202.deepblock.application.content.model.train;
 import javafx.concurrent.Task;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.facade.AIFacade;
-import org.kok202.deepblock.ai.helper.RunnableTrainingTaskContainer;
+import org.kok202.deepblock.ai.listener.RunnableTrainingTaskContainer;
 import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
 import org.kok202.deepblock.canvas.facade.CanvasFacade;
 import org.kok202.deepblock.canvas.util.BlockNodeGraphUtil;

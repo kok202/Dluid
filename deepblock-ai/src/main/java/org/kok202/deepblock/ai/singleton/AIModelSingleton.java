@@ -1,17 +1,14 @@
 package org.kok202.deepblock.ai.singleton;
 
-import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.optimize.api.TrainingListener;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.ai.helper.DataSetConverter;
 import org.kok202.deepblock.ai.network.NetworkBuilder;
+import org.kok202.deepblock.ai.util.MultiDataSetIteratorUtil;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.structure.GraphManager;
 import org.nd4j.evaluation.classification.Evaluation;
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.dataset.DataSet;
-import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import org.nd4j.linalg.dataset.api.iterator.MultiDataSetIterator;
 
 public class AIModelSingleton {
 
@@ -49,28 +46,20 @@ public class AIModelSingleton {
     }
 
     public void train(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        DataSetConverter trainDataSetConverter = new DataSetConverter(featureDataSet, resultDataSet);
-        train(trainDataSetConverter.toDataSet());
+        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(featureDataSet, resultDataSet);
+        train(multiDataSetIterator);
     }
 
-    public void train(DataSet dataSet){
-        DataSetIterator dataSetIterator = new ListDataSetIterator<>(dataSet.asList());
-        train(dataSetIterator);
+    public void train(MultiDataSetIterator multiDataSetIterator){
+        model.fit(multiDataSetIterator, AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch());
     }
 
-    public void train(DataSetIterator dataSetIterator){
-        // If using ComputationGraph with dataSetIterator, it can work only if input layer is unique.
-        model.fit(dataSetIterator, AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch());
+    public Evaluation test(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
+        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(featureDataSet, resultDataSet);
+        return test(multiDataSetIterator);
     }
 
-    public Evaluation test(DataSet dataSet){
-        INDArray output = model.outputSingle(dataSet.getFeatures());
-        Evaluation evaluation = new Evaluation();
-        evaluation.eval(dataSet.getLabels(), output);
-        return evaluation;
-    }
-
-    public Evaluation test(DataSetIterator dataSetIterator){
-        return model.evaluate(dataSetIterator);
+    public Evaluation test(MultiDataSetIterator multiDataSetIterator){
+        return model.evaluate(multiDataSetIterator);
     }
 }

@@ -1,4 +1,4 @@
-package org.kok202.deepblock.ai.helper;
+package org.kok202.deepblock.ai.listener;
 
 import org.deeplearning4j.nn.api.Model;
 import org.deeplearning4j.optimize.api.BaseTrainingListener;
