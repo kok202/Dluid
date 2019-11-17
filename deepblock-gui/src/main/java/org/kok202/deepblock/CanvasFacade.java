@@ -1,4 +1,4 @@
-package org.kok202.deepblock.canvas.facade;
+package org.kok202.deepblock;
 
 import lombok.Data;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;

@@ -2,7 +2,7 @@ package org.kok202.deepblock.canvas.content;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
-import org.kok202.deepblock.application.facade.AppFacade;
+import org.kok202.deepblock.AppFacade;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronFace;
 import org.kok202.deepblock.canvas.util.PickResultNodeUtil;

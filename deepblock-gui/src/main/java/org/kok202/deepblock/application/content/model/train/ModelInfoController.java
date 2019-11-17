@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.kok202.deepblock.ai.facade.AIFacade;
+import org.kok202.deepblock.ai.AIFacade;
 
 
 public class ModelInfoController extends AbstractModelTrainController {

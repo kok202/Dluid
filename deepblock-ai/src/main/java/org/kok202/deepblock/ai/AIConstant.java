@@ -1,4 +1,4 @@
-package org.kok202.deepblock.ai.facade;
+package org.kok202.deepblock.ai;
 
 public class AIConstant {
     public static final String TRAIN_INPUT_NAME = "trainFeature";

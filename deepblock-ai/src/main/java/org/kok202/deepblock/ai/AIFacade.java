@@ -1,4 +1,4 @@
-package org.kok202.deepblock.ai.facade;
+package org.kok202.deepblock.ai;
 
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.Layer;

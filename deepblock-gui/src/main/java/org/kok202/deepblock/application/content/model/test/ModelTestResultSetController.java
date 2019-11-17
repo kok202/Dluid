@@ -7,7 +7,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
-import org.kok202.deepblock.ai.facade.AIFacade;
+import org.kok202.deepblock.ai.AIFacade;
 import org.kok202.deepblock.application.adapter.NumericTableViewAdapter;
 import org.kok202.deepblock.application.adapter.file.DirectoryChooserAdapter;
 import org.kok202.deepblock.application.adapter.file.TestResultDocumentFileSaver;

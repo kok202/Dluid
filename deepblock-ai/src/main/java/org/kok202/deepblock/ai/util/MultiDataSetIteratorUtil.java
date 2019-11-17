@@ -2,7 +2,7 @@ package org.kok202.deepblock.ai.util;
 
 import org.datavec.api.records.reader.RecordReader;
 import org.deeplearning4j.datasets.datavec.RecordReaderMultiDataSetIterator;
-import org.kok202.deepblock.ai.facade.AIConstant;
+import org.kok202.deepblock.ai.AIConstant;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.nd4j.linalg.dataset.api.iterator.MultiDataSetIterator;
 

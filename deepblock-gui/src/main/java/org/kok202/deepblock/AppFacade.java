@@ -1,4 +1,4 @@
-package org.kok202.deepblock.application.facade;
+package org.kok202.deepblock;
 
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
