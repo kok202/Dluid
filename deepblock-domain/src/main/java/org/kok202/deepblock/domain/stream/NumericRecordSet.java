@@ -75,4 +75,14 @@ public class NumericRecordSet {
                 .toArray();
         return recordObjects;
     }
+
+    public int getRecordsSize(){
+        return getRecords().size();
+    }
+
+    public int getRecordSize(){
+        if(getRecords() == null || getRecords().isEmpty())
+            return 0;
+        return getRecords().get(0).size();
+    }
 }

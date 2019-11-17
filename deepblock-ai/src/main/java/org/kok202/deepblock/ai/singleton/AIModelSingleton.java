@@ -46,7 +46,11 @@ public class AIModelSingleton {
     }
 
     public void train(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(featureDataSet, resultDataSet);
+        int batchSize = AIPropertiesSingleton
+                .getInstance()
+                .getTrainProperty()
+                .getBatchSize();
+        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(batchSize, featureDataSet, resultDataSet);
         train(multiDataSetIterator);
     }
 
@@ -55,7 +59,11 @@ public class AIModelSingleton {
     }
 
     public Evaluation test(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(featureDataSet, resultDataSet);
+        int batchSize = AIPropertiesSingleton
+                .getInstance()
+                .getTrainProperty()
+                .getBatchSize();
+        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(batchSize, featureDataSet, resultDataSet);
         return test(multiDataSetIterator);
     }
 

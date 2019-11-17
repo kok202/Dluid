@@ -3,13 +3,12 @@ package org.kok202.deepblock.ai.util;
 import lombok.Getter;
 import org.datavec.api.records.reader.RecordReader;
 import org.datavec.api.records.reader.impl.collection.CollectionRecordReader;
-import org.datavec.api.writable.NDArrayWritable;
+import org.datavec.api.writable.DoubleWritable;
 import org.datavec.api.writable.Writable;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
-import org.kok202.deepblock.domain.util.ListUtil;
-import org.nd4j.linalg.factory.Nd4j;
+import org.kok202.deepblock.domain.util.RandomUtil;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +19,25 @@ public class RecordReaderUtil {
                 .getRecords()
                 .stream()
                 .map(record -> {
-                    double[] values = ListUtil.toDoubleArray(record);
-                    return Collections.<Writable>singletonList(new NDArrayWritable(Nd4j.create(values)));
+                    List<Writable> recordWritable = record.stream()
+                            .map(DoubleWritable::new)
+                            .collect(Collectors.toList());
+                    return recordWritable;
                 })
                 .collect(Collectors.toList());
+        RecordReader recordReader = new CollectionRecordReader(recordReaderCollection);
+        return recordReader;
+    }
+
+    public static RecordReader createRamdonRecordReader(int recordsSize, int recordSize){
+        List<List<Writable>> recordReaderCollection = new ArrayList<>();
+        for(int i = 0; i < recordsSize; i++){
+            List<Writable> recordWritable = new ArrayList<>();
+            for(int j = 0; j < recordSize; j++){
+                recordWritable.add(new DoubleWritable(RandomUtil.getDouble()));
+            }
+            recordReaderCollection.add(recordWritable);
+        }
         RecordReader recordReader = new CollectionRecordReader(recordReaderCollection);
         return recordReader;
     }
