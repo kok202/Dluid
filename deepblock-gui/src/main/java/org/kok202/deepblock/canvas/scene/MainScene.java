@@ -6,7 +6,7 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.paint.Color;
 import lombok.Getter;
-import org.kok202.deepblock.canvas.facade.CanvasConstant;
+import org.kok202.deepblock.CanvasConstant;
 import org.kok202.deepblock.domain.structure.Vector2D;
 
 @Getter

@@ -2,8 +2,8 @@ package org.kok202.deepblock.application.content.component;
 
 import javafx.beans.InvalidationListener;
 import javafx.scene.control.TextField;
+import org.kok202.deepblock.CanvasFacade;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.facade.CanvasFacade;
 
 public abstract class AbstractLayerComponentController extends AbstractComponentController {
     private InvalidationListener changeListener = (changeListener) -> textFieldChangedHandler();

@@ -2,11 +2,11 @@ package org.kok202.deepblock.canvas.singleton.structure;
 
 import javafx.geometry.Point3D;
 import lombok.Data;
+import org.kok202.deepblock.CanvasConstant;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.LayerProperties;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.canvas.block.BlockNode;
-import org.kok202.deepblock.canvas.facade.CanvasConstant;
 import org.kok202.deepblock.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.deepblock.domain.structure.GraphManager;
 import org.kok202.deepblock.domain.structure.GraphNode;

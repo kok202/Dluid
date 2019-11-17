@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
-import org.kok202.deepblock.ai.facade.AIFacade;
+import org.kok202.deepblock.AppConstant;
+import org.kok202.deepblock.ai.AIFacade;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
-import org.kok202.deepblock.application.facade.AppConstant;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.util.RandomUtil;
 

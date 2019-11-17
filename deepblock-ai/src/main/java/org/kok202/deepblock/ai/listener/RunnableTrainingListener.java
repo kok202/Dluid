@@ -1,4 +1,4 @@
-package org.kok202.deepblock.ai.helper;
+package org.kok202.deepblock.ai.listener;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,64 +8,56 @@ import org.kok202.deepblock.domain.util.Counter;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 @Getter
-public class NormalTrainingListener extends BaseTrainingListener {
+public class RunnableTrainingListener extends BaseTrainingListener {
     private Counter epochCounter;
     private Counter batchCounter;
+    private Consumer epochTask;
+    private Consumer batchTask;
 
     @Builder
     // totalRecordSize should follow binary square size (ex 1 2 4 8 16 32 64 ...)
-    private NormalTrainingListener(int epochPrintPeriod, int epochSize, int batchPrintPeriod, int batchSize, int totalRecordSize) {
+    private RunnableTrainingListener(int epochTaskPeriod, Consumer epochTask, int epochSize, int batchTaskPeriod, Consumer batchTask, int batchSize, int totalRecordSize) {
         this.epochCounter = new Counter();
         this.batchCounter = new Counter();
+        this.epochTask = epochTask;
+        this.batchTask = batchTask;
         int batchMax = (int) Math.ceil((double) (totalRecordSize) / batchSize);
-        epochCounter.initialize(1, epochPrintPeriod, epochSize);
-        batchCounter.initialize(1, batchPrintPeriod, batchMax);
+        epochCounter.initialize(1, epochTaskPeriod, epochSize);
+        batchCounter.initialize(1, batchTaskPeriod, batchMax);
     }
 
     // epoch start
     @Override
     public void onEpochStart(Model model) {
         batchCounter.reset();
-        if(epochCounter.isAlarmIncludeStart()){
-            System.out.println(String.format("epoch (%d) is started", epochCounter.getCount()));
-        }
     }
 
     // batch : seq.1
     @Override
     public void onForwardPass(Model model, List<INDArray> activations) {
-        if(batchCounter.isAlarmIncludeStart()){
-            System.out.print("batch " + batchCounter.getCount() + " ( " + batchCounter.calcPercent() + " / 100% )");
-            System.out.println(" : try to feedforward ");
-        }
     }
 
     // batch : seq.2
     @Override
     public void onBackwardPass(Model model) {
-        if(batchCounter.isAlarmIncludeStart()){
-            System.out.print("batch " + batchCounter.getCount() + " ( " + batchCounter.calcPercent() + " / 100% )");
-            System.out.println(" : try to backpropagation");
-        }
     }
 
     // batch : seq.3
     @Override
     public void onGradientCalculation(Model model) {
-        if(batchCounter.isAlarmIncludeStart()){
-            System.out.print("batch " + batchCounter.getCount() + " ( " + batchCounter.calcPercent() + " / 100% )");
-            System.out.println(" : try to calc gradient");
-        }
     }
 
     // batch : seq.4
     @Override
     public void iterationDone(Model model, int iteration, int epoch) {
         if(batchCounter.isAlarmIncludeStart()){
-            System.out.print("batch " + batchCounter.getCount() + " ( " + batchCounter.calcPercent() + " / 100% )");
-            System.out.println(" : batch is done. and score is " + model.score());
+            if(batchTask != null) {
+                double totalProgress = getTotalTrainingPercent();
+                batchTask.accept(new RunnableTrainingTaskContainer(epochCounter, batchCounter, totalProgress, model.score()));
+            }
         }
         batchCounter.count();
     }
@@ -74,7 +66,10 @@ public class NormalTrainingListener extends BaseTrainingListener {
     @Override
     public void onEpochEnd(Model model) {
         if(epochCounter.isAlarmIncludeStart()){
-            System.out.println("epoch " + epochCounter.getCount() + " ( " + getTotalTrainingPercent() + " / 100% ) is ended");
+            if(epochTask != null) {
+                double totalProgress = getTotalTrainingPercent();
+                epochTask.accept(new RunnableTrainingTaskContainer(epochCounter, batchCounter, totalProgress, model.score()));
+            }
         }
         epochCounter.count();
     }

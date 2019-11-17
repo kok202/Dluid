@@ -3,7 +3,7 @@ package org.kok202.deepblock.canvas.polygon;
 import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import org.kok202.deepblock.canvas.facade.CanvasConstant;
+import org.kok202.deepblock.CanvasConstant;
 
 public class Sprite extends Quadrangle {
 

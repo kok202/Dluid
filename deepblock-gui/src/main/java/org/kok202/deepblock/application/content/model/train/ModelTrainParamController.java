@@ -8,13 +8,13 @@ import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.deeplearning4j.nn.weights.WeightInit;
+import org.kok202.deepblock.AppConstant;
+import org.kok202.deepblock.ai.AIFacade;
 import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
-import org.kok202.deepblock.ai.facade.AIFacade;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.SplitMenuAdapter;
 import org.kok202.deepblock.application.adapter.file.TrainFeatureFileFinder;
 import org.kok202.deepblock.application.adapter.file.TrainResultFileFinder;
-import org.kok202.deepblock.application.facade.AppConstant;
 
 
 public class ModelTrainParamController extends AbstractModelTrainController {

@@ -3,8 +3,8 @@ package org.kok202.deepblock.canvas.block;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
+import org.kok202.deepblock.CanvasConstant;
 import org.kok202.deepblock.ai.entity.Layer;
-import org.kok202.deepblock.canvas.facade.CanvasConstant;
 import org.kok202.deepblock.domain.util.RandomUtil;
 
 import java.util.ArrayList;

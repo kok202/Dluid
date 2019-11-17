@@ -24,7 +24,7 @@ import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
-import org.kok202.deepblock.ai.helper.NormalTrainingListener;
+import org.kok202.deepblock.ai.listener.NormalTrainingListener;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.learning.config.Nesterovs;

@@ -2,7 +2,7 @@ package org.kok202.deepblock.application.adapter.file;
 
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-import org.kok202.deepblock.ai.facade.AIFacade;
+import org.kok202.deepblock.ai.AIFacade;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.StringRecordSet;
 import org.kok202.deepblock.domain.stream.csv.CsvWriter;

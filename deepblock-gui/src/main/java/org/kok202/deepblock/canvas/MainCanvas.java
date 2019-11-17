@@ -2,7 +2,7 @@ package org.kok202.deepblock.canvas;
 
 import javafx.beans.value.ObservableValue;
 import lombok.Getter;
-import org.kok202.deepblock.application.facade.AppFacade;
+import org.kok202.deepblock.AppFacade;
 import org.kok202.deepblock.canvas.content.MainContent;
 import org.kok202.deepblock.canvas.scene.MainScene;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;

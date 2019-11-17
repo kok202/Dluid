@@ -1,9 +1,9 @@
-package org.kok202.deepblock.ai.facade;
+package org.kok202.deepblock.ai;
 
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.Optimizer;
-import org.kok202.deepblock.ai.helper.RunnableTrainingListener;
+import org.kok202.deepblock.ai.listener.RunnableTrainingListener;
 import org.kok202.deepblock.ai.singleton.AIModelSingleton;
 import org.kok202.deepblock.ai.singleton.AIPropertiesSingleton;
 import org.kok202.deepblock.ai.singleton.structure.ManagedRecordSet;

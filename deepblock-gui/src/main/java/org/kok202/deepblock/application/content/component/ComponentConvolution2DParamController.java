@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import org.kok202.deepblock.AppConstant;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.util.ConvolutionCalculatorUtil;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
-import org.kok202.deepblock.application.facade.AppConstant;
 
 public class ComponentConvolution2DParamController extends AbstractConvolutionLayerComponentController {
 
