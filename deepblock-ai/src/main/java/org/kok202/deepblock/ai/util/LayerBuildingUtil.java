@@ -32,6 +32,12 @@ public class LayerBuildingUtil {
             case PIPE_LAYER:
             case RESHAPE_LAYER:
                 break;
+            case MERGE_LAYER:
+                List<String> layersFrom = getFromNodeIdStrings(layerGraphNode);
+                String mergeVertexId = getCurrentNodeId(layerGraphNode);
+                String[] mergesFrom = layersFrom.toArray(new String[0]);
+                graphBuilder.addVertex(mergeVertexId, new MergeVertex(), mergesFrom);
+                break;
             case INPUT_LAYER:
             case TRAIN_INPUT_LAYER:
             case TEST_INPUT_LAYER:
@@ -59,6 +65,7 @@ public class LayerBuildingUtil {
         String currentLayer = getCurrentNodeId(layerGraphNode);
         List<String> layersFrom = getFromNodeIdStrings(layerGraphNode);
         if(layersFrom.size() > 1){
+            // TODO : Merge layer 가 생기면서 고민.... 어떻게 처리할까?
             String mergeVertexId = currentLayer + "-merged";
             String[] mergesFrom = layersFrom.toArray(new String[0]);
             graphBuilder.addVertex(mergeVertexId, new MergeVertex(), mergesFrom);

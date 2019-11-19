@@ -62,12 +62,28 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         LayerProperties layerProperties = layer.getProperties();
         blockNode.reshapeBlockModel();
 
+        // Reshape parent nodes
         graphNode.getIncomingNodes().forEach(incomingNode -> {
             LayerType parentLayerType = incomingNode.getData().getBlockInfo().getLayer().getType();
             if(parentLayerType.isInputLayerType()) {
                 incomingNode.getData().getBlockInfo().getLayer().getProperties().setInputSize(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
                 incomingNode.getData().getBlockInfo().getLayer().getProperties().setOutputSize(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
                 incomingNode.getData().reshapeBlockModel();
+            }
+            else if(parentLayerType == LayerType.PIPE_LAYER) {
+                incomingNode.getData().getBlockInfo().getLayer().getProperties().setInputSize(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
+                incomingNode.getData().getBlockInfo().getLayer().getProperties().setOutputSize(layerProperties.getInputSize()[0], layerProperties.getInputSize()[1]);
+                incomingNode.getData().reshapeBlockModel();
+            }
+        });
+
+        // Reshape child nodes
+        graphNode.getOutgoingNodes().forEach(outgoingNode -> {
+            LayerType childLayerType = outgoingNode.getData().getBlockInfo().getLayer().getType();
+            if(childLayerType == LayerType.PIPE_LAYER) {
+                outgoingNode.getData().getBlockInfo().getLayer().getProperties().setInputSize(layerProperties.getOutputSize()[0], layerProperties.getOutputSize()[1]);
+                outgoingNode.getData().getBlockInfo().getLayer().getProperties().setOutputSize(layerProperties.getOutputSize()[0], layerProperties.getOutputSize()[1]);
+                outgoingNode.getData().reshapeBlockModel();
             }
         });
     }

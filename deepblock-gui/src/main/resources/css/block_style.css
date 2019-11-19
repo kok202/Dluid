@@ -44,6 +44,12 @@
 	-fx-text-fill: white;
 }
 
+.layer-block-image-merge {
+    -fx-background-image: url("../images/block_merge.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
 .layer-block-image-reshape {
     -fx-background-image: url("../images/block_reshape.png");
     -fx-background-repeat: no-repeat;

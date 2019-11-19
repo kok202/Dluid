@@ -59,6 +59,10 @@ public class ComponentManager {
                 componentList.add(new ComponentCommonFunctionController(layer));
                 componentList.add(new ComponentOutputParamController(layer));
                 break;
+            case MERGE_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new MergeParamController(layer));
+                break;
             case PIPE_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 break;

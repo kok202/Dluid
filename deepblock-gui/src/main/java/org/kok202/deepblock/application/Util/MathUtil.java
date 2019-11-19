@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class MathUtil {
-    public static int[] getRecommendedDivisors(int size){
+    public static List<Integer> getRecommendedDivisors(int size){
         if(size < 0)
             throw new RuntimeException("Size must be over than 0");
         if(size == 1)
-            return new int[]{1, 1};
+            Collections.singletonList(1);
 
         List<Integer> divisors = new ArrayList<>();
         int sqrtSize = (int) Math.sqrt(size);
@@ -20,11 +20,9 @@ public class MathUtil {
             }
         }
 
-        Collections.sort(divisors);
         int middle = divisors.size() / 2;
-        if (divisors.size() % 2 == 0)
-            return new int[]{divisors.get(middle-1), divisors.get(middle)};
-        else
-            return new int[]{divisors.get(middle-1), divisors.get(middle-1)};
+        Collections.sort(divisors);
+        divisors = divisors.subList(0, middle);
+        return divisors;
     }
 }
