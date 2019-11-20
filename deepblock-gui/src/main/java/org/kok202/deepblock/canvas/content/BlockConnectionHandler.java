@@ -15,6 +15,7 @@ import org.kok202.deepblock.canvas.block.BlockNodeFactory;
 import org.kok202.deepblock.canvas.entity.SkewedBlockProperty;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronFace;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
+import org.kok202.deepblock.canvas.util.LayerFactory;
 import org.kok202.deepblock.canvas.util.PickResultNodeUtil;
 import org.kok202.deepblock.domain.exception.IllegalConnectionRequest;
 
@@ -99,11 +100,16 @@ public class BlockConnectionHandler {
             throw new IllegalConnectionRequest();
         }
 
-        SkewedBlockProperty skewedBlockProperty = new SkewedBlockProperty();
+        Layer layer = LayerFactory.create(LayerType.PIPE_LAYER);
+        layer.getProperties().setInputSize(
+            sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[0],
+            sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[1]);
+        layer.getProperties().setOutputSize(
+                sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[0],
+                sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[1]);
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
         skewedBlockProperty.setTopSkewed(topSkewed);
         skewedBlockProperty.setBottomSkewed(bottomSkewed);
-        Layer layer = new Layer(LayerType.PIPE_LAYER);
-        layer.setExtra(skewedBlockProperty);
 
         BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
         pipeBlockNode.setHeight(height);

@@ -6,8 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import org.kok202.deepblock.CanvasFacade;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.Util.MathUtil;
+import org.kok202.deepblock.canvas.entity.MergeBlockProperty;
 
 import java.util.List;
 
@@ -17,9 +19,10 @@ public class MergeParamController extends AbstractLayerComponentController {
     @FXML private Label labelHeight;
     @FXML private Label labelOutputSize;
 
-    @FXML private TextField textFieldInputSize;
-    @FXML private TextField textFieldOutputSizeValueX;
-    @FXML private TextField textFieldOutputSizeValueY;
+    @FXML private TextField textFieldInputSizeX;
+    @FXML private TextField textFieldInputSizeY;
+    @FXML private TextField textFieldOutputSizeX;
+    @FXML private TextField textFieldOutputSizeY;
     @FXML private Button buttonOutputSizeChangeUp;
     @FXML private Button buttonOutputSizeChangeDown;
 
@@ -37,33 +40,34 @@ public class MergeParamController extends AbstractLayerComponentController {
     @Override
     protected void initialize() throws Exception {
         buttonOutputSizeChangeUp.setOnAction(actionEvent -> {
-            int inputSize = layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1];
-            List<Integer> recommendedDivisors = MathUtil.getRecommendedDivisors(inputSize);
-            recommendedDivisors.
-                    // TODO : Button up down 으로 output size 변경
+            MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
+            mergeBlockProperty.setPointingIndex(mergeBlockProperty.getPointingIndex() + 1);
+            refreshInputOutputSize();
         });
-        buttonOutputSizeChangeDown.setOnAction(actionEvent -> {});
+        buttonOutputSizeChangeDown.setOnAction(actionEvent -> {
+            MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
+            mergeBlockProperty.setPointingIndex(mergeBlockProperty.getPointingIndex() - 1);
+            refreshInputOutputSize();
+        });
     }
 
-    public void changedListener(Layer layer){
-        int inputSize = layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1];
-        textFieldInputSize.setText(String.valueOf(inputSize));
-    }
-
-    @Override
-    protected void textFieldChangedHandler(){
-        // TODO : Output size 자동 추천
-        int[] outputSize= getOutputSize();
-        if(outputSize[0] <= 0 || outputSize[1] <= 0){
-            setTextFieldByLayerProperties();
-            showOutputSizeErrorDialog(outputSize);
-            return;
+    public void refreshInputOutputSize(){
+        int inputSize = 0;
+        List<Layer> incomingLayers = CanvasFacade.findIncomingLayers(layer.getId());
+        for (Layer incomingLayer : incomingLayers) {
+            inputSize += incomingLayer.getProperties().getOutputSize()[0] * incomingLayer.getProperties().getOutputSize()[1];
         }
-
-        int[] recommendedDivisors = MathUtil.getRecommendedDivisors();
-        textFieldOutputSizeValueX.setText(String.valueOf(outputSize[0]));
-        textFieldOutputSizeValueY.setText(String.valueOf(outputSize[1]));
-        layer.getProperties().setOutputSize(outputSize[0], outputSize[1]);
+        inputSize = Math.max(inputSize, 1);
+        List<Integer> recommendedDivisors = MathUtil.getDivisors(inputSize);
+        MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
+        int outputSizeX = recommendedDivisors.get(mergeBlockProperty.getPointingIndex(recommendedDivisors.size()));
+        int outputSizeY = inputSize / outputSizeX;
+        layer.getProperties().setInputSize(outputSizeX, outputSizeY);
+        layer.getProperties().setOutputSize(outputSizeX, outputSizeY);
+        textFieldInputSizeX.setText(String.valueOf(outputSizeX));
+        textFieldInputSizeY.setText(String.valueOf(outputSizeY));
+        textFieldOutputSizeX.setText(String.valueOf(outputSizeX));
+        textFieldOutputSizeY.setText(String.valueOf(outputSizeY));
         notifyLayerDataChanged();
     }
 }
