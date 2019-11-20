@@ -54,6 +54,9 @@ public abstract class AbstractMaterialController extends AbstractController {
             case PIPE_LAYER:
                 itself.getStyleClass().add("layer-block-image-pipe");
                 break;
+            case MERGE_LAYER:
+                itself.getStyleClass().add("layer-block-image-merge");
+                break;
             case RESHAPE_LAYER:
                 itself.getStyleClass().add("layer-block-image-reshape");
                 break;

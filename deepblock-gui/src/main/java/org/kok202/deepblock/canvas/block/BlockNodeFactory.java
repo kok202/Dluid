@@ -25,6 +25,8 @@ public class BlockNodeFactory {
                 return new OutputBlockNode(layer);
             case PIPE_LAYER:
                 return new PipeBlockNode(layer);
+            case MERGE_LAYER:
+                return new MergeBlockNode(layer);
             case RESHAPE_LAYER:
                 return new ReshapeBlockNode(layer);
         }

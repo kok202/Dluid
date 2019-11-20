@@ -1,11 +1,15 @@
 package org.kok202.deepblock;
 
 import lombok.Data;
+import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.entity.enumerator.LayerType;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.deepblock.canvas.block.BlockNode;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
 import org.kok202.deepblock.domain.structure.GraphNode;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class CanvasFacade {
@@ -53,6 +57,26 @@ public class CanvasFacade {
 
     public static GraphNode<BlockNode> findTrainInputGraphNode(){
         return CanvasSingleton.getInstance().getBlockNodeManager().findTrainInputGraphNode();
+    }
+
+    public static List<Layer> findIncomingLayers(long layerId){
+        return CanvasSingleton.getInstance()
+                .getBlockNodeManager()
+                .findGraphNodeByLayerId(layerId)
+                .getIncomingNodes()
+                .stream()
+                .map(graphNode -> graphNode.getData().getBlockInfo().getLayer())
+                .collect(Collectors.toList());
+    }
+
+    public static List<Layer> findOutgoingLayers(long layerId){
+        return CanvasSingleton.getInstance()
+                .getBlockNodeManager()
+                .findGraphNodeByLayerId(layerId)
+                .getIncomingNodes()
+                .stream()
+                .map(graphNode -> graphNode.getData().getBlockInfo().getLayer())
+                .collect(Collectors.toList());
     }
 
     public static boolean isPossibleToAddLayerType(LayerType layerType) {

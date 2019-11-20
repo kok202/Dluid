@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import org.kok202.deepblock.application.content.material.block.MaterialMergeController;
 import org.kok202.deepblock.application.content.material.block.MaterialReshapeController;
 import org.kok202.deepblock.application.content.material.block.MaterialTestInputController;
 import org.kok202.deepblock.application.content.material.block.MaterialTrainInputController;
@@ -35,6 +36,7 @@ public class MaterialListAdvancedLayer extends AbstractMaterialList {
         addAbstractMaterialController(new MaterialTrainInputController());
         addAbstractMaterialController(new MaterialTestInputController());
         addAbstractMaterialController(new MaterialReshapeController());
+        addAbstractMaterialController(new MaterialMergeController());
         addAbstractMaterialControllerToVBox(layerAdvancedListBox, materialInsertionManager);
     }
 }

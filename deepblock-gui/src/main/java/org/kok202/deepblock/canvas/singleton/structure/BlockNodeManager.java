@@ -60,8 +60,11 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         BlockNode blockNode = graphNode.getData();
         Layer layer = blockNode.getBlockInfo().getLayer();
         LayerProperties layerProperties = layer.getProperties();
-        blockNode.reshapeBlockModel();
 
+        if(layer.getType() == LayerType.MERGE_LAYER){
+        }
+
+        // Reshape parent nodes
         graphNode.getIncomingNodes().forEach(incomingNode -> {
             LayerType parentLayerType = incomingNode.getData().getBlockInfo().getLayer().getType();
             if(parentLayerType.isInputLayerType()) {
@@ -70,6 +73,20 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 incomingNode.getData().reshapeBlockModel();
             }
         });
+
+        // Reshape child nodes
+        graphNode.getOutgoingNodes().forEach(outgoingNode -> {
+            LayerType childLayerType = outgoingNode.getData().getBlockInfo().getLayer().getType();
+            // Dimension of pipe layer is decided by source layer
+            if(childLayerType == LayerType.PIPE_LAYER) {
+                outgoingNode.getData().getBlockInfo().getLayer().getProperties().setInputSize(layerProperties.getOutputSize()[0], layerProperties.getOutputSize()[1]);
+                outgoingNode.getData().getBlockInfo().getLayer().getProperties().setOutputSize(layerProperties.getOutputSize()[0], layerProperties.getOutputSize()[1]);
+                outgoingNode.getData().reshapeBlockModel();
+            }
+        });
+
+        // Reshape me
+        blockNode.reshapeBlockModel();
     }
 
     public void alignBlockNode(){

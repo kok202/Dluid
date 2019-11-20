@@ -16,6 +16,7 @@ import org.kok202.deepblock.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.deepblock.canvas.polygon.block.HexahedronVerticalFace;
 import org.kok202.deepblock.canvas.singleton.CanvasSingleton;
+import org.kok202.deepblock.canvas.util.LayerFactory;
 import org.kok202.deepblock.canvas.util.Math3D;
 import org.kok202.deepblock.canvas.util.PickResultNodeUtil;
 
@@ -86,7 +87,7 @@ public class BlockInsertionHandler {
         Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, -targetBlockNode.getBlockInfo().getHeight(), 0));
 
         // Add to global block node set and refresh component box material
-        Layer layer = new Layer(layerType);
+        Layer layer = LayerFactory.create(layerType);
         BlockNode insertedBlockNode = insertLayerBlockModelToCanvas(layer, insertingPoint);
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
@@ -99,7 +100,7 @@ public class BlockInsertionHandler {
         Point3D insertingPoint = selectedBlockPosition.add(new Point3D(0, targetBlockNode.getBlockInfo().getHeight(), 0));
 
         // Add to global block node set and refresh component box material
-        Layer layer = new Layer(layerType);
+        Layer layer = LayerFactory.create(layerType);
         BlockNode insertedBlockNode = insertLayerBlockModelToCanvas(layer, insertingPoint);
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
@@ -109,7 +110,7 @@ public class BlockInsertionHandler {
 
     private void createNewBlock(LayerType layerType, Point3D insertingPoint){
         // Add to global block node set and refresh component box material
-        Layer layer = new Layer(layerType);
+        Layer layer = LayerFactory.create(layerType);
         BlockNode insertedBlockNode = insertLayerBlockModelToCanvas(layer, insertingPoint);
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
