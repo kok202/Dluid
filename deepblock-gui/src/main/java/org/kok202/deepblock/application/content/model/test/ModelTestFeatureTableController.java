@@ -12,17 +12,17 @@ import org.kok202.deepblock.application.content.model.TabModelTestController;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 
 @Data
-public class ModelTestFeatureSetController extends AbstractModelTestController {
+public class ModelTestFeatureTableController extends AbstractModelTestController {
     @FXML private TitledPane tiltedPane;
     @FXML private TableView tableViewDataSet;
     private NumericTableViewAdapter numericTableViewAdapter;
 
-    public ModelTestFeatureSetController(TabModelTestController tabModelTestController) {
+    public ModelTestFeatureTableController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/featureset.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/feature_table.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;
@@ -36,5 +36,6 @@ public class ModelTestFeatureSetController extends AbstractModelTestController {
     public void refreshTableView(){
         NumericRecordSet testNumericRecordSet = AIFacade.getTestFeatureSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
+        tiltedPane.setExpanded(true);
     }
 }

@@ -17,7 +17,7 @@ import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.StringRecordSet;
 
 @Data
-public class ModelTestResultSetController extends AbstractModelTestController {
+public class ModelTestTestingResultTableController extends AbstractModelTestController {
 
     @FXML private TitledPane tiltedPane;
     @FXML private TableView tableViewResultSet;
@@ -27,12 +27,12 @@ public class ModelTestResultSetController extends AbstractModelTestController {
     private DirectoryChooserAdapter testResultImageDirectoryChooser;
     private TestResultDocumentFileSaver testResultDocumentFileSaver;
 
-    public ModelTestResultSetController(TabModelTestController tabModelTestController) {
+    public ModelTestTestingResultTableController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/resultset.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/testing_result_table.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;
@@ -59,6 +59,7 @@ public class ModelTestResultSetController extends AbstractModelTestController {
     public void refreshTableView(){
         NumericRecordSet testNumericRecordSet = AIFacade.getTestResultSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
+        tiltedPane.setExpanded(true);
     }
 
     private void convertTableViewToResultDataSet(){

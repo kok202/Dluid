@@ -8,7 +8,7 @@ import lombok.Data;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
 
 @Data
-public class ModelTestController extends AbstractModelTestController {
+public class ModelTestTestingTaskController extends AbstractModelTestController {
 
     @FXML private TitledPane tiltedPane;
     @FXML private Label labelTestProgress;
@@ -16,12 +16,12 @@ public class ModelTestController extends AbstractModelTestController {
     @FXML private ProgressBar progressBarTestProgress;
     @FXML private Button buttonTest;
 
-    public ModelTestController(TabModelTestController tabModelTestController) {
+    public ModelTestTestingTaskController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/featureset_test.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/testing_task.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;

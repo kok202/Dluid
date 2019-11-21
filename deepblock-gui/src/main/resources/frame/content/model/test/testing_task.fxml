@@ -59,9 +59,6 @@
                     </children>
                 </AnchorPane>
             </content>
-            <padding>
-                <Insets bottom="20.0" />
-            </padding>
         </TitledPane>
 
     </children>
