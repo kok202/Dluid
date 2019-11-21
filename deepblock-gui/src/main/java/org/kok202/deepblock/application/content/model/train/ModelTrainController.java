@@ -3,7 +3,6 @@ package org.kok202.deepblock.application.content.model.train;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -11,7 +10,6 @@ import lombok.Data;
 
 @Data
 public class ModelTrainController extends AbstractModelTrainController {
-    @FXML private Label labelTrainingProgress;
     @FXML private TextArea textAreaTrainingLog;
     @FXML private ProgressBar progressBarTrainingProgress;
     @FXML private Button buttonTrainingOneTime;

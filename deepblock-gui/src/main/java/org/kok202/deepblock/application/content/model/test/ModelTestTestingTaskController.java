@@ -2,7 +2,10 @@ package org.kok202.deepblock.application.content.model.test;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
@@ -11,7 +14,6 @@ import org.kok202.deepblock.application.content.model.TabModelTestController;
 public class ModelTestTestingTaskController extends AbstractModelTestController {
 
     @FXML private TitledPane tiltedPane;
-    @FXML private Label labelTestProgress;
     @FXML private TextArea textAreaTestLog;
     @FXML private ProgressBar progressBarTestProgress;
     @FXML private Button buttonTest;
