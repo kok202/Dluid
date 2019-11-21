@@ -7,17 +7,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.kok202.deepblock.application.common.AbstractController;
 import org.kok202.deepblock.application.content.model.train.ModelInfoController;
-import org.kok202.deepblock.application.content.model.train.ModelTrainController;
 import org.kok202.deepblock.application.content.model.train.ModelTrainParamController;
+import org.kok202.deepblock.application.content.model.train.ModelTrainTaskController;
 import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 
 public class TabModelTrainController extends AbstractController {
-    @FXML
-    private VBox content;
+    @FXML private VBox content;
+    @FXML private VBox vBoxForModelInfo;
+    @FXML private VBox vBoxForTrainData;
+    @FXML private VBox vBoxForTrainTask;
+
     private ModelInfoController modelInfoController;
     private ModelTrainParamController modelTrainParamController;
-    private ModelTrainController modelTrainController;
+    private ModelTrainTaskController modelTrainTaskController;
 
     public Tab createView() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/tab_model_train.fxml"));
@@ -34,10 +37,11 @@ public class TabModelTrainController extends AbstractController {
     protected void initialize() throws Exception {
         modelInfoController = new ModelInfoController();
         modelTrainParamController = new ModelTrainParamController();
-        modelTrainController = new ModelTrainController();
-        content.getChildren().add(modelInfoController.createView());
-        content.getChildren().add(modelTrainParamController.createView());
-        content.getChildren().add(modelTrainController.createView());
+        modelTrainTaskController = new ModelTrainTaskController();
+
+        vBoxForModelInfo.getChildren().add(modelInfoController.createView());
+        vBoxForTrainData.getChildren().add(modelTrainParamController.createView());
+        vBoxForTrainTask.getChildren().add(modelTrainTaskController.createView());
     }
 
     public void refreshModelInfo(){

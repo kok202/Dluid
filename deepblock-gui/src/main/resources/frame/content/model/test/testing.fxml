@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" >
+            <children>
+                <Accordion fx:id="accordion" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" >
+                    <panes>
+                    </panes>
+                </Accordion>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" />
+    </padding>
+</AnchorPane>

@@ -2,10 +2,7 @@ package org.kok202.deepblock.application.content.model.train;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.AppConstant;
@@ -19,6 +16,7 @@ import org.kok202.deepblock.application.adapter.file.TrainResultFileFinder;
 
 public class ModelTrainParamController extends AbstractModelTrainController {
 
+    @FXML private TitledPane titledPane;
     @FXML private Label labelTrainingFeature;
     @FXML private Label labelTrainingResult;
     @FXML private Label labelWeightInit;
@@ -60,6 +58,7 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         setButtonResultFinderActionHandler();
         initializeSplitMenuWeightInit();
         initializeSplitMenuOptimizer();
+        titledPane.setExpanded(false);
     }
 
     private void textFieldChangeHandler(){

@@ -8,5 +8,5 @@ import org.kok202.deepblock.application.common.AbstractController;
 @Data
 public abstract class AbstractModelTrainController extends AbstractController {
     @FXML
-    private TitledPane tiltedPane;
+    private TitledPane titledPane;
 }

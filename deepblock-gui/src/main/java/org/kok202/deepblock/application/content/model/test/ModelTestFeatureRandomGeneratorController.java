@@ -13,8 +13,8 @@ import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.util.RandomUtil;
 
 @Data
-public class ModelTestFeatureSetRandomGeneratorController extends AbstractModelTestController {
-    @FXML private TitledPane tiltedPane;
+public class ModelTestFeatureRandomGeneratorController extends AbstractModelTestController {
+    @FXML private TitledPane titledPane;
     @FXML private Label labelRandomInputSize;
     @FXML private TextField textFieldRandomInputSize;
     @FXML private Label labelRandomMin;
@@ -30,12 +30,12 @@ public class ModelTestFeatureSetRandomGeneratorController extends AbstractModelT
     @FXML private Button buttonGenerateRandomData;
     // 랜덤으로 데이터 불러오는 버튼이 필요
 
-    public ModelTestFeatureSetRandomGeneratorController(TabModelTestController tabModelTestController) {
+    public ModelTestFeatureRandomGeneratorController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/featureset_random_generator.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/feature_random_generator.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;
@@ -91,7 +91,10 @@ public class ModelTestFeatureSetRandomGeneratorController extends AbstractModelT
 
             numericRecordSet.setHeader(headers);
             AIFacade.getTestFeatureSet().setNumericRecordSet(numericRecordSet);
-            getTabModelTestController().getModelTestFeatureSetController().refreshTableView();
+            getTabModelTestController()
+                    .getModelTestFeatureController()
+                    .getModelTestFeatureTableController()
+                    .refreshTableView();
         });
     }
 }

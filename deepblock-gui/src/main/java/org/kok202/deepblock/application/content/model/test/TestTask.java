@@ -3,12 +3,12 @@ package org.kok202.deepblock.application.content.model.test;
 import javafx.concurrent.Task;
 
 public class TestTask extends Task<Integer> {
-    private ModelTestController modelTestController;
+    private ModelTestTestingTaskController modelTestTestingTaskController;
 
-    public void bindWithComponent(ModelTestController modelTestController) {
-        this.modelTestController = modelTestController;
-        this.modelTestController.getProgressBarTestProgress().progressProperty().bind(this.progressProperty());
-        this.modelTestController.getButtonTest().setDisable(true);
+    public void bindWithComponent(ModelTestTestingTaskController modelTestTestingTaskController) {
+        this.modelTestTestingTaskController = modelTestTestingTaskController;
+        this.modelTestTestingTaskController.getProgressBarTestProgress().progressProperty().bind(this.progressProperty());
+        this.modelTestTestingTaskController.getButtonTest().setDisable(true);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class TestTask extends Task<Integer> {
             }
             updateProgress(i, 100);
             updateMessage(String.valueOf(i));
-            //modelTestController.getTextAreaTestLog().appendText("progress : " + i + "\n");
+            //modelTestTestingTaskController.getTextAreaTestLog().appendText("progress : " + i + "\n");
         }
         return 100;
     }
@@ -27,8 +27,8 @@ public class TestTask extends Task<Integer> {
     @Override
     public void succeeded() {
         // TODO : test 중인 로그를 볼수 있게 텍스트 필드가 필요하다.
-        modelTestController.getTextAreaTestLog().appendText("Test done.\n");
-        modelTestController.getButtonTest().setDisable(false);
+        modelTestTestingTaskController.getTextAreaTestLog().appendText("Test done.\n");
+        modelTestTestingTaskController.getButtonTest().setDisable(false);
     }
 
     private void stopTraining(){

@@ -12,19 +12,19 @@ import org.kok202.deepblock.application.adapter.file.TestFeatureFileFinder;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
 
 @Data
-public class ModelTestFeatureSetFileLoaderController extends AbstractModelTestController {
-    @FXML private TitledPane tiltedPane;
+public class ModelTestFeatureFileLoaderController extends AbstractModelTestController {
+    @FXML private TitledPane titledPane;
     @FXML private Label labelTestDataFromFile;
     @FXML private TextField textFieldFindTestData;
     @FXML private Button buttonFindTestData;
     // 랜덤으로 데이터 불러오는 버튼이 필요
 
-    public ModelTestFeatureSetFileLoaderController(TabModelTestController tabModelTestController) {
+    public ModelTestFeatureFileLoaderController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/featureset_file_loader.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/feature_file_loader.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;
@@ -38,6 +38,9 @@ public class ModelTestFeatureSetFileLoaderController extends AbstractModelTestCo
     private void setButtonFinderActionHandler(){
         TestFeatureFileFinder testFeatureFileFinder = new TestFeatureFileFinder(textFieldFindTestData, buttonFindTestData);
         testFeatureFileFinder.initialize();
-        testFeatureFileFinder.setCallbackAfterLoad(() -> getTabModelTestController().getModelTestFeatureSetController().refreshTableView());
+        testFeatureFileFinder.setCallbackAfterLoad(() -> getTabModelTestController()
+                .getModelTestFeatureController()
+                .getModelTestFeatureTableController()
+                .refreshTableView());
     }
 }
