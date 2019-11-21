@@ -14,7 +14,7 @@ import org.kok202.deepblock.domain.util.RandomUtil;
 
 @Data
 public class ModelTestFeatureRandomGeneratorController extends AbstractModelTestController {
-    @FXML private TitledPane tiltedPane;
+    @FXML private TitledPane titledPane;
     @FXML private Label labelRandomInputSize;
     @FXML private TextField textFieldRandomInputSize;
     @FXML private Label labelRandomMin;

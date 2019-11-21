@@ -13,7 +13,7 @@ import org.kok202.deepblock.application.content.model.TabModelTestController;
 
 @Data
 public class ModelTestFeatureFileLoaderController extends AbstractModelTestController {
-    @FXML private TitledPane tiltedPane;
+    @FXML private TitledPane titledPane;
     @FXML private Label labelTestDataFromFile;
     @FXML private TextField textFieldFindTestData;
     @FXML private Button buttonFindTestData;

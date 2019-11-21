@@ -13,7 +13,7 @@ import org.kok202.deepblock.application.content.model.TabModelTestController;
 @Data
 public class ModelTestTestingTaskController extends AbstractModelTestController {
 
-    @FXML private TitledPane tiltedPane;
+    @FXML private TitledPane titledPane;
     @FXML private TextArea textAreaTestLog;
     @FXML private ProgressBar progressBarTestProgress;
     @FXML private Button buttonTest;

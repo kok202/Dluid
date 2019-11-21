@@ -14,8 +14,8 @@ import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 @Data
 public class TabModelTestController extends AbstractController {
     @FXML private VBox content;
-    @FXML private VBox vBoxForData;
-    @FXML private VBox vBoxForTest;
+    @FXML private VBox vBoxForTestData;
+    @FXML private VBox vBoxForTestTask;
 
     private ModelTestFeatureController modelTestFeatureController;
     private ModelTestTestingController modelTestTestingController;
@@ -35,7 +35,7 @@ public class TabModelTestController extends AbstractController {
     protected void initialize() throws Exception {
         modelTestFeatureController = new ModelTestFeatureController(this);
         modelTestTestingController = new ModelTestTestingController(this);
-        vBoxForData.getChildren().add(modelTestFeatureController.createView());
-        vBoxForTest.getChildren().add(modelTestTestingController.createView());
+        vBoxForTestData.getChildren().add(modelTestFeatureController.createView());
+        vBoxForTestTask.getChildren().add(modelTestTestingController.createView());
     }
 }

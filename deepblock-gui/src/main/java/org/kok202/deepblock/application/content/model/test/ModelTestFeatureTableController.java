@@ -13,7 +13,7 @@ import org.kok202.deepblock.domain.stream.NumericRecordSet;
 
 @Data
 public class ModelTestFeatureTableController extends AbstractModelTestController {
-    @FXML private TitledPane tiltedPane;
+    @FXML private TitledPane titledPane;
     @FXML private TableView tableViewDataSet;
     private NumericTableViewAdapter numericTableViewAdapter;
 
@@ -36,6 +36,6 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
     public void refreshTableView(){
         NumericRecordSet testNumericRecordSet = AIFacade.getTestFeatureSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
-        tiltedPane.setExpanded(true);
+        titledPane.setExpanded(true);
     }
 }

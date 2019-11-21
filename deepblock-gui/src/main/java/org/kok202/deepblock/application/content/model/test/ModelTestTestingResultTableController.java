@@ -19,7 +19,7 @@ import org.kok202.deepblock.domain.stream.StringRecordSet;
 @Data
 public class ModelTestTestingResultTableController extends AbstractModelTestController {
 
-    @FXML private TitledPane tiltedPane;
+    @FXML private TitledPane titledPane;
     @FXML private TableView tableViewResultSet;
     @FXML private Button buttonExportAsImage;
     @FXML private Button buttonExportAsDocument;
@@ -59,7 +59,7 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
     public void refreshTableView(){
         NumericRecordSet testNumericRecordSet = AIFacade.getTestResultSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
-        tiltedPane.setExpanded(true);
+        titledPane.setExpanded(true);
     }
 
     private void convertTableViewToResultDataSet(){

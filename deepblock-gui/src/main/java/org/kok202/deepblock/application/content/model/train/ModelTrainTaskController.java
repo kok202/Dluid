@@ -5,11 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 
 @Data
-public class ModelTrainController extends AbstractModelTrainController {
+public class ModelTrainTaskController extends AbstractModelTrainController {
+    @FXML private TitledPane titledPane;
     @FXML private TextArea textAreaTrainingLog;
     @FXML private ProgressBar progressBarTrainingProgress;
     @FXML private Button buttonTrainingOneTime;
@@ -17,7 +19,7 @@ public class ModelTrainController extends AbstractModelTrainController {
     @FXML private Button buttonTrainingStop;
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/train/training.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/train/training_task.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;
@@ -30,6 +32,7 @@ public class ModelTrainController extends AbstractModelTrainController {
         buttonTrainingStop.setDisable(true);
         buttonTrainingOneTime.setOnAction(event -> buttonTrainingOneTimeActionHandler());
         buttonTrainingNTime.setOnAction(event -> buttonTrainingNTimeActionHandler());
+        titledPane.setExpanded(false);
     }
 
     private void buttonTrainingOneTimeActionHandler(){

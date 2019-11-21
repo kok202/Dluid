@@ -13,14 +13,14 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                     <children>
-                        <Label styleClass="font-xxxLarge" text="1. Test data setting">
+                        <Label text="1. Test data setting">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></Label>
-                        <VBox fx:id="vBoxForData">
+                        <VBox fx:id="vBoxForTestData">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></VBox>
@@ -28,7 +28,7 @@
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></Label>
-                        <VBox fx:id="vBoxForTest">
+                        <VBox fx:id="vBoxForTestTask">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></VBox>
