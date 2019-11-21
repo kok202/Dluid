@@ -37,7 +37,7 @@ public class ModelTestTestingController extends AbstractModelTestController {
         modelTestTestingResultTableController.getTiltedPane().setExpanded(false);
 
         accordion.getPanes().add(modelTestTestingTaskController.getTiltedPane());
-        accordion.setExpandedPane(modelTestTestingTaskController.getTiltedPane());
+        // accordion.setExpandedPane(modelTestTestingTaskController.getTiltedPane()); // Not using looks more better
         container.getChildren().add(modelTestTestingResultTableController.getTiltedPane());
     }
 }

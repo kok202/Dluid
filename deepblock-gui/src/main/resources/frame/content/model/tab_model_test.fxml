@@ -15,7 +15,7 @@
                     <children>
                         <Label styleClass="font-xxxLarge" text="1. Test data setting">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets />
                      </VBox.margin>
                      <padding>
                         <Insets bottom="10.0" />
