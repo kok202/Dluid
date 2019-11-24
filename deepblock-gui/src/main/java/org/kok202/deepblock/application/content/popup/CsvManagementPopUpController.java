@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.file.ExtendedFileFinder;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.StringRecordSet;
 import org.kok202.deepblock.domain.stream.csv.CsvReader;
@@ -47,6 +48,12 @@ public class CsvManagementPopUpController extends FileManagementPopUpController 
         textFieldDataEnd.setText(String.valueOf(dataCellEnd));
         buttonLoadData.setOnAction(event -> buttonLoadActionHandler());
         buttonCancel.setOnAction(event -> buttonCancelHandler());
+
+        checkBoxHeaderExist.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.headerExist"));
+        labelDataStart.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.dataStart"));
+        labelDataEnd.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.dataEnd"));
+        buttonLoadData.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.load"));
+        buttonCancel.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.cancel"));
     }
 
     private void buttonLoadActionHandler(){

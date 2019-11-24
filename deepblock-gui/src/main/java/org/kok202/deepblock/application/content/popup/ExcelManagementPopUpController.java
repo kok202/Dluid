@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.application.Util.DialogUtil;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.file.ExtendedFileFinder;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.StringRecordSet;
 import org.kok202.deepblock.domain.stream.excel.ExcelReader;
@@ -42,6 +43,12 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
         textFieldDataEnd.setText(dataCellEnd);
         buttonLoadData.setOnAction(event -> buttonLoadActionHandler());
         buttonCancel.setOnAction(event -> buttonCancelHandler());
+
+        checkBoxHeaderExist.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.headerExist"));
+        labelDataStart.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.dataStart"));
+        labelDataEnd.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.dataEnd"));
+        buttonLoadData.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.load"));
+        buttonCancel.setText(AppPropertiesSingleton.getInstance().get("frame.file.load.cancel"));
     }
 
     private void buttonLoadActionHandler(){
@@ -53,9 +60,9 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
            !TextFieldUtil.validateExcelCell(dataCellEnd)){
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
-                    .title("Excel cell position")
-                    .headerText("Cell position value is incorrect.")
-                    .contentText("Please follow cell pattern. (like B35)")
+                    .title(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.dialog.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.invalidValue.dialog.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.invalidValue.dialog.content"))
                     .build()
                     .showAndWait();
             return;
@@ -76,8 +83,8 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
         }catch (Exception exception){
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
-                    .title("Failed to load data")
-                    .headerText("Check cell positions indicate start and end position of table.")
+                    .title(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.dialog.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.outOfTable.dialog.header"))
                     .contentText(exception.getMessage())
                     .build()
                     .showAndWait();

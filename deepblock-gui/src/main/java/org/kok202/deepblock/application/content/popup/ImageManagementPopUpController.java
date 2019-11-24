@@ -12,6 +12,7 @@ import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.SplitMenuAdapter;
 import org.kok202.deepblock.application.adapter.file.ExtendedImageSaver;
 import org.kok202.deepblock.application.common.AbstractController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.image.ImageColorScale;
 
 public class ImageManagementPopUpController extends AbstractController {
@@ -46,6 +47,13 @@ public class ImageManagementPopUpController extends AbstractController {
         //기본 값 세팅
         buttonSaveData.setOnAction(event -> buttonSaveActionHandler());
         buttonCancel.setOnAction(event -> buttonCancelHandler());
+
+        labelName.setText(AppPropertiesSingleton.getInstance().get("frame.file.save.image.name"));
+        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.file.save.image.width"));
+        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.file.save.image.height"));
+        labelColorType.setText(AppPropertiesSingleton.getInstance().get("frame.file.save.image.type"));
+        buttonSaveData.setText(AppPropertiesSingleton.getInstance().get("frame.file.save.save"));
+        buttonCancel.setText(AppPropertiesSingleton.getInstance().get("frame.file.save.cancel"));
     }
 
     private void initializeSplitMenuWeightInit(){
@@ -53,8 +61,8 @@ public class ImageManagementPopUpController extends AbstractController {
         splitMenuAdapter.setMenuItemChangedListener(imageColorScale -> {
             testResultImageSaver.setImageColorScale(imageColorScale);
         });
-        splitMenuAdapter.addMenuItem("흑백", ImageColorScale.GRAY);
-        splitMenuAdapter.addMenuItem("컬러", ImageColorScale.RGB);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.file.save.image.type.gray"), ImageColorScale.GRAY);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.file.save.image.type.rgb"), ImageColorScale.RGB);
         splitMenuAdapter.setDefaultMenuItem(ImageColorScale.GRAY);
     }
 

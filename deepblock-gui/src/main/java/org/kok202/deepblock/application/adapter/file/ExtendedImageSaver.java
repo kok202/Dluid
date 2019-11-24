@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.kok202.deepblock.application.adapter.PopUpExtension;
 import org.kok202.deepblock.application.content.popup.ImageManagementPopUpController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.image.ImageColorScale;
 import org.kok202.deepblock.domain.stream.image.ImageWriter;
@@ -28,7 +29,7 @@ public abstract class ExtendedImageSaver {
             directoryPath = file.getPath();
             popUpExtension = new PopUpExtension();
             popUpExtension
-                    .setTitle("Image 설정")
+                    .setTitle(AppPropertiesSingleton.getInstance().get("frame.file.save.image.title"))
                     .setWidth(400)
                     .setHeight(200)
                     .setPopUpSceneRoot(new ImageManagementPopUpController(this).createView())
