@@ -10,7 +10,7 @@
     <children>
 
         <!--============================================================= Titled =============================================================-->
-        <TitledPane fx:id="titledPane" animated="false" text="테스트하기" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+        <TitledPane fx:id="titledPane" animated="false" text="Test" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
@@ -39,7 +39,7 @@
 
                                  <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                      <children>
-                                         <Button fx:id="buttonTest" mnemonicParsing="false" text="테스트">
+                                         <Button fx:id="buttonTest" mnemonicParsing="false" text="Test">
                                              <HBox.margin>
                                                  <Insets left="5.0" />
                                              </HBox.margin>

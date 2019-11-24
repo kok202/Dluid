@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TitledPane fx:id="titledPane" animated="false" text="레이어 기본 속성" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
+        <TitledPane fx:id="titledPane" animated="false" text="Layer parameter setting" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
@@ -20,9 +20,9 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                              <children>
-                                 <Label fx:id="labelInputSize" text="입력 크기" GridPane.rowIndex="0" />
-                                 <Label fx:id="labelOutputSize" text="출력 크기" GridPane.rowIndex="1" />
-                                 <Label fx:id="labelLossFunction" text="Loss 함수" GridPane.rowIndex="2" />
+                                 <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="0" />
+                                 <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="1" />
+                                 <Label fx:id="labelLossFunction" text="Loss function" GridPane.rowIndex="2" />
                                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                      <children>
                                          <TextField fx:id="textFieldInputSize" text="784" promptText="100" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="0">

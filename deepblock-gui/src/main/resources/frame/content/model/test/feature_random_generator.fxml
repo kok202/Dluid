@@ -6,7 +6,7 @@
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <!--============================================================= Titled =============================================================-->
-        <TitledPane fx:id="titledPane" animated="false" text="테스트 데이터 랜덤 생성" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+        <TitledPane fx:id="titledPane" animated="false" text="Test data random generator" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
@@ -83,7 +83,7 @@
                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                             <children>
                                                 <HBox alignment="CENTER_LEFT">
-                                                    <RadioButton fx:id="radioButtonIntegerType" selected="true" text="자연수" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <RadioButton fx:id="radioButtonIntegerType" selected="true" text="Integer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         <toggleGroup>
                                                             <ToggleGroup fx:id="toggleGroupDataType" />
                                                         </toggleGroup>
@@ -91,12 +91,12 @@
                                                             <Insets right="20.0" />
                                                         </padding>
                                                     </RadioButton>
-                                                    <RadioButton fx:id="radioButtonDoubleType" selected="false" text="실수" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <RadioButton fx:id="radioButtonDoubleType" selected="false" text="Float" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         <padding>
                                                             <Insets right="20.0" />
                                                         </padding>
                                                     </RadioButton>
-                                                    <RadioButton fx:id="radioButtonGaussianType" selected="false" text="정규 분포" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <RadioButton fx:id="radioButtonGaussianType" selected="false" text="Gaussian" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     </RadioButton>
                                                 </HBox>
                                             </children>

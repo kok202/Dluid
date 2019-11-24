@@ -22,11 +22,11 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                              <children>
-                                 <Label fx:id="labelInputSize" text="입력 크기" GridPane.rowIndex="0" />
-                                 <Label fx:id="labelKernelSize" text="컨볼루션 크기" GridPane.rowIndex="1" />
-                                <Label fx:id="labelStrideSize" text="이동 거리" GridPane.rowIndex="2" />
-                                <Label fx:id="labelPaddingSize" text="패딩 크기" GridPane.rowIndex="3" />
-                                 <Label fx:id="labelOutputSize" text="출력 크기" GridPane.rowIndex="4" />
+                                 <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="0" />
+                                 <Label fx:id="labelKernelSize" text="Kernel size" GridPane.rowIndex="1" />
+                                 <Label fx:id="labelStrideSize" text="Stride size" GridPane.rowIndex="2" />
+                                 <Label fx:id="labelPaddingSize" text="Padding size" GridPane.rowIndex="3" />
+                                 <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="4" />
                                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                      <children>
                                          <TextField fx:id="textFieldInputSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

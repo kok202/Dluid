@@ -9,7 +9,7 @@
     <children>
 
         <!--============================================================= Titled =============================================================-->
-        <TitledPane fx:id="titledPane" animated="false" text="테스트 결과" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+        <TitledPane fx:id="titledPane" animated="false" text="Test result" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
@@ -29,12 +29,12 @@
 
                                 <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                     <children>
-                                        <Button fx:id="buttonExportAsImage" mnemonicParsing="false" text="이미지로 내보내기">
+                                        <Button fx:id="buttonExportAsImage" mnemonicParsing="false" text="Save as image">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Button fx:id="buttonExportAsDocument" mnemonicParsing="false" text="문서로 내보내기">
+                                        <Button fx:id="buttonExportAsDocument" mnemonicParsing="false" text="Save as document">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>
