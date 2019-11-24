@@ -67,9 +67,9 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         });
         splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.identity"), Activation.IDENTITY);
         splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.sigmoid"), Activation.SIGMOID);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.relu"), Activation.RELU);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.leakyRelu"), Activation.LEAKYRELU);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.softmax"), Activation.SOFTMAX);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.reLU"), Activation.RELU);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.leakyReLU"), Activation.LEAKYRELU);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.softMax"), Activation.SOFTMAX);
         splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getActivationFunction());
     }
 
