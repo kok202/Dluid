@@ -8,15 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.CanvasFacade;
 import org.kok202.deepblock.ai.entity.Layer;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.application.singleton.AppWidgetSingleton;
 
 public class ComponentCommonInfoController extends AbstractLayerComponentController {
     @FXML private Label labelLayerId;
     @FXML private Label labelLayerType;
-
     @FXML private TextField textFieldLayerId;
     @FXML private TextField textFieldLayerType;
-
     @FXML private Button buttonDelete;
 
     public ComponentCommonInfoController(Layer layer) {
@@ -42,5 +41,9 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
                     .clearComponentContainer();
             CanvasFacade.alignBlockNode();
         }));
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.title"));
+        labelLayerId.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.layerId"));
+        labelLayerType.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.layerType"));
+        buttonDelete.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.delete"));
     }
 }

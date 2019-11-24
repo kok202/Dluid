@@ -7,7 +7,7 @@ import org.kok202.deepblock.application.common.AbstractController;
 
 public abstract class AbstractComponentController extends AbstractController {
     @FXML
-    private TitledPane titledPane;
+    protected TitledPane titledPane;
 
     public abstract AnchorPane createView() throws Exception;
 }

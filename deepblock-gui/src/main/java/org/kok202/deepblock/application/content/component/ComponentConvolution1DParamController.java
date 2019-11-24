@@ -9,6 +9,7 @@ import org.kok202.deepblock.AppConstant;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.ai.util.ConvolutionCalculatorUtil;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 public class ComponentConvolution1DParamController extends AbstractConvolutionLayerComponentController {
 
@@ -42,6 +43,13 @@ public class ComponentConvolution1DParamController extends AbstractConvolutionLa
         TextFieldUtil.applyPositiveIntegerFilter(textFieldStrideSize, AppConstant.DEFAULT_STRIDE_SIZE);
         TextFieldUtil.applyPositiveWithZeroIntegerFilter(textFieldPaddingSize, AppConstant.DEFAULT_PADDING_SIZE);
         setTextFieldByLayerProperties();
+
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
+        labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
+        labelKernelSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.kernelSize"));
+        labelStrideSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.strideSize"));
+        labelPaddingSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.paddingSize"));
     }
 
     @Override

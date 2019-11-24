@@ -8,6 +8,7 @@ import lombok.Getter;
 import org.kok202.deepblock.application.content.material.block.Material2DConvolutionController;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionFollower;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Getter
 public class MaterialList2DLayer extends AbstractMaterialList {
@@ -36,5 +37,6 @@ public class MaterialList2DLayer extends AbstractMaterialList {
         addAbstractMaterialController(new Material2DConvolutionController());
         addAbstractMaterialController(new Material2DConvolutionController());
         addAbstractMaterialControllerToVBox(layer2DListBox, materialInsertionManager);
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.2d.title"));
     }
 }

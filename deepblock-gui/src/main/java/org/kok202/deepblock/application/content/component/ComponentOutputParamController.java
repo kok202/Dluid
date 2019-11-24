@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.SplitMenuAdapter;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 public class ComponentOutputParamController extends AbstractLayerComponentController {
@@ -38,6 +39,11 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
         TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSize, 1);
         setTextFieldByLayerProperties();
         initializeSplitMenuLossFunction();
+
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
+        labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
+        labelLossFunction.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.lossFunction"));
     }
 
     private void setTextFieldByLayerProperties(){
@@ -52,10 +58,10 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
             layer.getProperties().setLossFunction(lossFunction);
             notifyLayerDataChanged();
         });
-        splitMenuAdapter.addMenuItem("MSE", LossFunctions.LossFunction.MSE);
-        splitMenuAdapter.addMenuItem("L1", LossFunctions.LossFunction.L1);
-        splitMenuAdapter.addMenuItem("L2", LossFunctions.LossFunction.L2);
-        splitMenuAdapter.addMenuItem("KL divergence", LossFunctions.LossFunction.KL_DIVERGENCE);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mse"), LossFunctions.LossFunction.MSE);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l1"), LossFunctions.LossFunction.L1);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l2"), LossFunctions.LossFunction.L2);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.klDivergence"), LossFunctions.LossFunction.KL_DIVERGENCE);
 
         layer.getProperties().setLossFunction(LossFunctions.LossFunction.MSE);
         splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getLossFunction());

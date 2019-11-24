@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 public class ComponentFeedforwardParamController extends AbstractLayerComponentController {
 
@@ -38,6 +39,10 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
         textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
         attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
+
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
+        labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
     }
 
     @Override

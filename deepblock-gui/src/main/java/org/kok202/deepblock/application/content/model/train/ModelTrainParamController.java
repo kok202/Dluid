@@ -115,22 +115,22 @@ public class ModelTrainParamController extends AbstractModelTrainController {
     private void initializeSplitMenuWeightInit(){
         SplitMenuAdapter<WeightInit> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuWeightInit);
         splitMenuAdapter.setMenuItemChangedListener(AIFacade::setTrainWeightInit);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.one"), WeightInit.ONES);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.zero"), WeightInit.ZERO);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.xavier"), WeightInit.XAVIER);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.uniform"), WeightInit.UNIFORM);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.distribution"), WeightInit.DISTRIBUTION);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.normal"), WeightInit.NORMAL);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInit.ONES);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInit.ZERO);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInit.XAVIER);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInit.UNIFORM);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distribution"), WeightInit.DISTRIBUTION);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInit.NORMAL);
         splitMenuAdapter.setDefaultMenuItem(AIFacade.getTrainWeightInit());
     }
 
     private void initializeSplitMenuOptimizer(){
         SplitMenuAdapter<Optimizer> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuOptimizer);
         splitMenuAdapter.setMenuItemChangedListener(AIFacade::setTrainOptimizer);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.sgd"), Optimizer.SGD);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.adam"), Optimizer.ADAM);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.rmsProp"), Optimizer.RMS_PROP);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.noop"), Optimizer.NOOP);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.sgd"), Optimizer.SGD);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.adam"), Optimizer.ADAM);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.rmsProp"), Optimizer.RMS_PROP);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.noop"), Optimizer.NOOP);
         splitMenuAdapter.setDefaultMenuItem(AIFacade.getTrainOptimizer());
     }
 }
