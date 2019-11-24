@@ -9,21 +9,24 @@ import org.kok202.deepblock.AppConstant;
 import org.kok202.deepblock.ai.AIFacade;
 import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.util.RandomUtil;
 
 @Data
 public class ModelTestFeatureRandomGeneratorController extends AbstractModelTestController {
     @FXML private TitledPane titledPane;
-    @FXML private Label labelRandomInputSize;
-    @FXML private TextField textFieldRandomInputSize;
     @FXML private Label labelRandomMin;
     @FXML private Label labelRandomMax;
+    @FXML private Label labelRandom;
+    @FXML private Label labelRandomInputSize;
+    @FXML private TextField textFieldRandomInputSize;
     @FXML private TextField textFieldRandomInputRangeMin;
     @FXML private TextField textFieldRandomInputRangeMax;
     @FXML private Label labelRandomRecordNumber;
     @FXML private TextField textFieldRandomRecordNumber;
     @FXML private ToggleGroup toggleGroupDataType;
+    @FXML private Label labelRandomDataType;
     @FXML private RadioButton radioButtonIntegerType;
     @FXML private RadioButton radioButtonDoubleType;
     @FXML private RadioButton radioButtonGaussianType;
@@ -58,6 +61,17 @@ public class ModelTestFeatureRandomGeneratorController extends AbstractModelTest
             }
         });
         setGenerateButtonActionHandler();
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.title"));
+        labelRandomMin.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.min"));
+        labelRandomMax.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.max"));
+        labelRandom.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.randomRange"));
+        labelRandomInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.inputSize"));
+        labelRandomRecordNumber.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.totalDataSize"));
+        labelRandomDataType.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.dataType"));
+        radioButtonIntegerType.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.integer"));
+        radioButtonDoubleType.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.float"));
+        radioButtonGaussianType.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.gaussian"));
+        buttonGenerateRandomData.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataRandomGenerate.generate"));
     }
 
     private void setGenerateButtonActionHandler(){

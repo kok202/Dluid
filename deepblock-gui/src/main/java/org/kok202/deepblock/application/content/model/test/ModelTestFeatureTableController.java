@@ -9,6 +9,7 @@ import lombok.Data;
 import org.kok202.deepblock.ai.AIFacade;
 import org.kok202.deepblock.application.adapter.NumericTableViewAdapter;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 
 @Data
@@ -31,6 +32,7 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
     @Override
     protected void initialize() throws Exception {
         numericTableViewAdapter = new NumericTableViewAdapter(tableViewDataSet);
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataTable.title"));
     }
 
     public void refreshTableView(){

@@ -12,6 +12,7 @@ import org.kok202.deepblock.application.Util.TextFieldUtil;
 import org.kok202.deepblock.application.adapter.SplitMenuAdapter;
 import org.kok202.deepblock.application.adapter.file.TrainFeatureFileFinder;
 import org.kok202.deepblock.application.adapter.file.TrainResultFileFinder;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 
 public class ModelTrainParamController extends AbstractModelTrainController {
@@ -23,7 +24,7 @@ public class ModelTrainParamController extends AbstractModelTrainController {
     @FXML private Label labelOptimizer;
     @FXML private Label labelLearningRate;
     @FXML private Label labelBatchSize;
-    @FXML private Label labelRecordize;
+    @FXML private Label labelRecordSize;
     @FXML private Label labelEpoch;
 
     @FXML private TextField textFieldFindTrainingFeature;
@@ -58,7 +59,17 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         setButtonResultFinderActionHandler();
         initializeSplitMenuWeightInit();
         initializeSplitMenuOptimizer();
-        titledPane.setExpanded(false);
+
+
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.title"));
+        labelTrainingFeature.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.trainFeatureData"));
+        labelTrainingResult.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.trainResultData"));
+        labelWeightInit.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer"));
+        labelOptimizer.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer"));
+        labelLearningRate.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.learningRate"));
+        labelBatchSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.batchSize"));
+        labelRecordSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.totalSize"));
+        labelEpoch.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.epochSize"));
     }
 
     private void textFieldChangeHandler(){
@@ -104,21 +115,22 @@ public class ModelTrainParamController extends AbstractModelTrainController {
     private void initializeSplitMenuWeightInit(){
         SplitMenuAdapter<WeightInit> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuWeightInit);
         splitMenuAdapter.setMenuItemChangedListener(AIFacade::setTrainWeightInit);
-        splitMenuAdapter.addMenuItem("1로 초기화", WeightInit.ONES);
-        splitMenuAdapter.addMenuItem("0으로 초기화", WeightInit.ZERO);
-        splitMenuAdapter.addMenuItem("Xavier 초기화", WeightInit.XAVIER);
-        splitMenuAdapter.addMenuItem("Uniform 초기화", WeightInit.UNIFORM);
-        splitMenuAdapter.addMenuItem("Distribution 초기화", WeightInit.DISTRIBUTION);
-        splitMenuAdapter.addMenuItem("Normal 초기화", WeightInit.NORMAL);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.one"), WeightInit.ONES);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.zero"), WeightInit.ZERO);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.xavier"), WeightInit.XAVIER);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.uniform"), WeightInit.UNIFORM);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.distribution"), WeightInit.DISTRIBUTION);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer.normal"), WeightInit.NORMAL);
         splitMenuAdapter.setDefaultMenuItem(AIFacade.getTrainWeightInit());
     }
 
     private void initializeSplitMenuOptimizer(){
         SplitMenuAdapter<Optimizer> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuOptimizer);
         splitMenuAdapter.setMenuItemChangedListener(AIFacade::setTrainOptimizer);
-        splitMenuAdapter.addMenuItem("Gradient descent optimizer", Optimizer.SGD);
-        splitMenuAdapter.addMenuItem("ADAM optimizer", Optimizer.ADAM);
-        splitMenuAdapter.addMenuItem("No optimizer", Optimizer.NOOP);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.sgd"), Optimizer.SGD);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.adam"), Optimizer.ADAM);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.rmsProp"), Optimizer.RMS_PROP);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer.noop"), Optimizer.NOOP);
         splitMenuAdapter.setDefaultMenuItem(AIFacade.getTrainOptimizer());
     }
 }

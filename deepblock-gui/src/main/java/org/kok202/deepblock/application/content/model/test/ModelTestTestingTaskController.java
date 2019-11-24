@@ -9,6 +9,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Data
 public class ModelTestTestingTaskController extends AbstractModelTestController {
@@ -32,6 +33,8 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
     @Override
     protected void initialize() throws Exception {
         buttonTest.setOnAction(event -> buttonTestActionHandler());
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.title"));
+        buttonTest.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.test"));
     }
 
     private void buttonTestActionHandler(){

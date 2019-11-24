@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Data
 public class ModelTrainTaskController extends AbstractModelTrainController {
@@ -33,6 +34,11 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         buttonTrainingOneTime.setOnAction(event -> buttonTrainingOneTimeActionHandler());
         buttonTrainingNTime.setOnAction(event -> buttonTrainingNTimeActionHandler());
         titledPane.setExpanded(false);
+
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.title"));
+        buttonTrainingOneTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.oneTime"));
+        buttonTrainingNTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.nTime"));
+        buttonTrainingStop.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.stop"));
     }
 
     private void buttonTrainingOneTimeActionHandler(){
