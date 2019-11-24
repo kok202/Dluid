@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
+<!-- FIXME : change to multi language. -->
 <?import javafx.scene.control.*?>
 <MenuBar xmlns="http://javafx.com/javafx/8.0.172-ea"
          xmlns:fx="http://javafx.com/fxml/1"
