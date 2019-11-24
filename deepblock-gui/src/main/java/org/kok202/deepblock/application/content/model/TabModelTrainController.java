@@ -2,6 +2,7 @@ package org.kok202.deepblock.application.content.model;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,9 @@ public class TabModelTrainController extends AbstractController {
     @FXML private VBox vBoxForModelInfo;
     @FXML private VBox vBoxForTrainData;
     @FXML private VBox vBoxForTrainTask;
+    @FXML private Label labelTrainModelInfo;
+    @FXML private Label labelTrainDataSetting;
+    @FXML private Label labelTrainTask;
 
     private ModelInfoController modelInfoController;
     private ModelTrainParamController modelTrainParamController;
@@ -42,6 +46,10 @@ public class TabModelTrainController extends AbstractController {
         vBoxForModelInfo.getChildren().add(modelInfoController.createView());
         vBoxForTrainData.getChildren().add(modelTrainParamController.createView());
         vBoxForTrainTask.getChildren().add(modelTrainTaskController.createView());
+
+        labelTrainModelInfo.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.label"));
+        labelTrainDataSetting.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.label"));
+        labelTrainTask.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.label"));
     }
 
     public void refreshModelInfo(){

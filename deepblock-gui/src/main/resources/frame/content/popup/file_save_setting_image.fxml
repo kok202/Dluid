@@ -21,10 +21,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="labelName" text="이미지 이름 : " GridPane.rowIndex="0" />
-                        <Label fx:id="labelWidth" text="이미지 넓이 : " GridPane.rowIndex="1" />
-                        <Label fx:id="labelHeight" text="이미지 높이 : " GridPane.rowIndex="2" />
-                        <Label fx:id="labelColorType" text="이미지 타입 : " GridPane.rowIndex="3" />
+                        <Label fx:id="labelName" text="Image name : " GridPane.rowIndex="0" />
+                        <Label fx:id="labelWidth" text="Image width : " GridPane.rowIndex="1" />
+                        <Label fx:id="labelHeight" text="Image height : " GridPane.rowIndex="2" />
+                        <Label fx:id="labelColorType" text="Image type : " GridPane.rowIndex="3" />
                         <TextField fx:id="textFieldName" promptText="Image name" text="Result" GridPane.columnIndex="1" GridPane.rowIndex="0">
                             <padding>
                                 <Insets bottom="5.0" top="5.0" />

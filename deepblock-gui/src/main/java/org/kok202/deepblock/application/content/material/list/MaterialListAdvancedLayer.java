@@ -11,6 +11,7 @@ import org.kok202.deepblock.application.content.material.block.MaterialTestInput
 import org.kok202.deepblock.application.content.material.block.MaterialTrainInputController;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionFollower;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Getter
 public class MaterialListAdvancedLayer extends AbstractMaterialList {
@@ -38,5 +39,6 @@ public class MaterialListAdvancedLayer extends AbstractMaterialList {
         addAbstractMaterialController(new MaterialReshapeController());
         addAbstractMaterialController(new MaterialMergeController());
         addAbstractMaterialControllerToVBox(layerAdvancedListBox, materialInsertionManager);
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.advanced.title"));
     }
 }

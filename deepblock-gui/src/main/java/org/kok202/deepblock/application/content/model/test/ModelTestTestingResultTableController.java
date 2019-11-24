@@ -13,6 +13,7 @@ import org.kok202.deepblock.application.adapter.file.DirectoryChooserAdapter;
 import org.kok202.deepblock.application.adapter.file.TestResultDocumentFileSaver;
 import org.kok202.deepblock.application.adapter.file.TestResultImageSaver;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.domain.stream.NumericRecordSet;
 import org.kok202.deepblock.domain.stream.StringRecordSet;
 
@@ -44,6 +45,9 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
         setButtonSaverActionHandler();
         // FIXME : just for test. need to delete
         forTestData();
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.title"));
+        buttonExportAsImage.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsImage"));
+        buttonExportAsDocument.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsDocument"));
     }
 
     private void setButtonSaverActionHandler(){

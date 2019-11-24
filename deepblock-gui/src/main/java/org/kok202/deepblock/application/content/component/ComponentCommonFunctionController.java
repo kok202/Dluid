@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.adapter.SplitMenuAdapter;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.nd4j.linalg.activations.Activation;
 
 public class ComponentCommonFunctionController extends AbstractLayerComponentController {
@@ -37,6 +38,10 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         initializeSplitMenuWeightInit();
         initializeSplitMenuActivationFunction();
         initializeSliderDropout();
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.title"));
+        labelWeightInitializer.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.Initializer"));
+        labelActivationFunction.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.activationFunction"));
+        labelDropout.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.dropOut"));
     }
 
     private void initializeSplitMenuWeightInit(){
@@ -45,12 +50,12 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
             layer.getProperties().setWeightInit(weightInit);
             notifyLayerDataChanged();
         });
-        splitMenuAdapter.addMenuItem("1로 초기화", WeightInit.ONES);
-        splitMenuAdapter.addMenuItem("0으로 초기화", WeightInit.ZERO);
-        splitMenuAdapter.addMenuItem("Xavier 초기화", WeightInit.XAVIER);
-        splitMenuAdapter.addMenuItem("Uniform 초기화", WeightInit.UNIFORM);
-        splitMenuAdapter.addMenuItem("Distribution 초기화", WeightInit.DISTRIBUTION);
-        splitMenuAdapter.addMenuItem("Normal 초기화", WeightInit.NORMAL);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInit.ONES);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInit.ZERO);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInit.XAVIER);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInit.UNIFORM);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distribution"), WeightInit.DISTRIBUTION);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInit.NORMAL);
         splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInit());
     }
 
@@ -60,11 +65,11 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
             layer.getProperties().setActivationFunction(activation);
             notifyLayerDataChanged();
         });
-        splitMenuAdapter.addMenuItem("Identity", Activation.IDENTITY);
-        splitMenuAdapter.addMenuItem("Sigmoid", Activation.SIGMOID);
-        splitMenuAdapter.addMenuItem("ReLU", Activation.RELU);
-        splitMenuAdapter.addMenuItem("Leaky ReLU", Activation.LEAKYRELU);
-        splitMenuAdapter.addMenuItem("Softmax", Activation.SOFTMAX);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.identity"), Activation.IDENTITY);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.sigmoid"), Activation.SIGMOID);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.reLU"), Activation.RELU);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.leakyReLU"), Activation.LEAKYRELU);
+        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.softMax"), Activation.SOFTMAX);
         splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getActivationFunction());
     }
 

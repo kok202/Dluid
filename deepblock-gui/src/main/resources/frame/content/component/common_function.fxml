@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TitledPane fx:id="titledPane" animated="false" text="레이어 함수" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
+        <TitledPane fx:id="titledPane" animated="false" text="Layer function setting" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
@@ -20,9 +20,9 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label fx:id="labelWeightInitializer" text="초기화 함수" GridPane.rowIndex="0" />
-                                <Label fx:id="labelActivationFunction" text="활성화 함수" GridPane.rowIndex="1" />
-                                <Label fx:id="labelDropout" text="망각 비율" GridPane.rowIndex="2" />
+                                <Label fx:id="labelWeightInitializer" text="Weight Initializer" GridPane.rowIndex="0" />
+                                <Label fx:id="labelActivationFunction" text="Activation function" GridPane.rowIndex="1" />
+                                <Label fx:id="labelDropout" text="Dropout ratio" GridPane.rowIndex="2" />
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <children>
                                         <SplitMenuButton fx:id="splitMenuWeightInit" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

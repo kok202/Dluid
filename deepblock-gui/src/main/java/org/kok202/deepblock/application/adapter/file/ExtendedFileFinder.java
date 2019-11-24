@@ -7,6 +7,7 @@ import org.kok202.deepblock.ai.singleton.structure.ManagedRecordSet;
 import org.kok202.deepblock.application.adapter.PopUpExtension;
 import org.kok202.deepblock.application.content.popup.CsvManagementPopUpController;
 import org.kok202.deepblock.application.content.popup.ExcelManagementPopUpController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 public abstract class ExtendedFileFinder extends FileFinder{
 
@@ -32,7 +33,7 @@ public abstract class ExtendedFileFinder extends FileFinder{
             if(filePath.endsWith(".xls") || filePath.endsWith(".xlsx")){
                 popUpExtension = new PopUpExtension();
                 popUpExtension
-                        .setTitle("Excel 불러오기")
+                        .setTitle(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.title"))
                         .setWidth(400)
                         .setHeight(200)
                         .setPopUpSceneRoot(new ExcelManagementPopUpController(this).createView())
@@ -42,7 +43,7 @@ public abstract class ExtendedFileFinder extends FileFinder{
             else if(filePath.endsWith(".csv")) {
                 popUpExtension = new PopUpExtension();
                 popUpExtension
-                        .setTitle("Csv 불러오기")
+                        .setTitle(AppPropertiesSingleton.getInstance().get("frame.file.load.csv.title"))
                         .setWidth(400)
                         .setHeight(200)
                         .setPopUpSceneRoot(new CsvManagementPopUpController(this).createView())

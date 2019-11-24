@@ -9,6 +9,7 @@ import org.kok202.deepblock.application.content.material.block.MaterialInputCont
 import org.kok202.deepblock.application.content.material.block.MaterialOutputController;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionFollower;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Getter
 public class MaterialListAssistantLayer extends AbstractMaterialList {
@@ -34,5 +35,6 @@ public class MaterialListAssistantLayer extends AbstractMaterialList {
         addAbstractMaterialController(new MaterialInputController());
         addAbstractMaterialController(new MaterialOutputController());
         addAbstractMaterialControllerToVBox(layerAssistantListBox, materialInsertionManager);
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.assistant.title"));
     }
 }

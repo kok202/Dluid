@@ -9,6 +9,7 @@ import org.kok202.deepblock.application.content.material.block.Material1DConvolu
 import org.kok202.deepblock.application.content.material.block.Material1DFeedForwardController;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionFollower;
 import org.kok202.deepblock.application.content.material.insertion.MaterialInsertionManager;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Getter
 public class MaterialList1DLayer extends AbstractMaterialList {
@@ -34,5 +35,6 @@ public class MaterialList1DLayer extends AbstractMaterialList {
         addAbstractMaterialController(new Material1DConvolutionController());
         addAbstractMaterialController(new Material1DFeedForwardController());
         addAbstractMaterialControllerToVBox(layer1DListBox, materialInsertionManager);
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.1d.title"));
     }
 }

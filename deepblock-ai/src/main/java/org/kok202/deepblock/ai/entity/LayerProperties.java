@@ -13,7 +13,7 @@ public class LayerProperties {
     protected int[] outputSize;
     protected WeightInit weightInit;
     protected Activation activationFunction;
-    protected double dropout; // FIXME
+    protected double dropout;
 
     // for convolution type
     protected int[] kernelSize;

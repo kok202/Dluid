@@ -13,7 +13,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <Label text="1. Model Information">
+                  <Label fx:id="labelTrainModelInfo" text="1. Model Information">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -24,7 +24,7 @@
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></VBox>
-                  <Label text="2. Train data setting">
+                  <Label fx:id="labelTrainDataSetting" text="2. Train data setting">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></Label>
@@ -32,7 +32,7 @@
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></VBox>
-                  <Label text="3. Train ">
+                  <Label fx:id="labelTrainTask" text="3. Train ">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></Label>

@@ -23,7 +23,7 @@ public class AppPropertiesSingleton {
     private String getLanguagePropertiesPath(){
         String targetResource = "application-en.properties";
         if(commonProperties.getProperty("language").equals("kor"))
-            targetResource = "application-kor.properties";
+            targetResource = "application-en.properties"; // FIXME : to kor
         return targetResource;
     }
 

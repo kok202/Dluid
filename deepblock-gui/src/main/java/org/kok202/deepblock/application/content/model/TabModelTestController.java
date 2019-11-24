@@ -2,6 +2,7 @@ package org.kok202.deepblock.application.content.model;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -16,6 +17,8 @@ public class TabModelTestController extends AbstractController {
     @FXML private VBox content;
     @FXML private VBox vBoxForTestData;
     @FXML private VBox vBoxForTestTask;
+    @FXML private Label labelTestDataSetting;
+    @FXML private Label labelTestTask;
 
     private ModelTestFeatureController modelTestFeatureController;
     private ModelTestTestingController modelTestTestingController;
@@ -37,5 +40,7 @@ public class TabModelTestController extends AbstractController {
         modelTestTestingController = new ModelTestTestingController(this);
         vBoxForTestData.getChildren().add(modelTestFeatureController.createView());
         vBoxForTestTask.getChildren().add(modelTestTestingController.createView());
+        labelTestDataSetting.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.label"));
+        labelTestTask.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.label"));
     }
 }

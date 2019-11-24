@@ -9,7 +9,7 @@
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <!--============================================================= Titled =============================================================-->
-        <TitledPane fx:id="titledPane" animated="false" text="테스트 데이터 불러오기" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+        <TitledPane fx:id="titledPane" animated="false" text="Load test data" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
@@ -27,7 +27,7 @@
                                     <children>
 
                                         <!--============================================================= Training file finder =============================================================-->
-                                        <Label fx:id="labelTestDataFromFile" text="불러오기 : " />
+                                        <Label fx:id="labelTestDataFromFile" text="Load" />
                                         <GridPane GridPane.columnIndex="1">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" />

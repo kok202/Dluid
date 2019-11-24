@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.deepblock.CanvasFacade;
 import org.kok202.deepblock.ai.entity.Layer;
 import org.kok202.deepblock.application.Util.MathUtil;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 import org.kok202.deepblock.canvas.entity.MergeBlockProperty;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class MergeParamController extends AbstractLayerComponentController {
 
     @FXML private Label labelWidth;
     @FXML private Label labelHeight;
+    @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
 
     @FXML private TextField textFieldInputSizeX;
@@ -49,6 +51,11 @@ public class MergeParamController extends AbstractLayerComponentController {
             mergeBlockProperty.setPointingIndex(mergeBlockProperty.getPointingIndex() - 1);
             refreshInputOutputSize();
         });
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
+        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
+        labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
+        labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
     }
 
     public void refreshInputOutputSize(){

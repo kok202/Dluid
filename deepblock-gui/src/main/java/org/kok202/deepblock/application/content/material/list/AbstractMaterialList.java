@@ -1,5 +1,7 @@
 package org.kok202.deepblock.application.content.material.list;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.kok202.deepblock.application.common.AbstractController;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractMaterialList extends AbstractController {
+    @FXML protected TitledPane titledPane;
     private List<AbstractMaterialController> abstractMaterialControllerList;
     abstract public AnchorPane createView() throws Exception;
 

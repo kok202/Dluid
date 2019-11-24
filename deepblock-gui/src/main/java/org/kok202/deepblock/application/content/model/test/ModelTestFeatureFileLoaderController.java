@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.deepblock.application.adapter.file.TestFeatureFileFinder;
 import org.kok202.deepblock.application.content.model.TabModelTestController;
+import org.kok202.deepblock.application.singleton.AppPropertiesSingleton;
 
 @Data
 public class ModelTestFeatureFileLoaderController extends AbstractModelTestController {
@@ -17,7 +18,6 @@ public class ModelTestFeatureFileLoaderController extends AbstractModelTestContr
     @FXML private Label labelTestDataFromFile;
     @FXML private TextField textFieldFindTestData;
     @FXML private Button buttonFindTestData;
-    // 랜덤으로 데이터 불러오는 버튼이 필요
 
     public ModelTestFeatureFileLoaderController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
@@ -33,6 +33,8 @@ public class ModelTestFeatureFileLoaderController extends AbstractModelTestContr
     @Override
     protected void initialize() throws Exception {
         setButtonFinderActionHandler();
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.title"));
+        labelTestDataFromFile.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.label"));
     }
 
     private void setButtonFinderActionHandler(){

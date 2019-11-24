@@ -7,7 +7,7 @@
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <CheckBox fx:id="checkBoxHeaderExist" mnemonicParsing="false" selected="true" text="헤더 유무">
+                <CheckBox fx:id="checkBoxHeaderExist" mnemonicParsing="false" selected="true" text="Is exist header?">
                     <VBox.margin>
                         <Insets bottom="5.0" />
                     </VBox.margin>
@@ -22,8 +22,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="labelDataStart" text="데이터 시작 : " GridPane.columnIndex="0" />
-                        <Label fx:id="labelDataEnd" text="데이터 마지막 : " GridPane.rowIndex="1" />
+                        <Label fx:id="labelDataStart" text="Start of data : " GridPane.columnIndex="0" />
+                        <Label fx:id="labelDataEnd" text="End of data : " GridPane.rowIndex="1" />
                         <TextField fx:id="textFieldDataStart" promptText="A1" text="A1" GridPane.columnIndex="1">
                             <padding>
                                 <Insets bottom="5.0" top="5.0" />
