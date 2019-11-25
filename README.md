@@ -1,5 +1,5 @@
-### Deep block (working title).
+### DLUId (working title).
 
-DeepBlock is simple application for someone who want to studying deeplearning.
+DLUId is simple application for someone who want to studying deeplearning.
 ````
 ````
