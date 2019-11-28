@@ -20,7 +20,7 @@ public class AppFacade {
                 .getTabModelDesignController()
                 .getMainSplitter()
                 .getDividerPositions();
-        return AppWidgetSingleton.getInstance().getPrimaryStage().getWidth() * (dividerPositions[1] - dividerPositions[0])-15;
+        return AppWidgetSingleton.getInstance().getPrimaryStage().getWidth() * (dividerPositions[1] - dividerPositions[0])-15; // FIXME : -15? 왜 갑자기 여분이 필요하지?
     }
 
     public static void setResizingCanvasWidthListener(ChangeListener<? super Number> changeListener){
