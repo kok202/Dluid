@@ -4,9 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TabPane;
 import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
-import org.kok202.dluid.application.content.model.TabModelDesignController;
-import org.kok202.dluid.application.content.model.TabModelTestController;
-import org.kok202.dluid.application.content.model.TabModelTrainController;
 
 @Getter
 public class TabsController extends AbstractController {
