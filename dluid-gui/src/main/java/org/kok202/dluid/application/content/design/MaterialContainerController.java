@@ -15,9 +15,7 @@ import org.kok202.dluid.application.content.design.material.list.MaterialListAss
 
 @Getter
 public class MaterialContainerController extends AbstractController {
-    @FXML
-    private VBox content;
-
+    @FXML private VBox container;
     private MaterialInsertionManager materialInsertionManager;
 
     public MaterialContainerController(MaterialInsertionManager materialInsertionManager) {
@@ -33,9 +31,9 @@ public class MaterialContainerController extends AbstractController {
     @Override
     protected void initialize() throws Exception {
         ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
-        content.getChildren().add(new MaterialListAssistantLayer(materialInsertionManager).createView());
-        content.getChildren().add(new MaterialList1DLayer(materialInsertionManager).createView());
-        content.getChildren().add(new MaterialList2DLayer(materialInsertionManager).createView());
-        content.getChildren().add(new MaterialListAdvancedLayer(materialInsertionManager).createView());
+        container.getChildren().add(new MaterialListAssistantLayer(materialInsertionManager).createView());
+        container.getChildren().add(new MaterialList1DLayer(materialInsertionManager).createView());
+        container.getChildren().add(new MaterialList2DLayer(materialInsertionManager).createView());
+        container.getChildren().add(new MaterialListAdvancedLayer(materialInsertionManager).createView());
     }
 }

@@ -8,12 +8,10 @@ import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.content.design.component.ComponentManager;
 
+@Getter
 public class ComponentContainerController extends AbstractController {
-    @FXML
-    @Getter
-    private VBox componentContainer;
 
-    @Getter
+    @FXML private VBox container;
     private ComponentManager componentManager;
 
     public ComponentContainerController(){

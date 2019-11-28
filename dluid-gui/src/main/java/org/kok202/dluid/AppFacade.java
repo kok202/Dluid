@@ -20,7 +20,7 @@ public class AppFacade {
                 .getTabModelDesignController()
                 .getMainSplitter()
                 .getDividerPositions();
-        return AppWidgetSingleton.getInstance().getPrimaryStage().getWidth() * (dividerPositions[1] - dividerPositions[0]);
+        return AppWidgetSingleton.getInstance().getPrimaryStage().getWidth() * (dividerPositions[1] - dividerPositions[0])-15;
     }
 
     public static void setResizingCanvasWidthListener(ChangeListener<? super Number> changeListener){

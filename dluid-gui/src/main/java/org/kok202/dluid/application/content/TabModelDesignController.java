@@ -33,21 +33,14 @@ public class TabModelDesignController extends AbstractController {
 
     @Override
     protected void initialize() throws Exception {
-        AnchorPane rootPane = initializeRootContent();
-        initializeContent(rootPane);
-    }
-
-    private AnchorPane initializeRootContent(){
-        return (AnchorPane) itself;
-    }
-
-    private void initializeContent(AnchorPane rootPane) throws Exception {
+        AnchorPane rootPane =  (AnchorPane) itself;
         mainSplitter = (SplitPane) rootPane.lookup("#mainSplitter");
 
         MaterialInsertionManager materialInsertionManager = new MaterialInsertionManager();
         materialContainerController = new MaterialContainerController(materialInsertionManager);
         canvasContainerController = new CanvasContainerController();
         componentContainerController = new ComponentContainerController();
+
         AnchorPane materialContent = materialContainerController.createView();
         AnchorPane canvasContent = canvasContainerController.createView();
         AnchorPane componentContent = componentContainerController.createView();
@@ -61,10 +54,8 @@ public class TabModelDesignController extends AbstractController {
         mainSplitter.getItems().add(materialContent);
         mainSplitter.getItems().add(canvasContent);
         mainSplitter.getItems().add(componentContent);
-        mainSplitter.setDividerPositions(0.17, 0.75, 0.28);
+        mainSplitter.setDividerPositions(0.2, 0.75);
         SplitPane.setResizableWithParent(materialContent, false);
         SplitPane.setResizableWithParent(componentContent, false);
     }
-
-
 }

@@ -28,7 +28,7 @@ public class ComponentManager {
 
     public void clearComponentContainer(){
         componentList.clear();
-        componentContainerController.getComponentContainer().getChildren().clear();
+        componentContainerController.getContainer().getChildren().clear();
     }
 
     private void attachComponentBoxOnList(Layer layer){
@@ -80,7 +80,7 @@ public class ComponentManager {
     private void attachComponentBoxOnContainer(){
         try {
             for (AbstractComponentController abstractComponentController : componentList) {
-                componentContainerController.getComponentContainer().getChildren().add(abstractComponentController.createView());
+                componentContainerController.getContainer().getChildren().add(abstractComponentController.createView());
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -6,10 +6,9 @@ import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.canvas.MainCanvas;
 
+@Getter
 public class CanvasContainerController extends AbstractController {
-    private MainCanvas mainCanvas;
 
-    @Getter
     private BlockConnectionManager blockConnectionManager;
 
     public AnchorPane createView() throws Exception {
@@ -20,12 +19,10 @@ public class CanvasContainerController extends AbstractController {
 
     @Override
     protected void initialize() throws Exception {
-        mainCanvas = new MainCanvas(1200, 600);
         blockConnectionManager = new BlockConnectionManager();
-
-        AnchorPane modelDesignTab = (AnchorPane)itself;
-        modelDesignTab.getChildren().add(mainCanvas.getMainScene().getSceneNode());
-        modelDesignTab.getChildren().add(blockConnectionManager.getBlockConnectionFollower().createView());
+        MainCanvas mainCanvas = new MainCanvas(600, 600);
+        ((AnchorPane)itself).getChildren().add(mainCanvas.getMainScene().getSceneNode());
+        ((AnchorPane)itself).getChildren().add(blockConnectionManager.getBlockConnectionFollower().createView());
         blockConnectionManager.setVisible(false);
     }
 }
