@@ -74,7 +74,7 @@ public class TrainTask extends Task<Integer> {
         int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
         int trainedEpoch = AIFacade.getTrainEpoch();
         AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
-        AppWidgetSingleton.getInstance().getContentRootController().getTabsController().getTabModelTrainController().refreshModelInfo();
+        AppWidgetSingleton.getInstance().getTabsController().getTabModelTrainController().refreshModelInfo();
     }
 
     private void stopTraining(){

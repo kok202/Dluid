@@ -4,7 +4,7 @@ import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.NonNull;
-import org.kok202.dluid.application.content.ContentRootController;
+import org.kok202.dluid.application.content.TabsController;
 
 @Getter
 public class AppWidgetSingleton {
@@ -20,7 +20,7 @@ public class AppWidgetSingleton {
 
     private Stage primaryStage;
     private MenuBar menuBar;
-    private ContentRootController contentRootController;
+    private TabsController tabsController;
 
     public void setMenuBar(@NonNull MenuBar menuBar) {
         this.menuBar = menuBar;
@@ -30,7 +30,7 @@ public class AppWidgetSingleton {
         this.primaryStage = primaryStage;
     }
 
-    public void setContentRootController(@NonNull ContentRootController contentRootController) {
-        this.contentRootController = contentRootController;
+    public void setTabsController(@NonNull TabsController tabsController) {
+        this.tabsController = tabsController;
     }
 }

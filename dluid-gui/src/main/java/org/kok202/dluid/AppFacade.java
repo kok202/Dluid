@@ -16,7 +16,6 @@ public class AppFacade {
 
     public static double getCanvasWidgetWidth(){
         double[] dividerPositions = AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getMainSplitter()
@@ -27,7 +26,6 @@ public class AppFacade {
     public static void setResizingCanvasWidthListener(ChangeListener<? super Number> changeListener){
         AppWidgetSingleton.getInstance().getPrimaryStage().widthProperty().addListener(changeListener);
         AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getMainSplitter()
@@ -35,7 +33,6 @@ public class AppFacade {
                 .positionProperty()
                 .addListener(changeListener);
         AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getMainSplitter()
@@ -53,7 +50,6 @@ public class AppFacade {
      *************************************************************************************************/
     public static void setConnectionArrowStart(Point2D point2D){
         AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getCanvasContainerController()
@@ -62,7 +58,6 @@ public class AppFacade {
     }
     public static void setConnectionArrowEnd(Point2D point2D){
         AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getCanvasContainerController()
@@ -72,7 +67,6 @@ public class AppFacade {
 
     public static void setConnectionArrowVisible(boolean visible){
         AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getCanvasContainerController()
@@ -82,7 +76,6 @@ public class AppFacade {
 
     public static boolean isConnectionArrowUpward(){
         return AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getCanvasContainerController()
@@ -95,7 +88,6 @@ public class AppFacade {
      *************************************************************************************************/
     public static void refreshComponentContainer(Layer layer){
         AppWidgetSingleton.getInstance()
-                .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getComponentContainerController()

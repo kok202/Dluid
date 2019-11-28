@@ -36,7 +36,6 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
         buttonDelete.setOnAction((event -> {
             CanvasFacade.removeGraphNode(layer.getId());
             AppWidgetSingleton.getInstance()
-                    .getContentRootController()
                     .getTabsController()
                     .getTabModelDesignController()
                     .getComponentContainerController()
