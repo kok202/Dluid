@@ -21,7 +21,7 @@ public class ModelTestTestingController extends AbstractModelTestController {
     }
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/testing.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/test/testing.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;

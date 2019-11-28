@@ -24,7 +24,7 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
     }
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/test/testing_task.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/test/testing_task.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;

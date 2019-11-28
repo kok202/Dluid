@@ -21,7 +21,7 @@ public class ComponentContainerController extends AbstractController {
     }
 
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/design/component_container.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/component_container.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

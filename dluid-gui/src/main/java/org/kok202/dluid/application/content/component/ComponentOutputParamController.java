@@ -28,7 +28,7 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
 
     @Override
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/component/output_param.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/component/output_param.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

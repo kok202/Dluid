@@ -27,7 +27,7 @@ public class TabModelTrainController extends AbstractController {
     private ModelTrainTaskController modelTrainTaskController;
 
     public Tab createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/tab_model_train.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/tab_model_train.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
 

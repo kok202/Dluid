@@ -28,7 +28,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
 
     @Override
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/component/common_function.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/component/common_function.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

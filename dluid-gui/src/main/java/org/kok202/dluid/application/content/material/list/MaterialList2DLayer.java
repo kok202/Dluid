@@ -23,7 +23,7 @@ public class MaterialList2DLayer extends AbstractMaterialList {
 
     @Override
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/material/list/layer_2d_list.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/material/list/layer_2d_list.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

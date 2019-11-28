@@ -13,7 +13,7 @@ public class CanvasContainerController extends AbstractController {
     private BlockConnectionManager blockConnectionManager;
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/design/canvas_container.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/canvas_container.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

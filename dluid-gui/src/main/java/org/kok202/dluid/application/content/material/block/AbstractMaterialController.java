@@ -18,7 +18,7 @@ public abstract class AbstractMaterialController extends AbstractController {
     protected LayerType layerType;
 
     public Pane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/material/block/base_block.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/material/block/base_block.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

@@ -21,7 +21,7 @@ public class TabModelDesignController extends AbstractController {
 
 
     public Tab createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/tab_model_design.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/tab_model_design.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
 

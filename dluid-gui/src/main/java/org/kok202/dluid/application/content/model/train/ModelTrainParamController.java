@@ -39,7 +39,7 @@ public class ModelTrainParamController extends AbstractModelTrainController {
     @FXML private TextField textFieldEpoch;
 
     public AnchorPane createView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/train/parameter.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/train/parameter.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
         return content;

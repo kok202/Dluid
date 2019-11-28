@@ -17,7 +17,7 @@ public class BlockConnectionFollower extends AbstractController {
 	private CubicCurve cubicCurve;
 
 	public CubicCurve createView() throws Exception{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/design/block_connection.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/block_connection.fxml"));
 		fxmlLoader.setController(this);
         return fxmlLoader.load();
 	}

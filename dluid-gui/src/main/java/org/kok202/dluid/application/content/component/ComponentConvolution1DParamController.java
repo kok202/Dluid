@@ -31,7 +31,7 @@ public class ComponentConvolution1DParamController extends AbstractConvolutionLa
 
     @Override
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/component/convolution1d_param.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/component/convolution1d_param.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

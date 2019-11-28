@@ -23,7 +23,7 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
 
     @Override
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/component/feedforward_param.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/component/feedforward_param.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }
