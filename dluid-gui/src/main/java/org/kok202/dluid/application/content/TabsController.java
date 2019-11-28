@@ -11,8 +11,8 @@ import org.kok202.dluid.application.content.model.TabModelTrainController;
 @Getter
 public class TabsController extends AbstractController {
     private TabModelDesignController tabModelDesignController;
-    private org.kok202.dluid.application.content.model.TabModelTrainController TabModelTrainController;
-    private org.kok202.dluid.application.content.model.TabModelTestController TabModelTestController;
+    private TabModelTrainController TabModelTrainController;
+    private TabModelTestController TabModelTestController;
 
     public TabPane createView() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/tabs.fxml"));

@@ -2,7 +2,6 @@ package org.kok202.dluid.application.content.material.insertion;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TabPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -18,7 +17,7 @@ public class MaterialInsertionManager {
     private AnchorPane rootPane;
     private SplitPane mainSplitter;
     private AnchorPane materialContent;
-    private TabPane tabContent;
+    private AnchorPane canvasContent;
     private MaterialInsertionFollower materialInsertionFollower;
     private boolean isBlockInsertionRequested;
 
@@ -26,7 +25,7 @@ public class MaterialInsertionManager {
         if(rootPane == null) throw new NullPointerException();
         if(mainSplitter == null) throw new NullPointerException();
         if(materialContent == null) throw new NullPointerException();
-        if(tabContent == null) throw new NullPointerException();
+        if(canvasContent == null) throw new NullPointerException();
         initializeInvisibleFollower();
         initializeMouseEventListener();
     }
@@ -44,7 +43,7 @@ public class MaterialInsertionManager {
         });
 
         // seq 2: dragging on middle side
-        tabContent.setOnDragOver((DragEvent dragEvent) -> {
+        canvasContent.setOnDragOver((DragEvent dragEvent) -> {
             if(isBlockInsertionRequested){
                 // Set drop is available
                 dragEvent.acceptTransferModes(TransferMode.ANY);
@@ -57,7 +56,7 @@ public class MaterialInsertionManager {
         });
 
         // seq 3: dragging is done on middle side
-        tabContent.setOnDragDropped((DragEvent dragEvent) -> {
+        canvasContent.setOnDragDropped((DragEvent dragEvent) -> {
             if(isBlockInsertionRequested){
                 // get container from old clipboard, and replace new one
                 MaterialInsertionInfoHolder materialInsertionInfoHolder = (MaterialInsertionInfoHolder) dragEvent.getDragboard().getContent(MaterialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK);

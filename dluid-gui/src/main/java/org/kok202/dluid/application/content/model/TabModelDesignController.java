@@ -1,21 +1,26 @@
 package org.kok202.dluid.application.content.model;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
-import org.kok202.dluid.application.content.model.design.BlockConnectionManager;
+import org.kok202.dluid.application.content.material.insertion.MaterialInsertionManager;
+import org.kok202.dluid.application.content.model.design.CanvasContainerController;
+import org.kok202.dluid.application.content.model.design.ComponentContainerController;
+import org.kok202.dluid.application.content.model.design.MaterialContainerController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.canvas.MainCanvas;
 
+@Getter
 public class TabModelDesignController extends AbstractController {
-    private MainCanvas mainCanvas;
+    private SplitPane mainSplitter;
+    private MaterialContainerController materialContainerController;
+    private CanvasContainerController canvasContainerController;
+    private ComponentContainerController componentContainerController;
 
-    @Getter
-    private BlockConnectionManager blockConnectionManager;
 
-    public Tab createView() throws Exception {
+    public Tab createView() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/tab_model_design.fxml"));
         fxmlLoader.setController(this);
         AnchorPane content = fxmlLoader.load();
@@ -28,12 +33,38 @@ public class TabModelDesignController extends AbstractController {
 
     @Override
     protected void initialize() throws Exception {
-        mainCanvas = new MainCanvas(1200, 600);
-        blockConnectionManager = new BlockConnectionManager();
-
-        AnchorPane modelDesignTab = (AnchorPane)itself;
-        modelDesignTab.getChildren().add(mainCanvas.getMainScene().getSceneNode());
-        modelDesignTab.getChildren().add(blockConnectionManager.getBlockConnectionFollower().createView());
-        blockConnectionManager.setVisible(false);
+        AnchorPane rootPane = initializeRootContent();
+        initializeContent(rootPane);
     }
+
+    private AnchorPane initializeRootContent(){
+        return (AnchorPane) itself;
+    }
+
+    private void initializeContent(AnchorPane rootPane) throws Exception {
+        mainSplitter = (SplitPane) rootPane.lookup("#mainSplitter");
+
+        MaterialInsertionManager materialInsertionManager = new MaterialInsertionManager();
+        materialContainerController = new MaterialContainerController(materialInsertionManager);
+        canvasContainerController = new CanvasContainerController();
+        componentContainerController = new ComponentContainerController();
+        AnchorPane materialContent = materialContainerController.createView();
+        AnchorPane canvasContent = canvasContainerController.createView();
+        AnchorPane componentContent = componentContainerController.createView();
+
+        materialInsertionManager.setRootPane(rootPane);
+        materialInsertionManager.setMainSplitter(mainSplitter);
+        materialInsertionManager.setMaterialContent(materialContent);
+        materialInsertionManager.setCanvasContent(canvasContent);
+        materialInsertionManager.initialize();
+
+        mainSplitter.getItems().add(materialContent);
+        mainSplitter.getItems().add(canvasContent);
+        mainSplitter.getItems().add(componentContent);
+        mainSplitter.setDividerPositions(0.17, 0.75, 0.28);
+        SplitPane.setResizableWithParent(materialContent, false);
+        SplitPane.setResizableWithParent(componentContent, false);
+    }
+
+
 }

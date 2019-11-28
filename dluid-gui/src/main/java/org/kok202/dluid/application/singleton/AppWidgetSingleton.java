@@ -1,14 +1,10 @@
 package org.kok202.dluid.application.singleton;
 
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.NonNull;
-import org.kok202.dluid.application.content.ComponentContainerController;
 import org.kok202.dluid.application.content.ContentRootController;
-import org.kok202.dluid.application.content.MaterialContainerController;
 
 @Getter
 public class AppWidgetSingleton {
@@ -23,14 +19,8 @@ public class AppWidgetSingleton {
     private AppWidgetSingleton(){}
 
     private Stage primaryStage;
-    
     private MenuBar menuBar;
     private ContentRootController contentRootController;
-
-    private AnchorPane contentRootPane;
-    private SplitPane mainSplitPane;
-    private MaterialContainerController materialContainerController;
-    private ComponentContainerController componentContainerController;
 
     public void setMenuBar(@NonNull MenuBar menuBar) {
         this.menuBar = menuBar;
@@ -42,9 +32,5 @@ public class AppWidgetSingleton {
 
     public void setContentRootController(@NonNull ContentRootController contentRootController) {
         this.contentRootController = contentRootController;
-        this.contentRootPane = (AnchorPane) contentRootController.getItself();
-        this.mainSplitPane = contentRootController.getMainSplitter();
-        this.materialContainerController = contentRootController.getMaterialContainerController();
-        this.componentContainerController = contentRootController.getComponentContainerController();
     }
 }

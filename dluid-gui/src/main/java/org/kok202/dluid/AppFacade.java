@@ -15,14 +15,33 @@ public class AppFacade {
     }
 
     public static double getCanvasWidgetWidth(){
-        double[] dividerPositions = AppWidgetSingleton.getInstance().getMainSplitPane().getDividerPositions();
+        double[] dividerPositions = AppWidgetSingleton.getInstance()
+                .getContentRootController()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getMainSplitter()
+                .getDividerPositions();
         return AppWidgetSingleton.getInstance().getPrimaryStage().getWidth() * (dividerPositions[1] - dividerPositions[0]);
     }
 
     public static void setResizingCanvasWidthListener(ChangeListener<? super Number> changeListener){
         AppWidgetSingleton.getInstance().getPrimaryStage().widthProperty().addListener(changeListener);
-        AppWidgetSingleton.getInstance().getMainSplitPane().getDividers().get(0).positionProperty().addListener(changeListener);
-        AppWidgetSingleton.getInstance().getMainSplitPane().getDividers().get(1).positionProperty().addListener(changeListener);
+        AppWidgetSingleton.getInstance()
+                .getContentRootController()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getMainSplitter()
+                .getDividers().get(0)
+                .positionProperty()
+                .addListener(changeListener);
+        AppWidgetSingleton.getInstance()
+                .getContentRootController()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getMainSplitter()
+                .getDividers().get(1)
+                .positionProperty()
+                .addListener(changeListener);
     }
 
     public static void setResizingCanvasHeightListener(ChangeListener<? super Number> changeListener){
@@ -37,6 +56,7 @@ public class AppFacade {
                 .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
+                .getCanvasContainerController()
                 .getBlockConnectionManager()
                 .setStart(point2D);
     }
@@ -45,6 +65,7 @@ public class AppFacade {
                 .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
+                .getCanvasContainerController()
                 .getBlockConnectionManager()
                 .setEnd(point2D);
     }
@@ -54,6 +75,7 @@ public class AppFacade {
                 .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
+                .getCanvasContainerController()
                 .getBlockConnectionManager()
                 .setVisible(visible);
     }
@@ -63,6 +85,7 @@ public class AppFacade {
                 .getContentRootController()
                 .getTabsController()
                 .getTabModelDesignController()
+                .getCanvasContainerController()
                 .getBlockConnectionManager()
                 .isUpward();
     }
@@ -72,6 +95,9 @@ public class AppFacade {
      *************************************************************************************************/
     public static void refreshComponentContainer(Layer layer){
         AppWidgetSingleton.getInstance()
+                .getContentRootController()
+                .getTabsController()
+                .getTabModelDesignController()
                 .getComponentContainerController()
                 .getComponentManager()
                 .refreshContainerByLayer(layer);

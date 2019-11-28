@@ -3,7 +3,7 @@ package org.kok202.dluid.application.content.component;
 import lombok.Getter;
 import lombok.NonNull;
 import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.application.content.ComponentContainerController;
+import org.kok202.dluid.application.content.model.design.ComponentContainerController;
 
 import java.util.ArrayList;
 

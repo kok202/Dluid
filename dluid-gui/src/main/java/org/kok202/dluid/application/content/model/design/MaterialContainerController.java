@@ -1,4 +1,4 @@
-package org.kok202.dluid.application.content;
+package org.kok202.dluid.application.content.model.design;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +25,7 @@ public class MaterialContainerController extends AbstractController {
     }
 
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/material_container.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/model/design/material_container.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }
