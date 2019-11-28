@@ -52,7 +52,7 @@ public class ContentRootController extends AbstractController {
         mainSplitter.getItems().add(materialContent);
         mainSplitter.getItems().add(tabContent);
         mainSplitter.getItems().add(detailContent);
-        mainSplitter.setDividerPositions(0.18, 0.8, 0.3);
+        mainSplitter.setDividerPositions(0.17, 0.75, 0.28);
         SplitPane.setResizableWithParent(materialContent, false);
         SplitPane.setResizableWithParent(detailContent, false);
     }
