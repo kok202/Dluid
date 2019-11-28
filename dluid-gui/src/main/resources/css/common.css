@@ -3,35 +3,199 @@
     src: url('../fonts/NanumBarunGothic.ttf');
 }
 
+@font-face {
+    font-family: 'NanumBarunGothicBold';
+    src: url('../fonts/NanumBarunGothicBold.ttf');
+}
+
 *{
-    -fx-dark: #222222;
-    -fx-primary: #EEEEEE;
-    -fx-secondary: #FFFF8D;
-    -fx-third: #8DFF8D;
-    -fx-primarytext: #B2B2B2;
     -fx-font-family: 'NanumBarunGothic';
-    -fx-font-size: 14
-}
-/*
-.root{
-    -fx-background-color: -fx-primary;
+    -fx-font-size: 14;
+
+    COLOR_BLACK: #000002;
+    COLOR_LIGHTEST_GRAY: #F1F2F3;
+    COLOR_LIGHT_GRAY: #C1C2C3;
+    COLOR_GRAY: #A1A2A3;
+    COLOR_DARK_GRAY: #515253;
+    COLOR_WHITE: #FFFFFF;
+    COLOR_PRIMARY: #21AFA2;
+    COLOR_PRIMARY_DARKER: #119F92;
 }
 
-.button{
-    -fx-text-fill: -fx-secondary;
-    -fx-border-color: -fx-third;
-    -fx-background-radius: 5px;
+
+
+
+
+.button {
+    -fx-padding: 10, 20, 10, 20;
+    -fx-text-fill: COLOR_GRAY;
+    -fx-background-color: COLOR_LIGHTEST_GRAY;
+    -fx-background-radius: 0;
 }
 
-.button:hover{
-    -fx-text-fill: -fx-dark;
-    -fx-border-color: -fx-third;
-    -fx-background-color: -fx-third;
-    -fx-background-radius: 5px;
+.button:hover, button:pressed {
+    -fx-text-fill: COLOR_WHITE;
+    -fx-background-color: COLOR_PRIMARY;
+    -fx-background-radius: 0;
 }
 
-.text-field{
-    -fx-text-fill: -fx-dark;
-    -fx-font-size: 10pt;
+
+
+
+
+
+
+
+.tab {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
-*/
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: COLOR_WHITE;
+}
+
+.tab-pane{
+    -fx-tab-min-width:150px;
+    -fx-tab-min-height:30px;
+}
+
+.tab-pane .tab {
+    -fx-background-color: COLOR_LIGHTEST_GRAY;
+    -fx-border-color: COLOR_GRAY;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: COLOR_GRAY;
+}
+
+
+.tab-pane .tab:selected,
+.tab-pane .tab:hover {
+    -fx-background-color: COLOR_WHITE;
+    -fx-border-color: COLOR_DARK_GRAY;
+}
+
+.tab:selected .tab-label,
+.tab:hover .tab-label  {
+    -fx-alignment: CENTER;
+    -fx-text-fill: COLOR_BLACK;
+    -fx-border-color: transparent;
+}
+
+
+
+
+
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+
+.split-pane-divider {
+  -fx-padding: 1;
+  -fx-background-color: COLOR_DARK_GRAY;
+}
+
+
+
+
+
+.scroll-bar *.increment-button ,
+.scroll-bar *.decrement-button {
+    -fx-background-color:COLOR_LIGHTEST_GRAY;
+	-fx-border-color:COLOR_LIGHTEST_GRAY;
+    -fx-background-radius: 0;
+    -fx-padding:1;
+}
+
+.scroll-bar *.increment-arrow,
+.scroll-bar *.decrement-arrow{
+}
+
+.scroll-bar .track {
+	-fx-background-color:COLOR_LIGHTEST_GRAY;
+	-fx-border-color:COLOR_LIGHTEST_GRAY;
+	-fx-background-radius: 0;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color:COLOR_LIGHT_GRAY;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+}
+
+
+
+
+
+.titled-pane > .title {
+    -fx-background-color: COLOR_LIGHTEST_GRAY;
+    -fx-border-color: COLOR_GRAY;
+}
+.titled-pane > .content{
+    -fx-background-color: COLOR_WHITE;
+    -fx-border-color: COLOR_GRAY;
+}
+
+
+
+
+
+
+.text-field {
+    -fx-text-fill: COLOR_DARK_GRAY;
+    -fx-background-color: COLOR_LIGHTEST_GRAY;
+    -fx-border-color: COLOR_GRAY;
+    -fx-border-width: 1;
+}
+
+.text-field:focused {
+    -fx-text-fill: COLOR_BLACK;
+    -fx-background-color: COLOR_WHITE;
+    -fx-border-color: COLOR_DARK_GRAY;
+    -fx-border-width: 1;
+}
+
+
+
+
+
+.split-menu-button {
+    -fx-background-color: COLOR_LIGHTEST_GRAY;
+    -fx-border-color: COLOR_GRAY;
+}
+
+.split-menu-button > .label{
+    -fx-background-color: COLOR_LIGHTEST_GRAY;
+}
+
+.split-menu-button .button  {
+    -fx-background-color: COLOR_GRAY;
+}
+
+
+
+
+
+.vbox {
+}
+
+.radio-button {
+}
+
+.check-box {
+}
+
+.progress-bar {
+}
+
+.table {
+}
+
+.slider {
+}
