@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.content.design.material.block.AbstractMaterialController;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
@@ -12,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractMaterialList extends AbstractController {
-    @FXML protected TitledPane titledPane;
+    @FXML
+    @Getter
+    private TitledPane titledPane;
     private List<AbstractMaterialController> abstractMaterialControllerList;
     abstract public AnchorPane createView() throws Exception;
 

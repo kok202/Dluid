@@ -39,6 +39,6 @@ public class MaterialListAdvancedLayer extends AbstractMaterialList {
         addAbstractMaterialController(new MaterialReshapeController());
         addAbstractMaterialController(new MaterialMergeController());
         addAbstractMaterialControllerToVBox(layerAdvancedListBox, materialInsertionManager);
-        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.advanced.title"));
+        getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.advanced.title"));
     }
 }

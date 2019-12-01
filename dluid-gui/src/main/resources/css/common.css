@@ -12,14 +12,65 @@
     -fx-font-family: 'NanumBarunGothic';
     -fx-font-size: 14;
 
-    COLOR_BLACK: #000002;
-    COLOR_LIGHTEST_GRAY: #F1F2F3;
-    COLOR_LIGHT_GRAY: #C1C2C3;
-    COLOR_GRAY: #A1A2A3;
-    COLOR_DARK_GRAY: #515253;
-    COLOR_WHITE: #FFFFFF;
-    COLOR_PRIMARY: #21AFA2;
-    COLOR_PRIMARY_DARKER: #119F92;
+    COLOR-WHITE: #FFFFFF;
+    COLOR-LIGHTEST-GRAY: #F1F2F3;
+    COLOR-LIGHT-GRAY: #C1C2C3;
+    COLOR-GRAY: #A1A2A3;
+    COLOR-DARK-GRAY: #515253;
+    COLOR-BLACK: #000002;
+
+    COLOR-PRIMARY: #21AFA2;
+    COLOR-PRIMARY-DARKER: #119F92;
+
+CONTEXT-COLOR-BACKGROUND: COLOR-WHITE;
+
+CONTEXT-COLOR-BUTTON-BACKGROUND: COLOR-LIGHT-GRAY;
+CONTEXT-COLOR-BUTTON-TEXT: COLOR-GRAY;
+CONTEXT-COLOR-BUTTON-HOVER-BACKGROUND: COLOR-PRIMARY;
+CONTEXT-COLOR-BUTTON-HOVER-TEXT: COLOR-WHITE;
+
+CONTEXT-COLOR-TAB-HEADER-AREA-BACKGROUND: COLOR-LIGHT-GRAY;
+CONTEXT-COLOR-TAB-HEADER-BACKGROUND: COLOR-LIGHT-GRAY;
+CONTEXT-COLOR-TAB-HEADER-BORDER: COLOR-LIGHT-GRAY;
+CONTEXT-COLOR-TAB-HEADER-TEXT: COLOR-DARK-GRAY;
+
+CONTEXT-COLOR-TAB-HEADER-SELECTED-BACKGROUND: COLOR-WHITE;
+CONTEXT-COLOR-TAB-HEADER-SELECTED-BORDER: COLOR-WHITE;
+CONTEXT-COLOR-TAB-HEADER-SELECTED-TEXT: COLOR-BLACK;
+
+CONTEXT-COLOR-SPLIT-PANE-DIVIDER: COLOR-LIGHT-GRAY;
+
+CONTEXT-COLOR-SCROLL-BAR-BACKGROUND: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-SCROLL-BAR-BORDER: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-SCROLL-BAR-TRACK-BACKGROUND: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-SCROLL-BAR-TRACK-BORDER: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-SCROLL-BAR-THUMB-BACKGROUND: COLOR-LIGHT-GRAY;
+
+CONTEXT-COLOR-TITLED-PANE-HEADER-BACKGROUND: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-TITLED-PANE-HEADER-BORDER: COLOR-GRAY;
+CONTEXT-COLOR-TITLED-PANE-CONTENT-BACKGROUND: COLOR-WHITE;
+CONTEXT-COLOR-TITLED-PANE-CONTENT-BORDER: COLOR-GRAY;
+
+CONTEXT-COLOR-TEXT-FIELD-TEXT: COLOR-DARK-GRAY;
+CONTEXT-COLOR-TEXT-FIELD-BACKGROUND: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-TEXT-FIELD-BORDER: COLOR-GRAY;
+
+CONTEXT-COLOR-TEXT-FIELD-FOCUSED-TEXT: COLOR-BLACK;
+CONTEXT-COLOR-TEXT-FIELD-FOCUSED-BACKGROUND: COLOR-WHITE;
+CONTEXT-COLOR-TEXT-FIELD-FOCUSED-BORDER: COLOR-DARK-GRAY;
+
+CONTEXT-COLOR-TEXT-AREA-TEXT: COLOR-DARK-GRAY;
+CONTEXT-COLOR-TEXT-AREA-BACKGROUND: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-TEXT-AREA-BORDER: COLOR-GRAY;
+
+CONTEXT-COLOR-TEXT-AREA-FOCUSED-TEXT: COLOR-BLACK;
+CONTEXT-COLOR-TEXT-AREA-FOCUSED-BACKGROUND: COLOR-WHITE;
+CONTEXT-COLOR-TEXT-AREA-FOCUSED-BORDER: COLOR-DARK-GRAY;
+
+CONTEXT-COLOR-SPLIT-MENU-BUTTON-BACKGROUND: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-SPLIT-MENU-BUTTON-BORDER: COLOR-GRAY;
+CONTEXT-COLOR-SPLIT-MENU-BUTTON-LABEL-BACKGROUND: COLOR-LIGHTEST-GRAY;
+CONTEXT-COLOR-SPLIT-MENU-BUTTON-BUTTON-BACKGROUND: COLOR-GRAY;
 }
 
 
@@ -28,14 +79,14 @@
 
 .button {
     -fx-padding: 10, 20, 10, 20;
-    -fx-text-fill: COLOR_GRAY;
-    -fx-background-color: COLOR_LIGHTEST_GRAY;
+    -fx-text-fill: CONTEXT-COLOR-BUTTON-TEXT;
+    -fx-background-color: CONTEXT-COLOR-BUTTON-BACKGROUND;
     -fx-background-radius: 0;
 }
 
 .button:hover, button:pressed {
-    -fx-text-fill: COLOR_WHITE;
-    -fx-background-color: COLOR_PRIMARY;
+    -fx-text-fill: CONTEXT-COLOR-BUTTON-HOVER-TEXT;
+    -fx-background-color: CONTEXT-COLOR-BUTTON-HOVER-BACKGROUND;
     -fx-background-radius: 0;
 }
 
@@ -52,7 +103,7 @@
 }
 
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: COLOR_WHITE;
+    -fx-background-color: CONTEXT-COLOR-TAB-HEADER-BACKGROUND;
 }
 
 .tab-pane{
@@ -61,27 +112,23 @@
 }
 
 .tab-pane .tab {
-    -fx-background-color: COLOR_LIGHTEST_GRAY;
-    -fx-border-color: COLOR_GRAY;
+    -fx-background-color: CONTEXT-COLOR-TAB-HEADER-BACKGROUND;
+-fx-border-color: CONTEXT-COLOR-TAB-HEADER-BORDER;
 }
 
 .tab .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: COLOR_GRAY;
+    -fx-text-fill: CONTEXT-COLOR-TAB-HEADER-TEXT;
 }
 
 
 .tab-pane .tab:selected,
-.tab-pane .tab:hover {
-    -fx-background-color: COLOR_WHITE;
-    -fx-border-color: COLOR_DARK_GRAY;
-}
-
+.tab-pane .tab:hover,
 .tab:selected .tab-label,
-.tab:hover .tab-label  {
-    -fx-alignment: CENTER;
-    -fx-text-fill: COLOR_BLACK;
-    -fx-border-color: transparent;
+.tab:hover .tab-label {
+    -fx-text-fill: CONTEXT-COLOR-TAB-HEADER-SELECTED-TEXT;
+    -fx-background-color: CONTEXT-COLOR-TAB-HEADER-SELECTED-BACKGROUND;
+-fx-border-color:CONTEXT-COLOR-TAB-HEADER-SELECTED-BORDER;
 }
 
 
@@ -98,7 +145,7 @@
 
 .split-pane-divider {
   -fx-padding: 1;
-  -fx-background-color: COLOR_DARK_GRAY;
+  -fx-background-color: CONTEXT-COLOR-SPLIT-PANE-DIVIDER;
 }
 
 
@@ -107,8 +154,8 @@
 
 .scroll-bar *.increment-button ,
 .scroll-bar *.decrement-button {
-    -fx-background-color:COLOR_LIGHTEST_GRAY;
-	-fx-border-color:COLOR_LIGHTEST_GRAY;
+    -fx-background-color: CONTEXT-COLOR-SCROLL-BAR-BACKGROUND;
+-fx-border-color: CONTEXT-COLOR-SCROLL-BAR-BORDER;
     -fx-background-radius: 0;
     -fx-padding:1;
 }
@@ -118,15 +165,15 @@
 }
 
 .scroll-bar .track {
-	-fx-background-color:COLOR_LIGHTEST_GRAY;
-	-fx-border-color:COLOR_LIGHTEST_GRAY;
-	-fx-background-radius: 0;
+-fx-background-color: CONTEXT-COLOR-SCROLL-BAR-TRACK-BACKGROUND;
+-fx-border-color: CONTEXT-COLOR-SCROLL-BAR-TRACK-BORDER;
+-fx-background-radius: 0;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color:COLOR_LIGHT_GRAY;
-	-fx-background-insets: 0;
-	-fx-background-radius: 0;
+    -fx-background-color: CONTEXT-COLOR-SCROLL-BAR-THUMB-BACKGROUND;
+-fx-background-insets: 0;
+-fx-background-radius: 0;
 }
 
 
@@ -134,12 +181,13 @@
 
 
 .titled-pane > .title {
-    -fx-background-color: COLOR_LIGHTEST_GRAY;
-    -fx-border-color: COLOR_GRAY;
+    -fx-background-color: CONTEXT-COLOR-TITLED-PANE-HEADER-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-TITLED-PANE-HEADER-BORDER;
 }
+
 .titled-pane > .content{
-    -fx-background-color: COLOR_WHITE;
-    -fx-border-color: COLOR_GRAY;
+    -fx-background-color: CONTEXT-COLOR-TITLED-PANE-CONTENT-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-TITLED-PANE-CONTENT-BORDER;
 }
 
 
@@ -148,16 +196,35 @@
 
 
 .text-field {
-    -fx-text-fill: COLOR_DARK_GRAY;
-    -fx-background-color: COLOR_LIGHTEST_GRAY;
-    -fx-border-color: COLOR_GRAY;
+    -fx-text-fill: CONTEXT-COLOR-TEXT-FIELD-TEXT;
+    -fx-background-color: CONTEXT-COLOR-TEXT-FIELD-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-TEXT-FIELD-BORDER;
     -fx-border-width: 1;
 }
 
 .text-field:focused {
-    -fx-text-fill: COLOR_BLACK;
-    -fx-background-color: COLOR_WHITE;
-    -fx-border-color: COLOR_DARK_GRAY;
+    -fx-text-fill: CONTEXT-COLOR-TEXT-FIELD-FOCUSED-TEXT;
+    -fx-background-color: CONTEXT-COLOR-TEXT-FIELD-FOCUSED-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-TEXT-FIELD-FOCUSED-BORDER;
+    -fx-border-width: 1;
+}
+
+
+
+
+
+
+.text-area {
+    -fx-text-fill: CONTEXT-COLOR-TEXT-AREA-TEXT;
+    -fx-background-color: CONTEXT-COLOR-TEXT-AREA-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-TEXT-AREA-BORDER;
+    -fx-border-width: 1;
+}
+
+.text-area:focused {
+    -fx-text-fill: CONTEXT-COLOR-TEXT-AREA-FOCUSED-TEXT;
+    -fx-background-color: CONTEXT-COLOR-TEXT-AREA-FOCUSED-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-TEXT-AREA-FOCUSED-BORDER;
     -fx-border-width: 1;
 }
 
@@ -166,16 +233,16 @@
 
 
 .split-menu-button {
-    -fx-background-color: COLOR_LIGHTEST_GRAY;
-    -fx-border-color: COLOR_GRAY;
+    -fx-background-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-BORDER;
 }
 
 .split-menu-button > .label{
-    -fx-background-color: COLOR_LIGHTEST_GRAY;
+    -fx-background-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-LABEL-BACKGROUND;
 }
 
 .split-menu-button .button  {
-    -fx-background-color: COLOR_GRAY;
+    -fx-background-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-BUTTON-BACKGROUND;
 }
 
 
@@ -183,6 +250,16 @@
 
 
 .vbox {
+    -fx-background: CONTEXT-COLOR-BACKGROUND;
+}
+
+.scroll-pane {
+   -fx-background: CONTEXT-COLOR-BACKGROUND;
+   -fx-border-color: CONTEXT-COLOR-BACKGROUND;
+}
+
+#backWhite {
+    -fx-background-color: CONTEXT-COLOR-BACKGROUND;
 }
 
 .radio-button {

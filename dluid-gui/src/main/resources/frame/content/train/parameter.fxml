@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -8,15 +7,14 @@
     <children>
 
         <!--============================================================= Titled =============================================================-->
-        <TitledPane fx:id="titledPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" animated="false" text="학습 파라미터"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0">
+        <TitledPane fx:id="titledPane" animated="false" text="학습 파라미터" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
-                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="130" prefWidth="140" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="80" prefWidth="240" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -32,7 +30,7 @@
 
                                 <!--============================================================= Training Feature file finder =============================================================-->
                                 <Label fx:id="labelTrainingFeature" text="학습 데이터 : " />
-                                <GridPane GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
@@ -58,8 +56,8 @@
                                 </GridPane>
 
                                 <!--============================================================= Training Result file finder =============================================================-->
-                                <Label fx:id="labelTrainingResult" GridPane.rowIndex="1"  text="결과 데이터 : " />
-                                <GridPane GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <Label fx:id="labelTrainingResult" text="결과 데이터 : " GridPane.rowIndex="1" />
+                                <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
@@ -92,7 +90,7 @@
                                 <Label fx:id="labelWeightInit" text="기본 초기화 : " GridPane.rowIndex="2" />
                                 <Label fx:id="labelOptimizer" text="학습 방법 : " GridPane.rowIndex="3" />
                                 <Label fx:id="labelLearningRate" text="학습 속도 : " GridPane.rowIndex="4" />
-                                <Label fx:id="labelBatchSize" text="학습 단위 : " GridPane.rowIndex="5"/>
+                                <Label fx:id="labelBatchSize" text="학습 단위 : " GridPane.rowIndex="5" />
                                 <Label fx:id="labelRecordSize" text="학습 데이터 크기 : " GridPane.rowIndex="6" />
                                 <Label fx:id="labelEpoch" text="반복 학습 : " GridPane.rowIndex="7" />
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -127,7 +125,7 @@
                                         <Insets bottom="5.0" top="5.0" />
                                     </padding>
                                 </TextField>
-                                <TextField fx:id="textFieldRecordSize" promptText="128" GridPane.columnIndex="1" GridPane.rowIndex="6" disable="true">
+                                <TextField fx:id="textFieldRecordSize" disable="true" promptText="128" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                     <padding>
                                         <Insets bottom="5.0" top="5.0" />
                                     </padding>
