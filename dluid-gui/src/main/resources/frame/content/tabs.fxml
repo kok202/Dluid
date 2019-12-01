@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TabPane?>
-<TabPane
-        tabClosingPolicy="UNAVAILABLE"
-        tabMaxHeight="50.0"
-        tabMaxWidth="200.0"
-        xmlns="http://javafx.com/javafx/8.0.172-ea"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:id="itself">
-</TabPane>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TabPane
+                tabClosingPolicy="UNAVAILABLE"
+                tabMaxHeight="50.0"
+                tabMaxWidth="200.0"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0"
+                fx:id="tabPane">
+        </TabPane>
+    </children>
+</AnchorPane>

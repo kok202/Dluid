@@ -3,7 +3,7 @@ package org.kok202.dluid;
 import lombok.Data;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.application.content.material.insertion.MaterialInsertionInfoHolder;
+import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.domain.structure.GraphNode;

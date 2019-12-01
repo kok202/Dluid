@@ -9,7 +9,7 @@ import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.application.content.material.insertion.MaterialInsertionInfoHolder;
+import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.polygon.block.HexahedronBottomFace;
