@@ -11,7 +11,9 @@ public class AppFacade {
      /* Canvas size
      *************************************************************************************************/
     public static double getCanvasWidgetHeight(){
-        return AppWidgetSingleton.getInstance().getPrimaryStage().getHeight() - AppWidgetSingleton.getInstance().getMenuBar().getHeight();
+        return AppWidgetSingleton.getInstance().getPrimaryStage().getHeight() -
+                AppWidgetSingleton.getInstance().getMenuBar().getHeight() -
+                AppWidgetSingleton.getInstance().getTabsController().getTabPane().getTabMaxHeight();
     }
 
     public static double getCanvasWidgetWidth(){
@@ -20,7 +22,7 @@ public class AppFacade {
                 .getTabModelDesignController()
                 .getMainSplitter()
                 .getDividerPositions();
-        return AppWidgetSingleton.getInstance().getPrimaryStage().getWidth() * (dividerPositions[1] - dividerPositions[0])-15; // FIXME : -15? 왜 갑자기 여분이 필요하지?
+        return AppWidgetSingleton.getInstance().getBorderPane().getWidth() * (dividerPositions[1] - dividerPositions[0]);
     }
 
     public static void setResizingCanvasWidthListener(ChangeListener<? super Number> changeListener){

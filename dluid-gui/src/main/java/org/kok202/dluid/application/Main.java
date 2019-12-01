@@ -18,6 +18,7 @@ import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 public class Main extends Application {
     private MenuBar menuBar;
     private Stage primaryStage;
+    private BorderPane borderPane;
     private TabsController tabsController;
 
     public static void main(String[] args) {
@@ -27,7 +28,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         setPrimaryStage(primaryStage);
-        BorderPane borderPane = new FXMLLoader(getClass().getResource("/frame/main.fxml")).load();
+        borderPane = new FXMLLoader(getClass().getResource("/frame/main.fxml")).load();
         borderPane.setTop(createTopFrame());
         borderPane.setCenter(createCenterFrame());
         setWidgetOnGlobalWidget();
@@ -52,6 +53,7 @@ public class Main extends Application {
 
     private void setWidgetOnGlobalWidget(){
         AppWidgetSingleton.getInstance().setPrimaryStage(primaryStage);
+        AppWidgetSingleton.getInstance().setBorderPane(borderPane);
         AppWidgetSingleton.getInstance().setMenuBar(menuBar);
         AppWidgetSingleton.getInstance().setTabsController(tabsController);
         CanvasFacade.initialize();

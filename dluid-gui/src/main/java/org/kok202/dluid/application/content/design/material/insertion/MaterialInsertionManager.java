@@ -7,6 +7,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import lombok.Data;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
@@ -17,7 +18,7 @@ public class MaterialInsertionManager {
     private AnchorPane rootPane;
     private SplitPane mainSplitter;
     private AnchorPane materialContent;
-    private AnchorPane canvasContent;
+    private Pane canvasContent;
     private MaterialInsertionFollower materialInsertionFollower;
     private boolean isBlockInsertionRequested;
 

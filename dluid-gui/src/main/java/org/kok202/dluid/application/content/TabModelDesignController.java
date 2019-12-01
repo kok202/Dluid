@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.content.design.CanvasContainerController;
@@ -42,7 +43,7 @@ public class TabModelDesignController extends AbstractController {
         componentContainerController = new ComponentContainerController();
 
         AnchorPane materialContent = materialContainerController.createView();
-        AnchorPane canvasContent = canvasContainerController.createView();
+        Pane canvasContent = canvasContainerController.createView();
         AnchorPane componentContent = componentContainerController.createView();
 
         materialInsertionManager.setRootPane(rootPane);
