@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
@@ -41,8 +42,8 @@
                                 </AnchorPane>
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <children>
-                                        <Slider fx:id="sliderDropout" max="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                        </Slider>
+                                        <JFXSlider fx:id="sliderDropout" max="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        </JFXSlider>
                                     </children>
                                 </AnchorPane>
                             </children>

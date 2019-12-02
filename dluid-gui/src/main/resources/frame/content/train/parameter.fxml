@@ -33,7 +33,7 @@
                                 <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
                                     </columnConstraints>
                                     <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -45,9 +45,6 @@
                                         <AnchorPane GridPane.columnIndex="1">
                                             <Button fx:id="buttonFindTrainingFeature" text="Browse ..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             </Button>
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
                                         </AnchorPane>
                                     </children>
                                     <padding>
@@ -60,7 +57,7 @@
                                 <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
                                     </columnConstraints>
                                     <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -72,9 +69,6 @@
                                         <AnchorPane GridPane.columnIndex="1">
                                             <Button fx:id="buttonFindTrainingResult" text="Browse ..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             </Button>
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
                                         </AnchorPane>
                                     </children>
                                     <padding>

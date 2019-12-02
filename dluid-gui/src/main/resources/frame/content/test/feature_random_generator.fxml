@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -72,21 +73,21 @@
                                         <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
                                             <children>
                                                 <HBox alignment="CENTER_LEFT">
-                                                    <RadioButton fx:id="radioButtonIntegerType" selected="true" text="Integer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <JFXRadioButton fx:id="radioButtonIntegerType" selected="true" text="Integer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         <toggleGroup>
                                                             <ToggleGroup fx:id="toggleGroupDataType" />
                                                         </toggleGroup>
                                                         <padding>
                                                             <Insets right="20.0" />
                                                         </padding>
-                                                    </RadioButton>
-                                                    <RadioButton fx:id="radioButtonDoubleType" selected="false" text="Float" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    </JFXRadioButton>
+                                                    <JFXRadioButton fx:id="radioButtonDoubleType" selected="false" text="Float" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         <padding>
                                                             <Insets right="20.0" />
                                                         </padding>
-                                                    </RadioButton>
-                                                    <RadioButton fx:id="radioButtonGaussianType" selected="false" text="Gaussian" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    </RadioButton>
+                                                    </JFXRadioButton>
+                                                    <JFXRadioButton fx:id="radioButtonGaussianType" selected="false" text="Gaussian" toggleGroup="$toggleGroupDataType" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    </JFXRadioButton>
                                                 </HBox>
                                             </children>
                                         </AnchorPane>

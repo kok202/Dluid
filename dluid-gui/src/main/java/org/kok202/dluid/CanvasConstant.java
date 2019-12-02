@@ -31,8 +31,8 @@ public class CanvasConstant {
     public static final Color CONTEXT_COLOR_POSSIBLE_APPEND = COLOR_YELLOW;
     public static final Color CONTEXT_COLOR_TRY_TO_APPEND = COLOR_RED;
     public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_LIGHT_GRAY;
-    public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_WHITE;
-    public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_LIGHT_GRAY;
+    public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_DARK_GRAY;
+    public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY;
 
     public static final int CUBIC_CURVE_OFFSET_X = 1;
     public static final int CUBIC_CURVE_OFFSET_Y = 1;
