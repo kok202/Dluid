@@ -12,7 +12,7 @@ public class AppFacade {
      *************************************************************************************************/
     public static double getCanvasWidgetHeight(){
         return AppWidgetSingleton.getInstance().getPrimaryStage().getHeight() -
-                AppWidgetSingleton.getInstance().getMenuBar().getHeight() -
+                AppWidgetSingleton.getInstance().getMenuController().getMenuBar().getHeight() -
                 AppWidgetSingleton.getInstance().getTabsController().getTabPane().getTabMaxHeight();
     }
 

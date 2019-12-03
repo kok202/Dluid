@@ -42,10 +42,10 @@
                         </TextField>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                             <children>
-                                <SplitMenuButton fx:id="splitMenuColorType" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <MenuButton fx:id="menuButtonColorType" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <items>
                                     </items>
-                                </SplitMenuButton>
+                                </MenuButton>
                             </children>
                         </AnchorPane>
                     </children>

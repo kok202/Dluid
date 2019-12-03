@@ -1,28 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- FIXME : change to multi language. -->
+
 <?import javafx.scene.control.*?>
-<MenuBar xmlns="http://javafx.com/javafx/8.0.172-ea"
-         xmlns:fx="http://javafx.com/fxml/1"
-         fx:id="itself">
-    <menus>
-        <Menu fx:id="menuFile" text="파일">
-            <items>
-                <MenuItem fx:id="menuFileNew" text="새로 만들기" />
-                <MenuItem fx:id="menuFileModelLoad" text="모델 불러오기" />
-                <MenuItem fx:id="menuFileModelSave" text="모델 저장하기" />
-                <MenuItem fx:id="menuFileExit" text="끝내기" />
-            </items>
-        </Menu>
-        <Menu fx:id="menuSetting" text="설정">
-            <items>
-                <MenuItem fx:id="menuSettingCanvas" text="캔버스" />
-            </items>
-        </Menu>
-        <Menu fx:id="menuAdvanced" text="고급">
-            <items>
-                <MenuItem fx:id="menuAdvancedChange" text="고급 모드로 전환" />
-            </items>
-        </Menu>
-    </menus>
-</MenuBar>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+          <MenuBar fx:id="menuBar">
+              <menus>
+                  <Menu fx:id="menuFile" text="파일">
+                      <items>
+                          <MenuItem fx:id="menuFileNew" text="새로 만들기" />
+                          <MenuItem fx:id="menuFileModelLoad" text="모델 불러오기" />
+                          <MenuItem fx:id="menuFileModelSave" text="모델 저장하기" />
+                          <MenuItem fx:id="menuFileExit" text="끝내기" />
+                      </items>
+                  </Menu>
+                  <Menu fx:id="menuSetting" text="설정">
+                      <items>
+                          <MenuItem fx:id="menuSettingCanvas" text="캔버스" />
+                      </items>
+                  </Menu>
+              </menus>
+          </MenuBar>
+         <Separator />
+      </children>
+   </VBox>
+</AnchorPane>

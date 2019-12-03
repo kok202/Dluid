@@ -89,10 +89,10 @@
                                 <Label fx:id="labelEpoch" text="반복 학습 : " GridPane.rowIndex="7" />
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <children>
-                                        <SplitMenuButton fx:id="splitMenuWeightInit" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <MenuButton fx:id="menuButtonWeightInit" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                             </items>
-                                        </SplitMenuButton>
+                                        </MenuButton>
                                     </children>
                                     <padding>
                                         <Insets bottom="5.0" top="5.0" />
@@ -100,10 +100,10 @@
                                 </AnchorPane>
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <children>
-                                        <SplitMenuButton fx:id="splitMenuOptimizer" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <MenuButton fx:id="menuButtonOptimizer" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                             </items>
-                                        </SplitMenuButton>
+                                        </MenuButton>
                                     </children>
                                     <padding>
                                         <Insets bottom="5.0" top="5.0" />

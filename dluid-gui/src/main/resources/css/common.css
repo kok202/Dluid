@@ -58,10 +58,17 @@
     CONTEXT-COLOR-TEXT-AREA-FOCUSED-BORDER: COLOR-DARK-GRAY;
     CONTEXT-COLOR-TEXT-AREA-FOCUSED-TEXT: COLOR-BLACK;
 
-    CONTEXT-COLOR-SPLIT-MENU-BUTTON-BACKGROUND: COLOR-LIGHTEST-GRAY;
-    CONTEXT-COLOR-SPLIT-MENU-BUTTON-BORDER: COLOR-GRAY;
-    CONTEXT-COLOR-SPLIT-MENU-BUTTON-LABEL-BACKGROUND: COLOR-LIGHTEST-GRAY;
-    CONTEXT-COLOR-SPLIT-MENU-BUTTON-BUTTON-BACKGROUND: COLOR-GRAY;
+    CONTEXT-COLOR-MENU-BUTTON-BACKGROUND: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-MENU-BUTTON-BORDER: COLOR-GRAY;
+    CONTEXT-COLOR-MENU-BUTTON-LABEL-BACKGROUND: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-MENU-BUTTON-BUTTON-BACKGROUND: COLOR-GRAY;
+
+    CONTEXT-COLOR-MENU-BAR-BACKGROUND: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-MENU-BAR-BORDER: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-MENU-BAR-TEXT: COLOR-BLACK;
+    CONTEXT-COLOR-MENU-BAR-SELECTED: COLOR-PRIMARY;
+
+    CONTEXT-COLOR-SEPARATOR: COLOR-BLUE-BLACK;
 
     -jfx-unchecked-color: COLOR-DARK-GRAY;
     -jfx-checked-color: COLOR-PRIMARY;
@@ -125,11 +132,9 @@
 
 
 .split-pane:horizontal > .split-pane-divider {
-   -fx-background-color: transparent;
 }
 
 .split-pane:vertical > .split-pane-divider {
-   -fx-background-color: transparent;
 }
 
 .split-pane-divider {
@@ -144,7 +149,7 @@
 .scroll-bar *.increment-button ,
 .scroll-bar *.decrement-button {
     -fx-background-color: CONTEXT-COLOR-SCROLL-BAR-BACKGROUND;
--fx-border-color: CONTEXT-COLOR-SCROLL-BAR-BORDER;
+    -fx-border-color: CONTEXT-COLOR-SCROLL-BAR-BORDER;
     -fx-background-radius: 0;
     -fx-padding:1;
 }
@@ -154,15 +159,15 @@
 }
 
 .scroll-bar .track {
--fx-background-color: CONTEXT-COLOR-SCROLL-BAR-TRACK-BACKGROUND;
--fx-border-color: CONTEXT-COLOR-SCROLL-BAR-TRACK-BORDER;
--fx-background-radius: 0;
+    -fx-background-color: CONTEXT-COLOR-SCROLL-BAR-TRACK-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-SCROLL-BAR-TRACK-BORDER;
+    -fx-background-radius: 0;
 }
 
 .scroll-bar .thumb {
     -fx-background-color: CONTEXT-COLOR-SCROLL-BAR-THUMB-BACKGROUND;
--fx-background-insets: 0;
--fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
 }
 
 
@@ -221,19 +226,47 @@
 
 
 
-.split-menu-button {
-    -fx-background-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-BACKGROUND;
-    -fx-border-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-BORDER;
+.customMenuButton {
+    -fx-background-color: CONTEXT-COLOR-MENU-BUTTON-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-MENU-BUTTON-BORDER;
 }
 
-.split-menu-button > .label{
-    -fx-background-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-LABEL-BACKGROUND;
+.customMenuButton:focused {
+    -fx-border-color: COLOR-PRIMARY;
 }
 
-.split-menu-button .button  {
-    -fx-background-color: CONTEXT-COLOR-SPLIT-MENU-BUTTON-BUTTON-BACKGROUND;
+.customMenuButton > .label{
+    -fx-background-color: CONTEXT-COLOR-MENU-BUTTON-LABEL-BACKGROUND;
 }
 
+
+
+
+
+.menu-bar {
+    -fx-background-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
+}
+
+.context-menu {
+    -fx-background-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
+}
+
+.menu:hover,
+.menu:showing,
+.menu-item:focused {
+    -fx-background-color: CONTEXT-COLOR-MENU-BAR-SELECTED;
+}
+
+
+
+
+
+.separator *.line {
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: CONTEXT-COLOR-SEPARATOR;
+}
 
 
 
@@ -247,7 +280,8 @@
    -fx-border-color: CONTEXT-COLOR-BACKGROUND;
 }
 
-#whiteBackground {
+#whiteBackground,
+.whiteBackground {
     -fx-background-color: CONTEXT-COLOR-BACKGROUND;
 }
 
@@ -255,16 +289,16 @@
 }
 
 .jfx-progress-bar > .track{
-    -fx-background-color: #E0E0E0;
+    -fx-background-color: COLOR-PRIMARY;
 }
 
 .jfx-progress-bar > .bar,
 .jfx-progress-bar:indeterminate > .bar{
-    -fx-background-color: #0F9D58;
+    -fx-background-color: COLOR-PRIMARY;
     -fx-padding: 1.5;
 }
 
 .jfx-progress-bar > .secondary-bar,
 .jfx-progress-bar:indeterminate > .secondary-bar{
-    -fx-background-color: #CDE1B7;
+    -fx-background-color: COLOR-PRIMARY;
 }

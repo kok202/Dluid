@@ -26,18 +26,18 @@
                                 <Label fx:id="labelDropout" text="Dropout ratio" GridPane.rowIndex="2" />
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <children>
-                                        <SplitMenuButton fx:id="splitMenuWeightInit" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <MenuButton fx:id="menuButtonWeightInit" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                             </items>
-                                        </SplitMenuButton>
+                                        </MenuButton>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <children>
-                                        <SplitMenuButton fx:id="splitMenuActivationFunction" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <MenuButton fx:id="menuButtonActivationFunction" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                             </items>
-                                        </SplitMenuButton>
+                                        </MenuButton>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
