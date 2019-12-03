@@ -47,7 +47,7 @@
 
                 <HBox alignment="TOP_RIGHT">
                     <children>
-                        <Button fx:id="buttonLoadData" styleClass="customDefaultButton" maxWidth="100.0" minWidth="10.0" prefHeight="30.0" prefWidth="100.0" text="Load">
+                        <Button fx:id="buttonLoadData" styleClass="customGreenButton" maxWidth="100.0" minWidth="10.0" prefHeight="30.0" prefWidth="100.0" text="Load">
                             <HBox.margin>
                                 <Insets right="10.0" />
                             </HBox.margin>
