@@ -43,7 +43,7 @@
                                             <TextField fx:id="textFieldFindTrainingFeature" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="1">
-                                            <Button fx:id="buttonFindTrainingFeature" text="Browse ..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <Button fx:id="buttonFindTrainingFeature" text="Browse ..." styleClass="customDefaultButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             </Button>
                                         </AnchorPane>
                                     </children>
@@ -67,7 +67,7 @@
                                             <TextField fx:id="textFieldFindTrainingResult" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="1">
-                                            <Button fx:id="buttonFindTrainingResult" text="Browse ..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <Button fx:id="buttonFindTrainingResult" text="Browse ..." styleClass="customDefaultButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             </Button>
                                         </AnchorPane>
                                     </children>

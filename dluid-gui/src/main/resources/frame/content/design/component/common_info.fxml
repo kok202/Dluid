@@ -41,7 +41,7 @@
                         </VBox.margin>
                             </GridPane>
                             <HBox alignment="CENTER_RIGHT">
-                                <Button fx:id="buttonDelete"  text="Delete" />
+                                <Button fx:id="buttonDelete" text="Delete" styleClass="customRedButton" />
                             </HBox>
                         </VBox>
                         <!-- end content-->

@@ -39,7 +39,7 @@
 
                                  <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                      <children>
-                                         <Button fx:id="buttonTest" mnemonicParsing="false" text="Test">
+                                         <Button fx:id="buttonTest" styleClass="customDefaultButton" mnemonicParsing="false" text="Test">
                                              <HBox.margin>
                                                  <Insets left="5.0" />
                                              </HBox.margin>

@@ -36,17 +36,17 @@
                                 </AnchorPane>
                                 <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                     <children>
-                                        <Button fx:id="buttonTrainingOneTime" mnemonicParsing="false" text="1 번 학습">
+                                        <Button fx:id="buttonTrainingOneTime" styleClass="customGreenButton" mnemonicParsing="false" text="1 번 학습">
                                             <HBox.margin>
                                                 <Insets right="5.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Button fx:id="buttonTrainingNTime" mnemonicParsing="false" text="N 번 학습">
+                                        <Button fx:id="buttonTrainingNTime" styleClass="customGreenButton" mnemonicParsing="false" text="N 번 학습">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Button fx:id="buttonTrainingStop" mnemonicParsing="false" text="중지">
+                                        <Button fx:id="buttonTrainingStop" styleClass="customGreenButton" mnemonicParsing="false" text="중지">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>

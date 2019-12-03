@@ -41,7 +41,7 @@
                                                     <TextField fx:id="textFieldFindTestData" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="1">
-                                                    <Button fx:id="buttonFindTestData" text="Browse ..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <Button fx:id="buttonFindTestData" text="Browse ..." styleClass="customDefaultButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     </Button>
                                                     <GridPane.margin>
                                                         <Insets left="10.0" />

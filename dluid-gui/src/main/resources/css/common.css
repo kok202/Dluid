@@ -16,18 +16,28 @@
 
     COLOR-LIGHT-BLUE-BLACK: #55606E;
     COLOR-BLUE-BLACK: #343A41;
-    COLOR-PRIMARY: #24AFB2;
+
+    COLOR-GREEN: #24AFB2;
+    COLOR-RED: #CD4237;
 
     CONTEXT-COLOR-BACKGROUND: COLOR-WHITE;
-    CONTEXT-COLOR-BUTTON-BACKGROUND: COLOR-LIGHT-GRAY;
-    CONTEXT-COLOR-BUTTON-TEXT: COLOR-DARK-GRAY;
-    CONTEXT-COLOR-BUTTON-HOVER-BACKGROUND: COLOR-PRIMARY;
-    CONTEXT-COLOR-BUTTON-HOVER-TEXT: COLOR-WHITE;
+    CONTEXT-COLOR-DEFAULT-BUTTON-BACKGROUND: COLOR-LIGHT-GRAY;
+    CONTEXT-COLOR-DEFAULT-BUTTON-TEXT: COLOR-DARK-GRAY;
+    CONTEXT-COLOR-DEFAULT-BUTTON-HOVER-BACKGROUND: COLOR-GRAY;
+    CONTEXT-COLOR-DEFAULT-BUTTON-HOVER-TEXT: COLOR-WHITE;
+    CONTEXT-COLOR-GREEN-BUTTON-BACKGROUND: COLOR-LIGHT-GRAY;
+    CONTEXT-COLOR-GREEN-BUTTON-TEXT: COLOR-DARK-GRAY;
+    CONTEXT-COLOR-GREEN-BUTTON-HOVER-BACKGROUND: COLOR-GREEN;
+    CONTEXT-COLOR-GREEN-BUTTON-HOVER-TEXT: COLOR-WHITE;
+    CONTEXT-COLOR-RED-BUTTON-BACKGROUND: COLOR-LIGHT-GRAY;
+    CONTEXT-COLOR-RED-BUTTON-TEXT: COLOR-DARK-GRAY;
+    CONTEXT-COLOR-RED-BUTTON-HOVER-BACKGROUND: COLOR-RED;
+    CONTEXT-COLOR-RED-BUTTON-HOVER-TEXT: COLOR-WHITE;
 
     CONTEXT-COLOR-TAB-TEXT: COLOR-WHITE;
     CONTEXT-COLOR-TAB-BACKGROUND: COLOR-LIGHT-BLUE-BLACK;
     CONTEXT-COLOR-TAB-SELECTED-BACKGROUND: COLOR-LIGHT-BLUE-BLACK;
-    CONTEXT-COLOR-TAB-SELECTED: COLOR-PRIMARY;
+    CONTEXT-COLOR-TAB-SELECTED: COLOR-GREEN;
 
     CONTEXT-COLOR-SPLIT-PANE-DIVIDER: COLOR-LIGHT-GRAY;
 
@@ -47,7 +57,7 @@
     CONTEXT-COLOR-TEXT-FIELD-TEXT: COLOR-DARK-GRAY;
 
     CONTEXT-COLOR-TEXT-FIELD-FOCUSED-BACKGROUND: COLOR-WHITE;
-    CONTEXT-COLOR-TEXT-FIELD-FOCUSED-BORDER: COLOR-PRIMARY;
+    CONTEXT-COLOR-TEXT-FIELD-FOCUSED-BORDER: COLOR-GREEN;
     CONTEXT-COLOR-TEXT-FIELD-FOCUSED-TEXT: COLOR-BLACK;
 
     CONTEXT-COLOR-TEXT-AREA-BACKGROUND: COLOR-LIGHTEST-GRAY;
@@ -66,36 +76,73 @@
     CONTEXT-COLOR-MENU-BAR-BACKGROUND: COLOR-LIGHTEST-GRAY;
     CONTEXT-COLOR-MENU-BAR-BORDER: COLOR-LIGHTEST-GRAY;
     CONTEXT-COLOR-MENU-BAR-TEXT: COLOR-BLACK;
-    CONTEXT-COLOR-MENU-BAR-SELECTED: COLOR-PRIMARY;
+    CONTEXT-COLOR-MENU-BAR-SELECTED: COLOR-GREEN;
 
     CONTEXT-COLOR-SEPARATOR: COLOR-BLUE-BLACK;
 
     -jfx-unchecked-color: COLOR-DARK-GRAY;
-    -jfx-checked-color: COLOR-PRIMARY;
+    -jfx-checked-color: COLOR-GREEN;
 
     -jfx-unselected-color: COLOR-DARK-GRAY;
-    -jfx-selected-color: COLOR-PRIMARY;
+    -jfx-selected-color: COLOR-GREEN;
 
-    -jfx-default-thumb: COLOR-PRIMARY;
+    -jfx-default-thumb: COLOR-GREEN;
     -jfx-default-track: COLOR-LIGHT-GRAY;
 }
 
 
 
 
-
 .button {
     -fx-padding: 6, 20, 6, 20;
-    -fx-text-fill: CONTEXT-COLOR-BUTTON-TEXT;
-    -fx-background-color: CONTEXT-COLOR-BUTTON-BACKGROUND;
     -fx-background-radius: 0;
 }
 
-.button:hover, button:pressed {
-    -fx-text-fill: CONTEXT-COLOR-BUTTON-HOVER-TEXT;
-    -fx-background-color: CONTEXT-COLOR-BUTTON-HOVER-BACKGROUND;
-    -fx-background-radius: 0;
+
+
+
+
+.customDefaultButton {
+    -fx-text-fill: CONTEXT-COLOR-DEFAULT-BUTTON-TEXT;
+    -fx-background-color: CONTEXT-COLOR-DEFAULT-BUTTON-BACKGROUND;
 }
+
+.customDefaultButton:hover,
+.customDefaultButton:pressed {
+    -fx-text-fill: CONTEXT-COLOR-DEFAULT-BUTTON-HOVER-TEXT;
+    -fx-background-color: CONTEXT-COLOR-DEFAULT-BUTTON-HOVER-BACKGROUND;
+}
+
+
+
+
+
+.customGreenButton {
+    -fx-text-fill: CONTEXT-COLOR-GREEN-BUTTON-TEXT;
+    -fx-background-color: CONTEXT-COLOR-GREEN-BUTTON-BACKGROUND;
+}
+
+.customGreenButton:hover,
+.customGreenButton:pressed {
+    -fx-text-fill: CONTEXT-COLOR-GREEN-BUTTON-HOVER-TEXT;
+    -fx-background-color: CONTEXT-COLOR-GREEN-BUTTON-HOVER-BACKGROUND;
+}
+
+
+
+
+
+.customRedButton {
+    -fx-text-fill: CONTEXT-COLOR-RED-BUTTON-TEXT;
+    -fx-background-color: CONTEXT-COLOR-RED-BUTTON-BACKGROUND;
+}
+
+.customRedButton:hover,
+.customRedButton:pressed {
+    -fx-text-fill: CONTEXT-COLOR-RED-BUTTON-HOVER-TEXT;
+    -fx-background-color: CONTEXT-COLOR-RED-BUTTON-HOVER-BACKGROUND;
+}
+
 
 
 
@@ -232,7 +279,7 @@
 }
 
 .customMenuButton:focused {
-    -fx-border-color: COLOR-PRIMARY;
+    -fx-border-color: COLOR-GREEN;
 }
 
 .customMenuButton > .label{
@@ -289,16 +336,16 @@
 }
 
 .jfx-progress-bar > .track{
-    -fx-background-color: COLOR-PRIMARY;
+    -fx-background-color: COLOR-GREEN;
 }
 
 .jfx-progress-bar > .bar,
 .jfx-progress-bar:indeterminate > .bar{
-    -fx-background-color: COLOR-PRIMARY;
+    -fx-background-color: COLOR-GREEN;
     -fx-padding: 1.5;
 }
 
 .jfx-progress-bar > .secondary-bar,
 .jfx-progress-bar:indeterminate > .secondary-bar{
-    -fx-background-color: COLOR-PRIMARY;
+    -fx-background-color: COLOR-GREEN;
 }
