@@ -4,11 +4,11 @@ import javafx.scene.control.MenuItem;
 import lombok.Data;
 
 @Data
-public class SplitMenuItem<T> {
+public class MenuAdapterItem<T> {
     private MenuItem menuItem;
     private T settingType;
 
-    public SplitMenuItem(MenuItem menuItem, T settingType) {
+    public MenuAdapterItem(MenuItem menuItem, T settingType) {
         this.menuItem = menuItem;
         this.settingType = settingType;
     }

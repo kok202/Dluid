@@ -6,7 +6,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import org.kok202.dluid.application.content.design.material.block.Material2DConvolutionController;
-import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionFollower;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
@@ -30,13 +29,12 @@ public class MaterialList2DLayer extends AbstractMaterialList {
 
     @Override
     protected void initialize() throws Exception {
-        ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
         addAbstractMaterialController(new Material2DConvolutionController());
         addAbstractMaterialController(new Material2DConvolutionController());
         addAbstractMaterialController(new Material2DConvolutionController());
         addAbstractMaterialController(new Material2DConvolutionController());
         addAbstractMaterialController(new Material2DConvolutionController());
         addAbstractMaterialControllerToVBox(layer2DListBox, materialInsertionManager);
-        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.2d.title"));
+        getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.2d.title"));
     }
 }

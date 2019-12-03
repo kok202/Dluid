@@ -1,10 +1,10 @@
 package org.kok202.dluid.application.singleton;
 
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import lombok.Data;
 import org.kok202.dluid.application.content.TabsController;
+import org.kok202.dluid.application.menu.MenuController;
 
 @Data
 public class AppWidgetSingleton {
@@ -20,6 +20,6 @@ public class AppWidgetSingleton {
 
     private Stage primaryStage;
     private BorderPane borderPane;
-    private MenuBar menuBar;
+    private MenuController menuController;
     private TabsController tabsController;
 }

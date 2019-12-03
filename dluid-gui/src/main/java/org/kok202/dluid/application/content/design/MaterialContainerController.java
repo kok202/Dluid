@@ -8,18 +8,20 @@ import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionFollower;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
-import org.kok202.dluid.application.content.design.material.list.MaterialList1DLayer;
-import org.kok202.dluid.application.content.design.material.list.MaterialList2DLayer;
-import org.kok202.dluid.application.content.design.material.list.MaterialListAdvancedLayer;
-import org.kok202.dluid.application.content.design.material.list.MaterialListAssistantLayer;
+import org.kok202.dluid.application.content.design.material.list.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class MaterialContainerController extends AbstractController {
     @FXML private VBox container;
     private MaterialInsertionManager materialInsertionManager;
+    private List<AbstractMaterialList> abstractMaterialLists;
 
     public MaterialContainerController(MaterialInsertionManager materialInsertionManager) {
         this.materialInsertionManager = materialInsertionManager;
+        this.abstractMaterialLists = new ArrayList<>();
     }
 
     public AnchorPane createView() throws Exception{
@@ -31,9 +33,15 @@ public class MaterialContainerController extends AbstractController {
     @Override
     protected void initialize() throws Exception {
         ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
-        container.getChildren().add(new MaterialListAssistantLayer(materialInsertionManager).createView());
-        container.getChildren().add(new MaterialList1DLayer(materialInsertionManager).createView());
-        container.getChildren().add(new MaterialList2DLayer(materialInsertionManager).createView());
-        container.getChildren().add(new MaterialListAdvancedLayer(materialInsertionManager).createView());
+        abstractMaterialLists.add(new MaterialListAssistantLayer(materialInsertionManager));
+        abstractMaterialLists.add(new MaterialList1DLayer(materialInsertionManager));
+        abstractMaterialLists.add(new MaterialList2DLayer(materialInsertionManager));
+        abstractMaterialLists.add(new MaterialListAdvancedLayer(materialInsertionManager));
+
+        for (AbstractMaterialList abstractMaterialList : abstractMaterialLists) {
+            container.getChildren().add(abstractMaterialList.createView());
+            abstractMaterialList.getTitledPane().setExpanded(false);
+        }
+        abstractMaterialLists.get(0).getTitledPane().setExpanded(true);
     }
 }

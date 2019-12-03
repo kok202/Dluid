@@ -3,12 +3,12 @@ package org.kok202.dluid.application.content.design.component;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.application.Util.TextFieldUtil;
-import org.kok202.dluid.application.adapter.SplitMenuAdapter;
+import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
@@ -20,7 +20,7 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
 
     @FXML private TextField textFieldInputSize;
     @FXML private TextField textFieldOutputSize;
-    @FXML private SplitMenuButton splitMenuLossFunction;
+    @FXML private MenuButton menuButtonLossFunction;
 
     public ComponentOutputParamController(Layer layer) {
         super(layer);
@@ -38,7 +38,7 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
         TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSize, 1);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSize, 1);
         setTextFieldByLayerProperties();
-        initializeSplitMenuLossFunction();
+        initializeMenuButtonLossFunction();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
@@ -52,19 +52,19 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
         attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
     }
 
-    private void initializeSplitMenuLossFunction(){
-        SplitMenuAdapter<LossFunctions.LossFunction> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuLossFunction);
-        splitMenuAdapter.setMenuItemChangedListener(lossFunction -> {
+    private void initializeMenuButtonLossFunction(){
+        MenuAdapter<LossFunctions.LossFunction> menuAdapter = new MenuAdapter<>(menuButtonLossFunction);
+        menuAdapter.setMenuItemChangedListener(lossFunction -> {
             layer.getProperties().setLossFunction(lossFunction);
             notifyLayerDataChanged();
         });
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mse"), LossFunctions.LossFunction.MSE);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l1"), LossFunctions.LossFunction.L1);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l2"), LossFunctions.LossFunction.L2);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.klDivergence"), LossFunctions.LossFunction.KL_DIVERGENCE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mse"), LossFunctions.LossFunction.MSE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l1"), LossFunctions.LossFunction.L1);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l2"), LossFunctions.LossFunction.L2);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.klDivergence"), LossFunctions.LossFunction.KL_DIVERGENCE);
 
         layer.getProperties().setLossFunction(LossFunctions.LossFunction.MSE);
-        splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getLossFunction());
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getLossFunction());
     }
 
     @Override

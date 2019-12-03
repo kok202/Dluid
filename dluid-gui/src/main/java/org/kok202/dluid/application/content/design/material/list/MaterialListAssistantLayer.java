@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import org.kok202.dluid.application.content.design.material.block.MaterialInputController;
 import org.kok202.dluid.application.content.design.material.block.MaterialOutputController;
-import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionFollower;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
@@ -31,10 +30,9 @@ public class MaterialListAssistantLayer extends AbstractMaterialList {
 
     @Override
     protected void initialize() throws Exception {
-        ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
         addAbstractMaterialController(new MaterialInputController());
         addAbstractMaterialController(new MaterialOutputController());
         addAbstractMaterialControllerToVBox(layerAssistantListBox, materialInsertionManager);
-        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.assistant.title"));
+        getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.assistant.title"));
     }
 }

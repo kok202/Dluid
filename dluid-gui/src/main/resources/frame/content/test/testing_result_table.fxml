@@ -29,12 +29,12 @@
 
                                 <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                     <children>
-                                        <Button fx:id="buttonExportAsImage" mnemonicParsing="false" text="Save as image">
+                                        <Button fx:id="buttonExportAsImage" styleClass="customGreenButton" mnemonicParsing="false" text="Save as image">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Button fx:id="buttonExportAsDocument" mnemonicParsing="false" text="Save as document">
+                                        <Button fx:id="buttonExportAsDocument" styleClass="customGreenButton" mnemonicParsing="false" text="Save as document">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>

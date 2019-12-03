@@ -20,6 +20,7 @@ public class CanvasConstant {
     public static final double COORDINATE_MESH_BOLD_THICKNESS = 0.01;
     public static final double COORDINATE_MESH_NORM_THICKNESS = 0.003;
 
+    public static final Color COLOR_LIGHTEST_GRAY = Color.rgb(241, 242, 243);
     public static final Color COLOR_LIGHT_GRAY = Color.rgb(128, 128, 128);
     public static final Color COLOR_GRAY = Color.rgb(89, 91, 93);
     public static final Color COLOR_DARK_GRAY = Color.rgb(60, 63, 65);
@@ -31,8 +32,8 @@ public class CanvasConstant {
     public static final Color CONTEXT_COLOR_POSSIBLE_APPEND = COLOR_YELLOW;
     public static final Color CONTEXT_COLOR_TRY_TO_APPEND = COLOR_RED;
     public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_LIGHT_GRAY;
-    public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_DARK_GRAY;
-    public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY;
+    public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_LIGHTEST_GRAY;
+    public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_DARK_GRAY;
 
     public static final int CUBIC_CURVE_OFFSET_X = 1;
     public static final int CUBIC_CURVE_OFFSET_Y = 1;

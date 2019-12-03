@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
@@ -25,24 +26,24 @@
                                 <Label fx:id="labelDropout" text="Dropout ratio" GridPane.rowIndex="2" />
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <children>
-                                        <SplitMenuButton fx:id="splitMenuWeightInit" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <MenuButton fx:id="menuButtonWeightInit" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                             </items>
-                                        </SplitMenuButton>
+                                        </MenuButton>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <children>
-                                        <SplitMenuButton fx:id="splitMenuActivationFunction" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <MenuButton fx:id="menuButtonActivationFunction" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                             </items>
-                                        </SplitMenuButton>
+                                        </MenuButton>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <children>
-                                        <Slider fx:id="sliderDropout" max="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                        </Slider>
+                                        <JFXSlider fx:id="sliderDropout" max="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        </JFXSlider>
                                     </children>
                                 </AnchorPane>
                             </children>

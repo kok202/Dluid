@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import org.kok202.dluid.application.content.design.material.block.Material1DConvolutionController;
 import org.kok202.dluid.application.content.design.material.block.Material1DFeedForwardController;
-import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionFollower;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
@@ -31,10 +30,9 @@ public class MaterialList1DLayer extends AbstractMaterialList {
 
     @Override
     protected void initialize() throws Exception {
-        ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
         addAbstractMaterialController(new Material1DConvolutionController());
         addAbstractMaterialController(new Material1DFeedForwardController());
         addAbstractMaterialControllerToVBox(layer1DListBox, materialInsertionManager);
-        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.1d.title"));
+        getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.1d.title"));
     }
 }

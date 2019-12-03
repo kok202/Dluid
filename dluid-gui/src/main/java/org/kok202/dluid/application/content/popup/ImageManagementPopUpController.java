@@ -4,12 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import org.kok202.dluid.application.Util.TextFieldUtil;
-import org.kok202.dluid.application.adapter.SplitMenuAdapter;
+import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.adapter.file.ExtendedImageSaver;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
@@ -24,7 +24,7 @@ public class ImageManagementPopUpController extends AbstractController {
     @FXML private TextField textFieldName;
     @FXML private TextField textFieldWidth;
     @FXML private TextField textFieldHeight;
-    @FXML private SplitMenuButton splitMenuColorType;
+    @FXML private MenuButton menuButtonColorType;
     @FXML private Button buttonSaveData;
     @FXML private Button buttonCancel;
     @Getter private ExtendedImageSaver testResultImageSaver;
@@ -43,7 +43,7 @@ public class ImageManagementPopUpController extends AbstractController {
     protected void initialize() throws Exception {
         TextFieldUtil.applyPositiveIntegerFilter(textFieldWidth, 1);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldHeight, 1);
-        initializeSplitMenuWeightInit();
+        initializeMenuButtonWeightInit();
         //기본 값 세팅
         buttonSaveData.setOnAction(event -> buttonSaveActionHandler());
         buttonCancel.setOnAction(event -> buttonCancelHandler());
@@ -56,14 +56,14 @@ public class ImageManagementPopUpController extends AbstractController {
         buttonCancel.setText(AppPropertiesSingleton.getInstance().get("frame.file.save.cancel"));
     }
 
-    private void initializeSplitMenuWeightInit(){
-        SplitMenuAdapter<ImageColorScale> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuColorType);
-        splitMenuAdapter.setMenuItemChangedListener(imageColorScale -> {
+    private void initializeMenuButtonWeightInit(){
+        MenuAdapter<ImageColorScale> menuAdapter = new MenuAdapter<>(menuButtonColorType);
+        menuAdapter.setMenuItemChangedListener(imageColorScale -> {
             testResultImageSaver.setImageColorScale(imageColorScale);
         });
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.file.save.image.type.gray"), ImageColorScale.GRAY);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.file.save.image.type.rgb"), ImageColorScale.RGB);
-        splitMenuAdapter.setDefaultMenuItem(ImageColorScale.GRAY);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.file.save.image.type.gray"), ImageColorScale.GRAY);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.file.save.image.type.rgb"), ImageColorScale.RGB);
+        menuAdapter.setDefaultMenuItem(ImageColorScale.GRAY);
     }
 
     private void buttonSaveActionHandler(){

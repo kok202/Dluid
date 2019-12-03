@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -16,9 +15,9 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 
 public class Main extends Application {
-    private MenuBar menuBar;
     private Stage primaryStage;
     private BorderPane borderPane;
+    private MenuController menuController;
     private TabsController tabsController;
 
     public static void main(String[] args) {
@@ -41,9 +40,9 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("images/icon.png"));
     }
 
-    private MenuBar createTopFrame() throws Exception{
-        menuBar = new MenuController().createView();
-        return menuBar;
+    private AnchorPane createTopFrame() throws Exception{
+        menuController = new MenuController();
+        return menuController.createView();
     }
 
     private AnchorPane createCenterFrame() throws Exception{
@@ -54,7 +53,7 @@ public class Main extends Application {
     private void setWidgetOnGlobalWidget(){
         AppWidgetSingleton.getInstance().setPrimaryStage(primaryStage);
         AppWidgetSingleton.getInstance().setBorderPane(borderPane);
-        AppWidgetSingleton.getInstance().setMenuBar(menuBar);
+        AppWidgetSingleton.getInstance().setMenuController(menuController);
         AppWidgetSingleton.getInstance().setTabsController(tabsController);
         CanvasFacade.initialize();
     }

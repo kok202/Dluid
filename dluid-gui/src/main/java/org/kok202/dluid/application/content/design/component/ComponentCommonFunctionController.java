@@ -3,12 +3,12 @@ package org.kok202.dluid.application.content.design.component;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.layout.AnchorPane;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.application.adapter.SplitMenuAdapter;
+import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.nd4j.linalg.activations.Activation;
 
@@ -18,8 +18,8 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
     @FXML private Label labelActivationFunction;
     @FXML private Label labelDropout;
 
-    @FXML private SplitMenuButton splitMenuWeightInit;
-    @FXML private SplitMenuButton splitMenuActivationFunction;
+    @FXML private MenuButton menuButtonWeightInit;
+    @FXML private MenuButton menuButtonActivationFunction;
     @FXML private Slider sliderDropout;
 
     public ComponentCommonFunctionController(Layer layer) {
@@ -35,8 +35,8 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
 
     @Override
     protected void initialize() throws Exception {
-        initializeSplitMenuWeightInit();
-        initializeSplitMenuActivationFunction();
+        initializeMenuButtonWeightInit();
+        initializeMenuButtonActivationFunction();
         initializeSliderDropout();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.title"));
         labelWeightInitializer.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.Initializer"));
@@ -44,33 +44,33 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         labelDropout.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.dropOut"));
     }
 
-    private void initializeSplitMenuWeightInit(){
-        SplitMenuAdapter<WeightInit> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuWeightInit);
-        splitMenuAdapter.setMenuItemChangedListener(weightInit -> {
+    private void initializeMenuButtonWeightInit(){
+        MenuAdapter<WeightInit> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
+        menuAdapter.setMenuItemChangedListener(weightInit -> {
             layer.getProperties().setWeightInit(weightInit);
             notifyLayerDataChanged();
         });
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInit.ONES);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInit.ZERO);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInit.XAVIER);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInit.UNIFORM);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distribution"), WeightInit.DISTRIBUTION);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInit.NORMAL);
-        splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInit());
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInit.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInit.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInit.XAVIER);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInit.UNIFORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distribution"), WeightInit.DISTRIBUTION);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInit.NORMAL);
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInit());
     }
 
-    private void initializeSplitMenuActivationFunction(){
-        SplitMenuAdapter<Activation> splitMenuAdapter = new SplitMenuAdapter<>(splitMenuActivationFunction);
-        splitMenuAdapter.setMenuItemChangedListener(activation -> {
+    private void initializeMenuButtonActivationFunction(){
+        MenuAdapter<Activation> menuAdapter = new MenuAdapter<>(menuButtonActivationFunction);
+        menuAdapter.setMenuItemChangedListener(activation -> {
             layer.getProperties().setActivationFunction(activation);
             notifyLayerDataChanged();
         });
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.identity"), Activation.IDENTITY);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.sigmoid"), Activation.SIGMOID);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.reLU"), Activation.RELU);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.leakyReLU"), Activation.LEAKYRELU);
-        splitMenuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.softMax"), Activation.SOFTMAX);
-        splitMenuAdapter.setDefaultMenuItem(layer.getProperties().getActivationFunction());
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.identity"), Activation.IDENTITY);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.sigmoid"), Activation.SIGMOID);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.reLU"), Activation.RELU);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.leakyReLU"), Activation.LEAKYRELU);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.softMax"), Activation.SOFTMAX);
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getActivationFunction());
     }
 
     private void initializeSliderDropout(){

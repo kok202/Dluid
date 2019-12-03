@@ -37,10 +37,10 @@
                                  </AnchorPane>
                                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                      <children>
-                                         <SplitMenuButton fx:id="splitMenuLossFunction" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                         <MenuButton fx:id="menuButtonLossFunction" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>
                                              </items>
-                                         </SplitMenuButton>
+                                         </MenuButton>
                                      </children>
                                  </AnchorPane>
                              </children>
