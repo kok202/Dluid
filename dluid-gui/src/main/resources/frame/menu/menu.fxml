@@ -24,7 +24,6 @@
                   </Menu>
               </menus>
           </MenuBar>
-         <Separator />
       </children>
    </VBox>
 </AnchorPane>
