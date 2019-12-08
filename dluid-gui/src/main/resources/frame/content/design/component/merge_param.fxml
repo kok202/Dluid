@@ -67,8 +67,11 @@
                             </AnchorPane>
                             <!-- end content-->
                             <HBox alignment="CENTER_RIGHT">
-                                <Button fx:id="buttonOutputSizeChangeUp" text="▲" styleClass="customDefaultButton" />
-                                <Button fx:id="buttonOutputSizeChangeDown" text="▼" styleClass="customDefaultButton" />
+                                <Button fx:id="buttonOutputSizeChangeUp" styleClass="customDefaultButton" text="▲">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></Button>
+                                <Button fx:id="buttonOutputSizeChangeDown" styleClass="customDefaultButton" text="▼" />
                             </HBox>
                         </VBox>
                     </children>

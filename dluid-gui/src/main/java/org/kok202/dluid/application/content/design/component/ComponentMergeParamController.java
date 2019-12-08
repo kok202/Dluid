@@ -14,7 +14,7 @@ import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 
 import java.util.List;
 
-public class MergeParamController extends AbstractLayerComponentController {
+public class ComponentMergeParamController extends AbstractLayerComponentController {
 
     @FXML private Label labelWidth;
     @FXML private Label labelHeight;
@@ -28,7 +28,7 @@ public class MergeParamController extends AbstractLayerComponentController {
     @FXML private Button buttonOutputSizeChangeUp;
     @FXML private Button buttonOutputSizeChangeDown;
 
-    public MergeParamController(Layer layer) {
+    public ComponentMergeParamController(Layer layer) {
         super(layer);
     }
 
@@ -56,6 +56,11 @@ public class MergeParamController extends AbstractLayerComponentController {
         labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
+
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
     }
 
     public void refreshInputOutputSize(){
@@ -67,8 +72,8 @@ public class MergeParamController extends AbstractLayerComponentController {
         inputSize = Math.max(inputSize, 1);
         List<Integer> recommendedDivisors = MathUtil.getDivisors(inputSize);
         MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
-        int outputSizeX = recommendedDivisors.get(mergeBlockProperty.getPointingIndex(recommendedDivisors.size()));
-        int outputSizeY = inputSize / outputSizeX;
+        int outputSizeY = recommendedDivisors.get(mergeBlockProperty.getPointingIndex(recommendedDivisors.size()));
+        int outputSizeX = inputSize / outputSizeY;
         layer.getProperties().setInputSize(outputSizeX, outputSizeY);
         layer.getProperties().setOutputSize(outputSizeX, outputSizeY);
         textFieldInputSizeX.setText(String.valueOf(outputSizeX));
