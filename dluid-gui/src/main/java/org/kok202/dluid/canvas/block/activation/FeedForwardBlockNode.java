@@ -10,17 +10,17 @@ public class FeedForwardBlockNode extends ActivationBlockNode {
         setBlockCover(
                 new Color[]{
                         CanvasConstant.COLOR_BLUE,
-                        CanvasConstant.COLOR_BLUE,
-                        CanvasConstant.COLOR_BLUE,
-                        CanvasConstant.COLOR_BLUE,
+                        CanvasConstant.COLOR_BLUE_,
+                        CanvasConstant.COLOR_BLUE_,
+                        CanvasConstant.COLOR_BLUE_,
                         CanvasConstant.COLOR_YELLOW,
                         CanvasConstant.COLOR_YELLOW
                 },
                 new Color[]{
-                        CanvasConstant.COLOR_RED,
-                        CanvasConstant.COLOR_RED,
-                        CanvasConstant.COLOR_RED,
-                        CanvasConstant.COLOR_RED,
+                        CanvasConstant.COLOR_BLUE_,
+                        CanvasConstant.COLOR_BLUE__,
+                        CanvasConstant.COLOR_BLUE__,
+                        CanvasConstant.COLOR_BLUE__,
                         CanvasConstant.COLOR_YELLOW,
                         CanvasConstant.COLOR_YELLOW
                 });

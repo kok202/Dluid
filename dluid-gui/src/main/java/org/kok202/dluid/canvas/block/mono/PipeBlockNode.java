@@ -10,9 +10,9 @@ public class PipeBlockNode extends MonoBlockNode {
         setBlockCover(
                 new Color[]{
                         CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
+                        CanvasConstant.COLOR_GRAY_,
+                        CanvasConstant.COLOR_GRAY_,
+                        CanvasConstant.COLOR_GRAY_,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });

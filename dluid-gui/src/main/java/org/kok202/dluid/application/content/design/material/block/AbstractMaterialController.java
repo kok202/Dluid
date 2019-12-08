@@ -70,6 +70,10 @@ public abstract class AbstractMaterialController extends AbstractController {
         itself.setOnDragDetected(eventHandler);
     }
 
+    public void setHalfOpacity(){
+        itself.getStyleClass().add("layer-block-half-opacity");
+    }
+
     public void relocatePosition(Vector2D mousePosition) {
         Point2D mouseCoords = new Point2D(mousePosition.getX(), mousePosition.getY());
         Point2D localCoords = itself.getParent().sceneToLocal(mouseCoords);
