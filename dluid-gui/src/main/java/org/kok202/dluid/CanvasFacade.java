@@ -51,10 +51,6 @@ public class CanvasFacade {
         CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(layerId);
     }
 
-    public static void alignBlockNode(){
-        CanvasSingleton.getInstance().getBlockNodeManager().alignBlockNode();
-    }
-
     public static GraphNode<BlockNode> findTrainInputGraphNode(){
         return CanvasSingleton.getInstance().getBlockNodeManager().findTrainInputGraphNode();
     }
