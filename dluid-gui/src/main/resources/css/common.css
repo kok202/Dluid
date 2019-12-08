@@ -288,6 +288,10 @@
     -fx-background-color: CONTEXT-COLOR-MENU-BUTTON-LABEL-BACKGROUND;
 }
 
+.customMenuButton .menu-item:focused {
+    -fx-background-color: COLOR-GREEN;
+}
+
 
 
 
@@ -296,18 +300,18 @@
     -fx-background-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
 }
 
-.context-menu {
-    -fx-background-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
-    -fx-border-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
-}
-
 .menu .label {
     -fx-text-fill: CONTEXT-COLOR-MENU-BAR-TEXT;
 }
 
+.menu .context-menu {
+    -fx-background-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-MENU-BAR-BACKGROUND;
+}
+
 .menu:hover,
 .menu:showing,
-.menu-item:focused {
+.menu .menu-item:focused {
     -fx-background-color: CONTEXT-COLOR-MENU-BAR-SELECTED;
 }
 
