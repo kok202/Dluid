@@ -13,10 +13,11 @@ public class MathUtil {
 
         List<Integer> divisors = new ArrayList<>();
         int sqrtSize = (int) Math.sqrt(size);
-        for(int i = 1; i < sqrtSize; i++){
+        for(int i = 1; i <= sqrtSize; i++){
             if(size % i == 0){
                 divisors.add(i);
-                divisors.add(size/i);
+                if(i != sqrtSize)
+                    divisors.add(size/i);
             }
         }
 
