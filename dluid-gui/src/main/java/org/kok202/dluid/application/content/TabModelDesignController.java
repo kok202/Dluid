@@ -55,7 +55,7 @@ public class TabModelDesignController extends AbstractController {
         mainSplitter.getItems().add(materialContent);
         mainSplitter.getItems().add(canvasContent);
         mainSplitter.getItems().add(componentContent);
-        mainSplitter.setDividerPositions(0.2, 0.75);
+        mainSplitter.setDividerPositions(0.16, 0.75);
         SplitPane.setResizableWithParent(materialContent, false);
         SplitPane.setResizableWithParent(componentContent, false);
     }

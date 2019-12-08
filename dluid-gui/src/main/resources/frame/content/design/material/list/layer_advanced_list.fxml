@@ -7,7 +7,7 @@
         <content>
             <AnchorPane>
                 <children>
-                    <VBox fx:id="layerAdvancedListBox" minHeight="0.0" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <VBox fx:id="layerListBox" minHeight="0.0" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
                         </children>
                     </VBox>
