@@ -28,7 +28,7 @@ public abstract class AbstractMaterialController extends AbstractController {
         itself.getStyleClass().add("layer-block-radius");
         switch(layerType){
             case DENSE_LAYER:
-                itself.getStyleClass().add("layer-block-image-1d-fcnn");
+                itself.getStyleClass().add("layer-block-image-fcnn");
                 break;
             case CONVOLUTION_1D_LAYER:
                 itself.getStyleClass().add("layer-block-image-1d-cnn");
@@ -61,13 +61,17 @@ public abstract class AbstractMaterialController extends AbstractController {
                 itself.getStyleClass().add("layer-block-image-reshape");
                 break;
             default:
-                itself.getStyleClass().add("layer-block-image-1d-fcnn");
+                itself.getStyleClass().add("layer-block-image-fcnn");
                 break;
         }
     }
 
     public void setOnDragDetected(EventHandler<MouseEvent> eventHandler){
         itself.setOnDragDetected(eventHandler);
+    }
+
+    public void setHalfOpacity(){
+        itself.getStyleClass().add("layer-block-half-opacity");
     }
 
     public void relocatePosition(Vector2D mousePosition) {

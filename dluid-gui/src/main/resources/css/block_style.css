@@ -2,8 +2,12 @@
 	-fx-background-radius: 10;
 }
 
-.layer-block-image-1d-fcnn {
-    -fx-background-image: url("../images/block_1d_fcnn.png");
+.layer-block-half-opacity {
+    -fx-opacity: 0.5;
+}
+
+.layer-block-image-fcnn {
+    -fx-background-image: url("../images/block_fcnn.png");
     -fx-background-repeat: no-repeat;
 	-fx-text-fill: white;
 }

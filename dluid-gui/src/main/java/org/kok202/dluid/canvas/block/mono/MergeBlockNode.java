@@ -9,10 +9,10 @@ public class MergeBlockNode extends MonoBlockNode {
         super(layer);
         setBlockCover(
                 new Color[]{
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
+                        CanvasConstant.COLOR_PURPLE,
+                        CanvasConstant.COLOR_PURPLE_,
+                        CanvasConstant.COLOR_PURPLE_,
+                        CanvasConstant.COLOR_PURPLE_,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });

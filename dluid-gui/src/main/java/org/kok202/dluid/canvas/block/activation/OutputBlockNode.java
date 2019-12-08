@@ -10,17 +10,17 @@ public class OutputBlockNode extends ActivationBlockNode {
         setBlockCover(
                 new Color[]{
                         CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
+                        CanvasConstant.COLOR_GRAY_,
+                        CanvasConstant.COLOR_GRAY_,
+                        CanvasConstant.COLOR_GRAY_,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND
                 },
                 new Color[]{
-                        CanvasConstant.COLOR_RED,
-                        CanvasConstant.COLOR_RED,
-                        CanvasConstant.COLOR_RED,
-                        CanvasConstant.COLOR_RED,
+                        CanvasConstant.COLOR_GRAY_,
+                        CanvasConstant.COLOR_GRAY__,
+                        CanvasConstant.COLOR_GRAY__,
+                        CanvasConstant.COLOR_GRAY__,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND
                 });

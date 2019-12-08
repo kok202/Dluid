@@ -20,20 +20,30 @@ public class CanvasConstant {
     public static final double COORDINATE_MESH_BOLD_THICKNESS = 0.01;
     public static final double COORDINATE_MESH_NORM_THICKNESS = 0.003;
 
-    public static final Color COLOR_LIGHTEST_GRAY = Color.rgb(241, 242, 243);
-    public static final Color COLOR_LIGHT_GRAY = Color.rgb(128, 128, 128);
-    public static final Color COLOR_GRAY = Color.rgb(89, 91, 93);
-    public static final Color COLOR_DARK_GRAY = Color.rgb(60, 63, 65);
-    public static final Color COLOR_WHITE = Color.rgb(255, 255, 255);
+    public static final Color COLOR_WHITE = Color.rgb(241, 242, 243);
+    public static final Color COLOR_GRAY = Color.rgb(159, 159, 159);
+    public static final Color COLOR_GRAY_ = Color.rgb(115, 115, 115);
+    public static final Color COLOR_GRAY__ = Color.rgb(70, 70, 70);
+
     public static final Color COLOR_YELLOW = Color.rgb(255, 214, 146);
-    public static final Color COLOR_RED = Color.rgb(255, 99, 99);
-    public static final Color COLOR_BLUE = Color.rgb(77, 210, 255);
+
+    public static final Color COLOR_RED = Color.rgb(232, 103, 87);
+    public static final Color COLOR_RED_ = Color.rgb(167, 63, 63);
+    public static final Color COLOR_RED__ = Color.rgb(117, 23, 43);
+
+    public static final Color COLOR_PURPLE = Color.rgb(205, 111, 170);
+    public static final Color COLOR_PURPLE_ = Color.rgb(169, 80, 130);
+    public static final Color COLOR_PURPLE__ = Color.rgb(129, 50, 90);
+
+    public static final Color COLOR_BLUE = Color.rgb(71, 184, 224);
+    public static final Color COLOR_BLUE_ = Color.rgb(55, 158, 195);
+    public static final Color COLOR_BLUE__ = Color.rgb(35, 138, 175);
 
     public static final Color CONTEXT_COLOR_POSSIBLE_APPEND = COLOR_YELLOW;
     public static final Color CONTEXT_COLOR_TRY_TO_APPEND = COLOR_RED;
-    public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_LIGHT_GRAY;
-    public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_LIGHTEST_GRAY;
-    public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_DARK_GRAY;
+    public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_GRAY_;
+    public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_WHITE;
+    public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY__;
 
     public static final int CUBIC_CURVE_OFFSET_X = 1;
     public static final int CUBIC_CURVE_OFFSET_Y = 1;

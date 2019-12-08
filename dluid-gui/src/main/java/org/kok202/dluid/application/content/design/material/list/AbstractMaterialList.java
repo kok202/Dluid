@@ -16,6 +16,11 @@ public abstract class AbstractMaterialList extends AbstractController {
     @FXML
     @Getter
     private TitledPane titledPane;
+
+    @FXML
+    @Getter
+    private VBox layerListBox;
+
     private List<AbstractMaterialController> abstractMaterialControllerList;
     abstract public AnchorPane createView() throws Exception;
 

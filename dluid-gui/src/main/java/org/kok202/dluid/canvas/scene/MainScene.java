@@ -22,7 +22,7 @@ public class MainScene {
         sceneRoot.getChildren().add(new AmbientLight(Color.WHITE));
         sceneNode = new SubScene(sceneRoot, width, height, true, SceneAntialiasing.BALANCED);
         sceneNode.setCamera(camera = new Camera());
-        sceneNode.setFill(CanvasConstant.COLOR_DARK_GRAY);
+        sceneNode.setFill(CanvasConstant.COLOR_GRAY__);
         MouseEventListeners.setMouseEventListener(sceneNode, sceneRoot, camera);
     }
 

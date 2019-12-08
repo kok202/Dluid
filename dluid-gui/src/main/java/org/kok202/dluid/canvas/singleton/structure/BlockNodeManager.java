@@ -1,8 +1,6 @@
 package org.kok202.dluid.canvas.singleton.structure;
 
-import javafx.geometry.Point3D;
 import lombok.Data;
-import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.LayerProperties;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
@@ -12,12 +10,22 @@ import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 @Data
 public class BlockNodeManager extends GraphManager<BlockNode>{
 
     public void removeGraphNode(long layerId) {
+        // Remove all directly connected pipe layer
+        Stream.concat(
+                findGraphNodeByLayerId(layerId).getIncomingNodes().stream(),
+                findGraphNodeByLayerId(layerId).getOutgoingNodes().stream())
+                .forEach(blockNodeGraphNode -> {
+                    if (blockNodeGraphNode.getData().getBlockInfo().getLayer().getType() == LayerType.PIPE_LAYER)
+                        removeGraphNode(blockNodeGraphNode.getData().getBlockInfo().getLayer().getId());
+                });
+
+        // Remove me
         removeGraphNode(
                 blockNodeObj -> {
                     BlockNode blockNode = (BlockNode) blockNodeObj;
@@ -87,49 +95,5 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
 
         // Reshape me
         blockNode.reshapeBlockModel();
-    }
-
-    public void alignBlockNode(){
-        getGraphNodes().forEach(blockNodeGraphNode -> {
-            List<GraphNode<BlockNode>> incomingNodes = blockNodeGraphNode.getIncomingNodes();
-            List<GraphNode<BlockNode>> outgoingNodes = blockNodeGraphNode.getOutgoingNodes();
-            if(incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
-                // Independent node
-                blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
-                blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
-                blockNodeGraphNode.getData().reshapeBlockModel();
-            }
-            else if(incomingNodes.isEmpty() && !outgoingNodes.isEmpty()){
-                // Top node
-                blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
-                blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
-                GraphNode<BlockNode> outgoingBlockNodeGraphNode = outgoingNodes.get(0);
-                Point3D pivotPosition = outgoingBlockNodeGraphNode.getData()
-                        .getTopCenterPosition()
-                        .add(0,-blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
-                blockNodeGraphNode.getData().setPosition(
-                        pivotPosition.getX(),
-                        pivotPosition.getY(),
-                        pivotPosition.getZ());
-                blockNodeGraphNode.getData().reshapeBlockModel();
-            }
-            else if(!incomingNodes.isEmpty() && outgoingNodes.isEmpty()){
-                // Bottom node
-                blockNodeGraphNode.getData().setHeight(CanvasConstant.NODE_DEFAULT_HEIGHT);
-                blockNodeGraphNode.getData().getBlockInfo().getLayer().setExtra(null);
-                GraphNode<BlockNode> incomingBlockNodeGraphNode = incomingNodes.get(0);
-                Point3D pivotPosition = incomingBlockNodeGraphNode.getData()
-                        .getBottomCenterPosition()
-                        .add(0,blockNodeGraphNode.getData().getBlockInfo().getHeight()/2,0);
-                blockNodeGraphNode.getData().setPosition(
-                        pivotPosition.getX(),
-                        pivotPosition.getY(),
-                        pivotPosition.getZ());
-                blockNodeGraphNode.getData().reshapeBlockModel();
-            }
-            else {
-                // Middle node
-            }
-        });
     }
 }

@@ -10,9 +10,9 @@ public class TrainInputBlockNode extends MonoBlockNode {
         setBlockCover(
                 new Color[]{
                         CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
-                        CanvasConstant.COLOR_GRAY,
+                        CanvasConstant.COLOR_GRAY_,
+                        CanvasConstant.COLOR_GRAY_,
+                        CanvasConstant.COLOR_GRAY_,
                         CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND,
                         CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });

@@ -1,9 +1,7 @@
 package org.kok202.dluid.application.content.design.material.list;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import lombok.Getter;
 import org.kok202.dluid.application.content.design.material.block.MaterialMergeController;
 import org.kok202.dluid.application.content.design.material.block.MaterialReshapeController;
@@ -15,8 +13,6 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
 @Getter
 public class MaterialListAdvancedLayer extends AbstractMaterialList {
-    @FXML
-    private VBox layerAdvancedListBox;
 
     private MaterialInsertionManager materialInsertionManager;
 
@@ -38,7 +34,7 @@ public class MaterialListAdvancedLayer extends AbstractMaterialList {
         addAbstractMaterialController(new MaterialTestInputController());
         addAbstractMaterialController(new MaterialReshapeController());
         addAbstractMaterialController(new MaterialMergeController());
-        addAbstractMaterialControllerToVBox(layerAdvancedListBox, materialInsertionManager);
+        addAbstractMaterialControllerToVBox(getLayerListBox(), materialInsertionManager);
         getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.advanced.title"));
     }
 }

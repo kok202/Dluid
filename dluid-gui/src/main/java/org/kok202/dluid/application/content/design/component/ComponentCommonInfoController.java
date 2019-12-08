@@ -41,7 +41,6 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
                     .getComponentContainerController()
                     .getComponentManager()
                     .clearComponentContainer();
-            CanvasFacade.alignBlockNode();
         }));
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.title"));
         labelLayerId.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.layerId"));

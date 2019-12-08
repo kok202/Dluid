@@ -34,8 +34,8 @@ public class MaterialContainerController extends AbstractController {
     protected void initialize() throws Exception {
         ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
         abstractMaterialLists.add(new MaterialListAssistantLayer(materialInsertionManager));
-        abstractMaterialLists.add(new MaterialList1DLayer(materialInsertionManager));
-        abstractMaterialLists.add(new MaterialList2DLayer(materialInsertionManager));
+        abstractMaterialLists.add(new MaterialListFCNNLayer(materialInsertionManager));
+        abstractMaterialLists.add(new MaterialListCNNLayer(materialInsertionManager));
         abstractMaterialLists.add(new MaterialListAdvancedLayer(materialInsertionManager));
 
         for (AbstractMaterialList abstractMaterialList : abstractMaterialLists) {
