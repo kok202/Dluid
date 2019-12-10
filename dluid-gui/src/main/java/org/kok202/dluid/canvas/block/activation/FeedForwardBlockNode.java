@@ -13,16 +13,16 @@ public class FeedForwardBlockNode extends ActivationBlockNode {
                         CanvasConstant.COLOR_BLUE_,
                         CanvasConstant.COLOR_BLUE_,
                         CanvasConstant.COLOR_BLUE_,
-                        CanvasConstant.COLOR_YELLOW,
-                        CanvasConstant.COLOR_YELLOW
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 },
                 new Color[]{
                         CanvasConstant.COLOR_BLUE_,
                         CanvasConstant.COLOR_BLUE__,
                         CanvasConstant.COLOR_BLUE__,
                         CanvasConstant.COLOR_BLUE__,
-                        CanvasConstant.COLOR_YELLOW,
-                        CanvasConstant.COLOR_YELLOW
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });
     }
 }

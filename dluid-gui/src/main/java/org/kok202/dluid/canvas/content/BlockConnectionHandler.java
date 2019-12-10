@@ -66,6 +66,7 @@ public class BlockConnectionHandler {
             if(pickResultNode instanceof HexahedronFace){
                 BlockNode currentPickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
                 if(pastPickedBlockNode == currentPickedBlockNode ||
+                    pastPickedBlockNode.getBlockInfo().getLayer().getType() == LayerType.PIPE_LAYER ||
                     currentPickedBlockNode.getBlockInfo().getLayer().getType() == LayerType.PIPE_LAYER){
                     releaseConnectionProcess();
                     return;
@@ -82,6 +83,7 @@ public class BlockConnectionHandler {
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, currentPickedBlockNode);
                 }
+                CanvasSingleton.getInstance().getBlockNodeManager().reshapeAllBlockByType();
             }
             releaseConnectionProcess();
         }

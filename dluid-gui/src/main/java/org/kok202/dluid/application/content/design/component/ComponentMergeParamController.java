@@ -64,12 +64,14 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
     }
 
     public void refreshInputOutputSize(){
-        int inputSize = 0;
         List<Layer> incomingLayers = CanvasFacade.findIncomingLayers(layer.getId());
+
+        int inputSize = 0;
         for (Layer incomingLayer : incomingLayers) {
             inputSize += incomingLayer.getProperties().getOutputSize()[0] * incomingLayer.getProperties().getOutputSize()[1];
         }
         inputSize = Math.max(inputSize, 1);
+
         List<Integer> recommendedDivisors = MathUtil.getDivisors(inputSize);
         MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
         int outputSizeY = recommendedDivisors.get(mergeBlockProperty.getPointingIndex(recommendedDivisors.size()));
