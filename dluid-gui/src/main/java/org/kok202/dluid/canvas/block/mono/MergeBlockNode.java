@@ -13,8 +13,8 @@ public class MergeBlockNode extends MonoBlockNode {
                         CanvasConstant.COLOR_PURPLE_,
                         CanvasConstant.COLOR_PURPLE_,
                         CanvasConstant.COLOR_PURPLE_,
-                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
-                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
+                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND
                 });
     }
 

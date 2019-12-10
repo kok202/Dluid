@@ -13,16 +13,16 @@ public class Deconvolution2DBlockNode extends ActivationBlockNode {
                         CanvasConstant.COLOR_RED_,
                         CanvasConstant.COLOR_RED_,
                         CanvasConstant.COLOR_RED_,
-                        CanvasConstant.COLOR_YELLOW,
-                        CanvasConstant.COLOR_YELLOW
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 },
                 new Color[]{
                         CanvasConstant.COLOR_RED_,
                         CanvasConstant.COLOR_RED__,
                         CanvasConstant.COLOR_RED__,
                         CanvasConstant.COLOR_RED__,
-                        CanvasConstant.COLOR_YELLOW,
-                        CanvasConstant.COLOR_YELLOW
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
+                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
                 });
     }
 }

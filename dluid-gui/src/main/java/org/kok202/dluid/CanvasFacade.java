@@ -51,28 +51,26 @@ public class CanvasFacade {
         CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(layerId);
     }
 
-    public static GraphNode<BlockNode> findTrainInputGraphNode(){
-        return CanvasSingleton.getInstance().getBlockNodeManager().findTrainInputGraphNode();
-    }
-
     public static List<Layer> findIncomingLayers(long layerId){
         return CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .findGraphNodeByLayerId(layerId)
                 .getIncomingNodes()
                 .stream()
-                .map(graphNode -> graphNode.getData().getBlockInfo().getLayer())
+                .map(incomingGraphNode -> {
+                    if(incomingGraphNode.getData().getBlockInfo().getLayer().getType() == LayerType.PIPE_LAYER)
+                        return incomingGraphNode.getIncomingNodes().get(0).getData().getBlockInfo().getLayer();
+                    return incomingGraphNode.getData().getBlockInfo().getLayer();
+                })
                 .collect(Collectors.toList());
     }
 
-    public static List<Layer> findOutgoingLayers(long layerId){
-        return CanvasSingleton.getInstance()
-                .getBlockNodeManager()
-                .findGraphNodeByLayerId(layerId)
-                .getIncomingNodes()
-                .stream()
-                .map(graphNode -> graphNode.getData().getBlockInfo().getLayer())
-                .collect(Collectors.toList());
+    public static GraphNode<BlockNode> findGraphNodeByLayerId(long layerId){
+        return CanvasSingleton.getInstance().getBlockNodeManager().findGraphNodeByLayerId(layerId);
+    }
+
+    public static GraphNode<BlockNode> findTrainInputGraphNode(){
+        return CanvasSingleton.getInstance().getBlockNodeManager().findTrainInputGraphNode();
     }
 
     public static boolean isPossibleToAddLayerType(LayerType layerType) {
