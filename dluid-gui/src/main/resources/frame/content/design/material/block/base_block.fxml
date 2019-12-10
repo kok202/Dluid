@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.Pane?>
 <Pane stylesheets="@/css/block_style.css"
       minHeight="100.0"
-      minWidth="210.0"
+      minWidth="250.0"
       xmlns="http://javafx.com/javafx/8.0.172-ea"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:id="itself">
