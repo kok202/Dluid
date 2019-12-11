@@ -1,6 +1,7 @@
 package org.kok202.dluid.application.content.design.material.insertion;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -11,6 +12,11 @@ import javafx.scene.layout.Pane;
 import lombok.Data;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.application.Util.DialogUtil;
+import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.canvas.block.BlockNode;
+import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.domain.structure.GraphNode;
 import org.kok202.dluid.domain.structure.Vector2D;
 
 @Data
@@ -80,7 +86,7 @@ public class MaterialInsertionManager {
     public EventHandler<MouseEvent> startBlockInsertion(LayerType layerType){
         // seq 0 : When user start clicking material.material for dragging
         return (MouseEvent event) -> {
-            if(!CanvasFacade.isPossibleToAddLayerType(layerType))
+            if(!checkIsPossibleToAddLayer(layerType))
                 return;
 
             // create container and set on clipboard
@@ -92,5 +98,47 @@ public class MaterialInsertionManager {
             materialInsertionFollower.relocatePosition(new Vector2D(event.getSceneX(), event.getSceneY()));
             isBlockInsertionRequested = true;
         };
+    }
+
+    private boolean checkIsPossibleToAddLayer(LayerType layerType){
+        switch (layerType){
+            case INPUT_LAYER:
+                return checkIsPossibleToAddLayer(LayerType.TRAIN_INPUT_LAYER) && checkIsPossibleToAddLayer(LayerType.TEST_INPUT_LAYER);
+            case TRAIN_INPUT_LAYER:
+                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
+                    if (graphNode.getData().getBlockInfo().getLayer().getType().isTrainInputLayerType()) {
+                        showMultiInputOutputLayerDialog();
+                        return false;
+                    }
+                }
+                return true;
+            case TEST_INPUT_LAYER:
+                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()){
+                    if(graphNode.getData().getBlockInfo().getLayer().getType().isTestInputLayerType()) {
+                        showMultiInputOutputLayerDialog();
+                        return false;
+                    }
+                }
+                return true;
+            case OUTPUT_LAYER:
+                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
+                    if (graphNode.getData().getBlockInfo().getLayer().getType().isOutputLayerType()) {
+                        showMultiInputOutputLayerDialog();
+                        return false;
+                    }
+                }
+                return true;
+        }
+        return true;
+    }
+
+    private void showMultiInputOutputLayerDialog(){
+        DialogUtil.builder()
+                .alertType(Alert.AlertType.INFORMATION)
+                .title(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.title"))
+                .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.header"))
+                .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.content"))
+                .build()
+                .showAndWait();
     }
 }

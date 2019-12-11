@@ -2,7 +2,6 @@ package org.kok202.dluid;
 
 import lombok.Data;
 import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
@@ -74,29 +73,4 @@ public class CanvasFacade {
                 .map(graphNode -> graphNode.getData().getBlockInfo().getLayer())
                 .collect(Collectors.toList());
     }
-
-    public static boolean isPossibleToAddLayerType(LayerType layerType) {
-        switch (layerType){
-            case INPUT_LAYER:
-                return isPossibleToAddLayerType(LayerType.TRAIN_INPUT_LAYER) &&
-                        isPossibleToAddLayerType(LayerType.TEST_INPUT_LAYER);
-            case TRAIN_INPUT_LAYER:
-                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes())
-                    if(graphNode.getData().getBlockInfo().getLayer().getType().isTrainInputLayerType())
-                        return false;
-                return true;
-            case TEST_INPUT_LAYER:
-                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes())
-                    if(graphNode.getData().getBlockInfo().getLayer().getType().isTestInputLayerType())
-                        return false;
-                return true;
-            case OUTPUT_LAYER:
-                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes())
-                    if(graphNode.getData().getBlockInfo().getLayer().getType().isOutputLayerType())
-                        return false;
-                return true;
-        }
-        return true;
-    }
-
 }

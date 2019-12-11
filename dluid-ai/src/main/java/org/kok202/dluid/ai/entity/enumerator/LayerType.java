@@ -38,10 +38,6 @@ public enum LayerType {
     EMBEDDING_SEQUENCE_LAYER,
     REPEAT_VECTOR;
 
-    public boolean isInputLayerType(){
-        return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER || this == TEST_INPUT_LAYER;
-    }
-
     public boolean isTrainInputLayerType(){
         return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER;
     }

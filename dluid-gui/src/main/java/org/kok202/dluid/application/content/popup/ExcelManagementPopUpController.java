@@ -60,9 +60,9 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
            !TextFieldUtil.validateExcelCell(dataCellEnd)){
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.dialog.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.invalidValue.dialog.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.invalidValue.dialog.content"))
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.invalidValue.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.invalidValue.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.invalidValue.content"))
                     .build()
                     .showAndWait();
             return;
@@ -83,9 +83,9 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
         }catch (Exception exception){
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.dialog.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.file.load.excel.error.outOfTable.dialog.header"))
-                    .contentText(exception.getMessage())
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.outOfTable.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.outOfTable.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.outOfTable.content") + exception.getMessage())
                     .build()
                     .showAndWait();
             return;
