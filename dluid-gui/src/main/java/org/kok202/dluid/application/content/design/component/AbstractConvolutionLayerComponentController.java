@@ -3,6 +3,7 @@ package org.kok202.dluid.application.content.design.component;
 import javafx.scene.control.Alert;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.application.Util.DialogUtil;
+import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
 public abstract class AbstractConvolutionLayerComponentController extends AbstractLayerComponentController {
     AbstractConvolutionLayerComponentController(Layer layer) {
@@ -19,9 +20,9 @@ public abstract class AbstractConvolutionLayerComponentController extends Abstra
         }
         DialogUtil.builder()
                 .alertType(Alert.AlertType.ERROR)
-                .title("Negative output size!")
-                .headerText("Convolution output size can not be negative or zero value. : (" + outputSizeString + ")")
-                .contentText("Please make output size positive.")
+                .title(AppPropertiesSingleton.getInstance().get("frame.dialog.convolutionNegativeSize.title"))
+                .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.convolutionNegativeSize.header") + outputSizeString)
+                .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.convolutionNegativeSize.content"))
                 .build()
                 .showAndWait();
     }
