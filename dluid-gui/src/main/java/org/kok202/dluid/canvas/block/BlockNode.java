@@ -30,7 +30,7 @@ public abstract class BlockNode {
 
     public BlockNode(Layer layer) {
         blockLayer = layer;
-        blockInfo = new BlockInfo();
+        blockInfo = new BlockInfo(layer.getType());
         blockHexahedronList = new ArrayList<>();
         createBlockModel(layer);
     }

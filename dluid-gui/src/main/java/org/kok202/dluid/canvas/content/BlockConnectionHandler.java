@@ -107,13 +107,13 @@ public class BlockConnectionHandler {
             sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[0],
             sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[1]);
         layer.getProperties().setOutputSize(
-                sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[0],
-                sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[1]);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
-        skewedBlockProperty.setTopSkewed(topSkewed);
-        skewedBlockProperty.setBottomSkewed(bottomSkewed);
+            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[0],
+            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[1]);
 
         BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) pipeBlockNode.getBlockInfo().getExtra();
+        skewedBlockProperty.setTopSkewed(topSkewed);
+        skewedBlockProperty.setBottomSkewed(bottomSkewed);
         pipeBlockNode.setHeight(height);
         pipeBlockNode.addedToScene(sceneRoot, position);
         pipeBlockNode.reshapeBlockModel();
