@@ -4,7 +4,6 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.PickResult;
-import javafx.scene.shape.Box;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
@@ -56,6 +55,7 @@ public class BlockInsertionHandler {
         PickResult pickResult = materialInsertionInfoHolder.getDragEvent().getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
         if(pickResultNode instanceof HexahedronVerticalFace){
+            // Insert block by connecting.
             BlockNode targetBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
 
             if(pickResultNode instanceof HexahedronTopFace && targetBlockNode.isPossibleToAppendFront()){
@@ -70,6 +70,7 @@ public class BlockInsertionHandler {
             }
         }
         else if(pickResultNode instanceof CoordinateGiantMesh){
+            // Insert block on empty plane
             Point3D targetPoint = pickResult.getIntersectedPoint();
             Point3D cameraPoint = CanvasSingleton.getInstance().getMainCanvas().getMainScene().getCamera().getCurrentPosition();
             Point3D intersectedPoint = Math3D.getIntersectPoint(
@@ -77,7 +78,6 @@ public class BlockInsertionHandler {
                     0,
                     targetPoint,
                     cameraPoint);
-            sceneRoot.getChildren().add(new Box(intersectedPoint.getX(), intersectedPoint.getY(), intersectedPoint.getZ()));
             createNewBlock(materialInsertionInfoHolder.getLayerType(), intersectedPoint);
         }
     }
