@@ -31,7 +31,7 @@ public class BlockConnectionHandler {
         Node pickResultNode = pickResult.getIntersectedNode();
         if(pickResultNode instanceof HexahedronFace){
             pastPickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
-            if(pastPickedBlockNode.getBlockInfo().getLayer().getType() == LayerType.PIPE_LAYER){
+            if(pastPickedBlockNode.getBlockLayer().getType() == LayerType.PIPE_LAYER){
                 releaseConnectionProcess();
                 return;
             }
@@ -66,8 +66,8 @@ public class BlockConnectionHandler {
             if(pickResultNode instanceof HexahedronFace){
                 BlockNode currentPickedBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
                 if(pastPickedBlockNode == currentPickedBlockNode ||
-                    pastPickedBlockNode.getBlockInfo().getLayer().getType() == LayerType.PIPE_LAYER ||
-                    currentPickedBlockNode.getBlockInfo().getLayer().getType() == LayerType.PIPE_LAYER){
+                    pastPickedBlockNode.getBlockLayer().getType() == LayerType.PIPE_LAYER ||
+                    currentPickedBlockNode.getBlockLayer().getType() == LayerType.PIPE_LAYER){
                     releaseConnectionProcess();
                     return;
                 }
@@ -104,16 +104,16 @@ public class BlockConnectionHandler {
 
         Layer layer = LayerFactory.create(LayerType.PIPE_LAYER);
         layer.getProperties().setInputSize(
-            sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[0],
-            sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[1]);
+            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[0],
+            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[1]);
         layer.getProperties().setOutputSize(
-                sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[0],
-                sourceBlockNode.getBlockInfo().getLayer().getProperties().getOutputSize()[1]);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
-        skewedBlockProperty.setTopSkewed(topSkewed);
-        skewedBlockProperty.setBottomSkewed(bottomSkewed);
+            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[0],
+            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[1]);
 
         BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) pipeBlockNode.getBlockInfo().getExtra();
+        skewedBlockProperty.setTopSkewed(topSkewed);
+        skewedBlockProperty.setBottomSkewed(bottomSkewed);
         pipeBlockNode.setHeight(height);
         pipeBlockNode.addedToScene(sceneRoot, position);
         pipeBlockNode.reshapeBlockModel();

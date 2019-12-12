@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.application.Util.MathUtil;
 import org.kok202.dluid.application.Util.TextFieldUtil;
@@ -41,12 +42,12 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
     @Override
     protected void initialize() throws Exception {
         buttonOutputSizeChangeUp.setOnAction(actionEvent -> {
-            InputBlockProperty inputBlockProperty = (InputBlockProperty) layer.getExtra();
+            InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
             inputBlockProperty.setPointingIndex(inputBlockProperty.getPointingIndex() + 1);
             refreshOutputSize();
         });
         buttonOutputSizeChangeDown.setOnAction(actionEvent -> {
-            InputBlockProperty inputBlockProperty = (InputBlockProperty) layer.getExtra();
+            InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
             inputBlockProperty.setPointingIndex(inputBlockProperty.getPointingIndex() - 1);
             refreshOutputSize();
         });
@@ -83,7 +84,7 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
     public void refreshOutputSize(){
         int inputSize = Math.max(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1], 1);
         List<Integer> recommendedDivisors = MathUtil.getDivisors(inputSize);
-        InputBlockProperty inputBlockProperty = (InputBlockProperty) layer.getExtra();
+        InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
         int outputSizeY = recommendedDivisors.get(inputBlockProperty.getPointingIndex(recommendedDivisors.size()));
         int outputSizeX = inputSize / outputSizeY;
         layer.getProperties().setOutputSize(outputSizeX, outputSizeY);

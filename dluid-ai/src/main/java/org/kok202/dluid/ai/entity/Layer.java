@@ -10,7 +10,6 @@ public class Layer {
     protected final long id;
     protected final LayerType type;
     protected LayerProperties properties;
-    protected Object extra;
 
     public Layer(LayerType type) {
         this.type = type;

@@ -30,8 +30,8 @@ public abstract class ActivationBlockNode extends BlockNode {
                 layer.getProperties().getOutputSize()[1] * CanvasConstant.NODE_UNIT);
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
 
-        Point3D topSkewed = getTopSkewed(layer);
-        Point3D bottomSkewed = getBottomSkewed(layer);
+        Point3D topSkewed = getTopSkewed();
+        Point3D bottomSkewed = getBottomSkewed();
         Point3D middleSkewed = getMiddleSkewed(topSkewed, bottomSkewed);
 
         BlockHexahedron layerHexahedron = createHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight());
@@ -64,14 +64,14 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     public final void reshapeBlockModel() {
         deleteHexahedrons();
-        Layer layer = getBlockInfo().getLayer();
+        Layer layer = getBlockLayer();
         Point2D topSize = new Point2D(layer.getProperties().getInputSize()[0], layer.getProperties().getInputSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D bottomSize = new Point2D(layer.getProperties().getOutputSize()[0], layer.getProperties().getOutputSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
-        Point3D topSkewed = getTopSkewed(layer);
-        Point3D bottomSkewed = getBottomSkewed(layer);
+        Point3D topSkewed = getTopSkewed();
+        Point3D bottomSkewed = getBottomSkewed();
         Point3D middleSkewed = getMiddleSkewed(topSkewed, bottomSkewed);
 
         BlockHexahedron layerHexahedron = reshapeHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight(), getLayerBlockPosition(getBlockInfo().getPosition()));
@@ -108,8 +108,8 @@ public abstract class ActivationBlockNode extends BlockNode {
     }
 
     private boolean isActivationFunctionExist(){
-        return getBlockInfo().getLayer().getProperties().getActivationFunction() != null &&
-                getBlockInfo().getLayer().getProperties().getActivationFunction() != Activation.IDENTITY;
+        return getBlockLayer().getProperties().getActivationFunction() != null &&
+                getBlockLayer().getProperties().getActivationFunction() != Activation.IDENTITY;
     }
 
     private double getLayerModelHeight(){
@@ -136,19 +136,19 @@ public abstract class ActivationBlockNode extends BlockNode {
         return getActivationBlockPosition(position.getX(), position.getY(), position.getZ());
     }
 
-    private Point3D getTopSkewed(Layer layer){
-        if(layer.getExtra() == null)
+    private Point3D getTopSkewed(){
+        if(getBlockInfo().getExtra() == null)
             return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
         return (skewedBlockProperty.getTopSkewed() == null)?
                 new Point3D(0, 0, 0):
                 skewedBlockProperty.getTopSkewed();
     }
 
-    private Point3D getBottomSkewed(Layer layer){
-        if(layer.getExtra() == null)
+    private Point3D getBottomSkewed(){
+        if(getBlockInfo().getExtra() == null)
             return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) layer.getExtra();
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
         return (skewedBlockProperty.getBottomSkewed() == null)?
                 new Point3D(0, 0, 0):
                 skewedBlockProperty.getBottomSkewed();
@@ -175,7 +175,7 @@ public abstract class ActivationBlockNode extends BlockNode {
     public boolean isPossibleToAppendFront() {
         GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
+                .findGraphNodeByLayerId(this.getBlockLayer().getId());
         return frontGraphNode.getIncomingNodes().isEmpty();
     }
 
@@ -183,7 +183,7 @@ public abstract class ActivationBlockNode extends BlockNode {
     public boolean isPossibleToAppendBack() {
         GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
+                .findGraphNodeByLayerId(this.getBlockLayer().getId());
         return frontGraphNode.getOutgoingNodes().isEmpty();
     }
 
@@ -191,13 +191,13 @@ public abstract class ActivationBlockNode extends BlockNode {
     public Point3D getTopCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
-                .add(getTopSkewed(getBlockInfo().getLayer()));
+                .add(getTopSkewed());
     }
 
     @Override
     public Point3D getBottomCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
-                .add(getBottomSkewed(getBlockInfo().getLayer()));
+                .add(getBottomSkewed());
     }
 }

@@ -4,7 +4,10 @@ import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.canvas.entity.InputBlockProperty;
+import org.kok202.dluid.canvas.entity.MergeBlockProperty;
+import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.domain.util.RandomUtil;
 
 import java.util.ArrayList;
@@ -14,18 +17,29 @@ import java.util.List;
 public class BlockInfo {
     protected long id;
     protected double height;
-    protected Layer layer;
     protected Point3D position;
     protected List<String[]> textureSourcesList;
     protected List<Color[]> colorsList;
+    protected Object extra;
 
-    public BlockInfo(Layer layer) {
+    public BlockInfo(LayerType layerType) {
         this.id = RandomUtil.getLong();
         this.height = CanvasConstant.NODE_DEFAULT_HEIGHT;
-        this.layer = layer;
         this.position = new Point3D(0,0,0);
         this.colorsList = new ArrayList<>();
         this.textureSourcesList = new ArrayList<>();
+
+        switch (layerType){
+            case INPUT_LAYER:
+                extra = new InputBlockProperty();
+                break;
+            case MERGE_LAYER:
+                extra = new MergeBlockProperty();
+                break;
+            default:
+                extra = new SkewedBlockProperty();
+                break;
+        }
     }
 
     public void setPosition(Point3D point3D){

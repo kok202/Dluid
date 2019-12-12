@@ -42,12 +42,12 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
     @Override
     protected void initialize() throws Exception {
         buttonOutputSizeChangeUp.setOnAction(actionEvent -> {
-            MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
+            MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
             mergeBlockProperty.setPointingIndex(mergeBlockProperty.getPointingIndex() + 1);
             refreshInputOutputSize();
         });
         buttonOutputSizeChangeDown.setOnAction(actionEvent -> {
-            MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
+            MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
             mergeBlockProperty.setPointingIndex(mergeBlockProperty.getPointingIndex() - 1);
             refreshInputOutputSize();
         });
@@ -73,7 +73,7 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
         inputSize = Math.max(inputSize, 1);
 
         List<Integer> recommendedDivisors = MathUtil.getDivisors(inputSize);
-        MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) layer.getExtra();
+        MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
         int outputSizeY = recommendedDivisors.get(mergeBlockProperty.getPointingIndex(recommendedDivisors.size()));
         int outputSizeX = inputSize / outputSizeY;
         layer.getProperties().setInputSize(outputSizeX, outputSizeY);
