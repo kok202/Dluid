@@ -106,7 +106,7 @@ public class MaterialInsertionManager {
                 return checkIsPossibleToAddLayer(LayerType.TRAIN_INPUT_LAYER) && checkIsPossibleToAddLayer(LayerType.TEST_INPUT_LAYER);
             case TRAIN_INPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
-                    if (graphNode.getData().getBlockInfo().getLayer().getType().isTrainInputLayerType()) {
+                    if (graphNode.getData().getBlockLayer().getType().isTrainInputLayerType()) {
                         showMultiInputOutputLayerDialog();
                         return false;
                     }
@@ -114,7 +114,7 @@ public class MaterialInsertionManager {
                 return true;
             case TEST_INPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()){
-                    if(graphNode.getData().getBlockInfo().getLayer().getType().isTestInputLayerType()) {
+                    if(graphNode.getData().getBlockLayer().getType().isTestInputLayerType()) {
                         showMultiInputOutputLayerDialog();
                         return false;
                     }
@@ -122,7 +122,7 @@ public class MaterialInsertionManager {
                 return true;
             case OUTPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
-                    if (graphNode.getData().getBlockInfo().getLayer().getType().isOutputLayerType()) {
+                    if (graphNode.getData().getBlockLayer().getType().isOutputLayerType()) {
                         showMultiInputOutputLayerDialog();
                         return false;
                     }

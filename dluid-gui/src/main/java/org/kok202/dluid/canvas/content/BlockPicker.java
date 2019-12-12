@@ -14,7 +14,7 @@ public class BlockPicker {
             // You can find out selected node.
             if (pickResult.getIntersectedNode() instanceof HexahedronFace) {
                 BlockNode blockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
-                AppFacade.refreshComponentContainer(blockNode.getBlockInfo().getLayer());
+                AppFacade.refreshComponentContainer(blockNode.getBlockLayer());
             }
         }
         return mouseEvent;

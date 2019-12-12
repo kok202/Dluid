@@ -64,7 +64,7 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     public final void reshapeBlockModel() {
         deleteHexahedrons();
-        Layer layer = getBlockInfo().getLayer();
+        Layer layer = getBlockLayer();
         Point2D topSize = new Point2D(layer.getProperties().getInputSize()[0], layer.getProperties().getInputSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D bottomSize = new Point2D(layer.getProperties().getOutputSize()[0], layer.getProperties().getOutputSize()[1])
@@ -108,8 +108,8 @@ public abstract class ActivationBlockNode extends BlockNode {
     }
 
     private boolean isActivationFunctionExist(){
-        return getBlockInfo().getLayer().getProperties().getActivationFunction() != null &&
-                getBlockInfo().getLayer().getProperties().getActivationFunction() != Activation.IDENTITY;
+        return getBlockLayer().getProperties().getActivationFunction() != null &&
+                getBlockLayer().getProperties().getActivationFunction() != Activation.IDENTITY;
     }
 
     private double getLayerModelHeight(){
@@ -175,7 +175,7 @@ public abstract class ActivationBlockNode extends BlockNode {
     public boolean isPossibleToAppendFront() {
         GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
+                .findGraphNodeByLayerId(this.getBlockLayer().getId());
         return frontGraphNode.getIncomingNodes().isEmpty();
     }
 
@@ -183,7 +183,7 @@ public abstract class ActivationBlockNode extends BlockNode {
     public boolean isPossibleToAppendBack() {
         GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
                 .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockInfo().getLayer().getId());
+                .findGraphNodeByLayerId(this.getBlockLayer().getId());
         return frontGraphNode.getOutgoingNodes().isEmpty();
     }
 
@@ -191,13 +191,13 @@ public abstract class ActivationBlockNode extends BlockNode {
     public Point3D getTopCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
-                .add(getTopSkewed(getBlockInfo().getLayer()));
+                .add(getTopSkewed(getBlockLayer()));
     }
 
     @Override
     public Point3D getBottomCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
-                .add(getBottomSkewed(getBlockInfo().getLayer()));
+                .add(getBottomSkewed(getBlockLayer()));
     }
 }

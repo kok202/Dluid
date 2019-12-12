@@ -22,11 +22,15 @@ public abstract class BlockNode {
     @Getter
     private BlockInfo blockInfo;
 
+    @Getter
+    private Layer blockLayer;
+
     @Getter(AccessLevel.PROTECTED)
     private List<BlockHexahedron> blockHexahedronList;
 
     public BlockNode(Layer layer) {
-        blockInfo = new BlockInfo(layer);
+        blockLayer = layer;
+        blockInfo = new BlockInfo();
         blockHexahedronList = new ArrayList<>();
         createBlockModel(layer);
     }

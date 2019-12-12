@@ -58,7 +58,7 @@ public abstract class MonoBlockNode extends BlockNode {
 
     public final void reshapeBlockModel() {
         deleteHexahedrons();
-        Layer layer = getBlockInfo().getLayer();
+        Layer layer = getBlockLayer();
         Point2D topSize = new Point2D(layer.getProperties().getInputSize()[0], layer.getProperties().getInputSize()[1])
                 .multiply(CanvasConstant.NODE_UNIT);
         Point2D bottomSize = new Point2D(layer.getProperties().getOutputSize()[0], layer.getProperties().getOutputSize()[1])
@@ -126,13 +126,13 @@ public abstract class MonoBlockNode extends BlockNode {
     public Point3D getTopCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
-                .add(getTopSkewed(getBlockInfo().getLayer()));
+                .add(getTopSkewed(getBlockLayer()));
     }
 
     @Override
     public Point3D getBottomCenterPosition(){
         return getBlockInfo().getPosition()
                 .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
-                .add(getBottomSkewed(getBlockInfo().getLayer()));
+                .add(getBottomSkewed(getBlockLayer()));
     }
 }

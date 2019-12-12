@@ -92,7 +92,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkFromNewData(insertedBlockNode, targetBlockNode);
-        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
+        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockLayer());
     }
 
     private void appendBackToSpecificBlock(LayerType layerType, BlockNode targetBlockNode){
@@ -105,7 +105,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkToNewData(targetBlockNode, insertedBlockNode);
-        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
+        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockLayer());
     }
 
     private void createNewBlock(LayerType layerType, Point3D insertingPoint){
@@ -115,7 +115,7 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .registerSoloNode(insertedBlockNode);
-        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockInfo().getLayer());
+        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockLayer());
     }
 
     private BlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){
