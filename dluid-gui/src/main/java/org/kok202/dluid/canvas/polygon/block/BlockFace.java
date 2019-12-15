@@ -8,6 +8,10 @@ public enum BlockFace {
     @Getter
     private int index;
 
+    public static int size(){
+        return 6;
+    }
+
     BlockFace(int index) {
         this.index = index;
     }

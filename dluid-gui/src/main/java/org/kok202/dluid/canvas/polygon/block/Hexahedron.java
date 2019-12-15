@@ -3,22 +3,22 @@ package org.kok202.dluid.canvas.polygon.block;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.kok202.dluid.canvas.polygon.block.BlockFace.*;
 
-@Data
 public class Hexahedron {
-    private final int FACE_NUMBER = 6;
     private HexahedronFace[] faces;
-    private String[] textureSources;
-    private Color[] colors;
+    private Map<BlockFace, String> textureSourceMap;
+    private Map<BlockFace, Color> colorMap;
 
     private Hexahedron(Point3D leftTopFront, Point3D leftTopBack,
                        Point3D leftBottomFront, Point3D leftBottomBack,
                        Point3D rightTopFront, Point3D rightTopBack,
                        Point3D rightBottomFront, Point3D rightBottomBack) {
-        this.faces = new HexahedronFace[FACE_NUMBER];
+        this.faces = new HexahedronFace[BlockFace.size()];
         faces[FRONT.getIndex()] = new HexahedronFrontFace(
                 leftTopFront,
                 rightTopFront,
@@ -61,27 +61,39 @@ public class Hexahedron {
                       Point3D leftBottomFront, Point3D leftBottomBack,
                       Point3D rightTopFront, Point3D rightTopBack,
                       Point3D rightBottomFront, Point3D rightBottomBack,
-                      String[] textureSources,
-                      Color[] colors) {
+                      Map<BlockFace, String> textureSourceMap,
+                      Map<BlockFace, Color> colorMap) {
         this(leftTopFront, leftTopBack,
                 leftBottomFront, leftBottomBack,
                 rightTopFront, rightTopBack,
                 rightBottomFront, rightBottomBack);
-        if(textureSources != null)
-            setTextureSources(textureSources);
-        else if(colors != null)
-            setColors(colors);
+        this.textureSourceMap = (textureSourceMap != null)? textureSourceMap : new HashMap<>();
+        this.colorMap = (colorMap != null)? colorMap : new HashMap<>();
         refreshBlockCover();
     }
 
+    public void setTextureSourceMap(Map<BlockFace, String> textureSourceMap) {
+        this.textureSourceMap = textureSourceMap;
+    }
+
+    public void setColorMap(Map<BlockFace, Color> colorMap) {
+        this.colorMap = colorMap;
+    }
+
     public void refreshBlockCover(){
-        if(textureSources != null){
-            for(int i = 0; i < faces.length; i++)
-                faces[i].setImage(textureSources[i]);
-        }
-        else if(colors != null){
-            for(int i = 0; i < faces.length; i++)
-                faces[i].setColor(colors[i]);
+        for(BlockFace blockFace : BlockFace.values()){
+            // if texture exists, it has greater priority.
+            String textureSource = textureSourceMap.get(blockFace);
+            if(textureSource != null){
+                faces[blockFace.getIndex()].setImage(textureSource);
+            }
+            else{
+                // color is second thing.
+                Color color = colorMap.get(blockFace);
+                if(color != null){
+                    faces[blockFace.getIndex()].setColor(color);
+                }
+            }
         }
     }
 

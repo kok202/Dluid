@@ -9,15 +9,17 @@ import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.dluid.domain.structure.GraphNode;
 import org.nd4j.linalg.activations.Activation;
 
 public abstract class ActivationBlockNode extends BlockNode {
     public static final int LAYER_BLOCK_INDEX = 0;
     public static final int ACTIVATION_BLOCK_INDEX = 1;
+    public static final int BLOCK_HEXAHEDRON_SIZE = 2;
 
     public ActivationBlockNode(Layer layer) {
-        super(layer);
+        super(layer, BLOCK_HEXAHEDRON_SIZE);
     }
 
     @Override
@@ -36,8 +38,8 @@ public abstract class ActivationBlockNode extends BlockNode {
 
         BlockHexahedron layerHexahedron = createHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight());
         BlockHexahedron activationHexahedron = createHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight());
-        getBlockHexahedronList().add(layerHexahedron);
-        getBlockHexahedronList().add(activationHexahedron);
+        getBlockHexahedronList().set(LAYER_BLOCK_INDEX, layerHexahedron);
+        getBlockHexahedronList().set(ACTIVATION_BLOCK_INDEX, activationHexahedron);
     }
 
     private BlockHexahedron createHexahedron(
@@ -56,8 +58,6 @@ public abstract class ActivationBlockNode extends BlockNode {
                 .rightTopBack(new Point3D(topSize.getX() + topSkewed.getX(), -halfNodeHeight, topSize.getY() + topSkewed.getZ()))
                 .rightBottomFront(new Point3D(bottomSize.getX() + bottomSkewed.getX(),  halfNodeHeight, -bottomSize.getY() + bottomSkewed.getZ()))
                 .rightBottomBack(new Point3D(bottomSize.getX() + bottomSkewed.getX(),  halfNodeHeight, bottomSize.getY() + bottomSkewed.getZ()))
-                .textureSources(null)
-                .colors(null)
                 .blockNode(this)
                 .build();
     }
@@ -76,8 +76,8 @@ public abstract class ActivationBlockNode extends BlockNode {
 
         BlockHexahedron layerHexahedron = reshapeHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight(), getLayerBlockPosition(getBlockInfo().getPosition()));
         BlockHexahedron activationHexahedron = reshapeHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight(), getActivationBlockPosition(getBlockInfo().getPosition()));
-        getBlockHexahedronList().add(layerHexahedron);
-        getBlockHexahedronList().add(activationHexahedron);
+        getBlockHexahedronList().set(LAYER_BLOCK_INDEX, layerHexahedron);
+        getBlockHexahedronList().set(ACTIVATION_BLOCK_INDEX, activationHexahedron);
         refreshBlockCover();
     }
 
@@ -173,18 +173,20 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     @Override
     public boolean isPossibleToAppendFront() {
-        GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
-                .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockLayer().getId());
-        return frontGraphNode.getIncomingNodes().isEmpty();
+        try{
+            GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
+                    .getBlockNodeManager()
+                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
+            return frontGraphNode.getIncomingNodes().isEmpty();
+        }catch (CanNotFindGraphNodeException canNotFinxGraphNodeException){
+            // When initialize, it is not registered in graph manger.
+            return true;
+        }
     }
 
     @Override
     public boolean isPossibleToAppendBack() {
-        GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
-                .getBlockNodeManager()
-                .findGraphNodeByLayerId(this.getBlockLayer().getId());
-        return frontGraphNode.getOutgoingNodes().isEmpty();
+        return true;
     }
 
     @Override
