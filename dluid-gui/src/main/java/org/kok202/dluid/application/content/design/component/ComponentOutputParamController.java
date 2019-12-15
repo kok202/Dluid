@@ -14,11 +14,14 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 public class ComponentOutputParamController extends AbstractLayerComponentController {
 
+    @FXML private Label labelWidth;
+    @FXML private Label labelHeight;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
     @FXML private Label labelLossFunction;
 
-    @FXML private TextField textFieldInputSize;
+    @FXML private TextField textFieldInputSizeX;
+    @FXML private TextField textFieldInputSizeY;
     @FXML private TextField textFieldOutputSize;
     @FXML private MenuButton menuButtonLossFunction;
 
@@ -35,21 +38,25 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
 
     @Override
     protected void initialize() throws Exception {
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSize, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeX, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeY, 1);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSize, 1);
         setTextFieldByLayerProperties();
         initializeMenuButtonLossFunction();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
+        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelLossFunction.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.lossFunction"));
     }
 
     private void setTextFieldByLayerProperties(){
-        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
         textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
+        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSize);
     }
 
     private void initializeMenuButtonLossFunction(){
@@ -75,8 +82,9 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
     }
 
     private void changeInputSize(){
-        int x = TextFieldUtil.parseInteger(textFieldInputSize, 1);
-        layer.getProperties().setInputSize(x);
+        int x = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
+        int y = TextFieldUtil.parseInteger(textFieldInputSizeY, 1);
+        layer.getProperties().setInputSize(x, y);
     }
 
     private void changeOutputSize(){
