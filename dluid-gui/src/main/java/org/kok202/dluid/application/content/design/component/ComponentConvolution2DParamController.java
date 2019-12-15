@@ -10,6 +10,7 @@ import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.util.ConvolutionCalculatorUtil;
 import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.domain.exception.ConvolutionOutputIsNegativeException;
 
 public class ComponentConvolution2DParamController extends AbstractConvolutionLayerComponentController {
 
@@ -90,8 +91,7 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
         int[] outputSize= getOutputSize();
         if(outputSize[0] <= 0 || outputSize[1] <= 0){
             setTextFieldByLayerProperties();
-            showOutputSizeErrorDialog(outputSize);
-            return;
+            throw new ConvolutionOutputIsNegativeException(outputSize);
         }
 
         layer.getProperties().setInputSize(

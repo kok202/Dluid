@@ -8,26 +8,34 @@ import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.entity.InputBlockProperty;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
+import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.domain.util.RandomUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class BlockInfo {
     protected long id;
     protected double height;
     protected Point3D position;
-    protected List<String[]> textureSourcesList;
-    protected List<Color[]> colorsList;
+    protected List<Map<BlockFace, String>> textureSourceMapList;
+    protected List<Map<BlockFace, Color>> colorMapList;
     protected Object extra;
 
-    public BlockInfo(LayerType layerType) {
+    public BlockInfo(LayerType layerType, int blockHexahedronNumber) {
         this.id = RandomUtil.getLong();
         this.height = CanvasConstant.NODE_DEFAULT_HEIGHT;
         this.position = new Point3D(0,0,0);
-        this.colorsList = new ArrayList<>();
-        this.textureSourcesList = new ArrayList<>();
+        this.textureSourceMapList = new ArrayList<>();
+        this.colorMapList = new ArrayList<>();
+
+        for(int i = 0; i < blockHexahedronNumber; i++){
+            this.textureSourceMapList.add(new HashMap<>());
+            this.colorMapList.add(new HashMap<>());
+        }
 
         switch (layerType){
             case INPUT_LAYER:

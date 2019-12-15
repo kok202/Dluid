@@ -37,6 +37,7 @@ public abstract class ExtendedImageSaver {
                     .show();
         }
         catch (Exception e){
+            // IO Exception of javafx file.
             e.printStackTrace();
         }
     }

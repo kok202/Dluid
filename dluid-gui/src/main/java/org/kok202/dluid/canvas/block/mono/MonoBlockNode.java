@@ -11,9 +11,11 @@ import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 
 public abstract class MonoBlockNode extends BlockNode {
+    public static final int MONO_BLOCK_INDEX = 0;
+    public static final int BLOCK_HEXAHEDRON_SIZE = 1;
 
     public MonoBlockNode(Layer layer) {
-        super(layer);
+        super(layer, BLOCK_HEXAHEDRON_SIZE);
     }
 
     @Override
@@ -31,7 +33,7 @@ public abstract class MonoBlockNode extends BlockNode {
                 topSize, topSkewed,
                 bottomSize, bottomSkewed,
                 getBlockInfo().getHeight());
-        getBlockHexahedronList().add(layerHexahedron);
+        getBlockHexahedronList().set(MONO_BLOCK_INDEX, layerHexahedron);
     }
 
     private BlockHexahedron createHexahedron(
@@ -50,8 +52,6 @@ public abstract class MonoBlockNode extends BlockNode {
                 .rightTopBack(new Point3D(topSize.getX() + topSkewed.getX(), -halfNodeHeight, topSize.getY() + topSkewed.getZ()))
                 .rightBottomFront(new Point3D(bottomSize.getX() + bottomSkewed.getX(),  halfNodeHeight, -bottomSize.getY() + bottomSkewed.getZ()))
                 .rightBottomBack(new Point3D(bottomSize.getX() + bottomSkewed.getX(),  halfNodeHeight, bottomSize.getY() + bottomSkewed.getZ()))
-                .textureSources(null)
-                .colors(null)
                 .blockNode(this)
                 .build();
     }
@@ -71,7 +71,7 @@ public abstract class MonoBlockNode extends BlockNode {
                 bottomSize, bottomSkewed,
                 getBlockInfo().getHeight(),
                 getBlockInfo().getPosition());
-        getBlockHexahedronList().add(layerHexahedron);
+        getBlockHexahedronList().set(MONO_BLOCK_INDEX, layerHexahedron);
         refreshBlockCover();
     }
 
@@ -92,16 +92,6 @@ public abstract class MonoBlockNode extends BlockNode {
     public void setPosition(double x, double y, double z){
         getBlockHexahedronList().forEach(blockHexahedron -> blockHexahedron.setPosition(x,y,z));
         getBlockInfo().setPosition(x, y, z);
-    }
-
-    @Override
-    public boolean isPossibleToAppendFront() {
-        return true;
-    }
-
-    @Override
-    public boolean isPossibleToAppendBack() {
-        return true;
     }
 
     private Point3D getTopSkewed(){

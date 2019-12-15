@@ -1,30 +1,26 @@
 package org.kok202.dluid.canvas.block.mono;
 
-import javafx.scene.paint.Color;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.polygon.block.BlockFace;
 
 public class ReshapeBlockNode extends MonoBlockNode {
     public ReshapeBlockNode(Layer layer) {
         super(layer);
-        setBlockCover(
-                new Color[]{
-                        CanvasConstant.COLOR_PURPLE,
-                        CanvasConstant.COLOR_PURPLE_,
-                        CanvasConstant.COLOR_PURPLE_,
-                        CanvasConstant.COLOR_PURPLE_,
-                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND,
-                        CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND
-                });
+        setBlockColor(MONO_BLOCK_INDEX, BlockFace.FRONT, CanvasConstant.COLOR_PURPLE);
+        setBlockColor(MONO_BLOCK_INDEX, BlockFace.LEFT, CanvasConstant.COLOR_PURPLE_);
+        setBlockColor(MONO_BLOCK_INDEX, BlockFace.RIGHT, CanvasConstant.COLOR_PURPLE_);
+        setBlockColor(MONO_BLOCK_INDEX, BlockFace.BACK, CanvasConstant.COLOR_PURPLE_);
+        refreshBlockCover();
     }
 
     @Override
-    public boolean isPossibleToAppendFront() {
+    public boolean isPossibleToAppendFrontByConnection() {
         return true;
     }
 
     @Override
-    public boolean isPossibleToAppendBack() {
+    public boolean isPossibleToAppendBackByConnection() {
         return true;
     }
 }

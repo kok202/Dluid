@@ -61,7 +61,7 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
         textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        attachTextChangedListener(textFieldInputSize, textFieldOutputSizeX, textFieldOutputSizeY);
+        attachTextChangedListener(textFieldInputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
         labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
@@ -73,7 +73,7 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
     @Override
     protected void textFieldChangedHandler(){
         changeInputSize();
-        notifyLayerDataChanged();
+        refreshOutputSize();
     }
 
     private void changeInputSize(){
@@ -81,7 +81,7 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
         layer.getProperties().setInputSize(x);
     }
 
-    public void refreshOutputSize(){
+    private void refreshOutputSize(){
         int inputSize = Math.max(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1], 1);
         List<Integer> recommendedDivisors = MathUtil.getDivisors(inputSize);
         InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();

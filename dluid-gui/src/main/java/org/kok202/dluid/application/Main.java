@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.application.common.ExceptionHandler;
 import org.kok202.dluid.application.content.TabsController;
 import org.kok202.dluid.application.menu.MenuController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
@@ -21,6 +22,7 @@ public class Main extends Application {
     private TabsController tabsController;
 
     public static void main(String[] args) {
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler::catchException);
         launch(args);
     }
 

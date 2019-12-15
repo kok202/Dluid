@@ -1,7 +1,6 @@
 package org.kok202.dluid.application.content.design.material.insertion;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -12,10 +11,9 @@ import javafx.scene.layout.Pane;
 import lombok.Data;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.application.Util.DialogUtil;
-import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.domain.exception.MultiInputOutputLayerException;
 import org.kok202.dluid.domain.structure.GraphNode;
 import org.kok202.dluid.domain.structure.Vector2D;
 
@@ -107,38 +105,25 @@ public class MaterialInsertionManager {
             case TRAIN_INPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
                     if (graphNode.getData().getBlockLayer().getType().isTrainInputLayerType()) {
-                        showMultiInputOutputLayerDialog();
-                        return false;
+                        throw new MultiInputOutputLayerException();
                     }
                 }
                 return true;
             case TEST_INPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()){
                     if(graphNode.getData().getBlockLayer().getType().isTestInputLayerType()) {
-                        showMultiInputOutputLayerDialog();
-                        return false;
+                        throw new MultiInputOutputLayerException();
                     }
                 }
                 return true;
             case OUTPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
                     if (graphNode.getData().getBlockLayer().getType().isOutputLayerType()) {
-                        showMultiInputOutputLayerDialog();
-                        return false;
+                        throw new MultiInputOutputLayerException();
                     }
                 }
                 return true;
         }
         return true;
-    }
-
-    private void showMultiInputOutputLayerDialog(){
-        DialogUtil.builder()
-                .alertType(Alert.AlertType.INFORMATION)
-                .title(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.title"))
-                .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.header"))
-                .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.content"))
-                .build()
-                .showAndWait();
     }
 }
