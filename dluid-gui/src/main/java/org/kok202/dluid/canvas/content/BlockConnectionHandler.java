@@ -4,12 +4,15 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.application.Util.DialogUtil;
+import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
@@ -82,6 +85,15 @@ public class BlockConnectionHandler {
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, pastPickedBlockNode, currentPickedBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, currentPickedBlockNode);
+                }
+                else {
+                    DialogUtil.builder()
+                            .alertType(Alert.AlertType.INFORMATION)
+                            .title(AppPropertiesSingleton.getInstance().get("frame.dialog.blockConnectionFail.title"))
+                            .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.blockConnectionFail.header"))
+                            .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.blockConnectionFail.content"))
+                            .build()
+                            .showAndWait();
                 }
                 CanvasSingleton.getInstance().getBlockNodeManager().reshapeAllBlockByType();
             }

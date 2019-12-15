@@ -58,6 +58,10 @@ public class LayerProperties {
                 strideSize = new int[]{1,1};
                 paddingSize = new int[]{0,0};
                 break;
+            case MERGE_LAYER:
+                inputSize = new int[]{1, 1};
+                outputSize = new int[]{1, 1};
+                break;
             case OUTPUT_LAYER:
                 lossFunction = LossFunction.MSE;
                 break;
