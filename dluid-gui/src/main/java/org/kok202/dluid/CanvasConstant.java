@@ -39,6 +39,10 @@ public class CanvasConstant {
     public static final Color COLOR_BLUE_ = Color.rgb(55, 158, 195);
     public static final Color COLOR_BLUE__ = Color.rgb(35, 138, 175);
 
+    public static final Color COLOR_GREEN = Color.rgb(36, 175, 178);
+    public static final Color COLOR_GREEN_ = Color.rgb(25, 142, 144);
+    public static final Color COLOR_GREEN__ = Color.rgb(15, 104, 106);
+
     public static final Color CONTEXT_COLOR_POSSIBLE_APPEND = COLOR_YELLOW;
     public static final Color CONTEXT_COLOR_TRY_TO_APPEND = COLOR_RED;
     public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_GRAY;
