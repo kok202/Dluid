@@ -9,8 +9,6 @@ import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
-import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
-import org.kok202.dluid.domain.structure.GraphNode;
 import org.nd4j.linalg.activations.Activation;
 
 public abstract class ActivationBlockNode extends BlockNode {
@@ -169,24 +167,6 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     private Point3D getActivationBlockPosition(double x, double y, double z){
         return new Point3D(x, !isActivationFunctionExist()? 0 : y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
-    }
-
-    @Override
-    public boolean isPossibleToAppendFront() {
-        try{
-            GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
-                    .getBlockNodeManager()
-                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
-            return frontGraphNode.getIncomingNodes().isEmpty();
-        }catch (CanNotFindGraphNodeException canNotFinxGraphNodeException){
-            // When initialize, it is not registered in graph manger.
-            return true;
-        }
-    }
-
-    @Override
-    public boolean isPossibleToAppendBack() {
-        return true;
     }
 
     @Override

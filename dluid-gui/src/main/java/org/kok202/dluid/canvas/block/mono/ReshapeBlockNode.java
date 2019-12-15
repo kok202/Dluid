@@ -15,12 +15,12 @@ public class ReshapeBlockNode extends MonoBlockNode {
     }
 
     @Override
-    public boolean isPossibleToAppendFront() {
+    public boolean isPossibleToAppendFrontByConnection() {
         return true;
     }
 
     @Override
-    public boolean isPossibleToAppendBack() {
+    public boolean isPossibleToAppendBackByConnection() {
         return true;
     }
 }

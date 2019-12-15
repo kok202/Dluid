@@ -15,7 +15,7 @@ public class MergeBlockNode extends MonoBlockNode {
     }
 
     @Override
-    public boolean isPossibleToAppendFront() {
+    public boolean isPossibleToAppendFrontByConnection() {
         return true;
     }
 }

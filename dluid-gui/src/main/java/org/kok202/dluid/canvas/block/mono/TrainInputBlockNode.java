@@ -15,7 +15,7 @@ public class TrainInputBlockNode extends MonoBlockNode {
     }
 
     @Override
-    public boolean isPossibleToAppendFront() {
+    public boolean isPossibleToAppendFrontByConnection() {
         return false;
     }
 }

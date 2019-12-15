@@ -40,11 +40,11 @@ public class BlockInsertionHandler {
         if(pickResultNode instanceof HexahedronVerticalFace){
             HexahedronVerticalFace targetFace = (HexahedronVerticalFace) pickResultNode;
             BlockNode targetBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
-            if(pickResultNode instanceof HexahedronTopFace && targetBlockNode.isPossibleToAppendFront()){
+            if(pickResultNode instanceof HexahedronTopFace && targetBlockNode.isPossibleToAppendFrontByDirection()){
                 targetFace.setColor(CanvasConstant.CONTEXT_COLOR_TRY_TO_APPEND);
                 pastBlockHexahedronVerticalFace = targetFace;
             }
-            else if(pickResultNode instanceof HexahedronBottomFace && targetBlockNode.isPossibleToAppendBack()){
+            else if(pickResultNode instanceof HexahedronBottomFace && targetBlockNode.isPossibleToAppendBackByDirection()){
                 targetFace.setColor(CanvasConstant.CONTEXT_COLOR_TRY_TO_APPEND);
                 pastBlockHexahedronVerticalFace = targetFace;
             }
@@ -58,15 +58,11 @@ public class BlockInsertionHandler {
             // Insert block by connecting.
             BlockNode targetBlockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
 
-            if(pickResultNode instanceof HexahedronTopFace && targetBlockNode.isPossibleToAppendFront()){
+            if(pickResultNode instanceof HexahedronTopFace && targetBlockNode.isPossibleToAppendFrontByDirection()){
                 appendFrontToSpecificBlock(materialInsertionInfoHolder.getLayerType(), targetBlockNode);
             }
-            else if(pickResultNode instanceof HexahedronBottomFace && targetBlockNode.isPossibleToAppendBack()){
+            else if(pickResultNode instanceof HexahedronBottomFace && targetBlockNode.isPossibleToAppendBackByDirection()){
                 appendBackToSpecificBlock(materialInsertionInfoHolder.getLayerType(), targetBlockNode);
-            }
-
-            if(pastBlockHexahedronVerticalFace != null){
-                pastBlockHexahedronVerticalFace.setColor(CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND);
             }
         }
         else if(pickResultNode instanceof CoordinateGiantMesh){

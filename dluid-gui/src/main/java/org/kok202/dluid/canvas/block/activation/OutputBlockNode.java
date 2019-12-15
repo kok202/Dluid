@@ -19,7 +19,12 @@ public class OutputBlockNode extends ActivationBlockNode {
     }
 
     @Override
-    public boolean isPossibleToAppendBack() {
+    public boolean isPossibleToAppendBackByConnection() {
+        return false;
+    }
+
+    @Override
+    public boolean isPossibleToAppendBackByDirection() {
         return false;
     }
 }

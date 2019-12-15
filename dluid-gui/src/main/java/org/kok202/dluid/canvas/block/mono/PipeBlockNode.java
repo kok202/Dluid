@@ -17,12 +17,12 @@ public class PipeBlockNode extends MonoBlockNode {
     }
 
     @Override
-    public boolean isPossibleToAppendFront() {
+    public boolean isPossibleToAppendFrontByConnection() {
         return false;
     }
 
     @Override
-    public boolean isPossibleToAppendBack() {
+    public boolean isPossibleToAppendBackByConnection() {
         return false;
     }
 }

@@ -9,8 +9,6 @@ import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
-import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
-import org.kok202.dluid.domain.structure.GraphNode;
 
 public abstract class MonoBlockNode extends BlockNode {
     public static final int MONO_BLOCK_INDEX = 0;
@@ -94,24 +92,6 @@ public abstract class MonoBlockNode extends BlockNode {
     public void setPosition(double x, double y, double z){
         getBlockHexahedronList().forEach(blockHexahedron -> blockHexahedron.setPosition(x,y,z));
         getBlockInfo().setPosition(x, y, z);
-    }
-
-    @Override
-    public boolean isPossibleToAppendFront() {
-        try{
-            GraphNode<BlockNode> frontGraphNode = CanvasSingleton.getInstance()
-                    .getBlockNodeManager()
-                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
-            return frontGraphNode.getIncomingNodes().isEmpty();
-        }catch (CanNotFindGraphNodeException canNotFindGraphNodeException){
-            // When initialize, it is not registered in graph manger.
-            return true;
-        }
-    }
-
-    @Override
-    public boolean isPossibleToAppendBack() {
-        return true;
     }
 
     private Point3D getTopSkewed(){

@@ -9,9 +9,12 @@ import lombok.Getter;
 import lombok.ToString;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
+import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +57,8 @@ public abstract class BlockNode {
             BlockHexahedron blockHexahedron = blockHexahedronList.get(i);
 
             // Reload block color cover
-            getBlockInfo().getColorMapList().get(i).put(BlockFace.TOP, (isPossibleToAppendFront())? CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND : CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND);
-            getBlockInfo().getColorMapList().get(i).put(BlockFace.BOTTOM, (isPossibleToAppendBack())? CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND : CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND);
+            getBlockInfo().getColorMapList().get(i).put(BlockFace.TOP, (isPossibleToAppendFrontByDirection())? CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND : CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND);
+            getBlockInfo().getColorMapList().get(i).put(BlockFace.BOTTOM, (isPossibleToAppendBackByDirection())? CanvasConstant.CONTEXT_COLOR_POSSIBLE_APPEND : CanvasConstant.CONTEXT_COLOR_IMPOSSIBLE_APPEND);
             blockHexahedron.setColorMap(getBlockInfo().getColorMapList().get(i));
 
             // Reload block texture cover
@@ -93,6 +96,52 @@ public abstract class BlockNode {
         }
     }
 
+    public boolean isPossibleToAppendFrontByConnection() {
+        try{
+            GraphNode<BlockNode> thisGraphNode = CanvasSingleton.getInstance()
+                    .getBlockNodeManager()
+                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
+            return thisGraphNode.getIncomingNodes().isEmpty();
+        }catch (CanNotFindGraphNodeException canNotFindGraphNodeException){
+            // When initialize, it is not registered in graph manger.
+            return true;
+        }
+    }
+
+    public boolean isPossibleToAppendFrontByDirection() {
+        try{
+            GraphNode<BlockNode> thisGraphNode = CanvasSingleton.getInstance()
+                    .getBlockNodeManager()
+                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
+            return thisGraphNode.getIncomingNodes()
+                    .stream()
+                    .filter(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() != LayerType.PIPE_LAYER)
+                    .count() == 0;
+        }catch (CanNotFindGraphNodeException canNotFindGraphNodeException){
+            // When initialize, it is not registered in graph manger.
+            return true;
+        }
+    }
+
+    public boolean isPossibleToAppendBackByConnection() {
+        return true;
+    }
+
+    public boolean isPossibleToAppendBackByDirection() {
+        try{
+            GraphNode<BlockNode> thisGraphNode = CanvasSingleton.getInstance()
+                    .getBlockNodeManager()
+                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
+            return thisGraphNode.getOutgoingNodes()
+                    .stream()
+                    .filter(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() != LayerType.PIPE_LAYER)
+                    .count() == 0;
+        }catch (CanNotFindGraphNodeException canNotFindGraphNodeException){
+            // When initialize, it is not registered in graph manger.
+            return true;
+        }
+    }
+
     public abstract void setHeight(double height);
 
     public abstract void setPosition(double x, double y, double z);
@@ -100,10 +149,6 @@ public abstract class BlockNode {
     protected abstract void createBlockModel(Layer layer);
 
     public abstract void reshapeBlockModel();
-
-    public abstract boolean isPossibleToAppendFront();
-
-    public abstract boolean isPossibleToAppendBack();
 
     public abstract Point3D getTopCenterPosition();
 

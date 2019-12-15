@@ -15,7 +15,7 @@ public class TestInputBlockNode extends MonoBlockNode {
     }
 
     @Override
-    public boolean isPossibleToAppendFront() {
+    public boolean isPossibleToAppendFrontByConnection() {
         return false;
     }
 }

@@ -2,12 +2,16 @@ package org.kok202.dluid.application.content.popup;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.kok202.dluid.application.Util.DialogUtil;
 import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.adapter.file.ExtendedFileFinder;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.domain.exception.ExcelIllegalDataFormatException;
+import org.kok202.dluid.domain.exception.ExcelPositionOutOfTableException;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.stream.StringRecordSet;
 import org.kok202.dluid.domain.stream.excel.ExcelReader;
@@ -58,14 +62,7 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
 
         if(!TextFieldUtil.validateExcelCell(dataCellStart) ||
            !TextFieldUtil.validateExcelCell(dataCellEnd)){
-            DialogUtil.builder()
-                    .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.invalidValue.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.invalidValue.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.invalidValue.content"))
-                    .build()
-                    .showAndWait();
-            return;
+            throw new ExcelIllegalDataFormatException();
         }
 
         try{
@@ -81,14 +78,7 @@ public class ExcelManagementPopUpController extends FileManagementPopUpControlle
             getExtendedFileFinder().getManagedRecordSet().setNumericRecordSet(numericRecordSet);
             getExtendedFileFinder().closePopUpExtensionWithLoad();
         }catch (Exception exception){
-            DialogUtil.builder()
-                    .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.outOfTable.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.outOfTable.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.excel.outOfTable.content") + exception.getMessage())
-                    .build()
-                    .showAndWait();
-            return;
+            throw new ExcelPositionOutOfTableException();
         }
     }
 

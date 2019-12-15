@@ -4,15 +4,12 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.application.Util.DialogUtil;
-import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
@@ -20,6 +17,7 @@ import org.kok202.dluid.canvas.polygon.block.HexahedronFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.LayerFactory;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
+import org.kok202.dluid.domain.exception.BlockConnectionImpossibleException;
 import org.kok202.dluid.domain.exception.IllegalConnectionRequest;
 
 public class BlockConnectionHandler {
@@ -76,24 +74,18 @@ public class BlockConnectionHandler {
                 }
 
                 boolean isUpward = AppFacade.isConnectionArrowUpward();
-                if(isUpward && currentPickedBlockNode.isPossibleToAppendBack()){
+                if(isUpward && currentPickedBlockNode.isPossibleToAppendBackByConnection()){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, pastPickedBlockNode);
                 }
-                else if(!isUpward && currentPickedBlockNode.isPossibleToAppendFront()){
+                else if(!isUpward && currentPickedBlockNode.isPossibleToAppendFrontByConnection()){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, pastPickedBlockNode, currentPickedBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, currentPickedBlockNode);
                 }
                 else {
-                    DialogUtil.builder()
-                            .alertType(Alert.AlertType.INFORMATION)
-                            .title(AppPropertiesSingleton.getInstance().get("frame.dialog.blockConnectionFail.title"))
-                            .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.blockConnectionFail.header"))
-                            .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.blockConnectionFail.content"))
-                            .build()
-                            .showAndWait();
+                    throw new BlockConnectionImpossibleException();
                 }
                 CanvasSingleton.getInstance().getBlockNodeManager().reshapeAllBlockByType();
             }
