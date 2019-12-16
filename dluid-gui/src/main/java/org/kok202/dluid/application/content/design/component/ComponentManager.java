@@ -71,6 +71,10 @@ public class ComponentManager {
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentReshapeParamController(layer));
                 break;
+            case SWITCH_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentSwitchParamController(layer));
+                break;
             case LSTM:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));

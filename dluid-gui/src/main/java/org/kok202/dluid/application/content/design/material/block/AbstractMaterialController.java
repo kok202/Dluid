@@ -60,6 +60,9 @@ public abstract class AbstractMaterialController extends AbstractController {
             case RESHAPE_LAYER:
                 itself.getStyleClass().add("layer-block-image-reshape");
                 break;
+            case SWITCH_LAYER:
+                itself.getStyleClass().add("layer-block-image-switch");
+                break;
             default:
                 itself.getStyleClass().add("layer-block-image-fcnn");
                 break;
