@@ -63,7 +63,7 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
     }
 
-    public void refreshInputOutputSize(){
+    private void refreshInputOutputSize(){
         List<Layer> incomingLayers = CanvasFacade.findIncomingLayers(layer.getId());
 
         int inputSize = 0;

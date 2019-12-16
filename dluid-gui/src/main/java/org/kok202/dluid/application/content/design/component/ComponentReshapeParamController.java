@@ -2,13 +2,19 @@ package org.kok202.dluid.application.content.design.component;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.AppConstant;
+import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.application.Util.MathUtil;
 import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
+
+import java.util.List;
 
 public class ComponentReshapeParamController extends AbstractLayerComponentController {
 
@@ -17,10 +23,12 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
     @FXML private Label labelInput;
     @FXML private Label labelOutput;
 
-    @FXML private TextField textFieldInputX;
-    @FXML private TextField textFieldInputY;
-    @FXML private TextField textFieldOutputX;
-    @FXML private TextField textFieldOutputY;
+    @FXML private TextField textFieldInputSizeX;
+    @FXML private TextField textFieldInputSizeY;
+    @FXML private TextField textFieldOutputSizeX;
+    @FXML private TextField textFieldOutputSizeY;
+    @FXML private Button buttonOutputSizeChangeUp;
+    @FXML private Button buttonOutputSizeChangeDown;
 
     public ComponentReshapeParamController(Layer layer) {
         super(layer);
@@ -35,10 +43,20 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
 
     @Override
     protected void initialize() throws Exception {
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputX, AppConstant.DEFAULT_INPUT_SIZE);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputY, AppConstant.DEFAULT_INPUT_SIZE);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputX, AppConstant.DEFAULT_OUTPUT_SIZE);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputY, AppConstant.DEFAULT_OUTPUT_SIZE);
+        buttonOutputSizeChangeUp.setOnAction(actionEvent -> {
+            ReshapeBlockProperty reshapeBlockProperty = (ReshapeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
+            reshapeBlockProperty.setPointingIndex(reshapeBlockProperty.getPointingIndex() + 1);
+            refreshInputOutputSize();
+        });
+        buttonOutputSizeChangeDown.setOnAction(actionEvent -> {
+            ReshapeBlockProperty reshapeBlockProperty = (ReshapeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
+            reshapeBlockProperty.setPointingIndex(reshapeBlockProperty.getPointingIndex() - 1);
+            refreshInputOutputSize();
+        });
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeX, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeY, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeX, AppConstant.DEFAULT_OUTPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeY, AppConstant.DEFAULT_OUTPUT_SIZE);
         setTextFieldByLayerProperties();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
@@ -49,22 +67,31 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
     }
 
     private void setTextFieldByLayerProperties(){
-        detachTextChangedListener(textFieldInputX, textFieldInputY, textFieldOutputX, textFieldOutputY);
-        textFieldInputX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        attachTextChangedListener(textFieldInputX, textFieldInputY, textFieldOutputX, textFieldOutputY);
+        detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY);
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY);
     }
 
     @Override
     protected void textFieldChangedHandler(){
         layer.getProperties().setInputSize(
-                TextFieldUtil.parseInteger(textFieldInputX),
-                TextFieldUtil.parseInteger(textFieldInputY));
-        layer.getProperties().setOutputSize(
-                TextFieldUtil.parseInteger(textFieldOutputX),
-                TextFieldUtil.parseInteger(textFieldOutputY));
+                TextFieldUtil.parseInteger(textFieldInputSizeX),
+                TextFieldUtil.parseInteger(textFieldInputSizeY));
+        refreshInputOutputSize();
+    }
+
+    private void refreshInputOutputSize(){
+        int inputSize = Math.max(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1], 1);
+        List<Integer> recommendedDivisors = MathUtil.getDivisors(inputSize);
+        ReshapeBlockProperty reshapeBlockProperty = (ReshapeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
+        int outputSizeY = recommendedDivisors.get(reshapeBlockProperty.getPointingIndex(recommendedDivisors.size()));
+        int outputSizeX = inputSize / outputSizeY;
+        layer.getProperties().setOutputSize(outputSizeX, outputSizeY);
+        textFieldOutputSizeX.setText(String.valueOf(outputSizeX));
+        textFieldOutputSizeY.setText(String.valueOf(outputSizeY));
         notifyLayerDataChanged();
     }
 }
