@@ -25,6 +25,7 @@ public enum LayerType {
     PIPE_LAYER,
     MERGE_LAYER,
     RESHAPE_LAYER,
+    SWITCH_LAYER,
 
     /**********************************************************
      * NOT SUPPORT

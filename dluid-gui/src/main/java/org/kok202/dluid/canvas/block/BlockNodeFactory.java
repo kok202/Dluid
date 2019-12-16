@@ -29,6 +29,8 @@ public class BlockNodeFactory {
                 return new MergeBlockNode(layer);
             case RESHAPE_LAYER:
                 return new ReshapeBlockNode(layer);
+            case SWITCH_LAYER:
+                return new SwitchBlockNode(layer);
         }
         return null;
     }

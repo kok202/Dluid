@@ -31,6 +31,8 @@ public class LayerBuildingUtil {
         switch(layerGraphNode.getData().getType()){
             case PIPE_LAYER:
             case RESHAPE_LAYER:
+            case SWITCH_LAYER:
+                //FIXME: switch layer 를 중점으로 모델을 분리해서 생성해야한다.
                 break;
             case MERGE_LAYER:
                 List<String> layersFrom = getFromNodeIdStrings(layerGraphNode);

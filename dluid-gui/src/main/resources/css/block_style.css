@@ -54,6 +54,12 @@
 	-fx-text-fill: white;
 }
 
+.layer-block-image-switch {
+    -fx-background-image: url("../images/block_switch.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
 .layer-block-image-reshape {
     -fx-background-image: url("../images/block_reshape.png");
     -fx-background-repeat: no-repeat;
