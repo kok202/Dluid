@@ -7,6 +7,7 @@ import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.entity.InputBlockProperty;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
+import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.domain.util.RandomUtil;
@@ -43,6 +44,9 @@ public class BlockInfo {
                 break;
             case MERGE_LAYER:
                 extra = new MergeBlockProperty();
+                break;
+            case RESHAPE_LAYER:
+                extra = new ReshapeBlockProperty();
                 break;
             default:
                 extra = new SkewedBlockProperty();
