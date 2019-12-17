@@ -96,6 +96,7 @@ public abstract class BlockNode {
         }
     }
 
+    // NOTICE : Multi layer for input is only available on merge and switch layer
     public boolean isPossibleToAppendFrontByConnection() {
         try{
             GraphNode<BlockNode> thisGraphNode = CanvasSingleton.getInstance()
@@ -108,19 +109,9 @@ public abstract class BlockNode {
         }
     }
 
+    // NOTICE : Multi layer for input is only available on merge and switch layer
     public boolean isPossibleToAppendFrontByDirection() {
-        try{
-            GraphNode<BlockNode> thisGraphNode = CanvasSingleton.getInstance()
-                    .getBlockNodeManager()
-                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
-            return thisGraphNode.getIncomingNodes()
-                    .stream()
-                    .filter(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() != LayerType.PIPE_LAYER)
-                    .count() == 0;
-        }catch (CanNotFindGraphNodeException canNotFindGraphNodeException){
-            // When initialize, it is not registered in graph manger.
-            return true;
-        }
+        return isPossibleToAppendFrontByConnection();
     }
 
     public boolean isPossibleToAppendBackByConnection() {

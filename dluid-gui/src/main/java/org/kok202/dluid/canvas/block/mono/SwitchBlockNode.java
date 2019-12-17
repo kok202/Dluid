@@ -14,13 +14,15 @@ public class SwitchBlockNode extends MonoBlockNode {
         refreshBlockCover();
     }
 
+    // NOTICE : Multi layer for input is only available on merge and switch layer
     @Override
     public boolean isPossibleToAppendFrontByConnection() {
         return true;
     }
 
+    // NOTICE : Multi layer for input is only available when using connection
     @Override
-    public boolean isPossibleToAppendBackByConnection() {
-        return true;
+    public boolean isPossibleToAppendFrontByDirection() {
+        return false;
     }
 }
