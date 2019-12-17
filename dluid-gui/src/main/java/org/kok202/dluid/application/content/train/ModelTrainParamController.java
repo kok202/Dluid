@@ -4,10 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.AppConstant;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.adapter.file.TrainFeatureFileFinder;
@@ -113,14 +113,15 @@ public class ModelTrainParamController extends AbstractModelTrainController {
     }
 
     private void initializeMenuButtonWeightInit(){
-        MenuAdapter<WeightInit> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
+        MenuAdapter<WeightInitWrapper> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
         menuAdapter.setMenuItemChangedListener(AIFacade::setTrainWeightInit);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInit.ONES);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInit.ZERO);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInit.XAVIER);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInit.UNIFORM);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distribution"), WeightInit.DISTRIBUTION);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInit.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitWrapper.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitWrapper.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitWrapper.XAVIER);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInitWrapper.UNIFORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitWrapper.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitWrapper.DISTRIBUTION_ZERO_TO_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitWrapper.DISTRIBUTION_PLUS_MINUS_ONE);
         menuAdapter.setDefaultMenuItem(AIFacade.getTrainWeightInit());
     }
 

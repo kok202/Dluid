@@ -1,9 +1,9 @@
 package org.kok202.dluid.ai.entity;
 
 import lombok.Data;
-import org.deeplearning4j.nn.weights.WeightInit;
+import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.nd4j.linalg.activations.Activation;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
 
 @Data
@@ -11,8 +11,8 @@ public class LayerProperties {
     // common properties
     protected int[] inputSize;
     protected int[] outputSize;
-    protected WeightInit weightInit;
-    protected Activation activationFunction;
+    protected WeightInitWrapper weightInit;
+    protected ActivationWrapper activationFunction;
     protected double dropout;
 
     // for convolution type
@@ -42,8 +42,8 @@ public class LayerProperties {
     LayerProperties(LayerType layerType) {
         inputSize = new int[]{10, 1};
         outputSize = new int[]{10, 1};
-        weightInit = WeightInit.ONES;
-        activationFunction = Activation.IDENTITY;
+        weightInit = WeightInitWrapper.ONES;
+        activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
 
         switch (layerType){

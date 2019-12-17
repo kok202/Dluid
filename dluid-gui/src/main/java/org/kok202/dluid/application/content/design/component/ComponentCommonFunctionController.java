@@ -6,11 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
-import org.nd4j.linalg.activations.Activation;
 
 public class ComponentCommonFunctionController extends AbstractLayerComponentController {
 
@@ -45,31 +45,33 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
     }
 
     private void initializeMenuButtonWeightInit(){
-        MenuAdapter<WeightInit> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
+        MenuAdapter<WeightInitWrapper> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
         menuAdapter.setMenuItemChangedListener(weightInit -> {
             layer.getProperties().setWeightInit(weightInit);
             notifyLayerDataChanged();
         });
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInit.ONES);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInit.ZERO);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInit.XAVIER);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInit.UNIFORM);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distribution"), WeightInit.DISTRIBUTION);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInit.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitWrapper.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitWrapper.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitWrapper.XAVIER);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInitWrapper.UNIFORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitWrapper.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitWrapper.DISTRIBUTION_ZERO_TO_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitWrapper.DISTRIBUTION_PLUS_MINUS_ONE);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInit());
     }
 
     private void initializeMenuButtonActivationFunction(){
-        MenuAdapter<Activation> menuAdapter = new MenuAdapter<>(menuButtonActivationFunction);
+        MenuAdapter<ActivationWrapper> menuAdapter = new MenuAdapter<>(menuButtonActivationFunction);
         menuAdapter.setMenuItemChangedListener(activation -> {
             layer.getProperties().setActivationFunction(activation);
             notifyLayerDataChanged();
         });
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.identity"), Activation.IDENTITY);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.sigmoid"), Activation.SIGMOID);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.reLU"), Activation.RELU);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.leakyReLU"), Activation.LEAKYRELU);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.softMax"), Activation.SOFTMAX);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.identity"), ActivationWrapper.IDENTITY);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.sigmoid"), ActivationWrapper.SIGMOID);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.tanh"), ActivationWrapper.TANH);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.reLU"), ActivationWrapper.RELU);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.leakyReLU"), ActivationWrapper.LEAKYRELU);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.softMax"), ActivationWrapper.SOFTMAX);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getActivationFunction());
     }
 

@@ -1,8 +1,8 @@
 package org.kok202.dluid.ai;
 
-import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.ai.listener.RunnableTrainingListener;
 import org.kok202.dluid.ai.singleton.AIModelSingleton;
 import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
@@ -123,11 +123,11 @@ public class AIFacade {
         AIPropertiesSingleton.getInstance().getTrainProperty().setLearningRate(learningRate);
     }
 
-    public static WeightInit getTrainWeightInit() {
+    public static WeightInitWrapper getTrainWeightInit() {
         return AIPropertiesSingleton.getInstance().getTrainProperty().getWeightInit();
     }
 
-    public static void setTrainWeightInit(WeightInit weightInit) {
+    public static void setTrainWeightInit(WeightInitWrapper weightInit) {
         AIPropertiesSingleton.getInstance().getTrainProperty().setWeightInit(weightInit);
     }
 
