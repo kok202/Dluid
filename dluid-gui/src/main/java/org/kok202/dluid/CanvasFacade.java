@@ -65,6 +65,11 @@ public class CanvasFacade {
                 .collect(Collectors.toList());
     }
 
+    public static long findSourceLayerIdByLayerId(long layerId){
+        GraphNode<BlockNode> sourceLayerGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().findSourceByLayerId(layerId);
+        return (sourceLayerGraphNode != null)? sourceLayerGraphNode.getData().getBlockLayer().getId() : -1;
+    }
+
     public static GraphNode<BlockNode> findGraphNodeByLayerId(long layerId){
         return CanvasSingleton.getInstance().getBlockNodeManager().findGraphNodeByLayerId(layerId);
     }

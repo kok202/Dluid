@@ -5,6 +5,12 @@ import java.util.Random;
 public class RandomUtil {
     private static Random random;
 
+    public static long getPositiveLong(){
+        if(random == null)
+            random = new Random(System.currentTimeMillis());
+        return Math.abs(random.nextLong());
+    }
+
     public static long getLong(){
         if(random == null)
             random = new Random(System.currentTimeMillis());

@@ -126,4 +126,26 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                     graphNodeBlockNode.getData().reshapeBlockModel();
                 });
     }
+
+    public GraphNode<BlockNode> findSourceByLayerId(long layerId) {
+        GraphNode<BlockNode> startNode = findGraphNodeByLayerId(layerId);
+        return findSourceByLayerIdSearch(startNode);
+    }
+
+    private GraphNode<BlockNode> findSourceByLayerIdSearch(GraphNode<BlockNode> currentNode) {
+        if(currentNode.getData().getBlockLayer().getType().isSourceLayerType())
+            return currentNode;
+
+        List<GraphNode<BlockNode>> incomingNodes = currentNode.getIncomingNodes();
+        if(incomingNodes.isEmpty())
+            return null;
+
+        for(GraphNode<BlockNode> incomingNode : incomingNodes){
+            GraphNode<BlockNode> searchedNode = findSourceByLayerIdSearch(incomingNode);
+            if(searchedNode != null)
+                return searchedNode;
+        }
+        return null;
+    }
+
 }

@@ -2,8 +2,7 @@ package org.kok202.dluid.ai.entity;
 
 import lombok.Data;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-
-import java.util.Random;
+import org.kok202.dluid.domain.util.RandomUtil;
 
 @Data
 public class Layer {
@@ -13,7 +12,7 @@ public class Layer {
 
     public Layer(LayerType type) {
         this.type = type;
-        this.id = new Random().nextLong();
+        this.id = RandomUtil.getPositiveLong();
         this.properties = new LayerProperties(type);
     }
 }

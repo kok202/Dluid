@@ -13,6 +13,7 @@ import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.adapter.file.TrainFeatureFileFinder;
 import org.kok202.dluid.application.adapter.file.TrainResultFileFinder;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.domain.exception.InvalidBatchSize;
 
 
 public class ModelTrainParamController extends AbstractModelTrainController {
@@ -86,6 +87,8 @@ public class ModelTrainParamController extends AbstractModelTrainController {
 
     private void setBatchSize() {
         int value = TextFieldUtil.parseInteger(textFieldBatchSize);
+        if(value > AIFacade.getTrainTotalRecordSize())
+            throw new InvalidBatchSize(AIFacade.getTrainTotalRecordSize());
         AIFacade.setTrainBatchSize(value);
     }
 

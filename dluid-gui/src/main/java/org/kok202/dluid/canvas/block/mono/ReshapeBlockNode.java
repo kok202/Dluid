@@ -13,14 +13,4 @@ public class ReshapeBlockNode extends MonoBlockNode {
         setBlockColor(MONO_BLOCK_INDEX, BlockFace.BACK, CanvasConstant.COLOR_PURPLE_);
         refreshBlockCover();
     }
-
-    @Override
-    public boolean isPossibleToAppendFrontByConnection() {
-        return true;
-    }
-
-    @Override
-    public boolean isPossibleToAppendBackByConnection() {
-        return true;
-    }
 }

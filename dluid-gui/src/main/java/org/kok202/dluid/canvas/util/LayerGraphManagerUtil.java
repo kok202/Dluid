@@ -7,7 +7,7 @@ import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.List;
 
-public class BlockNodeGraphUtil {
+public class LayerGraphManagerUtil {
 
     // TODO : 테스트 필요
     public static GraphManager<Layer> convertToLayerGraph(GraphNode<BlockNode> startGraphNode){
