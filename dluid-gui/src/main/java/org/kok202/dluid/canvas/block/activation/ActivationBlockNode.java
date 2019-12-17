@@ -5,11 +5,11 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
-import org.nd4j.linalg.activations.Activation;
 
 public abstract class ActivationBlockNode extends BlockNode {
     public static final int LAYER_BLOCK_INDEX = 0;
@@ -107,7 +107,7 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     private boolean isActivationFunctionExist(){
         return getBlockLayer().getProperties().getActivationFunction() != null &&
-                getBlockLayer().getProperties().getActivationFunction() != Activation.IDENTITY;
+                getBlockLayer().getProperties().getActivationFunction() != ActivationWrapper.IDENTITY;
     }
 
     private double getLayerModelHeight(){
