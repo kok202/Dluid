@@ -6,7 +6,7 @@ import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.listener.RunnableTrainingTaskContainer;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
-import org.kok202.dluid.canvas.util.BlockNodeGraphUtil;
+import org.kok202.dluid.canvas.util.LayerGraphManagerUtil;
 import org.kok202.dluid.domain.structure.GraphManager;
 
 public class TrainTask extends Task<Integer> {
@@ -25,7 +25,7 @@ public class TrainTask extends Task<Integer> {
     protected Integer call() throws Exception {
         modelTrainTaskController.getTextAreaTrainingLog().clear();
         modelTrainTaskController.getTextAreaTrainingLog().appendText("Try to create model.\n");
-        GraphManager<Layer> layerGraphManager = BlockNodeGraphUtil.convertToLayerGraph(CanvasFacade.findTrainInputGraphNode());
+        GraphManager<Layer> layerGraphManager = LayerGraphManagerUtil.convertToLayerGraph(CanvasFacade.findTrainInputGraphNode());
         AIFacade.initializeModel(layerGraphManager);
         modelTrainTaskController.getTextAreaTrainingLog().appendText("Try to create model. [done]\n");
 

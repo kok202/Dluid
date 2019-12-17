@@ -63,6 +63,33 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof DuplicatedSourceInputException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.INFORMATION)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.duplicatedSourceInput.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.duplicatedSourceInput.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.duplicatedSourceInput.content"))
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof MergeConnectionImpossibleException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.content"))
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof SwitchConnectionImpossibleException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.content"))
+                    .build()
+                    .showAndWait();
+        }
         else {
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)

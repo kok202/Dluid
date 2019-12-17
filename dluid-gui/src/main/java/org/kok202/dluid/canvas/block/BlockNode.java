@@ -111,7 +111,15 @@ public abstract class BlockNode {
 
     // NOTICE : Multi layer for input is only available on merge and switch layer
     public boolean isPossibleToAppendFrontByDirection() {
-        return isPossibleToAppendFrontByConnection();
+        try{
+            GraphNode<BlockNode> thisGraphNode = CanvasSingleton.getInstance()
+                    .getBlockNodeManager()
+                    .findGraphNodeByLayerId(this.getBlockLayer().getId());
+            return thisGraphNode.getIncomingNodes().isEmpty();
+        }catch (CanNotFindGraphNodeException canNotFindGraphNodeException){
+            // When initialize, it is not registered in graph manger.
+            return true;
+        }
     }
 
     public boolean isPossibleToAppendBackByConnection() {

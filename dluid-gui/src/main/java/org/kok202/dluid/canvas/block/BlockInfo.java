@@ -27,7 +27,7 @@ public class BlockInfo {
     protected Object extra;
 
     public BlockInfo(LayerType layerType, int blockHexahedronNumber) {
-        this.id = RandomUtil.getLong();
+        this.id = RandomUtil.getPositiveLong();
         this.height = CanvasConstant.NODE_DEFAULT_HEIGHT;
         this.position = new Point3D(0,0,0);
         this.textureSourceMapList = new ArrayList<>();
