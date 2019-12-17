@@ -1,6 +1,7 @@
 package org.kok202.dluid.ai.util;
 
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration.GraphBuilder;
+import org.deeplearning4j.nn.conf.distribution.UniformDistribution;
 import org.deeplearning4j.nn.conf.graph.MergeVertex;
 import org.deeplearning4j.nn.conf.layers.ConvolutionLayer;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
@@ -9,6 +10,7 @@ import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.structure.GraphNode;
 
@@ -107,10 +109,16 @@ public class LayerBuildingUtil {
             layerBuilder.nIn(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]);
         if(layer.getProperties().getOutputSize() != null)
             layerBuilder.nOut(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]);
-        if(layer.getProperties().getWeightInit() != null)
-            layerBuilder.weightInit(layer.getProperties().getWeightInit());
+        if(layer.getProperties().getWeightInit() != null){
+            if(layer.getProperties().getWeightInit() == WeightInitWrapper.DISTRIBUTION_ZERO_TO_ONE)
+                layerBuilder.weightInit(new UniformDistribution(0, 1));
+            else if(layer.getProperties().getWeightInit() == WeightInitWrapper.DISTRIBUTION_PLUS_MINUS_ONE)
+                layerBuilder.weightInit(new UniformDistribution(-1, 1));
+            else
+                layerBuilder.weightInit(layer.getProperties().getWeightInit().getWeightInit());
+        }
         if(layer.getProperties().getActivationFunction() != null)
-            layerBuilder.activation(layer.getProperties().getActivationFunction());
+            layerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
         if(layer.getProperties().getDropout() != 0)
             layerBuilder.dropOut(layer.getProperties().getDropout());
         return layerBuilder;

@@ -9,7 +9,6 @@ import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
 import org.kok202.dluid.ai.util.LayerBuildingUtil;
-import org.kok202.dluid.ai.util.OptimizerUtil;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.util.RandomUtil;
 import org.nd4j.linalg.factory.Nd4j;
@@ -27,11 +26,11 @@ public class NetworkBuilder {
     private static IUpdater initOptimizer(){
         Optimizer optimizer = AIPropertiesSingleton.getInstance().getTrainProperty().getOptimizer();
         double learningRate = AIPropertiesSingleton.getInstance().getTrainProperty().getLearningRate();
-        return OptimizerUtil.createIUpdaterFromString(optimizer, learningRate);
+        return optimizer.getIUpdater(learningRate);
     }
 
     private static WeightInit initWeightInitializer(){
-        WeightInit weightInit = AIPropertiesSingleton.getInstance().getTrainProperty().getWeightInit();
+        WeightInit weightInit = AIPropertiesSingleton.getInstance().getTrainProperty().getWeightInit().getWeightInit();
         return weightInit;
     }
 

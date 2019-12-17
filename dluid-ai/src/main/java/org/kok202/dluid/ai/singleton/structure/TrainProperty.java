@@ -1,14 +1,14 @@
 package org.kok202.dluid.ai.singleton.structure;
 
 import lombok.Data;
-import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 @Data
 public class TrainProperty {
     private Optimizer optimizer = Optimizer.SGD;
-    private WeightInit weightInit = WeightInit.ONES;
+    private WeightInitWrapper weightInit = WeightInitWrapper.ONES;
     private LossFunctions.LossFunction lossFunction = LossFunctions.LossFunction.MSE;
     private double learningRate;
     private double learningMomentum;
