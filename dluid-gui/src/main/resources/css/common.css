@@ -74,6 +74,7 @@
 
     CONTEXT-COLOR-MENU-BUTTON-BACKGROUND: COLOR-LIGHTEST-GRAY;
     CONTEXT-COLOR-MENU-BUTTON-BORDER: COLOR-GRAY;
+    CONTEXT-COLOR-MENU-BUTTON-FOCUSED: COLOR-GREEN;
     CONTEXT-COLOR-MENU-BUTTON-LABEL-BACKGROUND: COLOR-LIGHTEST-GRAY;
     CONTEXT-COLOR-MENU-BUTTON-BUTTON-BACKGROUND: COLOR-GRAY;
 
@@ -100,6 +101,10 @@
 
     -jfx-default-thumb: COLOR-GREEN;
     -jfx-default-track: COLOR-LIGHT-GRAY;
+
+    -jfx-progress-bar-color: COLOR-GREEN;
+    -jfx-progress-track-color: COLOR-LIGHTEST-GRAY;
+    -jfx-progress-track-border-color: COLOR-LIGHT-GRAY;
 }
 
 
@@ -291,7 +296,7 @@
 }
 
 .customMenuButton:focused {
-    -fx-border-color: COLOR-GREEN;
+    -fx-border-color: CONTEXT-COLOR-MENU-BUTTON-FOCUSED;
 }
 
 .customMenuButton > .label{
@@ -299,7 +304,7 @@
 }
 
 .customMenuButton .menu-item:focused {
-    -fx-background-color: COLOR-GREEN;
+    -fx-background-color: CONTEXT-COLOR-MENU-BUTTON-FOCUSED;
 }
 
 
@@ -402,17 +407,23 @@
     -fx-background-color: CONTEXT-COLOR-BACKGROUND;
 }
 
-.jfx-progress-bar > .track{
-    -fx-background-color: COLOR-GREEN;
+.jfx-progress-bar {
+    -fx-border-color: -jfx-progress-track-border-color;
+    -fx-border-width: 1;
+}
+
+.jfx-progress-bar > .track {
+    -fx-background-color: -jfx-progress-track-color;
+    -fx-padding: 8;
 }
 
 .jfx-progress-bar > .bar,
-.jfx-progress-bar:indeterminate > .bar{
-    -fx-background-color: COLOR-GREEN;
-    -fx-padding: 1.5;
+.jfx-progress-bar:indeterminate > .bar {
+    -fx-background-color: -jfx-progress-bar-color;
+    -fx-padding: 8;
 }
 
 .jfx-progress-bar > .secondary-bar,
-.jfx-progress-bar:indeterminate > .secondary-bar{
-    -fx-background-color: COLOR-GREEN;
+.jfx-progress-bar:indeterminate > .secondary-bar {
+    -fx-background-color: -jfx-progress-bar-color;
 }
