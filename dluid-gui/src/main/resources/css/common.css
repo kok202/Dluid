@@ -74,6 +74,7 @@
 
     CONTEXT-COLOR-MENU-BUTTON-BACKGROUND: COLOR-LIGHTEST-GRAY;
     CONTEXT-COLOR-MENU-BUTTON-BORDER: COLOR-GRAY;
+    CONTEXT-COLOR-MENU-BUTTON-FOCUSED: COLOR-GREEN;
     CONTEXT-COLOR-MENU-BUTTON-LABEL-BACKGROUND: COLOR-LIGHTEST-GRAY;
     CONTEXT-COLOR-MENU-BUTTON-BUTTON-BACKGROUND: COLOR-GRAY;
 
@@ -82,6 +83,17 @@
     CONTEXT-COLOR-MENU-BAR-TEXT: COLOR-WHITE;
     CONTEXT-COLOR-MENU-BAR-SELECTED: COLOR-BLUE-BLACK;
 
+    CONTEXT-COLOR-TABLE-BORDER: COLOR-GRAY;
+    CONTEXT-COLOR-TABLE-HEADER-BACKGROUND: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-TABLE-HEADER-TEXT: COLOR-BLACK;
+    CONTEXT-COLOR-TABLE-ROW-BACKGROUND-ODD: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-TABLE-ROW-TEXT: COLOR-BLACK;
+    CONTEXT-COLOR-TABLE-ROW-SELECTED-BACKGROUND: COLOR-GREEN;
+    CONTEXT-COLOR-TABLE-ROW-SELECTED-TEXT: COLOR-WHITE;
+    CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND: COLOR-WHITE;
+    CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-TEXT: COLOR-BLACK;
+
+    /* Some variables below are used in jfoenix lib. */
     -jfx-unchecked-color: COLOR-DARK-GRAY;
     -jfx-checked-color: COLOR-GREEN;
 
@@ -90,6 +102,10 @@
 
     -jfx-default-thumb: COLOR-GREEN;
     -jfx-default-track: COLOR-LIGHT-GRAY;
+
+    -jfx-progress-bar-color: COLOR-GREEN;
+    -jfx-progress-track-color: COLOR-LIGHTEST-GRAY;
+    -jfx-progress-track-border-color: COLOR-LIGHT-GRAY;
 }
 
 
@@ -281,7 +297,7 @@
 }
 
 .customMenuButton:focused {
-    -fx-border-color: COLOR-GREEN;
+    -fx-border-color: CONTEXT-COLOR-MENU-BUTTON-FOCUSED;
 }
 
 .customMenuButton > .label{
@@ -289,7 +305,7 @@
 }
 
 .customMenuButton .menu-item:focused {
-    -fx-background-color: COLOR-GREEN;
+    -fx-background-color: CONTEXT-COLOR-MENU-BUTTON-FOCUSED;
 }
 
 
@@ -319,6 +335,65 @@
 
 
 
+.table-view {
+    -fx-border-color: CONTEXT-COLOR-TABLE-BORDER;
+    -fx-border-width: 1;
+}
+
+.table-view .filler {
+    -fx-opacity: 0;
+}
+
+.table-view .column-header,
+.table-view .column-header-background {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: CONTEXT-COLOR-TABLE-BORDER;
+    -fx-background-color: CONTEXT-COLOR-TABLE-HEADER-BACKGROUND;
+    -fx-pref-height: 2.5em;
+}
+
+.table-view .table-column {
+    -fx-border-width: 0 1 0 0;
+    /* -fx-border-width: 0 1 0 0; */
+    -fx-border-color: CONTEXT-COLOR-TABLE-BORDER;
+    -fx-alignment: CENTER;
+    -fx-pref-height: 2.5em;
+}
+
+.table-view .table-column .label {
+    -fx-text-fill: CONTEXT-COLOR-TABLE-HEADER-TEXT;
+}
+
+.table-view .table-row-cell {
+    -fx-pref-height: 2.5em;
+}
+
+.table-view .table-row-cell .text {
+    -fx-fill: CONTEXT-COLOR-TABLE-ROW-TEXT;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: CONTEXT-COLOR-TABLE-ROW-BACKGROUND-ODD;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: CONTEXT-COLOR-TABLE-ROW-SELECTED-BACKGROUND;
+}
+
+.table-view .table-row-cell:selected .text {
+    -fx-fill: CONTEXT-COLOR-TABLE-ROW-SELECTED-TEXT;
+}
+
+.text-field-table-cell .text-field {
+    -fx-alignment: CENTER;
+    -fx-text-fill: CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-TEXT;
+    -fx-background-color: CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND;
+}
+
+
+
+
+
 .vbox {
     -fx-background: CONTEXT-COLOR-BACKGROUND;
 }
@@ -333,20 +408,23 @@
     -fx-background-color: CONTEXT-COLOR-BACKGROUND;
 }
 
-.table {
+.jfx-progress-bar {
+    -fx-border-color: -jfx-progress-track-border-color;
+    -fx-border-width: 1;
 }
 
-.jfx-progress-bar > .track{
-    -fx-background-color: COLOR-GREEN;
+.jfx-progress-bar > .track {
+    -fx-background-color: -jfx-progress-track-color;
+    -fx-padding: 8;
 }
 
 .jfx-progress-bar > .bar,
-.jfx-progress-bar:indeterminate > .bar{
-    -fx-background-color: COLOR-GREEN;
-    -fx-padding: 1.5;
+.jfx-progress-bar:indeterminate > .bar {
+    -fx-background-color: -jfx-progress-bar-color;
+    -fx-padding: 8;
 }
 
 .jfx-progress-bar > .secondary-bar,
-.jfx-progress-bar:indeterminate > .secondary-bar{
-    -fx-background-color: COLOR-GREEN;
+.jfx-progress-bar:indeterminate > .secondary-bar {
+    -fx-background-color: -jfx-progress-bar-color;
 }
