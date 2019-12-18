@@ -82,6 +82,16 @@
     CONTEXT-COLOR-MENU-BAR-TEXT: COLOR-WHITE;
     CONTEXT-COLOR-MENU-BAR-SELECTED: COLOR-BLUE-BLACK;
 
+    CONTEXT-COLOR-TABLE-BORDER: COLOR-GRAY;
+    CONTEXT-COLOR-TABLE-HEADER-BACKGROUND: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-TABLE-HEADER-TEXT: COLOR-BLACK;
+    CONTEXT-COLOR-TABLE-ROW-BACKGROUND-ODD: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-TABLE-ROW-TEXT: COLOR-BLACK;
+    CONTEXT-COLOR-TABLE-ROW-SELECTED-BACKGROUND: COLOR-GREEN;
+    CONTEXT-COLOR-TABLE-ROW-SELECTED-TEXT: COLOR-WHITE;
+    CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND: COLOR-WHITE;
+    CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-TEXT: COLOR-BLACK;
+
     -jfx-unchecked-color: COLOR-DARK-GRAY;
     -jfx-checked-color: COLOR-GREEN;
 
@@ -319,6 +329,65 @@
 
 
 
+.table-view {
+    -fx-border-color: CONTEXT-COLOR-TABLE-BORDER;
+    -fx-border-width: 1;
+}
+
+.table-view .filler {
+    -fx-opacity: 0;
+}
+
+.table-view .column-header,
+.table-view .column-header-background {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: CONTEXT-COLOR-TABLE-BORDER;
+    -fx-background-color: CONTEXT-COLOR-TABLE-HEADER-BACKGROUND;
+    -fx-pref-height: 2.5em;
+}
+
+.table-view .table-column {
+    -fx-border-width: 0 1 0 0;
+    /* -fx-border-width: 0 1 0 0; */
+    -fx-border-color: CONTEXT-COLOR-TABLE-BORDER;
+    -fx-alignment: CENTER;
+    -fx-pref-height: 2.5em;
+}
+
+.table-view .table-column .label {
+    -fx-text-fill: CONTEXT-COLOR-TABLE-HEADER-TEXT;
+}
+
+.table-view .table-row-cell {
+    -fx-pref-height: 2.5em;
+}
+
+.table-view .table-row-cell .text {
+    -fx-fill: CONTEXT-COLOR-TABLE-ROW-TEXT;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: CONTEXT-COLOR-TABLE-ROW-BACKGROUND-ODD;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: CONTEXT-COLOR-TABLE-ROW-SELECTED-BACKGROUND;
+}
+
+.table-view .table-row-cell:selected .text {
+    -fx-fill: CONTEXT-COLOR-TABLE-ROW-SELECTED-TEXT;
+}
+
+.text-field-table-cell .text-field {
+    -fx-alignment: CENTER;
+    -fx-text-fill: CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-TEXT;
+    -fx-background-color: CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND;
+}
+
+
+
+
+
 .vbox {
     -fx-background: CONTEXT-COLOR-BACKGROUND;
 }
@@ -331,9 +400,6 @@
 #coloredBackground,
 .coloredBackground {
     -fx-background-color: CONTEXT-COLOR-BACKGROUND;
-}
-
-.table {
 }
 
 .jfx-progress-bar > .track{
