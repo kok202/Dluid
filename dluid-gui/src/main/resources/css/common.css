@@ -93,6 +93,7 @@
     CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND: COLOR-WHITE;
     CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-TEXT: COLOR-BLACK;
 
+    /* Some variables below are used in jfoenix lib. */
     -jfx-unchecked-color: COLOR-DARK-GRAY;
     -jfx-checked-color: COLOR-GREEN;
 
