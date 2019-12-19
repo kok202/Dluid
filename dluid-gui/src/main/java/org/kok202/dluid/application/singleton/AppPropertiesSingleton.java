@@ -21,10 +21,12 @@ public class AppPropertiesSingleton {
     }
 
     private String getLanguagePropertiesPath(){
-        String targetResource = "application-en.properties";
-        if(commonProperties.getProperty("language").equals("kor"))
-            targetResource = "application-en.properties"; // FIXME : to kor
-        return targetResource;
+        switch (AppConfigurationSingleton.getInstance().getData().getLanguage()){
+            case "kor":
+                return "application-kor.properties";
+            default:
+                return "application-en.properties";
+        }
     }
 
     public static AppPropertiesSingleton getInstance(){

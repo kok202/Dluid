@@ -3,8 +3,6 @@ package org.kok202.dluid.domain.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-
 public class ObjectConverter {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -19,8 +17,8 @@ public class ObjectConverter {
 
     public static <T> T convert(String json,  Class<T> clazz){
         try {
-            objectMapper.readValue(json, clazz);
-        } catch (IOException e) {
+            return objectMapper.readValue(json, clazz);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
