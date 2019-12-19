@@ -2,6 +2,7 @@ package org.kok202.dluid.application.content.train;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
@@ -13,6 +14,7 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 @Data
 public class ModelTrainTaskController extends AbstractModelTrainController {
     @FXML private TitledPane titledPane;
+    @FXML private LineChart lineChartTrainingChart;
     @FXML private TextArea textAreaTrainingLog;
     @FXML private ProgressBar progressBarTrainingProgress;
     @FXML private Button buttonTrainingOneTime;
