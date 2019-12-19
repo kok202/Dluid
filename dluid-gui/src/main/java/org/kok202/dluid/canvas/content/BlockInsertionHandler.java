@@ -15,9 +15,9 @@ import org.kok202.dluid.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.dluid.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.dluid.canvas.polygon.block.HexahedronVerticalFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
-import org.kok202.dluid.canvas.util.LayerFactory;
 import org.kok202.dluid.canvas.util.Math3D;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
+import org.kok202.dluid.model.LayerFactory;
 
 // PickResult is always not null.
 // Although user point at empty space, PickResult returns SubScene node

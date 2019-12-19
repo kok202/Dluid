@@ -15,10 +15,10 @@ import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.HexahedronFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
-import org.kok202.dluid.canvas.util.LayerFactory;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
 import org.kok202.dluid.domain.exception.BlockConnectionImpossibleException;
 import org.kok202.dluid.domain.exception.IllegalConnectionRequest;
+import org.kok202.dluid.model.LayerFactory;
 
 public class BlockConnectionHandler {
     private static boolean isClicked = false;

@@ -1,35 +1,24 @@
 package org.kok202.dluid.application.content.train;
 
 import javafx.concurrent.Task;
-import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.ai.AIFacade;
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.listener.RunnableTrainingTaskContainer;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
-import org.kok202.dluid.canvas.util.LayerGraphManagerUtil;
-import org.kok202.dluid.domain.structure.GraphManager;
 
 public class TrainTask extends Task<Integer> {
-    private ModelTrainTaskController modelTrainTaskController;
 
     public void bindWithComponent(ModelTrainTaskController modelTrainTaskController) {
-        this.modelTrainTaskController = modelTrainTaskController;
-        this.modelTrainTaskController.getProgressBarTrainingProgress().progressProperty().bind(this.progressProperty());
-        this.modelTrainTaskController.getButtonTrainingOneTime().setDisable(true);
-        this.modelTrainTaskController.getButtonTrainingNTime().setDisable(true);
-        this.modelTrainTaskController.getButtonTrainingStop().setDisable(false);
-        this.modelTrainTaskController.getButtonTrainingStop().setOnAction(event -> stopTraining());
+        modelTrainTaskController.getProgressBarTrainingProgress().progressProperty().bind(this.progressProperty());
+        modelTrainTaskController.getButtonTrainingOneTime().setDisable(true);
+        modelTrainTaskController.getButtonTrainingNTime().setDisable(true);
+        modelTrainTaskController.getButtonTrainingStop().setDisable(false);
+        modelTrainTaskController.getButtonTrainingStop().setOnAction(event -> stopTraining());
     }
 
     @Override
     protected Integer call() throws Exception {
-        modelTrainTaskController.getTextAreaTrainingLog().clear();
-        modelTrainTaskController.getTextAreaTrainingLog().appendText("Try to create model.\n");
-        GraphManager<Layer> layerGraphManager = LayerGraphManagerUtil.convertToLayerGraph(CanvasFacade.findTrainInputGraphNode());
-        AIFacade.initializeModel(layerGraphManager);
-        modelTrainTaskController.getTextAreaTrainingLog().appendText("Try to create model. [done]\n");
-
-        modelTrainTaskController.getTextAreaTrainingLog().appendText("Try to add listener for print log.\n");
+        AppFacade.appendTextOnTrainingLog("Try to add listener for print log.");
         int epochTaskPeriod = 1;
         int batchTaskPeriod = AIFacade.getTrainTotalRecordSize() / AIFacade.getTrainBatchSize() / 10;
         epochTaskPeriod = (epochTaskPeriod <= 0)? 1 : epochTaskPeriod;
@@ -41,8 +30,8 @@ public class TrainTask extends Task<Integer> {
                 (taskContainerObj) -> {
                     // not executed if epoch is not set when
                     RunnableTrainingTaskContainer taskContainer = (RunnableTrainingTaskContainer) taskContainerObj;
-                    modelTrainTaskController.getTextAreaTrainingLog().appendText("Epoch : " + taskContainer.getEpochCounter().getCount() + "\n");
-                    modelTrainTaskController.getTextAreaTrainingLog().appendText("Fitting score : " + taskContainer.getScore() + "\n");
+                    AppFacade.appendTextOnTrainingLog("Epoch : " + taskContainer.getEpochCounter().getCount());
+                    AppFacade.appendTextOnTrainingLog("Fitting score : " + taskContainer.getScore());
                 },
                 (taskContainerObj) -> {
                     RunnableTrainingTaskContainer taskContainer = (RunnableTrainingTaskContainer) taskContainerObj;
@@ -55,10 +44,10 @@ public class TrainTask extends Task<Integer> {
                     percent = Math.max(0, Math.min(percent, 100));
                     updateProgress(percent, 100);
                     updateMessage(String.valueOf(taskContainer.getBatchCounter().calcPercent()));
-                    modelTrainTaskController.getTextAreaTrainingLog().appendText("Batch progress : " + taskContainer.getBatchCounter().calcPercent() + " / 100%\n");
+                    AppFacade.appendTextOnTrainingLog("Batch progress : " + taskContainer.getBatchCounter().calcPercent() + " / 100%");
                 });
-        modelTrainTaskController.getTextAreaTrainingLog().appendText("Try to add listener for print log. [done]\n");
-        modelTrainTaskController.getTextAreaTrainingLog().appendText("Training start.\n");
+        AppFacade.appendTextOnTrainingLog("Try to add listener for print log. [done]");
+        AppFacade.appendTextOnTrainingLog("Training start.");
         AIFacade.trainModel();
         updateProgress(100, 100);
         updateMessage(String.valueOf(100));
@@ -67,10 +56,8 @@ public class TrainTask extends Task<Integer> {
 
     @Override
     public void succeeded() {
-        modelTrainTaskController.getTextAreaTrainingLog().appendText("Training done.\n");
-        modelTrainTaskController.getButtonTrainingOneTime().setDisable(false);
-        modelTrainTaskController.getButtonTrainingNTime().setDisable(false);
-        modelTrainTaskController.getButtonTrainingStop().setDisable(true);
+        AppFacade.appendTextOnTrainingLog("Training done.");
+        AppFacade.setTrainingButtonDisable(false);
         int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
         int trainedEpoch = AIFacade.getTrainEpoch();
         AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
