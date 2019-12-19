@@ -9,6 +9,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.model.ModelInitializeHandler;
 
 
 public class ModelInfoController extends AbstractModelTrainController {
@@ -29,7 +30,7 @@ public class ModelInfoController extends AbstractModelTrainController {
     @Override
     protected void initialize() throws Exception {
         textFieldModelName.textProperty().addListener(changeListener -> modelNameChangedHandler());
-        buttonInitialize.setOnAction(event -> buttonInitializeActionHandler());
+        buttonInitialize.setOnAction(event -> ModelInitializeHandler.initializeModel());
         titledPane.setExpanded(false);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.title"));
@@ -45,9 +46,5 @@ public class ModelInfoController extends AbstractModelTrainController {
 
     private void modelNameChangedHandler() {
         AIFacade.setModelName(textFieldModelName.getText());
-    }
-
-    private void buttonInitializeActionHandler(){
-
     }
 }

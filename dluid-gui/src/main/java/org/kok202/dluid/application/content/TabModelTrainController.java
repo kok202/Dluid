@@ -6,12 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.content.train.ModelInfoController;
 import org.kok202.dluid.application.content.train.ModelTrainParamController;
 import org.kok202.dluid.application.content.train.ModelTrainTaskController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
-
 
 public class TabModelTrainController extends AbstractController {
     @FXML private VBox content;
@@ -22,8 +22,11 @@ public class TabModelTrainController extends AbstractController {
     @FXML private Label labelTrainDataSetting;
     @FXML private Label labelTrainTask;
 
+    @Getter
     private ModelInfoController modelInfoController;
+    @Getter
     private ModelTrainParamController modelTrainParamController;
+    @Getter
     private ModelTrainTaskController modelTrainTaskController;
 
     public Tab createView() throws Exception {

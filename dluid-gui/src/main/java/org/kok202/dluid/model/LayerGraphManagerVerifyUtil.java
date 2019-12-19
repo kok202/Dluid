@@ -1,4 +1,4 @@
-package org.kok202.dluid.canvas.util;
+package org.kok202.dluid.model;
 
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.canvas.block.BlockNode;

@@ -2,22 +2,35 @@
 
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
 
         <!--============================================================= Titled =============================================================-->
-        <TitledPane fx:id="titledPane" animated="false" text="학습시키기" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0">
+        <TitledPane fx:id="titledPane" animated="false" text="학습시키기" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                     <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <AnchorPane prefHeight="100.0" prefWidth="200.0">
+                                <AnchorPane>
+                                   <children>
+                                      <LineChart fx:id="lineChartTrainingChart" legendVisible="false" maxHeight="250.0" minHeight="250.0" prefHeight="250.0" title="Learning curve" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <xAxis>
+                                            <NumberAxis forceZeroInRange="false" minorTickCount="1" minorTickVisible="false" side="LEFT" tickLength="5.0" tickMarkVisible="false" tickUnit="0.1" upperBound="20.0" />
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis autoRanging="false" forceZeroInRange="false" minorTickCount="1" minorTickVisible="false" side="LEFT" tickLength="2.0" tickMarkVisible="false" tickUnit="0.1" upperBound="1.0" />
+                                        </yAxis>
+                                      </LineChart>
+                                   </children>
+                                </AnchorPane>
+                                <AnchorPane>
                                     <children>
-                                        <TextArea fx:id="textAreaTrainingLog" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <TextArea fx:id="textAreaTrainingLog" maxHeight="150.0" minHeight="150.0" prefHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                     <padding>
                                         <Insets bottom="10.0" />
@@ -36,17 +49,17 @@
                                 </AnchorPane>
                                 <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                     <children>
-                                        <Button fx:id="buttonTrainingOneTime" styleClass="customGreenButton" mnemonicParsing="false" text="1 번 학습">
+                                        <Button fx:id="buttonTrainingOneTime" mnemonicParsing="false" styleClass="customGreenButton" text="1 번 학습">
                                             <HBox.margin>
                                                 <Insets right="5.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Button fx:id="buttonTrainingNTime" styleClass="customGreenButton" mnemonicParsing="false" text="N 번 학습">
+                                        <Button fx:id="buttonTrainingNTime" mnemonicParsing="false" styleClass="customGreenButton" text="N 번 학습">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Button fx:id="buttonTrainingStop" styleClass="customGreenButton" mnemonicParsing="false" text="중지">
+                                        <Button fx:id="buttonTrainingStop" mnemonicParsing="false" styleClass="customGreenButton" text="중지">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>
