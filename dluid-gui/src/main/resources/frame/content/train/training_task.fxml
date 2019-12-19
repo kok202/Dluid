@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
@@ -19,12 +18,12 @@
                             <children>
                                 <AnchorPane>
                                    <children>
-                                      <LineChart fx:id="lineChartTrainingChart" maxHeight="250.0" minHeight="250.0" prefHeight="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <LineChart fx:id="lineChartTrainingChart" legendVisible="false" maxHeight="250.0" minHeight="250.0" prefHeight="250.0" title="Learning curve" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                         <xAxis>
-                                          <CategoryAxis side="BOTTOM" />
+                                            <NumberAxis forceZeroInRange="false" minorTickCount="1" minorTickVisible="false" side="LEFT" tickLength="5.0" tickMarkVisible="false" tickUnit="0.1" upperBound="20.0" />
                                         </xAxis>
                                         <yAxis>
-                                          <NumberAxis side="LEFT" />
+                                            <NumberAxis autoRanging="false" forceZeroInRange="false" minorTickCount="1" minorTickVisible="false" side="LEFT" tickLength="2.0" tickMarkVisible="false" tickUnit="0.1" upperBound="1.0" />
                                         </yAxis>
                                       </LineChart>
                                    </children>

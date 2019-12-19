@@ -93,6 +93,11 @@
     CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND: COLOR-WHITE;
     CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-TEXT: COLOR-BLACK;
 
+    CONTEXT-COLOR-CHART-BACKGROUND: COLOR-WHITE;
+    CONTEXT-COLOR-CHART-PLOT-BACKGROUND: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-CHART-LINE: COLOR-GREEN;
+    CONTEXT-COLOR-CHART-LINE-SYMBOL: COLOR-WHITE;
+
     /* Some variables below are used in jfoenix lib. */
     -jfx-unchecked-color: COLOR-DARK-GRAY;
     -jfx-checked-color: COLOR-GREEN;
@@ -388,6 +393,26 @@
     -fx-alignment: CENTER;
     -fx-text-fill: CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-TEXT;
     -fx-background-color: CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND;
+}
+
+
+
+
+
+.chart {
+    -fx-background-color: CONTEXT-COLOR-CHART-BACKGROUND;
+}
+
+.chart-plot-background {
+    -fx-background-color: CONTEXT-COLOR-CHART-PLOT-BACKGROUND;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: CONTEXT-COLOR-CHART-LINE, CONTEXT-COLOR-CHART-LINE-SYMBOL;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: CONTEXT-COLOR-CHART-LINE;
 }
 
 
