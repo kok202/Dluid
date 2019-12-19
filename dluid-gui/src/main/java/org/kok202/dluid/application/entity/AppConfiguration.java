@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class AppConfiguration {
-    private String language;
+    private String language = "en";
 }

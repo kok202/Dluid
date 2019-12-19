@@ -21,9 +21,6 @@ public class AppPropertiesSingleton {
     }
 
     private String getLanguagePropertiesPath(){
-        System.out.println(AppConfigurationSingleton.getInstance().getData().getLanguage());
-        AppConfigurationSingleton.getInstance().getData().setLanguage("en");
-        AppConfigurationSingleton.getInstance().saveData();
         switch (AppConfigurationSingleton.getInstance().getData().getLanguage()){
             case "kor":
                 return "application-kor.properties";

@@ -23,12 +23,14 @@ public class AppConfigurationSingleton {
 
     public void saveData(){
         Preferences preferences = Preferences.userNodeForPackage(Main.class);
-        String dataJson = preferences.get(CONFIGURATION_KEY, "{}");
-        data = ObjectConverter.convert(dataJson, AppConfiguration.class);
+        preferences.put(CONFIGURATION_KEY, ObjectConverter.toJson(data));
     }
 
     public void loadData(){
         Preferences preferences = Preferences.userNodeForPackage(Main.class);
-        preferences.put(CONFIGURATION_KEY, ObjectConverter.toJson(data));
+        String dataJson = preferences.get(CONFIGURATION_KEY, "{}");
+        data = ObjectConverter.convert(dataJson, AppConfiguration.class);
+        if(data == null)
+            data = new AppConfiguration();
     }
 }
