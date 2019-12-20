@@ -2,6 +2,9 @@ package org.kok202.dluid.application.singleton;
 
 import org.kok202.dluid.application.Main;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class AppPropertiesSingleton {
@@ -11,9 +14,15 @@ public class AppPropertiesSingleton {
     private AppPropertiesSingleton(){
         try {
             commonProperties = new Properties();
-            commonProperties.load(Main.class.getClassLoader().getResourceAsStream("application.properties"));
+            InputStream commonInputStream = Main.class.getClassLoader().getResourceAsStream("application.properties");
+            InputStreamReader commonInputStreamReader = new InputStreamReader(commonInputStream, StandardCharsets.UTF_8);
+            commonProperties.load(commonInputStreamReader);
+
             languageProperties = new Properties();
-            languageProperties.load(Main.class.getClassLoader().getResourceAsStream(getLanguagePropertiesPath()));
+            InputStream languageInputStream = Main.class.getClassLoader().getResourceAsStream(getLanguagePropertiesPath());
+            InputStreamReader languageInputStreamReader = new InputStreamReader(languageInputStream, StandardCharsets.UTF_8);
+            languageProperties.load(languageInputStreamReader);
+
         }catch (Exception e){
             commonProperties = null;
             languageProperties = null;
@@ -22,7 +31,7 @@ public class AppPropertiesSingleton {
 
     private String getLanguagePropertiesPath(){
         switch (AppConfigurationSingleton.getInstance().getData().getLanguage()){
-            case "kor":
+            case KOREAN:
                 return "application-kor.properties";
             default:
                 return "application-en.properties";

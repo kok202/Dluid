@@ -11,14 +11,14 @@ import javafx.stage.Stage;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.application.common.ExceptionHandler;
 import org.kok202.dluid.application.content.TabsController;
-import org.kok202.dluid.application.menu.MenuController;
+import org.kok202.dluid.application.menu.MenuBarController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 
 public class Main extends Application {
     private Stage primaryStage;
     private BorderPane borderPane;
-    private MenuController menuController;
+    private MenuBarController menuBarController;
     private TabsController tabsController;
 
     public static void main(String[] args) {
@@ -43,8 +43,8 @@ public class Main extends Application {
     }
 
     private AnchorPane createTopFrame() throws Exception{
-        menuController = new MenuController();
-        return menuController.createView();
+        menuBarController = new MenuBarController();
+        return menuBarController.createView();
     }
 
     private AnchorPane createCenterFrame() throws Exception{
@@ -55,7 +55,7 @@ public class Main extends Application {
     private void setWidgetOnGlobalWidget(){
         AppWidgetSingleton.getInstance().setPrimaryStage(primaryStage);
         AppWidgetSingleton.getInstance().setBorderPane(borderPane);
-        AppWidgetSingleton.getInstance().setMenuController(menuController);
+        AppWidgetSingleton.getInstance().setMenuBarController(menuBarController);
         AppWidgetSingleton.getInstance().setTabsController(tabsController);
         CanvasFacade.initialize();
     }

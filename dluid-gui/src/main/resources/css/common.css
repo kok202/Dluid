@@ -336,6 +336,11 @@
     -fx-background-color: CONTEXT-COLOR-MENU-BAR-SELECTED;
 }
 
+.check-menu-item:focused
+{
+    -fx-text-fill: CONTEXT-COLOR-MENU-BAR-TEXT;
+}
+
 
 
 
