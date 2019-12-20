@@ -51,6 +51,13 @@ public class CanvasFacade {
         CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(layerId);
     }
 
+    public static void removeAllGraphNode() {
+        while(!CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes().isEmpty()){
+            GraphNode<BlockNode> blockNodeGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes().get(0);
+            CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(blockNodeGraphNode.getData().getBlockLayer().getId());
+        }
+    }
+
     public static List<Layer> findIncomingLayers(long layerId){
         return CanvasSingleton.getInstance()
                 .getBlockNodeManager()

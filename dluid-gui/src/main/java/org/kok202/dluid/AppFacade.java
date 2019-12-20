@@ -12,7 +12,7 @@ public class AppFacade {
      *************************************************************************************************/
     public static double getCanvasWidgetHeight(){
         return AppWidgetSingleton.getInstance().getPrimaryStage().getHeight() -
-                AppWidgetSingleton.getInstance().getMenuController().getMenuBar().getHeight() -
+                AppWidgetSingleton.getInstance().getMenuBarController().getMenuBar().getHeight() -
                 AppWidgetSingleton.getInstance().getTabsController().getTabPane().getTabMaxHeight();
     }
 
@@ -88,6 +88,15 @@ public class AppFacade {
     /*************************************************************************************************
      /* Component container (split right container)
      *************************************************************************************************/
+    public static void clearComponentContainer(){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getComponentContainerController()
+                .getComponentManager()
+                .clearComponentContainer();
+    }
+
     public static void refreshComponentContainer(Layer layer){
         AppWidgetSingleton.getInstance()
                 .getTabsController()

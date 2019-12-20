@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- FIXME : change to multi language. -->
+
+<?import javafx.scene.control.*?>
+<Menu fx:id="itself" text="Setting" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <items>
+        <Menu fx:id="menuSettingLanguage" text="Language" >
+            <items>
+                <fx:define>
+                    <ToggleGroup fx:id="menuSettingLanguageToggleGroup" />
+                </fx:define>
+                <RadioMenuItem fx:id="menuItemSettingLanguageEnglish" text="English" toggleGroup="$menuSettingLanguageToggleGroup"/>
+                <RadioMenuItem fx:id="menuItemSettingLanguageKorean" text="Korean" toggleGroup="$menuSettingLanguageToggleGroup"/>
+            </items>
+        </Menu>
+    </items>
+</Menu>

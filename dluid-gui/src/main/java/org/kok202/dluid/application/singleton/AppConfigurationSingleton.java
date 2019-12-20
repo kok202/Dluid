@@ -30,7 +30,9 @@ public class AppConfigurationSingleton {
         Preferences preferences = Preferences.userNodeForPackage(Main.class);
         String dataJson = preferences.get(CONFIGURATION_KEY, "{}");
         data = ObjectConverter.convert(dataJson, AppConfiguration.class);
-        if(data == null)
+        if(data == null) {
             data = new AppConfiguration();
+            saveData();
+        }
     }
 }
