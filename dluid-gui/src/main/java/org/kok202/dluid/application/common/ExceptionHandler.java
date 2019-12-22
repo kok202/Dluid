@@ -93,13 +93,13 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
-        else if(exception instanceof ParameterUnsetException){
-            ParameterUnsetException parameterUnsetException = ((ParameterUnsetException) exception);
+        else if(exception instanceof InvalidParameterException){
+            InvalidParameterException invalidParameterException = ((InvalidParameterException) exception);
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.content") + parameterUnsetException.getParameter())
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.content") + invalidParameterException.getParameter())
                     .build()
                     .showAndWait();
         }

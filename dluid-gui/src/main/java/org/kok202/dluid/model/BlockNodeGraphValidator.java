@@ -2,7 +2,9 @@ package org.kok202.dluid.model;
 
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.*;
 import org.kok202.dluid.domain.structure.GraphNode;
@@ -52,6 +54,17 @@ public class BlockNodeGraphValidator {
         }
     }
 
+    public static void validateFeatureSetDimension() throws FeatureSetDimensionUnmatchedException{
+        AIFacade.getTrainFeatureSet()
+        throw new FeatureSetDimensionUnmatchedException();
+    }
+
+    public static void validateResultSetDimension() throws ResultSetDimensionUnmatchedException{
+        AIFacade.getTestFeatureSet().getNumericRecordSet();
+        AIFacade.getTestResultSet().getNumericRecordSet();
+        throw new ResultSetDimensionUnmatchedException();
+    }
+
     public static void validateMergeBlockNode() throws InvalidMergeConnectionExistException {
         List<GraphNode<BlockNode>> allMergeGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() == LayerType.MERGE_LAYER);
         for (GraphNode<BlockNode> mergeGraphNode : allMergeGraphNode) {
@@ -81,6 +94,33 @@ public class BlockNodeGraphValidator {
                 printErrorLog(InvalidSwitchConnectionExistException.class.getSimpleName());
                 throw new InvalidSwitchConnectionExistException(switchGraphNode.getData().getBlockLayer().getId());
             }
+        }
+    }
+
+    public static void validateParameterSetting() throws InvalidParameterException, InvalidBatchSize {
+        if(AIFacade.getTrainEpoch() <= 0){
+            printErrorLog(InvalidParameterException.class.getSimpleName());
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.invalidBatchSize.content"));
+        }
+        if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1){
+            printErrorLog(InvalidParameterException.class.getSimpleName());
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
+        }
+        if(AIFacade.getTrainTotalRecordSize() <= 0){
+            printErrorLog(InvalidParameterException.class.getSimpleName());
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.totalRecordSize.content"));
+        }
+        if(AIFacade.getTrainBatchSize() > AIFacade.getTrainTotalRecordSize()){
+            printErrorLog(InvalidBatchSize.class.getSimpleName());
+            throw new InvalidBatchSize(AIFacade.getTrainTotalRecordSize());
+        }
+        if(AIFacade.getTrainWeightInit() == null) {
+            printErrorLog(InvalidParameterException.class.getSimpleName());
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
+        }
+        if(AIFacade.getTrainOptimizer() == null) {
+            printErrorLog(InvalidParameterException.class.getSimpleName());
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));
         }
     }
 

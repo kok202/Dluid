@@ -24,9 +24,11 @@ public class ModelInitializeHandler {
     private static void validateModel(){
         BlockNodeGraphValidator.validateInputBlockNodeExist();
         BlockNodeGraphValidator.validateOutputBlockNodeExist();
-        //FIXME : feature 랑 result 랑 사이즈가 맞는지도 비교
         BlockNodeGraphValidator.validateAllBlockNodeDimension();
+        BlockNodeGraphValidator.validateFeatureSetDimension();
+        BlockNodeGraphValidator.validateResultSetDimension();
         BlockNodeGraphValidator.validateMergeBlockNode();
         BlockNodeGraphValidator.validateSwitchBlockNode();
+        BlockNodeGraphValidator.validateParameterSetting();
     }
 }

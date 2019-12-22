@@ -2,11 +2,10 @@ package org.kok202.dluid.domain.exception;
 
 import lombok.Getter;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 @Getter
-public class FeatureSetDimensionUnmatchedException extends Exception {
+public class FeatureSetDimensionUnmatchedException extends RuntimeException {
 
     private String inputLayerId;
     private String inputLayerDimension;
@@ -15,8 +14,8 @@ public class FeatureSetDimensionUnmatchedException extends Exception {
     public FeatureSetDimensionUnmatchedException(long inputLayerId, int[] inputLayerDimension, int[] featureSetDimension) {
         super("Feature set dimension is not matched");
         this.inputLayerId = String.valueOf(inputLayerId);
-        this.inputLayerDimension = Stream.of(inputLayerDimension).map(String::valueOf).collect(Collectors.joining(" ")) + "]";
-        this.featureSetDimension = Stream.of(featureSetDimension).map(String::valueOf).collect(Collectors.joining(" ")) + "]";
+        this.inputLayerDimension = Arrays.toString(inputLayerDimension);
+        this.featureSetDimension = Arrays.toString(featureSetDimension);
     }
 
 }

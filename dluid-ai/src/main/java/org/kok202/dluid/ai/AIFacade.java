@@ -34,8 +34,8 @@ public class AIFacade {
 
     public static void trainModel(){
         AIModelSingleton.getInstance().train(
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager().getManagedFeatureRecordSet().getNumericRecordSet(),
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager().getManagedResultRecordSet().getNumericRecordSet());
+                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManagers().getManagedFeatureRecordSet().getNumericRecordSet(),
+                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManagers().getManagedResultRecordSet().getNumericRecordSet());
     }
 
     /*************************************************************************************************
@@ -60,30 +60,30 @@ public class AIFacade {
     /*************************************************************************************************
      /* AI record data
      *************************************************************************************************/
-    public static ManagedRecordSet getTrainFeatureSet(){
+    public static ManagedRecordSet getTrainFeatureSet(long inputLayerId){
         return AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
+                .getTrainProperty()
+                .getDataSetManager(inputLayerId)
                 .getManagedFeatureRecordSet();
     }
 
-    public static ManagedRecordSet getTrainResultSet(){
+    public static ManagedRecordSet getTrainResultSet(long inputLayerId){
         return AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
+                .getTrainProperty()
+                .getDataSetManager(inputLayerId)
                 .getManagedResultRecordSet();
     }
 
     public static ManagedRecordSet getTestFeatureSet(){
         return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+                .getTestProperty()
                 .getDataSetManager()
                 .getManagedFeatureRecordSet();
     }
 
     public static ManagedRecordSet getTestResultSet(){
         return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+                .getTestProperty()
                 .getDataSetManager()
                 .getManagedResultRecordSet();
     }
