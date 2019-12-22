@@ -9,6 +9,7 @@ import javafx.scene.input.PickResult;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.ai.entity.LayerFactory;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
@@ -18,7 +19,6 @@ import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
 import org.kok202.dluid.domain.exception.BlockConnectionImpossibleException;
 import org.kok202.dluid.domain.exception.IllegalConnectionRequest;
-import org.kok202.dluid.model.LayerFactory;
 
 public class BlockConnectionHandler {
     private static boolean isClicked = false;

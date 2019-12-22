@@ -132,20 +132,22 @@ public class ExceptionHandler {
                     .showAndWait();
         }
         else if(exception instanceof MergeConnectionImpossibleException){
+            MergeConnectionImpossibleException mergeConnectionImpossibleException = ((MergeConnectionImpossibleException) exception);
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.content"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.content") + mergeConnectionImpossibleException.getLayerId())
                     .build()
                     .showAndWait();
         }
         else if(exception instanceof SwitchConnectionImpossibleException){
+            SwitchConnectionImpossibleException switchConnectionImpossibleException = ((SwitchConnectionImpossibleException) exception);
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.content"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.content") + switchConnectionImpossibleException.getLayerId())
                     .build()
                     .showAndWait();
         }

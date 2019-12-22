@@ -9,7 +9,6 @@ import java.util.List;
 
 public class LayerGraphManagerUtil {
 
-    // TODO : 테스트 필요
     public static GraphManager<Layer> convertToLayerGraph(GraphNode<BlockNode> startGraphNode){
         Layer startLayerNode = startGraphNode.getData().getBlockLayer();
         GraphManager<Layer> graphManager = new GraphManager<>();

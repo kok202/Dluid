@@ -9,6 +9,7 @@ import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Data
@@ -72,8 +73,8 @@ public class CanvasFacade {
                 .collect(Collectors.toList());
     }
 
-    public static long findSourceLayerIdByLayerId(long layerId){
-        GraphNode<BlockNode> sourceLayerGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().findSourceByLayerId(layerId);
+    public static long findStartLayerIdByLayerId(long layerId){
+        GraphNode<BlockNode> sourceLayerGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().findStartByLayerId(layerId);
         return (sourceLayerGraphNode != null)? sourceLayerGraphNode.getData().getBlockLayer().getId() : -1;
     }
 
@@ -81,7 +82,7 @@ public class CanvasFacade {
         return CanvasSingleton.getInstance().getBlockNodeManager().findGraphNodeByLayerId(layerId);
     }
 
-    public static GraphNode<BlockNode> findTrainInputGraphNode(){
-        return CanvasSingleton.getInstance().getBlockNodeManager().findTrainInputGraphNode();
+    public static List<GraphNode<BlockNode>> findAllGraphNode(Predicate<? super GraphNode<BlockNode>> predicate){
+        return CanvasSingleton.getInstance().getBlockNodeManager().findAllGraphNode(predicate);
     }
 }

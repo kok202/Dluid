@@ -43,7 +43,7 @@ public enum LayerType {
         return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER || this == TEST_INPUT_LAYER;
     }
 
-    public boolean isSourceLayerType(){
+    public boolean isStartLayerType(){
         return isInputLayerType() || this == SWITCH_LAYER;
     }
 
