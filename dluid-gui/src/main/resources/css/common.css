@@ -98,6 +98,12 @@
     CONTEXT-COLOR-CHART-LINE: COLOR-GREEN;
     CONTEXT-COLOR-CHART-LINE-SYMBOL: COLOR-WHITE;
 
+    CONTEXT-COLOR-PAGINATION-BUTTON-BACKGROUND: COLOR-LIGHTEST-GRAY;
+    CONTEXT-COLOR-PAGINATION-BUTTON-BORDER: COLOR-LIGHT-GRAY;
+    CONTEXT-COLOR-PAGINATION-BUTTON-HOVER-BACKGROUND: COLOR-LIGHT-GRAY;
+    CONTEXT-COLOR-PAGINATION-BUTTON-SELECTED-BACKGROUND: COLOR-GREEN;
+    CONTEXT-COLOR-PAGINATION-BUTTON-SELECTED-TEXT: COLOR-WHITE;
+
     /* Some variables below are used in jfoenix lib. */
     -jfx-unchecked-color: COLOR-DARK-GRAY;
     -jfx-checked-color: COLOR-GREEN;
@@ -418,6 +424,44 @@
 
 .default-color0.chart-series-line {
     -fx-stroke: CONTEXT-COLOR-CHART-LINE;
+}
+
+
+
+
+
+.pagination {
+    -fx-page-information-visible: false;
+}
+
+.pagination > .pagination-control > .control-box {
+    -fx-spacing: 0;
+}
+
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-background-insets: 0, 1;
+    -fx-background-color: CONTEXT-COLOR-PAGINATION-BUTTON-BACKGROUND;
+    -fx-border-color: CONTEXT-COLOR-PAGINATION-BUTTON-BORDER;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+}
+
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+    -fx-background-insets: 0;
+    -fx-background-color: CONTEXT-COLOR-PAGINATION-BUTTON-HOVER-BACKGROUND;
+}
+
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: CONTEXT-COLOR-PAGINATION-BUTTON-SELECTED-BACKGROUND;
+    -fx-text-fill: CONTEXT-COLOR-PAGINATION-BUTTON-SELECTED-TEXT;
 }
 
 

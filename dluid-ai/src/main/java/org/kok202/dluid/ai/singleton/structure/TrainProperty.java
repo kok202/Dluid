@@ -2,16 +2,14 @@ package org.kok202.dluid.ai.singleton.structure;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
 import org.kok202.dluid.ai.AIConstant;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
-import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class TrainProperty {
@@ -24,9 +22,8 @@ public class TrainProperty {
     private int totalRecordSize;
     private int epoch;
 
-    @Getter(AccessLevel.PRIVATE)
     @Setter(AccessLevel.PRIVATE)
-    private List<DataSetManager> dataSetManagers;
+    private Map<Long, DataSetManager> dataSetManagerMap;
 
     public TrainProperty() {
         optimizer = Optimizer.SGD;
@@ -36,14 +33,16 @@ public class TrainProperty {
         totalRecordSize = AIConstant.DEFAULT_RECORD_SIZE;
         learningRate = AIConstant.DEFAULT_LEARNING_RATE;
         epoch = AIConstant.DEFAULT_EPOCH_SIZE;
-        dataSetManagers = new ArrayList<>();
+        dataSetManagerMap = new HashMap<>();
     }
 
     public DataSetManager getDataSetManager(long inputLayerId) {
-        for (DataSetManager dataSetManager : dataSetManagers) {
-            if(dataSetManager.getInputLayerId() == inputLayerId)
-                return dataSetManager;
+        DataSetManager dataSetManager = dataSetManagerMap.get(inputLayerId);
+        if(dataSetManager == null){
+            DataSetManager newDataSetManager = new DataSetManager();
+            dataSetManagerMap.put(inputLayerId, newDataSetManager);
+            return newDataSetManager;
         }
-        throw new CanNotFindGraphNodeException(String.valueOf(inputLayerId));
+        return dataSetManager;
     }
 }

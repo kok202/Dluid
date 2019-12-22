@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.content.train.ModelInfoController;
+import org.kok202.dluid.application.content.train.ModelTrainFileLoaderController;
 import org.kok202.dluid.application.content.train.ModelTrainParamController;
 import org.kok202.dluid.application.content.train.ModelTrainTaskController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
@@ -16,16 +17,20 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 public class TabModelTrainController extends AbstractController {
     @FXML private VBox content;
     @FXML private VBox vBoxForModelInfo;
-    @FXML private VBox vBoxForTrainData;
+    @FXML private VBox vBoxForTrainFileLoader;
+    @FXML private VBox vBoxForTrainParamSetting;
     @FXML private VBox vBoxForTrainTask;
     @FXML private Label labelTrainModelInfo;
-    @FXML private Label labelTrainDataSetting;
+    @FXML private Label labelTrainFileLoader;
+    @FXML private Label labelTrainParamSetting;
     @FXML private Label labelTrainTask;
 
     @Getter
     private ModelInfoController modelInfoController;
     @Getter
     private ModelTrainParamController modelTrainParamController;
+    @Getter
+    private ModelTrainFileLoaderController modelTrainFileLoaderController;
     @Getter
     private ModelTrainTaskController modelTrainTaskController;
 
@@ -43,15 +48,18 @@ public class TabModelTrainController extends AbstractController {
     @Override
     protected void initialize() throws Exception {
         modelInfoController = new ModelInfoController();
+        modelTrainFileLoaderController = new ModelTrainFileLoaderController();
         modelTrainParamController = new ModelTrainParamController();
         modelTrainTaskController = new ModelTrainTaskController();
 
         vBoxForModelInfo.getChildren().add(modelInfoController.createView());
-        vBoxForTrainData.getChildren().add(modelTrainParamController.createView());
+        vBoxForTrainFileLoader.getChildren().add(modelTrainFileLoaderController.createView());
+        vBoxForTrainParamSetting.getChildren().add(modelTrainParamController.createView());
         vBoxForTrainTask.getChildren().add(modelTrainTaskController.createView());
 
         labelTrainModelInfo.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.label"));
-        labelTrainDataSetting.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.label"));
+        labelTrainFileLoader.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.fileLoader.label"));
+        labelTrainParamSetting.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.label"));
         labelTrainTask.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.label"));
     }
 

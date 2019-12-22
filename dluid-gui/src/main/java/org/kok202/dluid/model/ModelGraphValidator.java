@@ -2,9 +2,7 @@ package org.kok202.dluid.model;
 
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
-import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.*;
 import org.kok202.dluid.domain.structure.GraphNode;
@@ -12,17 +10,34 @@ import org.kok202.dluid.domain.structure.GraphNode;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BlockNodeGraphValidator {
+public class ModelGraphValidator {
 
-    public static void validateInputBlockNodeExist() throws RuntimeException{
-        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType());
+    public static void validate(){
+        validateTrainInputBlockNodeExist();
+        validateTestInputBlockNodeExist();
+        validateOutputBlockNodeExist();
+        validateAllBlockNodeDimension();
+        validateMergeBlockNode();
+        validateSwitchBlockNode();
+    }
+
+    private static void validateTrainInputBlockNodeExist() throws RuntimeException{
+        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isTrainInputLayerType());
         if(inputGraphNode.isEmpty()) {
             printErrorLog(CanNotFindInputLayerException.class.getSimpleName());
             throw new CanNotFindInputLayerException();
         }
     }
 
-    public static void validateOutputBlockNodeExist() throws RuntimeException{
+    private static void validateTestInputBlockNodeExist() throws RuntimeException{
+        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isTestInputLayerType());
+        if(inputGraphNode.isEmpty()) {
+            printErrorLog(CanNotFindInputLayerException.class.getSimpleName());
+            throw new CanNotFindInputLayerException();
+        }
+    }
+
+    private static void validateOutputBlockNodeExist() throws RuntimeException{
         List<GraphNode<BlockNode>> outputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType());
         if(outputGraphNode.isEmpty()){
             printErrorLog(CanNotFindOutputLayerException.class.getSimpleName());
@@ -30,7 +45,7 @@ public class BlockNodeGraphValidator {
         }
     }
 
-    public static void validateAllBlockNodeDimension() throws DimensionUnmatchedException{
+    private static void validateAllBlockNodeDimension() throws DimensionUnmatchedException{
         List<GraphNode<BlockNode>> allGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> true);
         for (GraphNode<BlockNode> currentGraphNode : allGraphNode) {
             long sourceOutputSize =
@@ -54,18 +69,7 @@ public class BlockNodeGraphValidator {
         }
     }
 
-    public static void validateFeatureSetDimension() throws FeatureSetDimensionUnmatchedException{
-        AIFacade.getTrainFeatureSet()
-        throw new FeatureSetDimensionUnmatchedException();
-    }
-
-    public static void validateResultSetDimension() throws ResultSetDimensionUnmatchedException{
-        AIFacade.getTestFeatureSet().getNumericRecordSet();
-        AIFacade.getTestResultSet().getNumericRecordSet();
-        throw new ResultSetDimensionUnmatchedException();
-    }
-
-    public static void validateMergeBlockNode() throws InvalidMergeConnectionExistException {
+    private static void validateMergeBlockNode() throws InvalidMergeConnectionExistException {
         List<GraphNode<BlockNode>> allMergeGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() == LayerType.MERGE_LAYER);
         for (GraphNode<BlockNode> mergeGraphNode : allMergeGraphNode) {
             List<Long> sourceLayerIdsOfMergeBlockNode = mergeGraphNode
@@ -81,7 +85,7 @@ public class BlockNodeGraphValidator {
         }
     }
 
-    public static void validateSwitchBlockNode() throws InvalidSwitchConnectionExistException {
+    private static void validateSwitchBlockNode() throws InvalidSwitchConnectionExistException {
         List<GraphNode<BlockNode>> allSwitchGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() == LayerType.SWITCH_LAYER);
         for (GraphNode<BlockNode> switchGraphNode : allSwitchGraphNode) {
             List<Long> sourceLayerIdsOfSwitchBlockNode = switchGraphNode
@@ -94,33 +98,6 @@ public class BlockNodeGraphValidator {
                 printErrorLog(InvalidSwitchConnectionExistException.class.getSimpleName());
                 throw new InvalidSwitchConnectionExistException(switchGraphNode.getData().getBlockLayer().getId());
             }
-        }
-    }
-
-    public static void validateParameterSetting() throws InvalidParameterException, InvalidBatchSize {
-        if(AIFacade.getTrainEpoch() <= 0){
-            printErrorLog(InvalidParameterException.class.getSimpleName());
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.invalidBatchSize.content"));
-        }
-        if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1){
-            printErrorLog(InvalidParameterException.class.getSimpleName());
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
-        }
-        if(AIFacade.getTrainTotalRecordSize() <= 0){
-            printErrorLog(InvalidParameterException.class.getSimpleName());
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.totalRecordSize.content"));
-        }
-        if(AIFacade.getTrainBatchSize() > AIFacade.getTrainTotalRecordSize()){
-            printErrorLog(InvalidBatchSize.class.getSimpleName());
-            throw new InvalidBatchSize(AIFacade.getTrainTotalRecordSize());
-        }
-        if(AIFacade.getTrainWeightInit() == null) {
-            printErrorLog(InvalidParameterException.class.getSimpleName());
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
-        }
-        if(AIFacade.getTrainOptimizer() == null) {
-            printErrorLog(InvalidParameterException.class.getSimpleName());
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));
         }
     }
 

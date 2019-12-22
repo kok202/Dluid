@@ -99,7 +99,7 @@ public class ExceptionHandler {
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.content") + invalidParameterException.getParameter())
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.parameterUnset.content") + invalidParameterException.getMessage())
                     .build()
                     .showAndWait();
         }

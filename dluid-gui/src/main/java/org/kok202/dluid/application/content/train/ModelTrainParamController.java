@@ -2,15 +2,16 @@ package org.kok202.dluid.application.content.train;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.adapter.MenuAdapter;
-import org.kok202.dluid.application.adapter.file.TrainFeatureFileFinder;
-import org.kok202.dluid.application.adapter.file.TrainResultFileFinder;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.domain.exception.InvalidBatchSize;
 
@@ -18,8 +19,6 @@ import org.kok202.dluid.domain.exception.InvalidBatchSize;
 public class ModelTrainParamController extends AbstractModelTrainController {
 
     @FXML private TitledPane titledPane;
-    @FXML private Label labelTrainingFeature;
-    @FXML private Label labelTrainingResult;
     @FXML private Label labelWeightInit;
     @FXML private Label labelOptimizer;
     @FXML private Label labelLearningRate;
@@ -27,10 +26,6 @@ public class ModelTrainParamController extends AbstractModelTrainController {
     @FXML private Label labelRecordSize;
     @FXML private Label labelEpoch;
 
-    @FXML private TextField textFieldFindTrainingFeature;
-    @FXML private Button buttonFindTrainingFeature;
-    @FXML private TextField textFieldFindTrainingResult;
-    @FXML private Button buttonFindTrainingResult;
     @FXML private MenuButton menuButtonWeightInit;
     @FXML private MenuButton menuButtonOptimizer;
     @FXML private TextField textFieldLearningRate;
@@ -55,20 +50,16 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         textFieldBatchSize.textProperty().addListener(changeListener -> textFieldChangeHandler());
         textFieldRecordSize.textProperty().addListener(changeListener -> textFieldChangeHandler());
         textFieldEpoch.textProperty().addListener(changeListener -> textFieldChangeHandler());
-        setButtonFeatureFinderActionHandler();
-        setButtonResultFinderActionHandler();
         initializeMenuButtonWeightInit();
         initializeMenuButtonOptimizer();
 
-        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.title"));
-        labelTrainingFeature.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.trainFeatureData"));
-        labelTrainingResult.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.trainResultData"));
-        labelWeightInit.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.initializer"));
-        labelOptimizer.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.optimizer"));
-        labelLearningRate.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.learningRate"));
-        labelBatchSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.batchSize"));
-        labelRecordSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.totalSize"));
-        labelEpoch.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.epochSize"));
+        titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.title"));
+        labelWeightInit.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.initializer"));
+        labelOptimizer.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.optimizer"));
+        labelLearningRate.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.learningRate"));
+        labelBatchSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.batchSize"));
+        labelRecordSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.totalSize"));
+        labelEpoch.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.epochSize"));
         titledPane.setExpanded(false);
     }
 
@@ -99,18 +90,6 @@ public class ModelTrainParamController extends AbstractModelTrainController {
     private void setEpoch() {
         int value = TextFieldUtil.parseInteger(textFieldEpoch);
         AIFacade.setTrainEpoch(value);
-    }
-
-    private void setButtonFeatureFinderActionHandler(){
-        TrainFeatureFileFinder trainFeatureFileFinder = new TrainFeatureFileFinder(textFieldFindTrainingFeature, buttonFindTrainingFeature);
-        trainFeatureFileFinder.initialize();
-        trainFeatureFileFinder.setCallbackAfterLoad(() -> textFieldRecordSize.setText(AIFacade.getTrainTotalRecordSize() + ""));
-    }
-
-    private void setButtonResultFinderActionHandler(){
-        TrainResultFileFinder trainResultFileFinder = new TrainResultFileFinder(textFieldFindTrainingResult, buttonFindTrainingResult);
-        trainResultFileFinder.initialize();
-        trainResultFileFinder.setCallbackAfterLoad(() -> textFieldRecordSize.setText(AIFacade.getTrainTotalRecordSize() + ""));
     }
 
     private void initializeMenuButtonWeightInit(){

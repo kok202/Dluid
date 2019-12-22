@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @Data
 public abstract class FileFinder {
+    private boolean textFieldEditable = false;
     private TextField textField;
     private Button button;
     private Runnable callbackBeforeFind;
@@ -48,6 +49,12 @@ public abstract class FileFinder {
                 }
             }
         });
+    }
+
+    public void setText(String path){
+        textFieldEditable = true;
+        textField.setText(path);
+        textFieldEditable = false;
     }
 
     public void runCallbackBeforeFind() {

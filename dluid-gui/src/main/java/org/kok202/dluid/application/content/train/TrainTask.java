@@ -10,10 +10,8 @@ public class TrainTask extends Task<Integer> {
 
     public void bindWithComponent(ModelTrainTaskController modelTrainTaskController) {
         modelTrainTaskController.getProgressBarTrainingProgress().progressProperty().bind(this.progressProperty());
-        modelTrainTaskController.getButtonTrainingOneTime().setDisable(true);
-        modelTrainTaskController.getButtonTrainingNTime().setDisable(true);
-        modelTrainTaskController.getButtonTrainingStop().setDisable(false);
         modelTrainTaskController.getButtonTrainingStop().setOnAction(event -> stopTraining());
+        AppFacade.setTrainingButtonDisable(false);
     }
 
     @Override

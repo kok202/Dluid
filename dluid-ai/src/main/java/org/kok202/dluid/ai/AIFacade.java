@@ -33,9 +33,10 @@ public class AIFacade {
     }
 
     public static void trainModel(){
+        long layerId = 0; // FIXME
         AIModelSingleton.getInstance().train(
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManagers().getManagedFeatureRecordSet().getNumericRecordSet(),
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManagers().getManagedResultRecordSet().getNumericRecordSet());
+                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager(layerId).getManagedFeatureRecordSet().getNumericRecordSet(),
+                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager(layerId).getManagedResultRecordSet().getNumericRecordSet());
     }
 
     /*************************************************************************************************

@@ -20,6 +20,14 @@ public class TextFieldUtil {
         });
     }
 
+    public static void applyPositiveLongFilter(TextField textField, long defaultValue){
+        textField.setText(String.valueOf(defaultValue));
+        textField.textProperty().addListener((observable, oldValue, newValue) ->{
+            if (!validatePositiveLong(newValue))
+                textField.setText(String.valueOf(defaultValue));
+        });
+    }
+
     public static void applyPositiveDoubleFilter(TextField textField, double defaultValue){
         textField.setText(String.valueOf(defaultValue));
         textField.textProperty().addListener((observable, oldValue, newValue) ->{
@@ -31,6 +39,11 @@ public class TextFieldUtil {
     public static int parseInteger(TextField textField){
         String targetText = textField.getText();
         return Integer.parseInt(targetText);
+    }
+
+    public static long parseLong(TextField textField){
+        String targetText = textField.getText();
+        return Long.parseLong(targetText);
     }
 
     public static double parseDouble(TextField textField){
@@ -59,6 +72,12 @@ public class TextFieldUtil {
     }
 
     public static boolean validatePositiveInteger(String text){
+        if(text == null || text.isEmpty())
+            return false;
+        return text.matches("^[1-9][0-9]*$");
+    }
+
+    public static boolean validatePositiveLong(String text){
         if(text == null || text.isEmpty())
             return false;
         return text.matches("^[1-9][0-9]*$");

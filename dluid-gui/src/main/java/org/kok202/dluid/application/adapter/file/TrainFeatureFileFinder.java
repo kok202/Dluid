@@ -5,14 +5,14 @@ import javafx.scene.control.TextField;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
 
-public class TrainFeatureFileFinder extends ExtendedFileFinder {
+public class TrainFeatureFileFinder extends TrainDataFileFinder {
 
-    public TrainFeatureFileFinder(TextField textField, Button button) {
-        super(textField, button);
+    public TrainFeatureFileFinder(TextField textField, Button button, TextField textFieldTrainingTarget) {
+        super(textField, button, textFieldTrainingTarget);
     }
 
     @Override
     public ManagedRecordSet getManagedRecordSet() {
-        return AIFacade.getTrainFeatureSet();
+        return AIFacade.getTrainFeatureSet(getTargetLayerId());
     }
 }
