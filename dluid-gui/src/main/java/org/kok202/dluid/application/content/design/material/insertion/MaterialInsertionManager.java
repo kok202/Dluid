@@ -13,7 +13,8 @@ import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
-import org.kok202.dluid.domain.exception.MultiInputOutputLayerException;
+import org.kok202.dluid.domain.exception.MultiOutputLayerException;
+import org.kok202.dluid.domain.exception.MultiTestInputLayerException;
 import org.kok202.dluid.domain.structure.GraphNode;
 import org.kok202.dluid.domain.structure.Vector2D;
 
@@ -101,25 +102,20 @@ public class MaterialInsertionManager {
     private boolean checkIsPossibleToAddLayer(LayerType layerType){
         switch (layerType){
             case INPUT_LAYER:
-                return checkIsPossibleToAddLayer(LayerType.TRAIN_INPUT_LAYER) && checkIsPossibleToAddLayer(LayerType.TEST_INPUT_LAYER);
+                return checkIsPossibleToAddLayer(LayerType.TEST_INPUT_LAYER);
             case TRAIN_INPUT_LAYER:
-                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
-                    if (graphNode.getData().getBlockLayer().getType().isTrainInputLayerType()) {
-                        throw new MultiInputOutputLayerException();
-                    }
-                }
                 return true;
             case TEST_INPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()){
                     if(graphNode.getData().getBlockLayer().getType().isTestInputLayerType()) {
-                        throw new MultiInputOutputLayerException();
+                        throw new MultiTestInputLayerException();
                     }
                 }
                 return true;
             case OUTPUT_LAYER:
                 for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
                     if (graphNode.getData().getBlockLayer().getType().isOutputLayerType()) {
-                        throw new MultiInputOutputLayerException();
+                        throw new MultiOutputLayerException();
                     }
                 }
                 return true;

@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import org.kok202.dluid.AppConstant;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
@@ -48,10 +47,10 @@ public class ModelTrainParamController extends AbstractModelTrainController {
 
     @Override
     protected void initialize() throws Exception {
-        TextFieldUtil.applyPositiveDoubleFilter(textFieldLearningRate, AppConstant.DEFAULT_LEARNING_RATE);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldBatchSize, AppConstant.DEFAULT_BATCH_SIZE);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldRecordSize, AppConstant.DEFAULT_RECORD_SIZE);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldEpoch, AppConstant.DEFAULT_EPOCH_SIZE);
+        TextFieldUtil.applyPositiveDoubleFilter(textFieldLearningRate, AIFacade.getTrainLearningRate());
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldBatchSize, AIFacade.getTrainBatchSize());
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldRecordSize, AIFacade.getTrainTotalRecordSize());
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldEpoch, AIFacade.getTrainEpoch());
         textFieldLearningRate.textProperty().addListener(changeListener -> textFieldChangeHandler());
         textFieldBatchSize.textProperty().addListener(changeListener -> textFieldChangeHandler());
         textFieldRecordSize.textProperty().addListener(changeListener -> textFieldChangeHandler());
@@ -60,7 +59,6 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         setButtonResultFinderActionHandler();
         initializeMenuButtonWeightInit();
         initializeMenuButtonOptimizer();
-
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.title"));
         labelTrainingFeature.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.trainFeatureData"));
@@ -71,6 +69,7 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         labelBatchSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.batchSize"));
         labelRecordSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.totalSize"));
         labelEpoch.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.dataSetting.epochSize"));
+        titledPane.setExpanded(false);
     }
 
     private void textFieldChangeHandler(){
@@ -112,7 +111,6 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         TrainResultFileFinder trainResultFileFinder = new TrainResultFileFinder(textFieldFindTrainingResult, buttonFindTrainingResult);
         trainResultFileFinder.initialize();
         trainResultFileFinder.setCallbackAfterLoad(() -> textFieldRecordSize.setText(AIFacade.getTrainTotalRecordSize() + ""));
-        //FIXME : feature 랑 result 랑 사이즈가 맞는지도 비교
     }
 
     private void initializeMenuButtonWeightInit(){

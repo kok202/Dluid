@@ -18,28 +18,15 @@ public class ModelInitializeHandler {
         List<GraphNode<BlockNode>> startGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isStartLayerType());
 //        GraphManager<Layer> layerGraphManager = LayerGraphManagerUtil.convertToLayerGraph(CanvasFacade.findTrainInputGraphNode());
 //        AIFacade.initializeModel(layerGraphManager);
-        logDone();
+        AppFacade.appendTextOnTrainingLog("Try to create model. [Successful]");
     }
 
     private static void validateModel(){
-        try {
-            BlockNodeGraphValidator.validateInputBlockNodeExist();
-            BlockNodeGraphValidator.validateOutputBlockNodeExist();
-            BlockNodeGraphValidator.validateAllBlockNodeDimension();
-            BlockNodeGraphValidator.validateMergeBlockNode();
-            BlockNodeGraphValidator.validateSwitchBlockNode();
-        }catch(Exception exception){
-            logError(exception.getMessage());
-        }
-    }
-
-    private static void logError(String message){
-        AppFacade.appendTextOnTrainingLog(message);
-        AppFacade.appendTextOnTrainingLog("Try to create model. [Fail]");
-        throw new RuntimeException(message);
-    }
-
-    private static void logDone(){
-        AppFacade.appendTextOnTrainingLog("Try to create model. [Successful]");
+        BlockNodeGraphValidator.validateInputBlockNodeExist();
+        BlockNodeGraphValidator.validateOutputBlockNodeExist();
+        //FIXME : feature 랑 result 랑 사이즈가 맞는지도 비교
+        BlockNodeGraphValidator.validateAllBlockNodeDimension();
+        BlockNodeGraphValidator.validateMergeBlockNode();
+        BlockNodeGraphValidator.validateSwitchBlockNode();
     }
 }

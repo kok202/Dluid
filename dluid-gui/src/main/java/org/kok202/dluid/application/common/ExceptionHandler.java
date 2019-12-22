@@ -113,41 +113,59 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
-        else if(exception instanceof MultiInputOutputLayerException){
+        else if(exception instanceof MultiOutputLayerException){
             DialogUtil.builder()
                     .alertType(Alert.AlertType.INFORMATION)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInOutLayer.content"))
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.multiOutputLayer.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiOutputLayer.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiOutputLayer.content"))
                     .build()
                     .showAndWait();
         }
-        else if(exception instanceof DuplicatedSourceInputException){
+        else if(exception instanceof MultiTestInputLayerException){
             DialogUtil.builder()
                     .alertType(Alert.AlertType.INFORMATION)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.duplicatedSourceInput.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.duplicatedSourceInput.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.duplicatedSourceInput.content"))
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.multiTestInputLayer.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiTestInputLayer.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiTestInputLayer.content"))
                     .build()
                     .showAndWait();
         }
-        else if(exception instanceof MergeConnectionImpossibleException){
-            MergeConnectionImpossibleException mergeConnectionImpossibleException = ((MergeConnectionImpossibleException) exception);
+        else if(exception instanceof CanNotFindInputLayerException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindInputLayer.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindInputLayer.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindInputLayer.content"))
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof CanNotFindOutputLayerException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindOutputLayer.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindOutputLayer.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindOutputLayer.content"))
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof InvalidMergeConnectionExistException){
+            InvalidMergeConnectionExistException invalidMergeConnectionExistException = ((InvalidMergeConnectionExistException) exception);
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.content") + mergeConnectionImpossibleException.getLayerId())
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.mergeConnectionImpossible.content") + invalidMergeConnectionExistException.getLayerId())
                     .build()
                     .showAndWait();
         }
-        else if(exception instanceof SwitchConnectionImpossibleException){
-            SwitchConnectionImpossibleException switchConnectionImpossibleException = ((SwitchConnectionImpossibleException) exception);
+        else if(exception instanceof InvalidSwitchConnectionExistException){
+            InvalidSwitchConnectionExistException invalidSwitchConnectionExistException = ((InvalidSwitchConnectionExistException) exception);
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.content") + switchConnectionImpossibleException.getLayerId())
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.content") + invalidSwitchConnectionExistException.getLayerId())
                     .build()
                     .showAndWait();
         }

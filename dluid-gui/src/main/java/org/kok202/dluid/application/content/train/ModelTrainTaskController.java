@@ -38,13 +38,13 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         buttonTrainingStop.setDisable(true);
         buttonTrainingOneTime.setOnAction(event -> buttonTrainingOneTimeActionHandler());
         buttonTrainingNTime.setOnAction(event -> buttonTrainingNTimeActionHandler());
-        titledPane.setExpanded(false);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.title"));
         lineChartTrainingChart.setTitle(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainChart.title"));
         buttonTrainingOneTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.oneTime"));
         buttonTrainingNTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.nTime"));
         buttonTrainingStop.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.stop"));
+        titledPane.setExpanded(false);
     }
 
     private void buttonTrainingOneTimeActionHandler(){

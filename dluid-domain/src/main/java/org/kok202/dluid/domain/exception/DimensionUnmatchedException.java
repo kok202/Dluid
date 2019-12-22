@@ -2,11 +2,10 @@ package org.kok202.dluid.domain.exception;
 
 import lombok.Getter;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 @Getter
-public class DimensionUnmatchedException extends Exception {
+public class DimensionUnmatchedException extends RuntimeException {
 
     private String sourceLayerId;
     private String sourceLayerOutputSize;
@@ -24,9 +23,9 @@ public class DimensionUnmatchedException extends Exception {
     public DimensionUnmatchedException(long sourceLayerId, int[] out, long destinationLayerId, int[] in) {
         super("LayerType dimension is not matched");
         this.sourceLayerId = String.valueOf(sourceLayerId);
-        this.sourceLayerOutputSize = Stream.of(out).map(String::valueOf).collect(Collectors.joining(" ")) + "]";
+        this.sourceLayerOutputSize = Arrays.toString(out);
         this.destinationLayerId = String.valueOf(destinationLayerId);
-        this.destinationInputSize = Stream.of(in).map(String::valueOf).collect(Collectors.joining(" ")) + "]";
+        this.destinationInputSize = Arrays.toString(in);
     }
 
 }
