@@ -9,7 +9,10 @@ import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
 
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class AIFacade {
     /*************************************************************************************************
@@ -61,6 +64,23 @@ public class AIFacade {
     /*************************************************************************************************
      /* AI record data
      *************************************************************************************************/
+    public static void remainFilterTrainDataManagerSet(List<Long> inputLayerIds){
+        Set<Long> managedLayerIds = AIPropertiesSingleton.getInstance()
+                .getTrainProperty()
+                .getDataSetManagerMap()
+                .keySet();
+        Set<Long> deleteLayerIds = managedLayerIds
+                .stream()
+                .filter(inputLayerId -> !inputLayerIds.contains(inputLayerId))
+                .collect(Collectors.toSet());
+        deleteLayerIds.forEach(deleteLayerId -> {
+                    AIPropertiesSingleton.getInstance()
+                            .getTrainProperty()
+                            .getDataSetManagerMap()
+                            .remove(deleteLayerId);
+                });
+    }
+
     public static ManagedRecordSet getTrainFeatureSet(long inputLayerId){
         return AIPropertiesSingleton.getInstance()
                 .getTrainProperty()

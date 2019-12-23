@@ -25,11 +25,17 @@
 
                                 <!--============================================================= Training Feature file finder =============================================================-->
                                 <Label fx:id="labelTrainingTarget" text="Target input : " GridPane.rowIndex="0" />
-                                <TextField fx:id="textFieldTrainingTarget" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <children>
+                                        <MenuButton fx:id="menuButtonTrainingTarget" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                            </items>
+                                        </MenuButton>
+                                    </children>
                                     <padding>
                                         <Insets bottom="5.0" top="5.0" />
                                     </padding>
-                                </TextField>
+                                </AnchorPane>
 
                                 <Label fx:id="labelTrainingFeature" text="Feature : " GridPane.rowIndex="1" />
                                 <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -83,10 +89,6 @@
                         <Insets bottom="10.0" />
                      </padding>
                         </GridPane>
-                        <Pagination fx:id="paginationFileLoader" pageCount="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin></Pagination>
                     </VBox>
                 </AnchorPane>
             </content>
