@@ -45,4 +45,8 @@ public class TrainProperty {
         }
         return dataSetManager;
     }
+
+    public DataSetManager createDataSetManager(long inputLayerId) {
+        return getDataSetManager(inputLayerId);
+    }
 }

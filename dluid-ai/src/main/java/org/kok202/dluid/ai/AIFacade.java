@@ -6,10 +6,12 @@ import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.ai.listener.RunnableTrainingListener;
 import org.kok202.dluid.ai.singleton.AIModelSingleton;
 import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
+import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -73,12 +75,25 @@ public class AIFacade {
                 .stream()
                 .filter(inputLayerId -> !inputLayerIds.contains(inputLayerId))
                 .collect(Collectors.toSet());
-        deleteLayerIds.forEach(deleteLayerId -> {
+        deleteLayerIds
+                .forEach(deleteLayerId -> {
                     AIPropertiesSingleton.getInstance()
                             .getTrainProperty()
                             .getDataSetManagerMap()
                             .remove(deleteLayerId);
                 });
+        inputLayerIds
+                .forEach(inputLayerId -> {
+                    AIPropertiesSingleton.getInstance()
+                            .getTrainProperty()
+                            .createDataSetManager(inputLayerId);
+                });
+    }
+
+    public static Map<Long, DataSetManager> getTrainDataSetManagerMap(){
+        return AIPropertiesSingleton.getInstance()
+                .getTrainProperty()
+                .getDataSetManagerMap();
     }
 
     public static ManagedRecordSet getTrainFeatureSet(long inputLayerId){

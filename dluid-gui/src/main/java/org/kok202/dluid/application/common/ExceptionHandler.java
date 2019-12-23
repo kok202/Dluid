@@ -61,9 +61,31 @@ public class ExceptionHandler {
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.content") + "\n"
-                        + dimensionUnmatchedException.getSourceLayerId() + " : " + dimensionUnmatchedException.getSourceLayerOutputSize() + "\n"
-                        + dimensionUnmatchedException.getDestinationLayerId() + " : " + dimensionUnmatchedException.getDestinationInputSize())
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.content"),
+                            dimensionUnmatchedException.getSourceLayerId(), dimensionUnmatchedException.getSourceLayerOutputSize(),
+                            dimensionUnmatchedException.getDestinationLayerId(), dimensionUnmatchedException.getDestinationInputSize()))
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof CanNotFindFeatureSetException){
+            CanNotFindFeatureSetException canNotFindFeatureSetException = ((CanNotFindFeatureSetException) exception);
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.featureSetNotExist.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.featureSetNotExist.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.featureSetNotExist.content"),
+                            canNotFindFeatureSetException.getLayerId()))
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof CanNotFindResultSetException){
+            CanNotFindResultSetException canNotFindResultSetException = ((CanNotFindResultSetException) exception);
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.resultSetNotExist.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.resultSetNotExist.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.resultSetNotExist.content"),
+                            canNotFindResultSetException.getLayerId()))
                     .build()
                     .showAndWait();
         }
@@ -73,10 +95,11 @@ public class ExceptionHandler {
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.featureSet.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.featureSet.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.featureSet.content") + "\n"
-                            + featureSetDimensionUnmatchedException.getInputLayerId() + "\n"
-                            + "Layer : " + featureSetDimensionUnmatchedException.getInputLayerDimension() + "\n"
-                            + "Data : " + featureSetDimensionUnmatchedException.getFeatureSetDimension())
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.featureSet.content"),
+                            featureSetDimensionUnmatchedException.getInputLayerId(),
+                            featureSetDimensionUnmatchedException.getInputLayerDimension(),
+                            featureSetDimensionUnmatchedException.getInputLayerId(),
+                            featureSetDimensionUnmatchedException.getFeatureSetDimension()))
                     .build()
                     .showAndWait();
         }
@@ -86,10 +109,11 @@ public class ExceptionHandler {
                     .alertType(Alert.AlertType.ERROR)
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.resultSet.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.resultSet.header"))
-                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.resultSet.content") + "\n"
-                            + resultSetDimensionUnmatchedException.getOutputLayerId() + "\n"
-                            + "Layer : " + resultSetDimensionUnmatchedException.getOutputLayerDimension() + "\n"
-                            + "Data : " + resultSetDimensionUnmatchedException.getResultSetDimension())
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.resultSet.content"),
+                            resultSetDimensionUnmatchedException.getOutputLayerId(),
+                            resultSetDimensionUnmatchedException.getOutputLayerDimension(),
+                            resultSetDimensionUnmatchedException.getInputLayerId(),
+                            resultSetDimensionUnmatchedException.getResultSetDimension()))
                     .build()
                     .showAndWait();
         }
@@ -166,6 +190,15 @@ public class ExceptionHandler {
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.header"))
                     .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.switchConnectionImpossible.content") + invalidSwitchConnectionExistException.getLayerId())
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof ModelIsChangedException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsChanged.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsChanged.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsChanged.content"))
                     .build()
                     .showAndWait();
         }

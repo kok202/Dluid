@@ -1,36 +1,78 @@
 package org.kok202.dluid.model;
 
 import org.kok202.dluid.AppFacade;
+import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
+import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.domain.exception.FeatureSetDimensionUnmatchedException;
-import org.kok202.dluid.domain.exception.InvalidBatchSize;
-import org.kok202.dluid.domain.exception.InvalidParameterException;
-import org.kok202.dluid.domain.exception.ResultSetDimensionUnmatchedException;
+import org.kok202.dluid.canvas.block.BlockNode;
+import org.kok202.dluid.domain.exception.*;
+
+import java.util.Map;
 
 public class ModelTrainValidator {
 
     public static void validate(){
-        AppFacade.clearTrainingLog();
         AppFacade.appendTextOnTrainingLog("Check training possible.");
 //        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType());
 //        List<GraphNode<BlockNode>> outputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType());
 //        List<GraphNode<BlockNode>> startGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isStartLayerType());
-        validateFeatureSetDimension();
-        validateResultSetDimension();
+        validateModelIsChanged();
+        validateDataSetExist();
+        validateDataSetDimension();
         validateParameterSetting();
         AppFacade.appendTextOnTrainingLog("Check training possible. [Successful]");
     }
 
-    private static void validateFeatureSetDimension() throws FeatureSetDimensionUnmatchedException {
-//        AIFacade.getTrainFeatureSet()
-//        throw new FeatureSetDimensionUnmatchedException();
+    private static void validateModelIsChanged() throws ModelIsChangedException {
+        boolean isModelChanged = false;
+        // TODO : model 변화 감지
+        if(isModelChanged){
+            throw new ModelIsChangedException();
+        }
     }
 
-    private static void validateResultSetDimension() throws ResultSetDimensionUnmatchedException {
-//        AIFacade.getTestFeatureSet().getNumericRecordSet();
-//        AIFacade.getTestResultSet().getNumericRecordSet();
-//        throw new ResultSetDimensionUnmatchedException();
+    private static void validateDataSetExist() throws FeatureSetDimensionUnmatchedException {
+        for (Map.Entry<Long, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
+            Long inputLayerId = entry.getKey();
+            DataSetManager dataSetManager = entry.getValue();
+            if(dataSetManager.getManagedFeatureRecordSet().getNumericRecordSet() == null) {
+                printErrorLog(CanNotFindFeatureSetException.class.getSimpleName());
+                throw new CanNotFindFeatureSetException(inputLayerId);
+            }
+            if(dataSetManager.getManagedResultRecordSet().getNumericRecordSet() == null){
+                printErrorLog(CanNotFindResultSetException.class.getSimpleName());
+                throw new CanNotFindResultSetException(inputLayerId);
+            }
+        }
+    }
+
+    private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
+        BlockNode outputBlockNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType()).get(0).getData();
+        int outputBlockNodeSize =
+                outputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
+                outputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
+
+        for (Map.Entry<Long, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
+            Long inputLayerId = entry.getKey();
+            DataSetManager dataSetManager = entry.getValue();
+            int featureSetSize = dataSetManager.getManagedFeatureRecordSet().getNumericRecordSet().getRecordSize();
+            int resultSetSize = dataSetManager.getManagedResultRecordSet().getNumericRecordSet().getRecordSize();
+            BlockNode inputBlockNode = CanvasFacade.findGraphNodeByLayerId(inputLayerId).getData();
+
+            int inputBlockNodeSize =
+                    inputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
+                    inputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
+
+            if(featureSetSize != inputBlockNodeSize) {
+                printErrorLog(FeatureSetDimensionUnmatchedException.class.getSimpleName());
+                throw new FeatureSetDimensionUnmatchedException(inputLayerId, inputBlockNodeSize, featureSetSize);
+            }
+            if(resultSetSize != outputBlockNodeSize) {
+                printErrorLog(ResultSetDimensionUnmatchedException.class.getSimpleName());
+                throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeSize, inputLayerId, resultSetSize);
+            }
+        }
     }
 
     private static void validateParameterSetting() throws InvalidParameterException, InvalidBatchSize {
