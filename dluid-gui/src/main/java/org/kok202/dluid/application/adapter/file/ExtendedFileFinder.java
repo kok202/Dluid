@@ -8,6 +8,7 @@ import org.kok202.dluid.application.adapter.PopUpExtension;
 import org.kok202.dluid.application.content.popup.CsvManagementPopUpController;
 import org.kok202.dluid.application.content.popup.ExcelManagementPopUpController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.nd4j.linalg.io.StringUtils;
 
 public abstract class ExtendedFileFinder extends FileFinder{
 
@@ -21,7 +22,7 @@ public abstract class ExtendedFileFinder extends FileFinder{
         getExtensionFilter().add(new FileChooser.ExtensionFilter("xls", "*.xls"));
         getExtensionFilter().add(new FileChooser.ExtensionFilter("xlsx", "*.xlsx"));
         textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if(!newValue.isEmpty())
+            if(!StringUtils.isEmpty(newValue) && !isTextFieldEditable())
                 popUpWindow();
         });
     }

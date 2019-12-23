@@ -31,12 +31,12 @@ public class ModelInfoController extends AbstractModelTrainController {
     protected void initialize() throws Exception {
         textFieldModelName.textProperty().addListener(changeListener -> modelNameChangedHandler());
         buttonInitialize.setOnAction(event -> ModelInitializeHandler.initializeModel());
-        titledPane.setExpanded(false);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.title"));
         labelModelName.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.name"));
         labelEpochNumber.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.totalEpoch"));
         buttonInitialize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.initialize"));
+        titledPane.setExpanded(true);
     }
 
     public void refreshModelInfoProperty(){

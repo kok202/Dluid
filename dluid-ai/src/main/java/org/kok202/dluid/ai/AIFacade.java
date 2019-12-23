@@ -6,10 +6,15 @@ import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.ai.listener.RunnableTrainingListener;
 import org.kok202.dluid.ai.singleton.AIModelSingleton;
 import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
+import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class AIFacade {
     /*************************************************************************************************
@@ -33,9 +38,10 @@ public class AIFacade {
     }
 
     public static void trainModel(){
+        long layerId = 0; // FIXME
         AIModelSingleton.getInstance().train(
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager().getManagedFeatureRecordSet().getNumericRecordSet(),
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager().getManagedResultRecordSet().getNumericRecordSet());
+                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager(layerId).getManagedFeatureRecordSet().getNumericRecordSet(),
+                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager(layerId).getManagedResultRecordSet().getNumericRecordSet());
     }
 
     /*************************************************************************************************
@@ -60,30 +66,60 @@ public class AIFacade {
     /*************************************************************************************************
      /* AI record data
      *************************************************************************************************/
-    public static ManagedRecordSet getTrainFeatureSet(){
+    public static void remainFilterTrainDataManagerSet(List<Long> inputLayerIds){
+        Set<Long> managedLayerIds = AIPropertiesSingleton.getInstance()
+                .getTrainProperty()
+                .getDataSetManagerMap()
+                .keySet();
+        Set<Long> deleteLayerIds = managedLayerIds
+                .stream()
+                .filter(inputLayerId -> !inputLayerIds.contains(inputLayerId))
+                .collect(Collectors.toSet());
+        deleteLayerIds
+                .forEach(deleteLayerId -> {
+                    AIPropertiesSingleton.getInstance()
+                            .getTrainProperty()
+                            .getDataSetManagerMap()
+                            .remove(deleteLayerId);
+                });
+        inputLayerIds
+                .forEach(inputLayerId -> {
+                    AIPropertiesSingleton.getInstance()
+                            .getTrainProperty()
+                            .createDataSetManager(inputLayerId);
+                });
+    }
+
+    public static Map<Long, DataSetManager> getTrainDataSetManagerMap(){
         return AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
+                .getTrainProperty()
+                .getDataSetManagerMap();
+    }
+
+    public static ManagedRecordSet getTrainFeatureSet(long inputLayerId){
+        return AIPropertiesSingleton.getInstance()
+                .getTrainProperty()
+                .getDataSetManager(inputLayerId)
                 .getManagedFeatureRecordSet();
     }
 
-    public static ManagedRecordSet getTrainResultSet(){
+    public static ManagedRecordSet getTrainResultSet(long inputLayerId){
         return AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
+                .getTrainProperty()
+                .getDataSetManager(inputLayerId)
                 .getManagedResultRecordSet();
     }
 
     public static ManagedRecordSet getTestFeatureSet(){
         return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+                .getTestProperty()
                 .getDataSetManager()
                 .getManagedFeatureRecordSet();
     }
 
     public static ManagedRecordSet getTestResultSet(){
         return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+                .getTestProperty()
                 .getDataSetManager()
                 .getManagedResultRecordSet();
     }

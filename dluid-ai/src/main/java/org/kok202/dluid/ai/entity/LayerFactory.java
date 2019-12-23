@@ -1,6 +1,5 @@
-package org.kok202.dluid.model;
+package org.kok202.dluid.ai.entity;
 
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 
 public class LayerFactory {

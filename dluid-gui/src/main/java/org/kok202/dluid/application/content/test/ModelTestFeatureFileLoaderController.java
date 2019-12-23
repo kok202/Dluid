@@ -19,6 +19,8 @@ public class ModelTestFeatureFileLoaderController extends AbstractModelTestContr
     @FXML private TextField textFieldFindTestData;
     @FXML private Button buttonFindTestData;
 
+    private TestFeatureFileFinder testFeatureFileFinder;
+
     public ModelTestFeatureFileLoaderController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
@@ -38,7 +40,7 @@ public class ModelTestFeatureFileLoaderController extends AbstractModelTestContr
     }
 
     private void setButtonFinderActionHandler(){
-        TestFeatureFileFinder testFeatureFileFinder = new TestFeatureFileFinder(textFieldFindTestData, buttonFindTestData);
+        testFeatureFileFinder = new TestFeatureFileFinder(textFieldFindTestData, buttonFindTestData);
         testFeatureFileFinder.initialize();
         testFeatureFileFinder.setCallbackAfterLoad(() -> getTabModelTestController()
                 .getModelTestFeatureController()

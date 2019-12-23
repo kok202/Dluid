@@ -7,12 +7,12 @@ import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.application.Util.MathUtil;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
-import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.structure.GraphNode;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Data
@@ -40,25 +40,6 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 });
 
         reshapeAllBlockByType();
-    }
-
-    public GraphNode<BlockNode> findTestInputGraphNode(){
-        for(BlockNode blockNode : getDataNodes()) {
-            LayerType layerType = blockNode.getBlockLayer().getType();
-            if (layerType == LayerType.INPUT_LAYER || layerType == LayerType.TEST_INPUT_LAYER)
-                return findGraphNodeByData(blockNode);
-        }
-        throw new CanNotFindGraphNodeException("Test input block node");
-    }
-
-    public GraphNode<BlockNode> findTrainInputGraphNode(){
-        Collection<BlockNode> blockNodes = getDataNodes();
-        for(BlockNode blockNode : blockNodes) {
-            LayerType layerType = blockNode.getBlockLayer().getType();
-            if(layerType == LayerType.INPUT_LAYER || layerType == LayerType.TRAIN_INPUT_LAYER)
-                return findGraphNodeByData(blockNode);
-        }
-        throw new CanNotFindGraphNodeException("Train input block node");
     }
 
     public GraphNode<BlockNode> findGraphNodeByLayerId(long layerId) {
@@ -127,13 +108,19 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 });
     }
 
-    public GraphNode<BlockNode> findSourceByLayerId(long layerId) {
-        GraphNode<BlockNode> startNode = findGraphNodeByLayerId(layerId);
-        return findSourceByLayerIdSearch(startNode);
+    public List<GraphNode<BlockNode>> findAllGraphNode(Predicate<? super GraphNode<BlockNode>> predicate){
+        return getGraphNodes().stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
 
-    private GraphNode<BlockNode> findSourceByLayerIdSearch(GraphNode<BlockNode> currentNode) {
-        if(currentNode.getData().getBlockLayer().getType().isSourceLayerType())
+    public GraphNode<BlockNode> findStartByLayerId(long layerId) {
+        GraphNode<BlockNode> startNode = findGraphNodeByLayerId(layerId);
+        return findStartByLayerIdSearch(startNode);
+    }
+
+    private GraphNode<BlockNode> findStartByLayerIdSearch(GraphNode<BlockNode> currentNode) {
+        if(currentNode.getData().getBlockLayer().getType().isStartLayerType())
             return currentNode;
 
         List<GraphNode<BlockNode>> incomingNodes = currentNode.getIncomingNodes();
@@ -141,7 +128,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
             return null;
 
         for(GraphNode<BlockNode> incomingNode : incomingNodes){
-            GraphNode<BlockNode> searchedNode = findSourceByLayerIdSearch(incomingNode);
+            GraphNode<BlockNode> searchedNode = findStartByLayerIdSearch(incomingNode);
             if(searchedNode != null)
                 return searchedNode;
         }

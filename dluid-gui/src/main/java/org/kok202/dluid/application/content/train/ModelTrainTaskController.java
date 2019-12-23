@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.dluid.application.adapter.LineChartAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.model.ModelTrainValidator;
 
 @Data
 public class ModelTrainTaskController extends AbstractModelTrainController {
@@ -38,16 +39,17 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         buttonTrainingStop.setDisable(true);
         buttonTrainingOneTime.setOnAction(event -> buttonTrainingOneTimeActionHandler());
         buttonTrainingNTime.setOnAction(event -> buttonTrainingNTimeActionHandler());
-        titledPane.setExpanded(false);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.title"));
         lineChartTrainingChart.setTitle(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainChart.title"));
         buttonTrainingOneTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.oneTime"));
         buttonTrainingNTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.nTime"));
         buttonTrainingStop.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.stop"));
+        titledPane.setExpanded(false);
     }
 
     private void buttonTrainingOneTimeActionHandler(){
+        ModelTrainValidator.validate();
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
 //        trainTask.progressProperty().addListener(); TODO handler 로 gui component 를 조작해야한다.
@@ -57,6 +59,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
     }
 
     private void buttonTrainingNTimeActionHandler(){
+        ModelTrainValidator.validate();
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
 //        trainTask.progressProperty().addListener(); TODO handler 로 gui component 를 조작해야한다.
