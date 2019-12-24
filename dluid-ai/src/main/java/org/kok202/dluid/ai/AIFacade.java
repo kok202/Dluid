@@ -4,8 +4,7 @@ import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.ai.listener.RunnableTrainingListener;
-import org.kok202.dluid.ai.singleton.AIModelSingleton;
-import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
+import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
@@ -21,17 +20,17 @@ public class AIFacade {
      /* AI model
      *************************************************************************************************/
     public static void initializeModel(GraphManager<Layer> layerGraphManager){
-        AIModelSingleton.getInstance().initialize(layerGraphManager);
+        AISingleton.getInstance().getModelManager().initialize(layerGraphManager);
     }
 
     public static void initializeTrainListener(int epochTaskPeriod, int batchTaskPeriod, Consumer epochTask, Consumer batchTask){
-        AIModelSingleton.getInstance().setTrainListener(
+        AISingleton.getInstance().getModelManager().setTrainListener(
                 RunnableTrainingListener.builder()
-                        .epochSize(AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch())
+                        .epochSize(AISingleton.getInstance().getModelManager().getModelParameter().getEpoch())
                         .epochTaskPeriod(epochTaskPeriod)
                         .epochTask(epochTask)
-                        .batchSize(AIPropertiesSingleton.getInstance().getTrainProperty().getBatchSize())
-                        .totalRecordSize(AIPropertiesSingleton.getInstance().getTrainProperty().getTotalRecordSize())
+                        .batchSize(AISingleton.getInstance().getModelManager().getModelParameter().getBatchSize())
+                        .totalRecordSize(AISingleton.getInstance().getModelManager().getModelParameter().getTotalRecordSize())
                         .batchTaskPeriod(batchTaskPeriod)
                         .batchTask(batchTask)
                         .build());
@@ -39,36 +38,33 @@ public class AIFacade {
 
     public static void trainModel(){
         long layerId = 0; // FIXME
-        AIModelSingleton.getInstance().train(
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager(layerId).getManagedFeatureRecordSet().getNumericRecordSet(),
-                AIPropertiesSingleton.getInstance().getTrainProperty().getDataSetManager(layerId).getManagedResultRecordSet().getNumericRecordSet());
+        AISingleton.getInstance().getModelManager().train(
+                AISingleton.getInstance().getTrainDataManager().getDataSetManager(layerId).getManagedFeatureRecordSet().getNumericRecordSet(),
+                AISingleton.getInstance().getTrainDataManager().getDataSetManager(layerId).getManagedResultRecordSet().getNumericRecordSet());
     }
 
-    /*************************************************************************************************
-     /* AI model properties
-     *************************************************************************************************/
     public static String getModelName(){
-        return AIPropertiesSingleton.getInstance().getModelInfoProperty().getModelName();
+        return  AISingleton.getInstance().getModelManager().getModelInformation().getModelName();
     }
 
     public static void setModelName(String modelName){
-        AIPropertiesSingleton.getInstance().getModelInfoProperty().setModelName(modelName);
+        AISingleton.getInstance().getModelManager().getModelInformation().setModelName(modelName);
     }
 
     public static int getModelLearnedEpochNumber(){
-        return AIPropertiesSingleton.getInstance().getModelInfoProperty().getModelLearnedEpochNumber();
+        return  AISingleton.getInstance().getModelManager().getModelInformation().getModelLearnedEpochNumber();
     }
 
     public static void setModelLearnedEpochNumber(int learnedEpochNumber){
-        AIPropertiesSingleton.getInstance().getModelInfoProperty().setModelLearnedEpochNumber(learnedEpochNumber);
+        AISingleton.getInstance().getModelManager().getModelInformation().setModelLearnedEpochNumber(learnedEpochNumber);
     }
 
     /*************************************************************************************************
-     /* AI record data
+     /* AI train data
      *************************************************************************************************/
     public static void remainFilterTrainDataManagerSet(List<Long> inputLayerIds){
-        Set<Long> managedLayerIds = AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+        Set<Long> managedLayerIds = AISingleton.getInstance()
+                .getTrainDataManager()
                 .getDataSetManagerMap()
                 .keySet();
         Set<Long> deleteLayerIds = managedLayerIds
@@ -77,50 +73,36 @@ public class AIFacade {
                 .collect(Collectors.toSet());
         deleteLayerIds
                 .forEach(deleteLayerId -> {
-                    AIPropertiesSingleton.getInstance()
-                            .getTrainProperty()
+                    AISingleton.getInstance()
+                            .getTrainDataManager()
                             .getDataSetManagerMap()
                             .remove(deleteLayerId);
                 });
         inputLayerIds
                 .forEach(inputLayerId -> {
-                    AIPropertiesSingleton.getInstance()
-                            .getTrainProperty()
+                    AISingleton.getInstance()
+                            .getTrainDataManager()
                             .createDataSetManager(inputLayerId);
                 });
     }
 
     public static Map<Long, DataSetManager> getTrainDataSetManagerMap(){
-        return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+        return AISingleton.getInstance()
+                .getTrainDataManager()
                 .getDataSetManagerMap();
     }
 
     public static ManagedRecordSet getTrainFeatureSet(long inputLayerId){
-        return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+        return AISingleton.getInstance()
+                .getTrainDataManager()
                 .getDataSetManager(inputLayerId)
                 .getManagedFeatureRecordSet();
     }
 
     public static ManagedRecordSet getTrainResultSet(long inputLayerId){
-        return AIPropertiesSingleton.getInstance()
-                .getTrainProperty()
+        return AISingleton.getInstance()
+                .getTrainDataManager()
                 .getDataSetManager(inputLayerId)
-                .getManagedResultRecordSet();
-    }
-
-    public static ManagedRecordSet getTestFeatureSet(){
-        return AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
-                .getManagedFeatureRecordSet();
-    }
-
-    public static ManagedRecordSet getTestResultSet(){
-        return AIPropertiesSingleton.getInstance()
-                .getTestProperty()
-                .getDataSetManager()
                 .getManagedResultRecordSet();
     }
 
@@ -128,55 +110,72 @@ public class AIFacade {
      /* AI train property
      *************************************************************************************************/
     public static int getTrainTotalRecordSize(){
-        return AIPropertiesSingleton.getInstance().getTrainProperty().getTotalRecordSize();
+        return AISingleton.getInstance().getModelManager().getModelParameter().getTotalRecordSize();
     }
 
     public static void setTrainTotalRecordSize(int totalRecordSize){
-        AIPropertiesSingleton.getInstance().getTrainProperty().setTotalRecordSize(totalRecordSize);
+        AISingleton.getInstance().getModelManager().getModelParameter().setTotalRecordSize(totalRecordSize);
     }
 
     public static int getTrainBatchSize(){
-        return AIPropertiesSingleton.getInstance().getTrainProperty().getBatchSize();
+        return AISingleton.getInstance().getModelManager().getModelParameter().getBatchSize();
     }
 
     public static void setTrainBatchSize(int batchSize){
-        AIPropertiesSingleton.getInstance().getTrainProperty().setBatchSize(batchSize);
+        AISingleton.getInstance().getModelManager().getModelParameter().setBatchSize(batchSize);
     }
 
     public static int getTrainEpoch(){
-        return AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch();
+        return AISingleton.getInstance().getModelManager().getModelParameter().getEpoch();
     }
 
     public static void setTrainEpoch(int epoch){
-        AIPropertiesSingleton.getInstance().getTrainProperty().setEpoch(epoch);
+        AISingleton.getInstance().getModelManager().getModelParameter().setEpoch(epoch);
     }
 
     public static double getTrainLearningRate() {
-        return AIPropertiesSingleton.getInstance().getTrainProperty().getLearningRate();
+        return AISingleton.getInstance().getModelManager().getModelParameter().getLearningRate();
     }
 
     public static void setTrainLearningRate(double learningRate) {
-        AIPropertiesSingleton.getInstance().getTrainProperty().setLearningRate(learningRate);
+        AISingleton.getInstance().getModelManager().getModelParameter().setLearningRate(learningRate);
     }
 
     public static WeightInitWrapper getTrainWeightInit() {
-        return AIPropertiesSingleton.getInstance().getTrainProperty().getWeightInit();
+        return AISingleton.getInstance().getModelManager().getModelParameter().getWeightInit();
     }
 
     public static void setTrainWeightInit(WeightInitWrapper weightInit) {
-        AIPropertiesSingleton.getInstance().getTrainProperty().setWeightInit(weightInit);
+        AISingleton.getInstance().getModelManager().getModelParameter().setWeightInit(weightInit);
     }
 
     public static Optimizer getTrainOptimizer() {
-        return AIPropertiesSingleton.getInstance().getTrainProperty().getOptimizer();
+        return AISingleton.getInstance().getModelManager().getModelParameter().getOptimizer();
     }
 
     public static void setTrainOptimizer(Optimizer optimizer) {
-        AIPropertiesSingleton.getInstance().getTrainProperty().setOptimizer(optimizer);
+        AISingleton.getInstance().getModelManager().getModelParameter().setOptimizer(optimizer);
+    }
+
+    /*************************************************************************************************
+     /* AI test data
+     *************************************************************************************************/
+
+    public static ManagedRecordSet getTestFeatureSet(){
+        return AISingleton.getInstance()
+                .getTestDataSetManager()
+                .getManagedFeatureRecordSet();
+    }
+
+    public static ManagedRecordSet getTestResultSet(){
+        return AISingleton.getInstance()
+                .getTestDataSetManager()
+                .getManagedResultRecordSet();
     }
 
     /*************************************************************************************************
      /* AI test property
      *************************************************************************************************/
+
 
 }
