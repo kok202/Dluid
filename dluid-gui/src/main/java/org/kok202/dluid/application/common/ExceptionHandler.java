@@ -202,6 +202,15 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof ModelIsNotInitializeException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsNotInitialize.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsNotInitialize.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsNotInitialize.content"))
+                    .build()
+                    .showAndWait();
+        }
         else {
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)

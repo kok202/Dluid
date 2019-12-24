@@ -20,18 +20,11 @@ public class AIModelSingleton {
         return AIModelSingleton.GlobalDataHolder.instance;
     }
 
-    private AIModelSingleton(){
-    }
+    private AIModelSingleton(){ }
 
-    private int prevLayerGraphHash;
     private ComputationGraph model;
 
     public void initialize(GraphManager<Layer> layerGraphManager) {
-        int currLayerGraphHash = layerGraphManager.getHashCode();
-        if(prevLayerGraphHash == currLayerGraphHash)
-            return;
-        prevLayerGraphHash = currLayerGraphHash;
-
         AIPropertiesSingleton
                 .getInstance()
                 .getModelLayersProperty()

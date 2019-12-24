@@ -1,6 +1,5 @@
 package org.kok202.dluid.model;
 
-import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.singleton.structure.DataSetManager;
@@ -10,40 +9,22 @@ import org.kok202.dluid.domain.exception.*;
 
 import java.util.Map;
 
-public class ModelTrainValidator {
+class ModelTrainValidator {
 
-    public static void validate(){
-        AppFacade.appendTextOnTrainingLog("Check training possible.");
-//        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType());
-//        List<GraphNode<BlockNode>> outputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType());
-//        List<GraphNode<BlockNode>> startGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isStartLayerType());
-        validateModelIsChanged();
+    static void validate(){
         validateDataSetExist();
         validateDataSetDimension();
         validateParameterSetting();
-        AppFacade.appendTextOnTrainingLog("Check training possible. [Successful]");
-    }
-
-    private static void validateModelIsChanged() throws ModelIsChangedException {
-        boolean isModelChanged = false;
-        // TODO : model 변화 감지
-        if(isModelChanged){
-            throw new ModelIsChangedException();
-        }
     }
 
     private static void validateDataSetExist() throws FeatureSetDimensionUnmatchedException {
         for (Map.Entry<Long, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
             Long inputLayerId = entry.getKey();
             DataSetManager dataSetManager = entry.getValue();
-            if(dataSetManager.getManagedFeatureRecordSet().getNumericRecordSet() == null) {
-                printErrorLog(CanNotFindFeatureSetException.class.getSimpleName());
+            if(dataSetManager.getManagedFeatureRecordSet().getNumericRecordSet() == null)
                 throw new CanNotFindFeatureSetException(inputLayerId);
-            }
-            if(dataSetManager.getManagedResultRecordSet().getNumericRecordSet() == null){
-                printErrorLog(CanNotFindResultSetException.class.getSimpleName());
+            if(dataSetManager.getManagedResultRecordSet().getNumericRecordSet() == null)
                 throw new CanNotFindResultSetException(inputLayerId);
-            }
         }
     }
 
@@ -64,46 +45,25 @@ public class ModelTrainValidator {
                     inputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
                     inputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
 
-            if(featureSetSize != inputBlockNodeSize) {
-                printErrorLog(FeatureSetDimensionUnmatchedException.class.getSimpleName());
+            if(featureSetSize != inputBlockNodeSize)
                 throw new FeatureSetDimensionUnmatchedException(inputLayerId, inputBlockNodeSize, featureSetSize);
-            }
-            if(resultSetSize != outputBlockNodeSize) {
-                printErrorLog(ResultSetDimensionUnmatchedException.class.getSimpleName());
+            if(resultSetSize != outputBlockNodeSize)
                 throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeSize, inputLayerId, resultSetSize);
-            }
         }
     }
 
     private static void validateParameterSetting() throws InvalidParameterException, InvalidBatchSize {
-        if(AIFacade.getTrainEpoch() <= 0){
-            printErrorLog(InvalidParameterException.class.getSimpleName());
+        if(AIFacade.getTrainEpoch() <= 0)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.invalidBatchSize.content"));
-        }
-        if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1){
-            printErrorLog(InvalidParameterException.class.getSimpleName());
+        if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
-        }
-        if(AIFacade.getTrainTotalRecordSize() <= 0){
-            printErrorLog(InvalidParameterException.class.getSimpleName());
+        if(AIFacade.getTrainTotalRecordSize() <= 0)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.totalRecordSize.content"));
-        }
-        if(AIFacade.getTrainBatchSize() > AIFacade.getTrainTotalRecordSize()){
-            printErrorLog(InvalidBatchSize.class.getSimpleName());
+        if(AIFacade.getTrainBatchSize() > AIFacade.getTrainTotalRecordSize())
             throw new InvalidBatchSize(AIFacade.getTrainTotalRecordSize());
-        }
-        if(AIFacade.getTrainWeightInit() == null) {
-            printErrorLog(InvalidParameterException.class.getSimpleName());
+        if(AIFacade.getTrainWeightInit() == null)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
-        }
-        if(AIFacade.getTrainOptimizer() == null) {
-            printErrorLog(InvalidParameterException.class.getSimpleName());
+        if(AIFacade.getTrainOptimizer() == null)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));
-        }
-    }
-
-    private static void printErrorLog(String message){
-        AppFacade.appendTextOnTrainingLog(message);
-        AppFacade.appendTextOnTrainingLog("Check training possible. [Fail]");
     }
 }

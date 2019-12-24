@@ -149,44 +149,4 @@ public class AppFacade {
                 .setDisable(!disable);
     }
 
-    public static void appendTextOnTrainingLog(String text){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .appendText(text + "\n");
-    }
-
-    public static void clearTrainingLog(){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .clear();
-    }
-
-    /*************************************************************************************************
-     /* Handling test tab
-     *************************************************************************************************/
-
-    public static void appendTextOnTestingLog(String text){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .appendText(text + "\n");
-    }
-
-    public static void clearTestingLog(){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .clear();
-    }
-
 }

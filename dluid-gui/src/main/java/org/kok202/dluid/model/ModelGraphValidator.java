@@ -1,6 +1,5 @@
 package org.kok202.dluid.model;
 
-import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.block.BlockNode;
@@ -10,9 +9,9 @@ import org.kok202.dluid.domain.structure.GraphNode;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ModelGraphValidator {
+class ModelGraphValidator {
 
-    public static void validate(){
+    static void validateModelIsCorrect(){
         validateTrainInputBlockNodeExist();
         validateTestInputBlockNodeExist();
         validateOutputBlockNodeExist();
@@ -23,26 +22,20 @@ public class ModelGraphValidator {
 
     private static void validateTrainInputBlockNodeExist() throws RuntimeException{
         List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isTrainInputLayerType());
-        if(inputGraphNode.isEmpty()) {
-            printErrorLog(CanNotFindInputLayerException.class.getSimpleName());
+        if(inputGraphNode.isEmpty())
             throw new CanNotFindInputLayerException();
-        }
     }
 
     private static void validateTestInputBlockNodeExist() throws RuntimeException{
         List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isTestInputLayerType());
-        if(inputGraphNode.isEmpty()) {
-            printErrorLog(CanNotFindInputLayerException.class.getSimpleName());
+        if(inputGraphNode.isEmpty())
             throw new CanNotFindInputLayerException();
-        }
     }
 
     private static void validateOutputBlockNodeExist() throws RuntimeException{
         List<GraphNode<BlockNode>> outputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType());
-        if(outputGraphNode.isEmpty()){
-            printErrorLog(CanNotFindOutputLayerException.class.getSimpleName());
+        if(outputGraphNode.isEmpty())
             throw new CanNotFindOutputLayerException();
-        }
     }
 
     private static void validateAllBlockNodeDimension() throws DimensionUnmatchedException{
@@ -57,14 +50,12 @@ public class ModelGraphValidator {
                 long destinationInputSize =
                         currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize()[0] *
                         currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize()[1];
-                if (sourceOutputSize != destinationInputSize) {
-                    printErrorLog(DimensionUnmatchedException.class.getSimpleName());
+                if (sourceOutputSize != destinationInputSize)
                     throw new DimensionUnmatchedException(
                             currentGraphNode.getData().getBlockLayer().getId(),
                             currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getId(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize());
-                }
             }
         }
     }
@@ -78,10 +69,8 @@ public class ModelGraphValidator {
                     .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdByLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
                     .filter(layerId -> layerId != -1)
                     .collect(Collectors.toList());
-            if(sourceLayerIdsOfMergeBlockNode.stream().distinct().count() != 1) {
-                printErrorLog(InvalidMergeConnectionExistException.class.getSimpleName());
+            if(sourceLayerIdsOfMergeBlockNode.stream().distinct().count() != 1)
                 throw new InvalidMergeConnectionExistException(mergeGraphNode.getData().getBlockLayer().getId());
-            }
         }
     }
 
@@ -94,15 +83,8 @@ public class ModelGraphValidator {
                     .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdByLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
                     .filter(layerId -> layerId != -1)
                     .collect(Collectors.toList());
-            if(sourceLayerIdsOfSwitchBlockNode.size() != sourceLayerIdsOfSwitchBlockNode.stream().distinct().count()) {
-                printErrorLog(InvalidSwitchConnectionExistException.class.getSimpleName());
+            if(sourceLayerIdsOfSwitchBlockNode.size() != sourceLayerIdsOfSwitchBlockNode.stream().distinct().count())
                 throw new InvalidSwitchConnectionExistException(switchGraphNode.getData().getBlockLayer().getId());
-            }
         }
-    }
-
-    private static void printErrorLog(String message){
-        AppFacade.appendTextOnTrainingLog(message);
-        AppFacade.appendTextOnTrainingLog("Try to create model. [Fail]");
     }
 }
