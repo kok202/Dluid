@@ -1,8 +1,8 @@
 package org.kok202.dluid.application.common;
 
 import javafx.scene.control.Alert;
-import org.kok202.dluid.application.Util.DialogUtil;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.util.DialogUtil;
 import org.kok202.dluid.domain.exception.*;
 
 public class ExceptionHandler {
@@ -199,6 +199,15 @@ public class ExceptionHandler {
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsChanged.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsChanged.header"))
                     .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsChanged.content"))
+                    .build()
+                    .showAndWait();
+        }
+        else if(exception instanceof ModelIsNotInitializeException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsNotInitialize.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsNotInitialize.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.modelIsNotInitialize.content"))
                     .build()
                     .showAndWait();
         }

@@ -6,8 +6,7 @@ import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
 import org.kok202.dluid.ai.listener.NormalTrainingListener;
-import org.kok202.dluid.ai.singleton.AIModelSingleton;
-import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
+import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.stream.StringRecordSet;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
@@ -31,13 +30,13 @@ public class DeeplearningXOR {
         NumericRecordSet testFeature = NumericRecordSet.convertFrom(featureSet);
         NumericRecordSet testResult = NumericRecordSet.convertFrom(resultSet);
 
-        AIPropertiesSingleton.getInstance().getTrainProperty().setBatchSize(4);
-        AIPropertiesSingleton.getInstance().getTrainProperty().setTotalRecordSize(4);
-        AIPropertiesSingleton.getInstance().getTrainProperty().setOptimizer(Optimizer.ADAM);
-        AIPropertiesSingleton.getInstance().getTrainProperty().setEpoch(1000);
-        AIPropertiesSingleton.getInstance().getTrainProperty().setLearningRate(0.006);
-        AIPropertiesSingleton.getInstance().getTrainProperty().setWeightInit(WeightInitWrapper.XAVIER);
-        AIPropertiesSingleton.getInstance().getTrainProperty().setLossFunction(LossFunction.NEGATIVELOGLIKELIHOOD);
+        AISingleton.getInstance().getModelManager().getModelParameter().setBatchSize(4);
+        AISingleton.getInstance().getModelManager().getModelParameter().setTotalRecordSize(4);
+        AISingleton.getInstance().getModelManager().getModelParameter().setOptimizer(Optimizer.ADAM);
+        AISingleton.getInstance().getModelManager().getModelParameter().setEpoch(1000);
+        AISingleton.getInstance().getModelManager().getModelParameter().setLearningRate(0.006);
+        AISingleton.getInstance().getModelManager().getModelParameter().setWeightInit(WeightInitWrapper.XAVIER);
+        AISingleton.getInstance().getModelManager().getModelParameter().setLossFunction(LossFunction.NEGATIVELOGLIKELIHOOD);
 
         Layer layer0 = new Layer(LayerType.INPUT_LAYER);
         Layer layer1 = new Layer(LayerType.DENSE_LAYER);
@@ -53,33 +52,36 @@ public class DeeplearningXOR {
         layer2.getProperties().setInputSize(10);
         layer2.getProperties().setOutputSize(1);
 
-        AIPropertiesSingleton.getInstance()
-                .getModelLayersProperty()
+        AISingleton.getInstance()
+                .getModelManager()
                 .getLayerGraphManager()
                 .registerSoloNode(layer0);
-        AIPropertiesSingleton.getInstance()
-                .getModelLayersProperty()
+        AISingleton.getInstance()
+                .getModelManager()
                 .getLayerGraphManager()
                 .linkToNewData(layer0, layer1);
-        AIPropertiesSingleton.getInstance()
-                .getModelLayersProperty()
+        AISingleton.getInstance()
+                .getModelManager()
                 .getLayerGraphManager()
                 .linkToNewData(layer1, layer2);
 
-        AIModelSingleton.getInstance().initialize(
-                AIPropertiesSingleton.getInstance()
-                        .getModelLayersProperty()
-                        .getLayerGraphManager());
-        AIModelSingleton.getInstance().setTrainListener(
-                NormalTrainingListener.builder()
+        AISingleton.getInstance()
+                .getModelManager()
+                .initialize(
+                        AISingleton.getInstance()
+                                .getModelManager()
+                                .getLayerGraphManager());
+        AISingleton.getInstance()
+                .getModelManager()
+                .setTrainListener(NormalTrainingListener.builder()
                         .epochPrintPeriod(100)
-                        .epochSize(AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch())
-                        .batchSize(AIPropertiesSingleton.getInstance().getTrainProperty().getBatchSize())
+                        .epochSize(AISingleton.getInstance().getModelManager().getModelParameter().getEpoch())
+                        .batchSize(AISingleton.getInstance().getModelManager().getModelParameter().getBatchSize())
                         .batchPrintPeriod(1)
-                        .totalRecordSize(AIPropertiesSingleton.getInstance().getTrainProperty().getTotalRecordSize())
+                        .totalRecordSize(AISingleton.getInstance().getModelManager().getModelParameter().getTotalRecordSize())
                         .build());
-        AIModelSingleton.getInstance().train(trainFeature, trainResult);
-        System.out.println(AIModelSingleton.getInstance().test(testFeature, testResult).stats());
+        AISingleton.getInstance().getModelManager().train(trainFeature, trainResult);
+        System.out.println(AISingleton.getInstance().getModelManager().test(testFeature, testResult).stats());
 
     }
 }

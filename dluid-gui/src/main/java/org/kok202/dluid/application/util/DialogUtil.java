@@ -1,4 +1,4 @@
-package org.kok202.dluid.application.Util;
+package org.kok202.dluid.application.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Dialog;

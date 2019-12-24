@@ -7,7 +7,7 @@ import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
-import org.kok202.dluid.ai.singleton.AIPropertiesSingleton;
+import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.util.LayerBuildingUtil;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.util.RandomUtil;
@@ -24,13 +24,13 @@ public class NetworkBuilder {
     }
 
     private static IUpdater initOptimizer(){
-        Optimizer optimizer = AIPropertiesSingleton.getInstance().getTrainProperty().getOptimizer();
-        double learningRate = AIPropertiesSingleton.getInstance().getTrainProperty().getLearningRate();
+        Optimizer optimizer = AISingleton.getInstance().getModelManager().getModelParameter().getOptimizer();
+        double learningRate = AISingleton.getInstance().getModelManager().getModelParameter().getLearningRate();
         return optimizer.getIUpdater(learningRate);
     }
 
     private static WeightInit initWeightInitializer(){
-        WeightInit weightInit = AIPropertiesSingleton.getInstance().getTrainProperty().getWeightInit().getWeightInit();
+        WeightInit weightInit = AISingleton.getInstance().getModelManager().getModelParameter().getWeightInit().getWeightInit();
         return weightInit;
     }
 
@@ -45,8 +45,8 @@ public class NetworkBuilder {
     }
 
     private static ComputationGraphConfiguration createNeuralNetLayer(GraphBuilder neuralNetLayerBuilder){
-        GraphManager<Layer> layerGraphManager = AIPropertiesSingleton.getInstance()
-                .getModelLayersProperty()
+        GraphManager<Layer> layerGraphManager = AISingleton.getInstance()
+                .getModelManager()
                 .getLayerGraphManager();
         return LayerBuildingUtil.implementsLayers(neuralNetLayerBuilder, layerGraphManager).build();
     }

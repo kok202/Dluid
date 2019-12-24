@@ -9,10 +9,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.model.ModelInitializeHandler;
+import org.kok202.dluid.model.ModelStateManager;
 
 
-public class ModelInfoController extends AbstractModelTrainController {
+public class ModelInformationController extends AbstractModelTrainController {
     @FXML private TitledPane titledPane;
     @FXML private Label labelModelName;
     @FXML private Label labelEpochNumber;
@@ -30,16 +30,15 @@ public class ModelInfoController extends AbstractModelTrainController {
     @Override
     protected void initialize() throws Exception {
         textFieldModelName.textProperty().addListener(changeListener -> modelNameChangedHandler());
-        buttonInitialize.setOnAction(event -> ModelInitializeHandler.initializeModel());
+        buttonInitialize.setOnAction(event -> ModelStateManager.initializeModel());
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.title"));
         labelModelName.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.name"));
         labelEpochNumber.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.totalEpoch"));
         buttonInitialize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.initialize"));
-        titledPane.setExpanded(true);
     }
 
-    public void refreshModelInfoProperty(){
+    public void refreshModelInformation(){
         textFieldModelName.setText(AIFacade.getModelName());
         textFieldEpochNumber.setText(AIFacade.getModelLearnedEpochNumber() + "");
     }

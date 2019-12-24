@@ -110,22 +110,23 @@ public class AppFacade {
      /* Handling train tab
      *************************************************************************************************/
 
-    public static void clearTrainingLineChart(String text){
+    public static void refreshTrainingFileLoader(){
         AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getLineChartTrainingChart();
-        // TODO :
+                .getModelTrainFileLoaderController()
+                .refreshFileLoader();
     }
 
-    public static void drawTrainingLineChart(String text){
+    public static void setTrainingAndTestSettingDisable(boolean disable){
         AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getLineChartTrainingChart();
-        // TODO :
+                .setSettingExpandAndDisable(disable);
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .setSettingExpandAndDisable(disable);
     }
 
     public static void setTrainingButtonDisable(boolean disable){
@@ -147,46 +148,6 @@ public class AppFacade {
                 .getModelTrainTaskController()
                 .getButtonTrainingStop()
                 .setDisable(!disable);
-    }
-
-    public static void appendTextOnTrainingLog(String text){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .appendText(text + "\n");
-    }
-
-    public static void clearTrainingLog(){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .clear();
-    }
-
-    /*************************************************************************************************
-     /* Handling test tab
-     *************************************************************************************************/
-
-    public static void appendTextOnTestingLog(String text){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .appendText(text + "\n");
-    }
-
-    public static void clearTestingLog(){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getTextAreaTrainingLog()
-                .clear();
     }
 
 }

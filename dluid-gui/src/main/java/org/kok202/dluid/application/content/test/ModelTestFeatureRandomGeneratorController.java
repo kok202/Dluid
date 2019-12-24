@@ -7,9 +7,9 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.dluid.AppConstant;
 import org.kok202.dluid.ai.AIFacade;
-import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.content.TabModelTestController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.util.RandomUtil;
 

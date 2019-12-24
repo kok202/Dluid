@@ -8,11 +8,11 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
-import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.adapter.file.ExtendedImageSaver;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.domain.stream.image.ImageColorScale;
 
 public class ImageManagementPopUpController extends AbstractController {

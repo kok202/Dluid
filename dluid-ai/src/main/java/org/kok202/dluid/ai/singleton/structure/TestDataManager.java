@@ -1,12 +1,12 @@
 package org.kok202.dluid.ai.singleton.structure;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
-public class TestProperty {
+@Getter
+public class TestDataManager {
     private DataSetManager dataSetManager;
 
-    public TestProperty() {
+    public TestDataManager() {
         dataSetManager = new DataSetManager();
     }
 }

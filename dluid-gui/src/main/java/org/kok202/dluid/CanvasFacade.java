@@ -44,6 +44,10 @@ public class CanvasFacade {
     /*************************************************************************************************
     /* BlockNodeManager
     *************************************************************************************************/
+    public static long getGraphManagerHashCode(){
+        return CanvasSingleton.getInstance().getBlockNodeManager().getHashCode();
+    }
+
     public static void notifyLayerDataChanged(long layerId){
         CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(layerId);
     }

@@ -18,7 +18,7 @@
                             <children>
                                 <AnchorPane>
                                    <children>
-                                      <LineChart fx:id="lineChartTrainingChart" legendVisible="false" maxHeight="250.0" minHeight="250.0" prefHeight="250.0" title="Learning curve" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <LineChart fx:id="lineChartTrainingChart" animated="false" legendVisible="false" maxHeight="250.0" minHeight="250.0" prefHeight="250.0" title="Learning curve" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                         <xAxis>
                                             <NumberAxis forceZeroInRange="false" minorTickCount="1" minorTickVisible="false" side="LEFT" tickLength="5.0" tickMarkVisible="false" tickUnit="0.1" upperBound="20.0" />
                                         </xAxis>

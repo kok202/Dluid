@@ -2,13 +2,13 @@ package org.kok202.dluid.ai;
 
 public class DeeplearningMnist {
     public static void main(String[] args) throws Exception{
-//        AIPropertiesSingleton.getInstance().getTrainProperty().setBatchSize(128);
-//        AIPropertiesSingleton.getInstance().getTrainProperty().setTotalRecordSize(60000);
-//        AIPropertiesSingleton.getInstance().getTrainProperty().setOptimizer(Optimizer.ADAM);
-//        AIPropertiesSingleton.getInstance().getTrainProperty().setEpoch(1);
-//        AIPropertiesSingleton.getInstance().getTrainProperty().setLearningRate(0.006);
-//        AIPropertiesSingleton.getInstance().getTrainProperty().setWeightInit(WeightInit.XAVIER);
-//        AIPropertiesSingleton.getInstance().getTrainProperty().setLossFunction(LossFunction.NEGATIVELOGLIKELIHOOD);
+//        AISingleton.getInstance().getTrainDataManager().setBatchSize(128);
+//        AISingleton.getInstance().getTrainDataManager().setTotalRecordSize(60000);
+//        AISingleton.getInstance().getTrainDataManager().setOptimizer(Optimizer.ADAM);
+//        AISingleton.getInstance().getTrainDataManager().setEpoch(1);
+//        AISingleton.getInstance().getTrainDataManager().setLearningRate(0.006);
+//        AISingleton.getInstance().getTrainDataManager().setWeightInit(WeightInit.XAVIER);
+//        AISingleton.getInstance().getTrainDataManager().setLossFunction(LossFunction.NEGATIVELOGLIKELIHOOD);
 //
 //        Layer layer0 = new Layer(LayerType.INPUT_LAYER);
 //        Layer layer1 = new Layer(LayerType.DENSE_LAYER);
@@ -30,19 +30,19 @@ public class DeeplearningMnist {
 //        layer3.getProperties().setInputSize(50);
 //        layer3.getProperties().setOutputSize(10);
 //
-//        AIPropertiesSingleton.getInstance()
+//        AISingleton.getInstance()
 //                .getModelLayersProperty()
 //                .getLayerGraphManager()
 //                .registerSoloNode(layer0);
-//        AIPropertiesSingleton.getInstance()
+//        AISingleton.getInstance()
 //                .getModelLayersProperty()
 //                .getLayerGraphManager()
 //                .linkToNewData(layer0, layer1);
-//        AIPropertiesSingleton.getInstance()
+//        AISingleton.getInstance()
 //                .getModelLayersProperty()
 //                .getLayerGraphManager()
 //                .linkToNewData(layer1, layer2);
-//        AIPropertiesSingleton.getInstance()
+//        AISingleton.getInstance()
 //                .getModelLayersProperty()
 //                .getLayerGraphManager()
 //                .linkToNewData(layer2, layer3);
@@ -50,21 +50,21 @@ public class DeeplearningMnist {
 //        DataSetIterator mnistTrain = new MnistDataSetIterator(128, true, 123);
 //        DataSetIterator mnistTest = new MnistDataSetIterator(128, false, 123);
 //
-//        AIModelSingleton.getInstance().initialize(
-//                AIPropertiesSingleton.getInstance()
+//        ModelManager.getInstance().initialize(
+//                AISingleton.getInstance()
 //                        .getModelLayersProperty()
 //                        .getLayerGraphManager());
-//        AIModelSingleton.getInstance().setTrainListener(
+//        ModelManager.getInstance().setTrainListener(
 //                NormalTrainingListener.builder()
 //                        .epochPrintPeriod(1)
-//                        .epochSize(AIPropertiesSingleton.getInstance().getTrainProperty().getEpoch())
-//                        .batchSize(AIPropertiesSingleton.getInstance().getTrainProperty().getBatchSize())
+//                        .epochSize(AISingleton.getInstance().getTrainDataManager().getEpoch())
+//                        .batchSize(AISingleton.getInstance().getTrainDataManager().getBatchSize())
 //                        .batchPrintPeriod(10)
-//                        .totalRecordSize(AIPropertiesSingleton.getInstance().getTrainProperty().getTotalRecordSize())
+//                        .totalRecordSize(AISingleton.getInstance().getTrainDataManager().getTotalRecordSize())
 //                        .build());
 //
-//        AIModelSingleton.getInstance().train(mnistTrain);
-//        System.out.println(AIModelSingleton.getInstance().test(mnistTest).stats());
+//        ModelManager.getInstance().train(mnistTrain);
+//        System.out.println(ModelManager.getInstance().test(mnistTest).stats());
 
     }
 }
