@@ -110,22 +110,13 @@ public class AppFacade {
      /* Handling train tab
      *************************************************************************************************/
 
-    public static void clearTrainingLineChart(String text){
+    public static void appendTrainingLineOnLineChart(int x, double y){
         AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTrainController()
                 .getModelTrainTaskController()
-                .getLineChartTrainingChart();
-        // TODO :
-    }
-
-    public static void drawTrainingLineChart(String text){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTrainController()
-                .getModelTrainTaskController()
-                .getLineChartTrainingChart();
-        // TODO :
+                .getLineChartAdapter()
+                .appendData(x, y);
     }
 
     public static void refreshTrainingFileLoader(){

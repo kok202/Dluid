@@ -48,6 +48,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
 
     private void buttonTrainingOneTimeActionHandler(){
         textAreaTrainingLog.clear();
+        lineChartAdapter.clearChart();
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
         Thread thread = new Thread(trainTask);
@@ -57,6 +58,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
 
     private void buttonTrainingNTimeActionHandler(){
         textAreaTrainingLog.clear();
+        lineChartAdapter.clearChart();
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
         Thread thread = new Thread(trainTask);

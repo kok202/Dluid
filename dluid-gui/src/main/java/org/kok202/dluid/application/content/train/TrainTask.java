@@ -7,32 +7,59 @@ import org.kok202.dluid.ai.listener.RunnableTrainingTaskContainer;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 import org.kok202.dluid.model.ModelStateManager;
 
-public class TrainTask extends Task<Integer> {
+public class TrainTask extends Task<TrainProgressContainer> {
 
     public void bindWithComponent(ModelTrainTaskController modelTrainTaskController) {
-        modelTrainTaskController.getProgressBarTrainingProgress().progressProperty().bind(this.progressProperty());
         modelTrainTaskController.getButtonTrainingStop().setOnAction(event -> stopTraining());
-        messageProperty().addListener((observable, oldValue, newValue) -> modelTrainTaskController.getTextAreaTrainingLog().appendText(newValue + "\n"));
+        valueProperty().addListener(((observable, oldValue, newValue) -> {
+            if(newValue == null)
+                return;
+            if(newValue.isExistMessage())
+                modelTrainTaskController.getTextAreaTrainingLog().appendText(newValue.getMessage() + "\n");
+            if(newValue.isExistScore())
+                modelTrainTaskController.getLineChartAdapter().appendData(newValue.getEpoch(), newValue.getScore());
+            if(newValue.isExistProgress())
+                modelTrainTaskController.getProgressBarTrainingProgress().setProgress(newValue.getProgress());
+        }));
         AppFacade.setTrainingButtonDisable(false);
     }
 
     @Override
-    protected Integer call() throws Exception {
-        validateTrainPossible();
-        setTrainListener();
-        trainModel();
-        updateProgress(100, 100);
-        return 100;
+    protected TrainProgressContainer call() throws Exception {
+//        validateTrainPossible();
+//        setTrainListener();
+//        trainModel();
+        TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
+        trainProgressContainer.setEpoch(1);
+        trainProgressContainer.setScore(1.0);
+        trainProgressContainer.setProgress(0.1);
+        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 1, 1.0));
+        updateValue(trainProgressContainer);
+        Thread.sleep(1000);
+        trainProgressContainer.setEpoch(2);
+        trainProgressContainer.setScore(0.2);
+        trainProgressContainer.setProgress(0.6);
+        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 2, 0.2));
+        updateValue(trainProgressContainer);
+        Thread.sleep(1000);
+        trainProgressContainer.setEpoch(3);
+        trainProgressContainer.setScore(0.05);
+        trainProgressContainer.setProgress(0.8);
+        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 3, 0.05));
+        updateValue(trainProgressContainer);
+        Thread.sleep(1000);
+        updateValue(new TrainProgressContainer(1));
+        return null;
     }
 
     private void validateTrainPossible(){
-        updateMessage("Check training possible.");
+        updateValue(new TrainProgressContainer("Check training possible."));
         ModelStateManager.validateTrainPossible();
-        updateMessage("Check training possible. [Successful]");
+        updateValue(new TrainProgressContainer("Check training possible. [Successful]"));
     }
 
     private void setTrainListener(){
-        updateMessage("Try to add listener for print log.");
+        updateValue(new TrainProgressContainer("Try to add listener for print log."));
         int epochTaskPeriod = 1;
         int batchTaskPeriod = AIFacade.getTrainTotalRecordSize() / AIFacade.getTrainBatchSize() / 10;
         epochTaskPeriod = (epochTaskPeriod <= 0)? 1 : epochTaskPeriod;
@@ -43,29 +70,35 @@ public class TrainTask extends Task<Integer> {
                 (taskContainerObj) -> {
                     // not executed if epoch is not set when
                     RunnableTrainingTaskContainer taskContainer = (RunnableTrainingTaskContainer) taskContainerObj;
-                    updateMessage(String.format(
-                            "Epoch : %s \n" +
-                            "Fitting score : %s",
-                            taskContainer.getEpochCounter().getCount(),
-                            taskContainer.getScore()));
+                    int epochCount = taskContainer.getEpochCounter().getCount();
+                    double fittingScore = taskContainer.getScore();
+
+                    TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
+                    trainProgressContainer.setEpoch(epochCount);
+                    trainProgressContainer.setScore(fittingScore);
+                    trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", epochCount, fittingScore));
+                    updateValue(trainProgressContainer);
                 },
                 (taskContainerObj) -> {
                     RunnableTrainingTaskContainer taskContainer = (RunnableTrainingTaskContainer) taskContainerObj;
                     double currentProgress =
                             taskContainer.getBatchCounter().getCount() +
-                                    (taskContainer.getEpochCounter().getCount()-1) * taskContainer.getBatchCounter().getMax();
+                            (taskContainer.getEpochCounter().getCount()-1) * taskContainer.getBatchCounter().getMax();
                     double totalProgress = taskContainer.getEpochCounter().getMax() * taskContainer.getBatchCounter().getMax();
 
-                    int percent = (int) (currentProgress / totalProgress * 100);
-                    percent = Math.max(0, Math.min(percent, 100));
-                    updateProgress(percent, 100);
-                    updateMessage("Batch progress : " + taskContainer.getBatchCounter().calcPercent() + " / 100%");
+                    double progress = currentProgress / totalProgress * 100;
+                    progress = Math.max(0, progress);
+                    progress = Math.min(1, progress);
+                    TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
+                    trainProgressContainer.setProgress(progress);
+                    trainProgressContainer.setMessage("Batch progress : " + taskContainer.getBatchCounter().calcPercent() + " / 100%");
+                    updateValue(trainProgressContainer);
                 });
-        updateMessage("Try to add listener for print log. [done]");
+        updateValue(new TrainProgressContainer("Try to add listener for print log. [done]"));
     }
 
     private void trainModel(){
-        updateMessage("Training start.");
+        updateValue(new TrainProgressContainer("Training start."));
         AIFacade.trainModel();
     }
 
@@ -75,11 +108,12 @@ public class TrainTask extends Task<Integer> {
 
     @Override
     public void succeeded() {
-        updateMessage("Training done.");
-        AppFacade.setTrainingButtonDisable(false);
+        updateValue(new TrainProgressContainer("Training done."));
         int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
         int trainedEpoch = AIFacade.getTrainEpoch();
         AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
         AppWidgetSingleton.getInstance().getTabsController().getTabModelTrainController().getModelInformationController().refreshModelInformation();
+        AppFacade.setTrainingButtonDisable(false);
     }
+
 }

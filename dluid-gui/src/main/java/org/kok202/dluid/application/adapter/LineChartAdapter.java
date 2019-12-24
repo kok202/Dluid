@@ -31,12 +31,7 @@ public class LineChartAdapter {
     public void drawChart(){
 
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        data.add(new XYChart.Data<>(0, 0));
-        data.add(new XYChart.Data<>(1, 0.1));
-        data.add(new XYChart.Data<>(2, 0.5));
-        data.add(new XYChart.Data<>(3, 0.8));
         series.getData().addAll(data);
-
         lineChart.getData().clear();
         lineChart.getData().add(series);
     }

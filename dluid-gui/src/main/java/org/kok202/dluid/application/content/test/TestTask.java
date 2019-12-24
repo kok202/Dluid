@@ -2,17 +2,21 @@ package org.kok202.dluid.application.content.test;
 
 import javafx.concurrent.Task;
 
-public class TestTask extends Task<Integer> {
-    private ModelTestTestingTaskController modelTestTestingTaskController;
+public class TestTask extends Task<TestProgressContainer> {
 
     public void bindWithComponent(ModelTestTestingTaskController modelTestTestingTaskController) {
-        this.modelTestTestingTaskController = modelTestTestingTaskController;
-        this.modelTestTestingTaskController.getProgressBarTestProgress().progressProperty().bind(this.progressProperty());
-        this.modelTestTestingTaskController.getButtonTest().setDisable(true);
+        valueProperty().addListener(((observable, oldValue, newValue) -> {
+            if(newValue == null)
+                return;
+            if(newValue.isExistMessage())
+                modelTestTestingTaskController.getTextAreaTestLog().appendText(newValue.getMessage() + "\n");
+            if(newValue.isExistProgress())
+                modelTestTestingTaskController.getProgressBarTestProgress().setProgress(newValue.getProgress());
+        }));
     }
 
     @Override
-    protected Integer call() throws Exception {
+    protected TestProgressContainer call() throws Exception {
         for (int i = 1; i <= 100; i++) {
             if (isCancelled()) {
                 break;
@@ -21,17 +25,10 @@ public class TestTask extends Task<Integer> {
             updateMessage(String.valueOf(i));
             //modelTestTestingTaskController.getTextAreaTestLog().appendText("progress : " + i + "\n");
         }
-        return 100;
+        return null;
     }
 
     @Override
     public void succeeded() {
-        // TODO : test 중인 로그를 볼수 있게 텍스트 필드가 필요하다.
-        modelTestTestingTaskController.getTextAreaTestLog().appendText("Test done.\n");
-        modelTestTestingTaskController.getButtonTest().setDisable(false);
-    }
-
-    private void stopTraining(){
-        cancel();
     }
 }
