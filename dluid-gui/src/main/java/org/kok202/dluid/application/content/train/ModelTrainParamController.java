@@ -10,9 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
-import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.domain.exception.InvalidBatchSize;
 
 

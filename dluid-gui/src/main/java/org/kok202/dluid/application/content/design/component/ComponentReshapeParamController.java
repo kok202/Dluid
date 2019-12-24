@@ -9,9 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.AppConstant;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.application.Util.MathUtil;
-import org.kok202.dluid.application.Util.TextFieldUtil;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.util.MathUtil;
+import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
 
 import java.util.List;

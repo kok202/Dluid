@@ -1,8 +1,8 @@
 package org.kok202.dluid.application.common;
 
 import javafx.scene.control.Alert;
-import org.kok202.dluid.application.Util.DialogUtil;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.util.DialogUtil;
 import org.kok202.dluid.domain.exception.*;
 
 public class ExceptionHandler {
