@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import org.kok202.dluid.application.common.AbstractController;
-import org.kok202.dluid.application.content.train.ModelInfoController;
+import org.kok202.dluid.application.content.train.ModelInformationController;
 import org.kok202.dluid.application.content.train.ModelTrainFileLoaderController;
 import org.kok202.dluid.application.content.train.ModelTrainParamController;
 import org.kok202.dluid.application.content.train.ModelTrainTaskController;
@@ -26,7 +26,7 @@ public class TabModelTrainController extends AbstractController {
     @FXML private Label labelTrainTask;
 
     @Getter
-    private ModelInfoController modelInfoController;
+    private ModelInformationController modelInformationController;
     @Getter
     private ModelTrainParamController modelTrainParamController;
     @Getter
@@ -47,12 +47,12 @@ public class TabModelTrainController extends AbstractController {
 
     @Override
     protected void initialize() throws Exception {
-        modelInfoController = new ModelInfoController();
+        modelInformationController = new ModelInformationController();
         modelTrainFileLoaderController = new ModelTrainFileLoaderController();
         modelTrainParamController = new ModelTrainParamController();
         modelTrainTaskController = new ModelTrainTaskController();
 
-        vBoxForModelInfo.getChildren().add(modelInfoController.createView());
+        vBoxForModelInfo.getChildren().add(modelInformationController.createView());
         vBoxForTrainFileLoader.getChildren().add(modelTrainFileLoaderController.createView());
         vBoxForTrainParamSetting.getChildren().add(modelTrainParamController.createView());
         vBoxForTrainTask.getChildren().add(modelTrainTaskController.createView());
@@ -61,9 +61,15 @@ public class TabModelTrainController extends AbstractController {
         labelTrainFileLoader.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.fileLoader.label"));
         labelTrainParamSetting.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.label"));
         labelTrainTask.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.label"));
+        setSettingExpandAndDisable(true);
     }
 
-    public void refreshModelInfo(){
-        modelInfoController.refreshModelInfoProperty();
+    public void setSettingExpandAndDisable(boolean disable){
+        modelTrainFileLoaderController.getTitledPane().setDisable(disable);
+        modelTrainFileLoaderController.getTitledPane().setExpanded(!disable);
+        modelTrainParamController.getTitledPane().setDisable(disable);
+        modelTrainParamController.getTitledPane().setExpanded(!disable);
+        modelTrainTaskController.getTitledPane().setDisable(disable);
+        modelTrainTaskController.getTitledPane().setExpanded(!disable);
     }
 }

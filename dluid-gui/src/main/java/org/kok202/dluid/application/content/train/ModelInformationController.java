@@ -12,7 +12,7 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.model.ModelStateManager;
 
 
-public class ModelInfoController extends AbstractModelTrainController {
+public class ModelInformationController extends AbstractModelTrainController {
     @FXML private TitledPane titledPane;
     @FXML private Label labelModelName;
     @FXML private Label labelEpochNumber;
@@ -36,10 +36,9 @@ public class ModelInfoController extends AbstractModelTrainController {
         labelModelName.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.name"));
         labelEpochNumber.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.totalEpoch"));
         buttonInitialize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.initialize"));
-        titledPane.setExpanded(true);
     }
 
-    public void refreshModelInfoProperty(){
+    public void refreshModelInformation(){
         textFieldModelName.setText(AIFacade.getModelName());
         textFieldEpochNumber.setText(AIFacade.getModelLearnedEpochNumber() + "");
     }

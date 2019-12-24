@@ -42,5 +42,19 @@ public class TabModelTestController extends AbstractController {
         vBoxForTestTask.getChildren().add(modelTestTestingController.createView());
         labelTestDataSetting.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.label"));
         labelTestTask.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.label"));
+        setSettingExpandAndDisable(true);
+    }
+
+    public void setSettingExpandAndDisable(boolean disable){
+        modelTestFeatureController.getModelTestFeatureFileLoaderController().getTitledPane().setDisable(disable);
+        modelTestFeatureController.getModelTestFeatureFileLoaderController().getTitledPane().setExpanded(!disable);
+        modelTestFeatureController.getModelTestFeatureRandomGeneratorController().getTitledPane().setDisable(disable);
+        modelTestFeatureController.getModelTestFeatureRandomGeneratorController().getTitledPane().setExpanded(!disable);
+        modelTestFeatureController.getModelTestFeatureTableController().getTitledPane().setDisable(disable);
+        modelTestFeatureController.getModelTestFeatureTableController().getTitledPane().setExpanded(!disable);
+        modelTestTestingController.getModelTestTestingTaskController().getTitledPane().setDisable(disable);
+        modelTestTestingController.getModelTestTestingTaskController().getTitledPane().setExpanded(!disable);
+        modelTestTestingController.getModelTestTestingResultTableController().getTitledPane().setDisable(disable);
+        modelTestTestingController.getModelTestTestingResultTableController().getTitledPane().setExpanded(!disable);
     }
 }

@@ -1,7 +1,7 @@
 package org.kok202.dluid.model;
 
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
-import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.ModelIsChangedException;
@@ -21,7 +21,9 @@ public class ModelStateManager {
 
         GraphNode<BlockNode> outputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType()).get(0);
         GraphManager<Layer> layerGraphManager = ModelGraphConverter.convertToLayerGraph(outputGraphNode);
-        AIFacade.initializeModel(layerGraphManager);
+//        TODO : AIFacade.initializeModel(layerGraphManager);
+        AppFacade.refreshTrainingFileLoader();
+        AppFacade.setTrainingAndTestSettingDisable(false);
     }
 
     // 1

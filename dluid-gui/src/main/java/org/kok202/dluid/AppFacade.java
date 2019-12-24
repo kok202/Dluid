@@ -128,6 +128,25 @@ public class AppFacade {
         // TODO :
     }
 
+    public static void refreshTrainingFileLoader(){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTrainController()
+                .getModelTrainFileLoaderController()
+                .refreshFileLoader();
+    }
+
+    public static void setTrainingAndTestSettingDisable(boolean disable){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTrainController()
+                .setSettingExpandAndDisable(disable);
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .setSettingExpandAndDisable(disable);
+    }
+
     public static void setTrainingButtonDisable(boolean disable){
         AppWidgetSingleton.getInstance()
                 .getTabsController()

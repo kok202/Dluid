@@ -60,7 +60,6 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         labelBatchSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.batchSize"));
         labelRecordSize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.totalSize"));
         labelEpoch.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.paramSetting.epochSize"));
-        titledPane.setExpanded(false);
     }
 
     private void textFieldChangeHandler(){

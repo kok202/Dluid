@@ -44,7 +44,6 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         buttonTrainingOneTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.oneTime"));
         buttonTrainingNTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.nTime"));
         buttonTrainingStop.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.stop"));
-        titledPane.setExpanded(false);
     }
 
     private void buttonTrainingOneTimeActionHandler(){
