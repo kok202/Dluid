@@ -12,17 +12,21 @@ public class TrainProgressContainer {
     private int epoch;
     private double score;
 
+    public TrainProgressContainer() {
+        message = null;
+        progress = -1;
+        epoch = -1;
+        score = -1;
+    }
+
     public TrainProgressContainer(String message) {
+        this();
         this.message = message;
     }
 
     public TrainProgressContainer(double progress) {
+        this();
         this.progress = progress;
-    }
-
-    public TrainProgressContainer(int epoch, double score) {
-        this.epoch = epoch;
-        this.score = score;
     }
 
     public boolean isExistMessage() {
@@ -39,12 +43,5 @@ public class TrainProgressContainer {
 
     public boolean isExistScore() {
         return score != -1;
-    }
-
-    public TrainProgressContainer() {
-        message = null;
-        progress = -1;
-        epoch = -1;
-        score = -1;
     }
 }

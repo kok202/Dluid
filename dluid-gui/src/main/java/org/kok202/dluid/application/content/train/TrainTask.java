@@ -16,7 +16,7 @@ public class TrainTask extends Task<TrainProgressContainer> {
                 return;
             if(newValue.isExistMessage())
                 modelTrainTaskController.getTextAreaTrainingLog().appendText(newValue.getMessage() + "\n");
-            if(newValue.isExistScore())
+            if(newValue.isExistEpoch() && newValue.isExistScore())
                 modelTrainTaskController.getLineChartAdapter().appendData(newValue.getEpoch(), newValue.getScore());
             if(newValue.isExistProgress())
                 modelTrainTaskController.getProgressBarTrainingProgress().setProgress(newValue.getProgress());
@@ -26,29 +26,9 @@ public class TrainTask extends Task<TrainProgressContainer> {
 
     @Override
     protected TrainProgressContainer call() throws Exception {
-//        validateTrainPossible();
-//        setTrainListener();
-//        trainModel();
-        TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
-        trainProgressContainer.setEpoch(1);
-        trainProgressContainer.setScore(1.0);
-        trainProgressContainer.setProgress(0.1);
-        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 1, 1.0));
-        updateValue(trainProgressContainer);
-        Thread.sleep(1000);
-        trainProgressContainer.setEpoch(2);
-        trainProgressContainer.setScore(0.2);
-        trainProgressContainer.setProgress(0.6);
-        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 2, 0.2));
-        updateValue(trainProgressContainer);
-        Thread.sleep(1000);
-        trainProgressContainer.setEpoch(3);
-        trainProgressContainer.setScore(0.05);
-        trainProgressContainer.setProgress(0.8);
-        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 3, 0.05));
-        updateValue(trainProgressContainer);
-        Thread.sleep(1000);
-        updateValue(new TrainProgressContainer(1));
+        validateTrainPossible();
+        setTrainListener();
+        trainModel();
         return null;
     }
 
@@ -114,6 +94,31 @@ public class TrainTask extends Task<TrainProgressContainer> {
         AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
         AppWidgetSingleton.getInstance().getTabsController().getTabModelTrainController().getModelInformationController().refreshModelInformation();
         AppFacade.setTrainingButtonDisable(false);
+    }
+
+    @Deprecated
+    private void testTask() throws InterruptedException {
+        TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
+        trainProgressContainer.setEpoch(0);
+        trainProgressContainer.setScore(1.0);
+        trainProgressContainer.setProgress(0.1);
+        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 1, 1.0));
+        updateValue(trainProgressContainer);
+        Thread.sleep(1000);
+        trainProgressContainer = new TrainProgressContainer();
+        trainProgressContainer.setEpoch(1);
+        trainProgressContainer.setScore(0.2);
+        trainProgressContainer.setProgress(0.6);
+        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 2, 0.2));
+        updateValue(trainProgressContainer);
+        Thread.sleep(1000);
+        trainProgressContainer = new TrainProgressContainer();
+        trainProgressContainer.setEpoch(2);
+        trainProgressContainer.setScore(0.05);
+        trainProgressContainer.setProgress(1);
+        trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", 3, 0.05));
+        updateValue(trainProgressContainer);
+        Thread.sleep(1000);
     }
 
 }

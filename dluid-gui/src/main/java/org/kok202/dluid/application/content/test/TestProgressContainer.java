@@ -10,11 +10,18 @@ public class TestProgressContainer {
     private String message;
     private double progress;
 
+    public TestProgressContainer() {
+        message = null;
+        progress = -1;
+    }
+
     public TestProgressContainer(String message) {
+        this();
         this.message = message;
     }
 
     public TestProgressContainer(double progress) {
+        this();
         this.progress = progress;
     }
 
@@ -24,10 +31,5 @@ public class TestProgressContainer {
 
     public boolean isExistProgress() {
         return progress != -1;
-    }
-
-    public TestProgressContainer() {
-        message = null;
-        progress = -1;
     }
 }

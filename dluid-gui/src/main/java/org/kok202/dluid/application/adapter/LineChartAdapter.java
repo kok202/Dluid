@@ -29,7 +29,6 @@ public class LineChartAdapter {
     }
 
     public void drawChart(){
-
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.getData().addAll(data);
         lineChart.getData().clear();
