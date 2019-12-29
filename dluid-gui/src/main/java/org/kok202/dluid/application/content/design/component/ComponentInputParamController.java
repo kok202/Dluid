@@ -53,8 +53,7 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
                     throw new MultiOutputLayerException();
                 }
             }
-            InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
-            inputBlockProperty.setStartOfTest(newValue);
+            layer.getProperties().setTestInput(newValue);
         });
         buttonOutputSizeChangeUp.setOnAction(actionEvent -> {
             InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
@@ -76,7 +75,7 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
         textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        checkBoxIsStartOfTest.setSelected(((InputBlockProperty) (CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra())).isStartOfTest());
+        checkBoxIsStartOfTest.setSelected(layer.getProperties().isTestInput());
         attachTextChangedListener(textFieldInputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));

@@ -42,7 +42,11 @@ public enum LayerType {
     }
 
     public boolean isStartLayerType(){
-        return isInputLayerType() || this == SWITCH_LAYER;
+        return this == INPUT_LAYER || this == SWITCH_LAYER;
+    }
+
+    public boolean isSwitchLayerType(){
+        return this == SWITCH_LAYER;
     }
 
     public boolean isOutputLayerType(){

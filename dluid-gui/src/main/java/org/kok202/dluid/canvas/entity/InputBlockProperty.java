@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class InputBlockProperty extends SkewedBlockProperty{
-    private boolean isStartOfTest = false;
     private int pointingIndex;
 
     public int getPointingIndex(int excludeMaxSize){

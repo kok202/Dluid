@@ -9,19 +9,22 @@ import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
 @Data
 public class LayerProperties {
     // common properties
-    protected int[] inputSize;
-    protected int[] outputSize;
-    protected WeightInitWrapper weightInit;
-    protected ActivationWrapper activationFunction;
-    protected double dropout;
+    private int[] inputSize;
+    private int[] outputSize;
+    private WeightInitWrapper weightInit;
+    private ActivationWrapper activationFunction;
+    private double dropout;
 
     // for convolution type
-    protected int[] kernelSize;
-    protected int[] strideSize;
-    protected int[] paddingSize;
+    private int[] kernelSize;
+    private int[] strideSize;
+    private int[] paddingSize;
+
+    // for test input type;
+    private boolean isTestInput;
 
     // for output type
-    protected LossFunction lossFunction;
+    private LossFunction lossFunction;
 
     public void setInputSize(int inputSize) {
         this.inputSize = new int[]{inputSize,1};
@@ -45,6 +48,7 @@ public class LayerProperties {
         weightInit = WeightInitWrapper.ONES;
         activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
+        isTestInput = false;
 
         switch (layerType){
             case CONVOLUTION_1D_LAYER:

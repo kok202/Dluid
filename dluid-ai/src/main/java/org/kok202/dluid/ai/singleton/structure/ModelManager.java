@@ -14,6 +14,7 @@ import org.nd4j.linalg.dataset.api.iterator.MultiDataSetIterator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 public class ModelManager {
@@ -35,9 +36,8 @@ public class ModelManager {
     }
 
     public void setTrainListener(TrainingListener trainingListener){
-        // TODO
-//        models.getListeners().clear();
-//        models.addListeners(trainingListener);
+        models.getListeners().clear();
+        models.addListeners(trainingListener);
     }
 
     /*************************************************************************************************
@@ -45,7 +45,7 @@ public class ModelManager {
      *************************************************************************************************/
     public void train(){
         // Collect all input data set
-        List<Long> inputLayerIds = findTrainInputLayerIds();
+        List<Long> inputLayerIds = findAllInputLayerIds();
         Map<Long, NumericRecordSet> featureDataSetMap = new HashMap<>();
         Map<Long, NumericRecordSet> resultDataSetMap = new HashMap<>();
 
@@ -59,11 +59,10 @@ public class ModelManager {
                 });
 
         // Train it alternately.
-        // TODO
-//        for(int epoch = 0; epoch < modelParameter.getEpoch(); epoch++){
-//            for(int )
-//        }
-//        train(inputLayerId, featureDataSet, resultDataSet);
+        for(int epoch = 0; epoch < modelParameter.getEpoch(); epoch++){
+            for(int )
+        }
+        train(inputLayerId, featureDataSet, resultDataSet);
     }
 
     public void train(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
@@ -75,24 +74,17 @@ public class ModelManager {
      /* Test
      *************************************************************************************************/
     public Evaluation test(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        long inputLayerId = findTestInputLayerId();
         MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(modelParameter.getBatchSize(), featureDataSet, resultDataSet);
-        return findModel(inputLayerId).getComputationGraph().evaluate(multiDataSetIterator);
+        return findTestModel().getComputationGraph().evaluate(multiDataSetIterator);
     }
 
     /*************************************************************************************************
      /* ETC
      *************************************************************************************************/
-    private List<Long> findTrainInputLayerIds() {
-
-        // TODO
-        return null;
-    }
-
-    private long findTestInputLayerId() {
-
-        // TODO
-        return 0;
+    private List<Long> findAllInputLayerIds() {
+        return models.stream()
+                .map(Model::getInputLayerId)
+                .collect(Collectors.toList());
     }
 
     private Model findModel(long inputLayerId){
@@ -101,5 +93,13 @@ public class ModelManager {
                 return model;
         }
         throw new RuntimeException("Can not find model which start from input layer : " + inputLayerId);
+    }
+
+    private Model findTestModel(){
+        for (Model model : models){
+            if(model.isTestModel())
+                return model;
+        }
+        throw new RuntimeException("Can not find test model");
     }
 }

@@ -5,7 +5,6 @@ import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.block.BlockNode;
-import org.kok202.dluid.canvas.entity.InputBlockProperty;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.domain.structure.GraphNode;
 
@@ -79,8 +78,8 @@ public class CanvasFacade {
                 .collect(Collectors.toList());
     }
 
-    public static long findStartLayerIdByLayerId(long layerId){
-        GraphNode<BlockNode> sourceLayerGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().findStartByLayerId(layerId);
+    public static long findStartLayerIdConnectedWithLayerId(long layerId){
+        GraphNode<BlockNode> sourceLayerGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().findStartBlockConnectedWithLayerId(layerId);
         return (sourceLayerGraphNode != null)? sourceLayerGraphNode.getData().getBlockLayer().getId() : -1;
     }
 
@@ -95,8 +94,7 @@ public class CanvasFacade {
     public static Optional<GraphNode<BlockNode>> findTestInputLayer(){
         List<GraphNode<BlockNode>> inputNodes = findAllInputLayer();
         for (GraphNode<BlockNode> inputNode : inputNodes) {
-            InputBlockProperty inputBlockProperty = (InputBlockProperty) inputNode.getData().getBlockInfo().getExtra();
-            if(inputBlockProperty.isStartOfTest())
+            if(inputNode.getData().getBlockLayer().getProperties().isTestInput())
                 return Optional.of(inputNode);
         }
         return Optional.empty();
