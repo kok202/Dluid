@@ -40,8 +40,6 @@ public class BlockInfo {
 
         switch (layerType){
             case INPUT_LAYER:
-            case TRAIN_INPUT_LAYER:
-            case TEST_INPUT_LAYER:
                 extra = new InputBlockProperty();
                 break;
             case MERGE_LAYER:

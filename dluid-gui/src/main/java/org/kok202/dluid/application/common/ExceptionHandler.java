@@ -173,6 +173,15 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof CanNotFindTestInputLayerException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindTestInputLayer.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindTestInputLayer.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindTestInputLayer.content"))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof InvalidMergeConnectionExistException){
             InvalidMergeConnectionExistException invalidMergeConnectionExistException = ((InvalidMergeConnectionExistException) exception);
             DialogUtil.builder()

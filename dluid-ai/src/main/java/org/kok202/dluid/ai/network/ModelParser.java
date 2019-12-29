@@ -15,11 +15,13 @@ public class ModelParser {
     }
 
     private static ComputationGraph createChunk(){
-
+return null;
+        // TODO
     }
 
     private static Model assembleChunk(){
-
+return null;
+        // TODO
     }
 
 }

@@ -42,12 +42,6 @@ public abstract class AbstractMaterialController extends AbstractController {
             case INPUT_LAYER:
                 itself.getStyleClass().add("layer-block-image-input");
                 break;
-            case TRAIN_INPUT_LAYER:
-                itself.getStyleClass().add("layer-block-image-train-input");
-                break;
-            case TEST_INPUT_LAYER:
-                itself.getStyleClass().add("layer-block-image-test-input");
-                break;
             case OUTPUT_LAYER:
                 itself.getStyleClass().add("layer-block-image-output");
                 break;

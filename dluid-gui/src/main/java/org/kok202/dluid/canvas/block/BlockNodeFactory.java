@@ -17,10 +17,6 @@ public class BlockNodeFactory {
                 return new Deconvolution2DBlockNode(layer);
             case INPUT_LAYER:
                 return new InputBlockNode(layer);
-            case TRAIN_INPUT_LAYER:
-                return new TrainInputBlockNode(layer);
-            case TEST_INPUT_LAYER:
-                return new TestInputBlockNode(layer);
             case OUTPUT_LAYER:
                 return new OutputBlockNode(layer);
             case PIPE_LAYER:

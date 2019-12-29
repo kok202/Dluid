@@ -3,6 +3,7 @@ package org.kok202.dluid.application.content.design.component;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -12,16 +13,19 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.MathUtil;
 import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.canvas.entity.InputBlockProperty;
+import org.kok202.dluid.domain.exception.MultiOutputLayerException;
 
 import java.util.List;
 
 public class ComponentInputParamController extends AbstractLayerComponentController {
 
+    @FXML private Label labelIsStartOfTest;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
     @FXML private Label labelWidth;
     @FXML private Label labelHeight;
 
+    @FXML private CheckBox checkBoxIsStartOfTest;
     @FXML private TextField textFieldInputSize;
     @FXML private TextField textFieldOutputSizeX;
     @FXML private TextField textFieldOutputSizeY;
@@ -41,6 +45,17 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
 
     @Override
     protected void initialize() throws Exception {
+        checkBoxIsStartOfTest.selectedProperty().addListener((selected, oldValue, newValue) -> {
+            if(newValue == true){
+                if(CanvasFacade.findTestInputLayer().isPresent() &&
+                    CanvasFacade.findTestInputLayer().get().getData().getBlockLayer().getId() != layer.getId()){
+                    checkBoxIsStartOfTest.setSelected(false);
+                    throw new MultiOutputLayerException();
+                }
+            }
+            InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
+            inputBlockProperty.setStartOfTest(newValue);
+        });
         buttonOutputSizeChangeUp.setOnAction(actionEvent -> {
             InputBlockProperty inputBlockProperty = (InputBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
             inputBlockProperty.setPointingIndex(inputBlockProperty.getPointingIndex() + 1);
@@ -61,11 +76,13 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
         textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        checkBoxIsStartOfTest.setSelected(((InputBlockProperty) (CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra())).isStartOfTest());
         attachTextChangedListener(textFieldInputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
         labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
         labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
+        labelIsStartOfTest.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.isStartOfTest"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
     }

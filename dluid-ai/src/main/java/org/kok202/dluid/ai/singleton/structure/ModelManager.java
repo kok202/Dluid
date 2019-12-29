@@ -35,8 +35,9 @@ public class ModelManager {
     }
 
     public void setTrainListener(TrainingListener trainingListener){
-        models.getListeners().clear();
-        models.addListeners(trainingListener);
+        // TODO
+//        models.getListeners().clear();
+//        models.addListeners(trainingListener);
     }
 
     /*************************************************************************************************
@@ -58,10 +59,11 @@ public class ModelManager {
                 });
 
         // Train it alternately.
-        for(int epoch = 0; epoch < modelParameter.getEpoch(); epoch++){
-            for(int )
-        }
-        train(inputLayerId, featureDataSet, resultDataSet);
+        // TODO
+//        for(int epoch = 0; epoch < modelParameter.getEpoch(); epoch++){
+//            for(int )
+//        }
+//        train(inputLayerId, featureDataSet, resultDataSet);
     }
 
     public void train(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
@@ -83,10 +85,14 @@ public class ModelManager {
      *************************************************************************************************/
     private List<Long> findTrainInputLayerIds() {
 
+        // TODO
+        return null;
     }
 
     private long findTestInputLayerId() {
 
+        // TODO
+        return 0;
     }
 
     private Model findModel(long inputLayerId){

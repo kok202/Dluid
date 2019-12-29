@@ -71,7 +71,7 @@ public class ModelTrainFileLoaderController extends AbstractModelTrainController
 
     public void refreshFileLoader(){
         List<Long> layerIds = CanvasFacade
-                .findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isTrainInputLayerType())
+                .findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
                 .stream()
                 .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
                 .collect(Collectors.toList());

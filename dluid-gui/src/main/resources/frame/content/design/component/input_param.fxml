@@ -24,10 +24,9 @@
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         </rowConstraints>
                                          <children>
-                                             <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="1" />
-                                             <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="2" />
                                              <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                                  <children>
                                                      <Label fx:id="labelWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -38,6 +37,9 @@
                                                      <Label fx:id="labelHeight" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                  </children>
                                              </AnchorPane>
+                                             <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="1" />
+                                             <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="2" />
+                                             <Label fx:id="labelIsStartOfTest" text="Is start of test?" GridPane.rowIndex="3" />
             
                                              <!--==================================================================================Value Field==================================================================================-->
                                              <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -57,7 +59,8 @@
                                                      <TextField fx:id="textFieldOutputSizeY" disable="true" editable="true" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                  </children>
                                              </AnchorPane>
-            
+
+                                             <CheckBox fx:id="checkBoxIsStartOfTest" selected="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                                          </children>
                                     </GridPane>
                            </children>

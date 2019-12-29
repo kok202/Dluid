@@ -29,7 +29,7 @@ class ModelTrainValidator {
     }
 
     private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
-        BlockNode outputBlockNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType()).get(0).getData();
+        BlockNode outputBlockNode = CanvasFacade.findOutputLayer().get().getData();
         int outputBlockNodeSize =
                 outputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
                 outputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
