@@ -11,9 +11,7 @@ public class OutputLayerGenerator extends AbstractLayerGenerator {
 
     @Override
     public boolean support(GraphNode<Layer> currentLayerGraphNode) {
-        return currentLayerGraphNode.getData().getType() == LayerType.INPUT_LAYER ||
-                currentLayerGraphNode.getData().getType() == LayerType.TRAIN_INPUT_LAYER ||
-                currentLayerGraphNode.getData().getType() == LayerType.TEST_INPUT_LAYER;
+        return currentLayerGraphNode.getData().getType() == LayerType.OUTPUT_LAYER;
     }
 
     @Override
