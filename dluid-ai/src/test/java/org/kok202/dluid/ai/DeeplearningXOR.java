@@ -9,6 +9,7 @@ import org.kok202.dluid.ai.listener.NormalTrainingListener;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.stream.StringRecordSet;
+import org.kok202.dluid.domain.structure.GraphManager;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
 
 public class DeeplearningXOR {
@@ -52,25 +53,14 @@ public class DeeplearningXOR {
         layer2.getProperties().setInputSize(10);
         layer2.getProperties().setOutputSize(1);
 
-        AISingleton.getInstance()
-                .getModelManager()
-                .getLayerGraphManager()
-                .registerSoloNode(layer0);
-        AISingleton.getInstance()
-                .getModelManager()
-                .getLayerGraphManager()
-                .linkToNewData(layer0, layer1);
-        AISingleton.getInstance()
-                .getModelManager()
-                .getLayerGraphManager()
-                .linkToNewData(layer1, layer2);
+        GraphManager<Layer> layerGraphManager = new GraphManager<>();
+        layerGraphManager.registerSoloNode(layer0);
+        layerGraphManager.linkToNewData(layer0, layer1);
+        layerGraphManager.linkToNewData(layer1, layer2);
 
         AISingleton.getInstance()
                 .getModelManager()
-                .initialize(
-                        AISingleton.getInstance()
-                                .getModelManager()
-                                .getLayerGraphManager());
+                .initialize(layerGraphManager);
         AISingleton.getInstance()
                 .getModelManager()
                 .setTrainListener(NormalTrainingListener.builder()
@@ -80,7 +70,7 @@ public class DeeplearningXOR {
                         .batchPrintPeriod(1)
                         .totalRecordSize(AISingleton.getInstance().getModelManager().getModelParameter().getTotalRecordSize())
                         .build());
-        AISingleton.getInstance().getModelManager().train(trainFeature, trainResult);
+        AISingleton.getInstance().getModelManager().train(layer0.getId(), trainFeature, trainResult);
         System.out.println(AISingleton.getInstance().getModelManager().test(testFeature, testResult).stats());
 
     }
