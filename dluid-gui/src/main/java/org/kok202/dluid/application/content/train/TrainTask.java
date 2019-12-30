@@ -3,7 +3,7 @@ package org.kok202.dluid.application.content.train;
 import javafx.concurrent.Task;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.ai.AIFacade;
-import org.kok202.dluid.ai.listener.RunnableTrainingTaskContainer;
+import org.kok202.dluid.ai.listener.TrainingEpochContainer;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 import org.kok202.dluid.model.ModelStateManager;
 
@@ -41,37 +41,19 @@ public class TrainTask extends Task<TrainProgressContainer> {
     private void setTrainListener(){
         updateValue(new TrainProgressContainer("Try to add listener for print log."));
         int epochTaskPeriod = 1;
-        int batchTaskPeriod = AIFacade.getTrainTotalRecordSize() / AIFacade.getTrainBatchSize() / 10;
-        epochTaskPeriod = (epochTaskPeriod <= 0)? 1 : epochTaskPeriod;
-        batchTaskPeriod = (batchTaskPeriod <= 0)? 1 : batchTaskPeriod;
         AIFacade.initializeTrainListener(
                 epochTaskPeriod,
-                batchTaskPeriod,
                 (taskContainerObj) -> {
                     // not executed if epoch is not set when
-                    RunnableTrainingTaskContainer taskContainer = (RunnableTrainingTaskContainer) taskContainerObj;
-                    int epochCount = taskContainer.getEpochCounter().getCount();
-                    double fittingScore = taskContainer.getScore();
+                    TrainingEpochContainer trainingEpochContainer = (TrainingEpochContainer) taskContainerObj;
+                    int epochCount = trainingEpochContainer.getEpochCounter().getCount();
+                    double fittingScore = trainingEpochContainer.getScore();
 
                     TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
                     trainProgressContainer.setEpoch(epochCount);
                     trainProgressContainer.setScore(fittingScore);
+                    trainProgressContainer.setProgress(trainingEpochContainer.getProgress());
                     trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", epochCount, fittingScore));
-                    updateValue(trainProgressContainer);
-                },
-                (taskContainerObj) -> {
-                    RunnableTrainingTaskContainer taskContainer = (RunnableTrainingTaskContainer) taskContainerObj;
-                    double currentProgress =
-                            taskContainer.getBatchCounter().getCount() +
-                            (taskContainer.getEpochCounter().getCount()-1) * taskContainer.getBatchCounter().getMax();
-                    double totalProgress = taskContainer.getEpochCounter().getMax() * taskContainer.getBatchCounter().getMax();
-
-                    double progress = currentProgress / totalProgress * 100;
-                    progress = Math.max(0, progress);
-                    progress = Math.min(1, progress);
-                    TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
-                    trainProgressContainer.setProgress(progress);
-                    trainProgressContainer.setMessage("Batch progress : " + taskContainer.getBatchCounter().calcPercent() + " / 100%");
                     updateValue(trainProgressContainer);
                 });
         updateValue(new TrainProgressContainer("Try to add listener for print log. [done]"));

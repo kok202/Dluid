@@ -2,8 +2,8 @@ package org.kok202.dluid.ai;
 
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
-import org.kok202.dluid.ai.listener.RunnableTrainingListener;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitilaizer;
+import org.kok202.dluid.ai.listener.TrainingEpochListener;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
@@ -23,16 +23,12 @@ public class AIFacade {
         AISingleton.getInstance().getModelManager().initialize(layerGraphManager);
     }
 
-    public static void initializeTrainListener(int epochTaskPeriod, int batchTaskPeriod, Consumer epochTask, Consumer batchTask){
+    public static void initializeTrainListener(int epochTaskPeriod, Consumer epochTask){
         AISingleton.getInstance().getModelManager().setTrainListener(
-                RunnableTrainingListener.builder()
+                TrainingEpochListener.builder()
                         .epochSize(AISingleton.getInstance().getModelManager().getModelParameter().getEpoch())
                         .epochTaskPeriod(epochTaskPeriod)
                         .epochTask(epochTask)
-                        .batchSize(AISingleton.getInstance().getModelManager().getModelParameter().getBatchSize())
-                        .totalRecordSize(AISingleton.getInstance().getModelManager().getModelParameter().getTotalRecordSize())
-                        .batchTaskPeriod(batchTaskPeriod)
-                        .batchTask(batchTask)
                         .build());
     }
 
@@ -106,13 +102,6 @@ public class AIFacade {
     /*************************************************************************************************
      /* AI train property
      *************************************************************************************************/
-    public static int getTrainTotalRecordSize(){
-        return AISingleton.getInstance().getModelManager().getModelParameter().getTotalRecordSize();
-    }
-
-    public static void setTrainTotalRecordSize(int totalRecordSize){
-        AISingleton.getInstance().getModelManager().getModelParameter().setTotalRecordSize(totalRecordSize);
-    }
 
     public static int getTrainBatchSize(){
         return AISingleton.getInstance().getModelManager().getModelParameter().getBatchSize();
@@ -138,12 +127,12 @@ public class AIFacade {
         AISingleton.getInstance().getModelManager().getModelParameter().setLearningRate(learningRate);
     }
 
-    public static WeightInitWrapper getTrainWeightInit() {
-        return AISingleton.getInstance().getModelManager().getModelParameter().getWeightInit();
+    public static WeightInitilaizer getTrainWeightInitializer() {
+        return AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer();
     }
 
-    public static void setTrainWeightInit(WeightInitWrapper weightInit) {
-        AISingleton.getInstance().getModelManager().getModelParameter().setWeightInit(weightInit);
+    public static void setTrainWeightInit(WeightInitilaizer weightInit) {
+        AISingleton.getInstance().getModelManager().getModelParameter().setWeightInitializer(weightInit);
     }
 
     public static Optimizer getTrainOptimizer() {

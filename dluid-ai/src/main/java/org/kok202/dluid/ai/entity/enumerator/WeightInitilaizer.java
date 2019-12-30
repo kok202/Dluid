@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.deeplearning4j.nn.weights.WeightInit;
 
 @AllArgsConstructor
-public enum WeightInitWrapper {
+public enum WeightInitilaizer {
     ZERO(WeightInit.ZERO),
     ONES(WeightInit.ONES),
     NORMAL(WeightInit.NORMAL),

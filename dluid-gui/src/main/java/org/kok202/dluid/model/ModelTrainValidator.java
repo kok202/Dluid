@@ -57,11 +57,7 @@ class ModelTrainValidator {
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.invalidBatchSize.content"));
         if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
-        if(AIFacade.getTrainTotalRecordSize() <= 0)
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.totalRecordSize.content"));
-        if(AIFacade.getTrainBatchSize() > AIFacade.getTrainTotalRecordSize())
-            throw new InvalidBatchSize(AIFacade.getTrainTotalRecordSize());
-        if(AIFacade.getTrainWeightInit() == null)
+        if(AIFacade.getTrainWeightInitializer() == null)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
         if(AIFacade.getTrainOptimizer() == null)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));
