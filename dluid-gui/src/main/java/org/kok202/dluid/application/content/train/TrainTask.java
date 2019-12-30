@@ -25,7 +25,7 @@ public class TrainTask extends Task<TrainProgressContainer> {
     }
 
     @Override
-    protected TrainProgressContainer call() throws Exception {
+    protected TrainProgressContainer call() {
         validateTrainPossible();
         setTrainListener();
         trainModel();

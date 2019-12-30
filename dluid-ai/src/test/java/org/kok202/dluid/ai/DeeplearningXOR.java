@@ -31,7 +31,6 @@ public class DeeplearningXOR {
         NumericRecordSet testResult = NumericRecordSet.convertFrom(resultSet);
 
         AISingleton.getInstance().getModelManager().getModelParameter().setBatchSize(4);
-        AISingleton.getInstance().getModelManager().getModelParameter().setTotalRecordSize(4);
         AISingleton.getInstance().getModelManager().getModelParameter().setOptimizer(Optimizer.ADAM);
         AISingleton.getInstance().getModelManager().getModelParameter().setEpoch(1000);
         AISingleton.getInstance().getModelManager().getModelParameter().setLearningRate(0.006);

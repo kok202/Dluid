@@ -8,6 +8,7 @@ import org.kok202.dluid.domain.exception.*;
 public class ExceptionHandler {
     public static void catchException(Thread thread, Throwable exception) {
         System.err.println("Exception handler catch : " + exception.getMessage());
+        exception.printStackTrace();
 
         if(exception instanceof IllegalConnectionRequest){
             DialogUtil.builder()
@@ -228,7 +229,6 @@ public class ExceptionHandler {
                     .contentText(exception.getMessage())
                     .build()
                     .showAndWait();
-            exception.printStackTrace();
         }
     }
 }

@@ -10,13 +10,22 @@ public class ComputationGraphChunkLinker {
     public List<LinkedComputationGraph> link(ComputationGraphChunkSet computationGraphChunkSet){
         List<LinkedComputationGraph> linkedComputationGraphs = new ArrayList<>();
 
+        // It means there is no switch layer.
+        if(computationGraphChunkSet.getLinkageFromTo().get(computationGraphChunkSet.getOutputLayerId()) == null){
+            LinkedComputationGraph linkedComputationGraph = new LinkedComputationGraph();
+            linkedComputationGraph.getComputationGraphs().add(computationGraphChunkSet.getManagersMap().get(computationGraphChunkSet.getTestInputLayerId()));
+            linkedComputationGraph.setTestModel(true);
+            linkedComputationGraph.setInputLayerId(computationGraphChunkSet.getOutputLayerId());
+            linkedComputationGraphs.add(linkedComputationGraph);
+            return linkedComputationGraphs;
+        }
+
         for(long from : computationGraphChunkSet.getLinkageFromTo().get(computationGraphChunkSet.getOutputLayerId())){
             LinkedComputationGraph linkedComputationGraphStack = new LinkedComputationGraph();
             linkedComputationGraphStack.getComputationGraphs().add(computationGraphChunkSet.getManagersMap().get(computationGraphChunkSet.getOutputLayerId()));
             linkedComputationGraphStack.getComputationGraphs().add(computationGraphChunkSet.getManagersMap().get(from));
             findAllCombinationSearch(computationGraphChunkSet, linkedComputationGraphs, linkedComputationGraphStack, from);
         }
-
         return linkedComputationGraphs;
     }
 

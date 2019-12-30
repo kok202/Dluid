@@ -34,7 +34,6 @@ public class ModelManager {
      *************************************************************************************************/
     public void initialize(GraphManager<Layer> layerGraphManager) {
         models = ModelParser.parse(layerGraphManager);
-        models.forEach(model -> model.getTotalComputationGraph().init());
     }
 
     public void setTrainListener(TrainingEpochListener trainingEpochListener){

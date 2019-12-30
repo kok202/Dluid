@@ -17,7 +17,7 @@ class ModelTrainValidator {
         validateParameterSetting();
     }
 
-    private static void validateDataSetExist() throws FeatureSetDimensionUnmatchedException {
+    private static void validateDataSetExist() {
         for (Map.Entry<Long, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
             Long inputLayerId = entry.getKey();
             DataSetManager dataSetManager = entry.getValue();
