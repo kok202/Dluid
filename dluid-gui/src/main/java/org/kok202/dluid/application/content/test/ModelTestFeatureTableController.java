@@ -2,10 +2,13 @@ package org.kok202.dluid.application.content.test;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
+import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.application.adapter.NumericTableViewAdapter;
 import org.kok202.dluid.application.content.TabModelTestController;
@@ -15,6 +18,8 @@ import org.kok202.dluid.domain.stream.NumericRecordSet;
 @Data
 public class ModelTestFeatureTableController extends AbstractModelTestController {
     @FXML private TitledPane titledPane;
+    @FXML private Label labelTestTarget;
+    @FXML private TextField textFieldTestTargetData;
     @FXML private TableView tableViewDataSet;
     private NumericTableViewAdapter numericTableViewAdapter;
 
@@ -33,6 +38,11 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
     protected void initialize() throws Exception {
         numericTableViewAdapter = new NumericTableViewAdapter(tableViewDataSet);
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataTable.title"));
+        labelTestTarget.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetLayerId"));
+    }
+
+    public void refreshTestInputLayerInformation(){
+        textFieldTestTargetData.setText(String.valueOf(CanvasFacade.findTestInputLayer().get().getData().getBlockLayer().getId()));
     }
 
     public void refreshTableView(){

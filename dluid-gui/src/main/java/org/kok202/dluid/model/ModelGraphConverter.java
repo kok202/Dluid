@@ -23,7 +23,7 @@ class ModelGraphConverter {
             Layer fromLayer = fromGraphNode.getData().getBlockLayer();
             Layer toLayer = toGraphNode.getData().getBlockLayer();
             graphManager.linkFromNewData(fromLayer, toLayer);
-            link(graphManager, toGraphNode, fromGraphNode.getIncomingNodes());
+            link(graphManager, fromGraphNode, fromGraphNode.getIncomingNodes());
         });
     }
 }

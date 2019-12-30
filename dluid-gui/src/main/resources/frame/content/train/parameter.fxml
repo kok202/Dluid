@@ -22,7 +22,6 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <!--============================================================= Training param =============================================================-->
@@ -30,8 +29,7 @@
                                 <Label fx:id="labelOptimizer" text="학습 방법 : " GridPane.rowIndex="1" />
                                 <Label fx:id="labelLearningRate" text="학습 속도 : " GridPane.rowIndex="2" />
                                 <Label fx:id="labelBatchSize" text="학습 단위 : " GridPane.rowIndex="3" />
-                                <Label fx:id="labelRecordSize" text="학습 데이터 크기 : " GridPane.rowIndex="4" />
-                                <Label fx:id="labelEpoch" text="반복 학습 : " GridPane.rowIndex="5" />
+                                <Label fx:id="labelEpoch" text="반복 학습 : " GridPane.rowIndex="4" />
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <children>
                                         <MenuButton fx:id="menuButtonWeightInit" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -64,12 +62,7 @@
                                         <Insets bottom="5.0" top="5.0" />
                                     </padding>
                                 </TextField>
-                                <TextField fx:id="textFieldRecordSize" disable="true" promptText="128" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                    <padding>
-                                        <Insets bottom="5.0" top="5.0" />
-                                    </padding>
-                                </TextField>
-                                <TextField fx:id="textFieldEpoch" promptText="100" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                <TextField fx:id="textFieldEpoch" promptText="100" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                     <padding>
                                         <Insets bottom="5.0" top="5.0" />
                                     </padding>

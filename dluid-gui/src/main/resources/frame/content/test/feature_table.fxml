@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
@@ -14,6 +16,32 @@
                     <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                              <children>
+
+                                <GridPane hgap="5.0" vgap="5.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="130" prefWidth="140" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="80" prefWidth="240" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                         <Label fx:id="labelTestTarget" text="Target input : " GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                             <children>
+                                                 <TextField fx:id="textFieldTestTargetData" disable="true" editable="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                 </TextField>
+                                             </children>
+                                             <padding>
+                                                 <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                         </AnchorPane>
+                                    </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                                </GridPane>
+
                                  <TableView fx:id="tableViewDataSet" prefHeight="200.0" prefWidth="200.0">
                                    <columns>
                                    </columns>

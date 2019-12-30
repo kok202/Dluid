@@ -2,6 +2,7 @@ package org.kok202.dluid.model;
 
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.ModelIsChangedException;
@@ -19,10 +20,11 @@ public class ModelStateManager {
         ModelGraphValidator.validateModelIsCorrect();
         previousGraphHashCode = CanvasFacade.getGraphManagerHashCode();
 
-        GraphNode<BlockNode> outputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType()).get(0);
+        GraphNode<BlockNode> outputGraphNode = CanvasFacade.findOutputLayer().get();
         GraphManager<Layer> layerGraphManager = ModelGraphConverter.convertToLayerGraph(outputGraphNode);
-//        TODO : AIFacade.initializeModel(layerGraphManager);
+        AIFacade.initializeModel(layerGraphManager);
         AppFacade.refreshTrainingFileLoader();
+        AppFacade.refreshTestInputLayerInformation();
         AppFacade.setTrainingAndTestSettingDisable(false);
     }
 

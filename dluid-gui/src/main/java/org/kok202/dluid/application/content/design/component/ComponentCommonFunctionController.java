@@ -8,7 +8,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitilaizer;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
@@ -45,18 +45,18 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
     }
 
     private void initializeMenuButtonWeightInit(){
-        MenuAdapter<WeightInitWrapper> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
+        MenuAdapter<WeightInitilaizer> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
         menuAdapter.setMenuItemChangedListener(weightInit -> {
             layer.getProperties().setWeightInit(weightInit);
             notifyLayerDataChanged();
         });
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitWrapper.ONES);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitWrapper.ZERO);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitWrapper.XAVIER);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInitWrapper.UNIFORM);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitWrapper.NORMAL);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitWrapper.DISTRIBUTION_ZERO_TO_ONE);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitWrapper.DISTRIBUTION_PLUS_MINUS_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitilaizer.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitilaizer.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitilaizer.XAVIER);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInitilaizer.UNIFORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitilaizer.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitilaizer.DISTRIBUTION_ZERO_TO_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitilaizer.DISTRIBUTION_PLUS_MINUS_ONE);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInit());
     }
 

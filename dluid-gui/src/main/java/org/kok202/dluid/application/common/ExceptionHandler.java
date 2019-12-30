@@ -8,6 +8,7 @@ import org.kok202.dluid.domain.exception.*;
 public class ExceptionHandler {
     public static void catchException(Thread thread, Throwable exception) {
         System.err.println("Exception handler catch : " + exception.getMessage());
+        exception.printStackTrace();
 
         if(exception instanceof IllegalConnectionRequest){
             DialogUtil.builder()
@@ -173,6 +174,15 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof CanNotFindTestInputLayerException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindTestInputLayer.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindTestInputLayer.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.canNotFindTestInputLayer.content"))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof InvalidMergeConnectionExistException){
             InvalidMergeConnectionExistException invalidMergeConnectionExistException = ((InvalidMergeConnectionExistException) exception);
             DialogUtil.builder()
@@ -219,7 +229,6 @@ public class ExceptionHandler {
                     .contentText(exception.getMessage())
                     .build()
                     .showAndWait();
-            exception.printStackTrace();
         }
     }
 }

@@ -3,25 +3,28 @@ package org.kok202.dluid.ai.entity;
 import lombok.Data;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitWrapper;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitilaizer;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
 
 @Data
 public class LayerProperties {
     // common properties
-    protected int[] inputSize;
-    protected int[] outputSize;
-    protected WeightInitWrapper weightInit;
-    protected ActivationWrapper activationFunction;
-    protected double dropout;
+    private int[] inputSize;
+    private int[] outputSize;
+    private WeightInitilaizer weightInit;
+    private ActivationWrapper activationFunction;
+    private double dropout;
 
     // for convolution type
-    protected int[] kernelSize;
-    protected int[] strideSize;
-    protected int[] paddingSize;
+    private int[] kernelSize;
+    private int[] strideSize;
+    private int[] paddingSize;
+
+    // for test input type;
+    private boolean isTestInput;
 
     // for output type
-    protected LossFunction lossFunction;
+    private LossFunction lossFunction;
 
     public void setInputSize(int inputSize) {
         this.inputSize = new int[]{inputSize,1};
@@ -42,9 +45,10 @@ public class LayerProperties {
     LayerProperties(LayerType layerType) {
         inputSize = new int[]{10, 1};
         outputSize = new int[]{10, 1};
-        weightInit = WeightInitWrapper.ONES;
+        weightInit = WeightInitilaizer.ONES;
         activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
+        isTestInput = false;
 
         switch (layerType){
             case CONVOLUTION_1D_LAYER:

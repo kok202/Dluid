@@ -118,6 +118,15 @@ public class AppFacade {
                 .refreshFileLoader();
     }
 
+    public static void refreshTestInputLayerInformation(){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestFeatureController()
+                .getModelTestFeatureTableController()
+                .refreshTestInputLayerInformation();
+    }
+
     public static void setTrainingAndTestSettingDisable(boolean disable){
         AppWidgetSingleton.getInstance()
                 .getTabsController()

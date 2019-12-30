@@ -3,7 +3,9 @@ package org.kok202.dluid.application.content.design.material.list;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
-import org.kok202.dluid.application.content.design.material.block.*;
+import org.kok202.dluid.application.content.design.material.block.MaterialMergeController;
+import org.kok202.dluid.application.content.design.material.block.MaterialReshapeController;
+import org.kok202.dluid.application.content.design.material.block.MaterialSwitchController;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionFollower;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
@@ -27,8 +29,6 @@ public class MaterialListAdvancedLayer extends AbstractMaterialList {
     @Override
     protected void initialize() throws Exception {
         ((AnchorPane)itself).getChildren().add(new MaterialInsertionFollower().createView());
-        addAbstractMaterialController(new MaterialTrainInputController());
-        addAbstractMaterialController(new MaterialTestInputController());
         addAbstractMaterialController(new MaterialReshapeController());
         addAbstractMaterialController(new MaterialMergeController());
         addAbstractMaterialController(new MaterialSwitchController());

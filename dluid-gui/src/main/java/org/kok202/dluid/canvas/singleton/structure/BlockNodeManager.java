@@ -114,12 +114,12 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 .collect(Collectors.toList());
     }
 
-    public GraphNode<BlockNode> findStartByLayerId(long layerId) {
+    public GraphNode<BlockNode> findStartBlockConnectedWithLayerId(long layerId) {
         GraphNode<BlockNode> startNode = findGraphNodeByLayerId(layerId);
-        return findStartByLayerIdSearch(startNode);
+        return findStartBlockConnectedWithLayerIdSearch(startNode);
     }
 
-    private GraphNode<BlockNode> findStartByLayerIdSearch(GraphNode<BlockNode> currentNode) {
+    private GraphNode<BlockNode> findStartBlockConnectedWithLayerIdSearch(GraphNode<BlockNode> currentNode) {
         if(currentNode.getData().getBlockLayer().getType().isStartLayerType())
             return currentNode;
 
@@ -128,7 +128,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
             return null;
 
         for(GraphNode<BlockNode> incomingNode : incomingNodes){
-            GraphNode<BlockNode> searchedNode = findStartByLayerIdSearch(incomingNode);
+            GraphNode<BlockNode> searchedNode = findStartBlockConnectedWithLayerIdSearch(incomingNode);
             if(searchedNode != null)
                 return searchedNode;
         }

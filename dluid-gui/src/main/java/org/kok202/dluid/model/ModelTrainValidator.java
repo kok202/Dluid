@@ -17,7 +17,7 @@ class ModelTrainValidator {
         validateParameterSetting();
     }
 
-    private static void validateDataSetExist() throws FeatureSetDimensionUnmatchedException {
+    private static void validateDataSetExist() {
         for (Map.Entry<Long, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
             Long inputLayerId = entry.getKey();
             DataSetManager dataSetManager = entry.getValue();
@@ -29,7 +29,7 @@ class ModelTrainValidator {
     }
 
     private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
-        BlockNode outputBlockNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType()).get(0).getData();
+        BlockNode outputBlockNode = CanvasFacade.findOutputLayer().get().getData();
         int outputBlockNodeSize =
                 outputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
                 outputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
@@ -57,11 +57,7 @@ class ModelTrainValidator {
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.invalidBatchSize.content"));
         if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
-        if(AIFacade.getTrainTotalRecordSize() <= 0)
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.totalRecordSize.content"));
-        if(AIFacade.getTrainBatchSize() > AIFacade.getTrainTotalRecordSize())
-            throw new InvalidBatchSize(AIFacade.getTrainTotalRecordSize());
-        if(AIFacade.getTrainWeightInit() == null)
+        if(AIFacade.getTrainWeightInitializer() == null)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
         if(AIFacade.getTrainOptimizer() == null)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));

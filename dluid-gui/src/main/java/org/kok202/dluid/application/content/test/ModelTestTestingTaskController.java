@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
+import org.kok202.dluid.application.common.ExceptionHandler;
 import org.kok202.dluid.application.content.TabModelTestController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
@@ -40,6 +41,7 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
     private void buttonTestActionHandler(){
         TestTask testTask = new TestTask();
         testTask.bindWithComponent(this);
+        testTask.exceptionProperty().addListener((observable, oldValue, newValue) -> ExceptionHandler.catchException(Thread.currentThread(), newValue));
         Thread thread = new Thread(testTask);
         thread.setDaemon(true);
         thread.start();

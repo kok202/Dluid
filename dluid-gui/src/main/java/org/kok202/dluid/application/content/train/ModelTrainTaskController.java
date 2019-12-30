@@ -10,6 +10,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.dluid.application.adapter.LineChartAdapter;
+import org.kok202.dluid.application.common.ExceptionHandler;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
 @Data
@@ -51,6 +52,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         lineChartAdapter.clearChart();
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
+        trainTask.exceptionProperty().addListener((observable, oldValue, newValue) -> ExceptionHandler.catchException(Thread.currentThread(), newValue));
         Thread thread = new Thread(trainTask);
         thread.setDaemon(true);
         thread.start();
@@ -61,6 +63,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         lineChartAdapter.clearChart();
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
+        trainTask.exceptionProperty().addListener((observable, oldValue, newValue) -> ExceptionHandler.catchException(Thread.currentThread(), newValue));
         Thread thread = new Thread(trainTask);
         thread.setDaemon(true);
         thread.start();

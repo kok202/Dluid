@@ -20,8 +20,6 @@ public enum LayerType {
      * NOT REAL LAYER
      **********************************************************/
     INPUT_LAYER,
-    TRAIN_INPUT_LAYER,
-    TEST_INPUT_LAYER,
     PIPE_LAYER,
     MERGE_LAYER,
     RESHAPE_LAYER,
@@ -40,19 +38,15 @@ public enum LayerType {
     REPEAT_VECTOR;
 
     public boolean isInputLayerType(){
-        return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER || this == TEST_INPUT_LAYER;
+        return this == INPUT_LAYER;
     }
 
     public boolean isStartLayerType(){
-        return isInputLayerType() || this == SWITCH_LAYER;
+        return this == INPUT_LAYER || this == SWITCH_LAYER;
     }
 
-    public boolean isTrainInputLayerType(){
-        return this == INPUT_LAYER || this == TRAIN_INPUT_LAYER;
-    }
-
-    public boolean isTestInputLayerType(){
-        return this == INPUT_LAYER || this == TEST_INPUT_LAYER;
+    public boolean isSwitchLayerType(){
+        return this == SWITCH_LAYER;
     }
 
     public boolean isOutputLayerType(){

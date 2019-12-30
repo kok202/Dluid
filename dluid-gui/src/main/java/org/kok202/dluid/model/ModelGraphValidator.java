@@ -7,6 +7,7 @@ import org.kok202.dluid.domain.exception.*;
 import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 class ModelGraphValidator {
@@ -21,20 +22,20 @@ class ModelGraphValidator {
     }
 
     private static void validateTrainInputBlockNodeExist() throws RuntimeException{
-        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isTrainInputLayerType());
+        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllInputLayer();
         if(inputGraphNode.isEmpty())
             throw new CanNotFindInputLayerException();
     }
 
     private static void validateTestInputBlockNodeExist() throws RuntimeException{
-        List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isTestInputLayerType());
-        if(inputGraphNode.isEmpty())
-            throw new CanNotFindInputLayerException();
+        Optional<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findTestInputLayer();
+        if(!inputGraphNode.isPresent())
+            throw new CanNotFindTestInputLayerException();
     }
 
     private static void validateOutputBlockNodeExist() throws RuntimeException{
-        List<GraphNode<BlockNode>> outputGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isOutputLayerType());
-        if(outputGraphNode.isEmpty())
+        Optional<GraphNode<BlockNode>> outputGraphNode = CanvasFacade.findOutputLayer();
+        if(!outputGraphNode.isPresent())
             throw new CanNotFindOutputLayerException();
     }
 
@@ -66,7 +67,7 @@ class ModelGraphValidator {
             List<Long> sourceLayerIdsOfMergeBlockNode = mergeGraphNode
                     .getIncomingNodes()
                     .stream()
-                    .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdByLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
+                    .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdConnectedWithLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
                     .filter(layerId -> layerId != -1)
                     .collect(Collectors.toList());
             if(sourceLayerIdsOfMergeBlockNode.stream().distinct().count() != 1)
@@ -80,7 +81,7 @@ class ModelGraphValidator {
             List<Long> sourceLayerIdsOfSwitchBlockNode = switchGraphNode
                     .getIncomingNodes()
                     .stream()
-                    .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdByLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
+                    .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdConnectedWithLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
                     .filter(layerId -> layerId != -1)
                     .collect(Collectors.toList());
             if(sourceLayerIdsOfSwitchBlockNode.size() != sourceLayerIdsOfSwitchBlockNode.stream().distinct().count())

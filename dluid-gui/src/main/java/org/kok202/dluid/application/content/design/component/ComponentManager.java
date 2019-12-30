@@ -50,8 +50,6 @@ public class ComponentManager {
                 componentList.add(new ComponentConvolution2DParamController(layer));
                 break;
             case INPUT_LAYER:
-            case TRAIN_INPUT_LAYER:
-            case TEST_INPUT_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentInputParamController(layer));
                 break;
