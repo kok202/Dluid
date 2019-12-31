@@ -39,7 +39,6 @@ public class LinkedMultiLayerNetworkConverter {
 //        totalMultiLayerNetwork.init();
 
         return Model.builder()
-                .isTestModel(linkedMultiLayerNetwork.isTestModel())
                 .inputLayerId(linkedMultiLayerNetwork.getInputLayerId())
                 .totalMultiLayerNetwork(null)
                 .multiLayerNetworks(linkedMultiLayerNetwork.getMultiLayerNetworks())

@@ -21,7 +21,6 @@ public class ModelParser {
                                         entry -> entry.getKey(),
                                         entry -> GraphManagerConverter.convert(entry.getValue()))))
                 .outputLayerId(graphManagerSplitter.getOutputLayerId())
-                .testInputLayerId(graphManagerSplitter.getTestInputLayerId())
                 .linkageFromTo(graphManagerSplitter.getLinkageFromTo())
                 .build();
 

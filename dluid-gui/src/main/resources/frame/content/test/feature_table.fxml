@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
@@ -29,8 +29,10 @@
                                          <Label fx:id="labelTestTarget" text="Target input : " GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                              <children>
-                                                 <TextField fx:id="textFieldTestTargetData" disable="true" editable="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                 </TextField>
+                                                 <MenuButton fx:id="menuButtonTestTarget" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                     <items>
+                                                     </items>
+                                                 </MenuButton>
                                              </children>
                                              <padding>
                                                  <Insets bottom="5.0" top="5.0" />

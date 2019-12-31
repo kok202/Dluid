@@ -91,13 +91,13 @@ public class ModelManager {
     /*************************************************************************************************
      /* Test
      *************************************************************************************************/
-    public NumericRecordSet test(NumericRecordSet featureDataSet){
-        return findTestModel().test(featureDataSet);
+    public NumericRecordSet test(long inputLayerId, NumericRecordSet featureDataSet){
+        return findModel(inputLayerId).test(featureDataSet);
     }
 
-    public Evaluation test(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
+    public Evaluation test(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
         DataSetIterator dataSetIterator = new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList());
-        return findTestModel().getTotalMultiLayerNetwork().evaluate(dataSetIterator);
+        return findModel(inputLayerId).getTotalMultiLayerNetwork().evaluate(dataSetIterator);
     }
 
     /*************************************************************************************************
@@ -115,13 +115,5 @@ public class ModelManager {
                 return model;
         }
         throw new RuntimeException("Can not find model which start from input layer : " + inputLayerId);
-    }
-
-    private Model findTestModel(){
-        for (Model model : models){
-            if(model.isTestModel())
-                return model;
-        }
-        throw new RuntimeException("Can not find test model");
     }
 }

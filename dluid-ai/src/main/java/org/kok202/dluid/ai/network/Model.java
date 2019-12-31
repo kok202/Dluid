@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Model {
     private long inputLayerId;
-    private boolean isTestModel;
     private MultiLayerNetwork totalMultiLayerNetwork;
     private List<MultiLayerNetwork> multiLayerNetworks;
 

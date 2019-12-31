@@ -24,7 +24,6 @@
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         </rowConstraints>
                                          <children>
                                              <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -39,7 +38,6 @@
                                              </AnchorPane>
                                              <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="1" />
                                              <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="2" />
-                                             <Label fx:id="labelIsStartOfTest" text="Is start of test?" GridPane.rowIndex="3" />
             
                                              <!--==================================================================================Value Field==================================================================================-->
                                              <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -60,7 +58,6 @@
                                                  </children>
                                              </AnchorPane>
 
-                                             <CheckBox fx:id="checkBoxIsStartOfTest" selected="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                                          </children>
                                     </GridPane>
                            </children>

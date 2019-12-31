@@ -26,7 +26,8 @@ public class MenuAdapter<T> {
     public void addMenuItem(String menuItemName, T settingType){
         MenuItem menuItem = new MenuItem(menuItemName);
         menuItem.setOnAction(event -> {
-            menuItemChangedListener.accept(settingType);
+            if(menuItemChangedListener != null)
+                menuItemChangedListener.accept(settingType);
             menuButton.setText(menuItemName);
         });
         menuButton.getItems().add(menuItem);
@@ -35,6 +36,10 @@ public class MenuAdapter<T> {
 
     public void setDefaultMenuItem(){
         setDefaultMenuItem(0);
+    }
+
+    public void setDefaultMenuItemLast(){
+        setDefaultMenuItem(menuAdapterItems.size() - 1);
     }
 
     public void setDefaultMenuItem(T settingType){
@@ -53,7 +58,8 @@ public class MenuAdapter<T> {
             return;
         }
         menuButton.setText(menuAdapterItems.get(index).getMenuItem().getText());
-        menuItemChangedListener.accept(menuAdapterItems.get(index).getSettingType());
+        if(menuItemChangedListener != null)
+            menuItemChangedListener.accept(menuAdapterItems.get(index).getSettingType());
     }
 }
 

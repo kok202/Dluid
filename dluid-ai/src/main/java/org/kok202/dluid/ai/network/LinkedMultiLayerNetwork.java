@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 public class LinkedMultiLayerNetwork {
     private long inputLayerId;
-    private boolean isTestModel;
     private List<MultiLayerNetwork> multiLayerNetworks;
 
     public LinkedMultiLayerNetwork() {

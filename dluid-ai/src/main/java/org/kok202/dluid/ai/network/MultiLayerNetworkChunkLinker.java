@@ -13,8 +13,6 @@ public class MultiLayerNetworkChunkLinker {
         // It means there is no switch layer.
         if(multiLayerNetworkChunkSet.getLinkageFromTo().get(multiLayerNetworkChunkSet.getOutputLayerId()) == null){
             LinkedMultiLayerNetwork linkedMultiLayerNetwork = new LinkedMultiLayerNetwork();
-            linkedMultiLayerNetwork.getMultiLayerNetworks().add(multiLayerNetworkChunkSet.getManagersMap().get(multiLayerNetworkChunkSet.getTestInputLayerId()));
-            linkedMultiLayerNetwork.setTestModel(true);
             linkedMultiLayerNetwork.setInputLayerId(multiLayerNetworkChunkSet.getOutputLayerId());
             linkedMultiLayerNetworks.add(linkedMultiLayerNetwork);
             return linkedMultiLayerNetworks;
@@ -34,7 +32,6 @@ public class MultiLayerNetworkChunkLinker {
         if(froms == null || froms.isEmpty()){
             // Find one combination!
             LinkedMultiLayerNetwork linkedMultiLayerNetworkInstance = linkedMultiLayerNetworkStack.deepCopy();
-            linkedMultiLayerNetworkInstance.setTestModel(current == multiLayerNetworkChunkSet.getTestInputLayerId());
             linkedMultiLayerNetworkInstance.setInputLayerId(current);
             linkedMultiLayerNetworks.add(linkedMultiLayerNetworkInstance);
             return;

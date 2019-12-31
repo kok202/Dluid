@@ -14,7 +14,6 @@ class ModelGraphValidator {
 
     static void validateModelIsCorrect(){
         validateTrainInputBlockNodeExist();
-        validateTestInputBlockNodeExist();
         validateOutputBlockNodeExist();
         validateAllBlockNodeDimension();
         validateMergeBlockNode();
@@ -25,12 +24,6 @@ class ModelGraphValidator {
         List<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findAllInputLayer();
         if(inputGraphNode.isEmpty())
             throw new CanNotFindInputLayerException();
-    }
-
-    private static void validateTestInputBlockNodeExist() throws RuntimeException{
-        Optional<GraphNode<BlockNode>> inputGraphNode = CanvasFacade.findTestInputLayer();
-        if(!inputGraphNode.isPresent())
-            throw new CanNotFindTestInputLayerException();
     }
 
     private static void validateOutputBlockNodeExist() throws RuntimeException{

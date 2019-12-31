@@ -15,7 +15,6 @@ import java.util.Map;
 public class GraphManagerSplitter {
 
     private long outputLayerId;
-    private long testInputLayerId;
     private Map<Long, GraphManager<Layer>> splittedLayerGraphManager;
     private Map<Long, List<Long>> linkageFromTo;
 
@@ -25,9 +24,6 @@ public class GraphManagerSplitter {
     }
 
     public void split(GraphManager<Layer> layerGraphManager){
-        GraphNode<Layer> testInputLayerGraphNode = layerGraphManager.findGraphNode(layerGraphNode -> ((Layer)layerGraphNode).getProperties().isTestInput());
-        testInputLayerId = testInputLayerGraphNode.getData().getId();
-
         GraphNode<Layer> outputLayerGraphNode = layerGraphManager.findGraphNode(layerGraphNode -> ((Layer)layerGraphNode).getType() == LayerType.OUTPUT_LAYER);
         outputLayerId = outputLayerGraphNode.getData().getId();
 

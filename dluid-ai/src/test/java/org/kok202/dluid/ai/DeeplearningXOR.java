@@ -60,7 +60,7 @@ public class DeeplearningXOR {
                 .getModelManager()
                 .initialize(layerGraphManager);
         AISingleton.getInstance().getModelManager().train(layer0.getId(), trainFeature, trainResult);
-        System.out.println(AISingleton.getInstance().getModelManager().test(testFeature, testResult).stats());
+        System.out.println(AISingleton.getInstance().getModelManager().test(layer0.getId(), testFeature, testResult).stats());
 
     }
 }

@@ -1,10 +1,10 @@
 package org.kok202.dluid.model;
 
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.CanNotFindFeatureSetException;
-import org.kok202.dluid.domain.exception.CanNotFindResultSetException;
 import org.kok202.dluid.domain.exception.FeatureSetDimensionUnmatchedException;
 import org.kok202.dluid.domain.exception.ResultSetDimensionUnmatchedException;
 import org.kok202.dluid.domain.structure.GraphNode;
@@ -17,13 +17,9 @@ class ModelTestValidator {
     }
 
     private static void validateDataSetExist() throws FeatureSetDimensionUnmatchedException {
-        GraphNode<BlockNode> testInputGraphNode = CanvasFacade.findTestInputLayer().get();
-        long testInputLayerId = testInputGraphNode.getData().getBlockLayer().getId();
-
+        long testInputLayerId = AppFacade.getTestInputLayerId();
         if(AIFacade.getTestFeatureSet().getNumericRecordSet() == null)
             throw new CanNotFindFeatureSetException(testInputLayerId);
-        if(AIFacade.getTestResultSet().getNumericRecordSet() == null)
-            throw new CanNotFindResultSetException(testInputLayerId);
     }
 
     private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
@@ -35,8 +31,8 @@ class ModelTestValidator {
         int featureSetSize = AIFacade.getTestFeatureSet().getNumericRecordSet().getRecordSize();
         int resultSetSize = AIFacade.getTestResultSet().getNumericRecordSet().getRecordSize();
 
-        GraphNode<BlockNode> testInputGraphNode = CanvasFacade.findTestInputLayer().get();
-        long testInputLayerId = testInputGraphNode.getData().getBlockLayer().getId();
+        long testInputLayerId = AppFacade.getTestInputLayerId();
+        GraphNode<BlockNode> testInputGraphNode = CanvasFacade.findGraphNodeByLayerId(testInputLayerId);
         int inputBlockNodeSize =
                 testInputGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[0] *
                 testInputGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[1];
