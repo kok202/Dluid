@@ -1,6 +1,6 @@
 package org.kok202.dluid.ai.network.layer.binder;
 
-import org.deeplearning4j.nn.conf.ComputationGraphConfiguration.GraphBuilder;
+import org.deeplearning4j.nn.conf.NeuralNetConfiguration.ListBuilder;
 import org.deeplearning4j.nn.conf.layers.BaseLayer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.network.layer.LayerBuilderFactory;
@@ -14,11 +14,9 @@ public class DefaultLayerGenerator extends AbstractLayerGenerator {
     }
 
     @Override
-    public void generate(GraphNode<Layer> currentLayerGraphNode, GraphBuilder graphBuilder) {
+    public void generate(GraphNode<Layer> currentLayerGraphNode, ListBuilder neuralNetListBuilder) {
         Builder builder = LayerBuilderFactory.create(currentLayerGraphNode.getData());
-        String currentLayer = parseCurrentNodeId(currentLayerGraphNode);
-        String layerFrom = collectFromNodeIds(currentLayerGraphNode)[0];
-        graphBuilder.addLayer(currentLayer, builder.build(), layerFrom);
+        neuralNetListBuilder.layer(builder.build());
     }
 
 }

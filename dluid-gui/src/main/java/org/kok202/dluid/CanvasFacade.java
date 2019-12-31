@@ -53,6 +53,12 @@ public class CanvasFacade {
         CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(layerId);
     }
 
+    public static List<GraphNode<BlockNode>> findAllReachableNode(long layerId){
+        return CanvasSingleton.getInstance()
+                .getBlockNodeManager()
+                .findAllReachableNode(layerId);
+    }
+
     public static void removeGraphNode(long layerId) {
         CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(layerId);
     }
@@ -89,15 +95,6 @@ public class CanvasFacade {
 
     public static List<GraphNode<BlockNode>> findAllInputLayer(){
         return findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType());
-    }
-
-    public static Optional<GraphNode<BlockNode>> findTestInputLayer(){
-        List<GraphNode<BlockNode>> inputNodes = findAllInputLayer();
-        for (GraphNode<BlockNode> inputNode : inputNodes) {
-            if(inputNode.getData().getBlockLayer().getProperties().isTestInput())
-                return Optional.of(inputNode);
-        }
-        return Optional.empty();
     }
 
     public static Optional<GraphNode<BlockNode>> findOutputLayer(){

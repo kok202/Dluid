@@ -21,7 +21,7 @@ public enum LayerType {
      **********************************************************/
     INPUT_LAYER,
     PIPE_LAYER,
-    MERGE_LAYER,
+    MERGE_LAYER, // Deprecated
     RESHAPE_LAYER,
     SWITCH_LAYER,
 
@@ -51,5 +51,9 @@ public enum LayerType {
 
     public boolean isOutputLayerType(){
         return this == OUTPUT_LAYER;
+    }
+
+    public boolean isAssistLayerType() {
+        return this == PIPE_LAYER || this == SWITCH_LAYER || this == INPUT_LAYER;
     }
 }

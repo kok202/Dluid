@@ -2,9 +2,7 @@
 
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="itself" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -16,6 +14,34 @@
                     <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                              <children>
+                                 <GridPane hgap="5.0" vgap="5.0">
+                                     <columnConstraints>
+                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="130" prefWidth="140" />
+                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="80" prefWidth="240" />
+                                     </columnConstraints>
+                                     <rowConstraints>
+                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                     </rowConstraints>
+                                     <children>
+                                         <Label fx:id="labelTestTargetResult" text="Target extracting layer id : " GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                             <children>
+                                                 <MenuButton fx:id="menuButtonTestTargetResultLayer" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                     <items>
+                                                     </items>
+                                                 </MenuButton>
+                                             </children>
+                                             <padding>
+                                                 <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                         </AnchorPane>
+                                     </children>
+                                     <VBox.margin>
+                                         <Insets bottom="10.0" />
+                                     </VBox.margin>
+                                 </GridPane>
+
+
                                  <AnchorPane>
                                      <children>
                                          <TextArea fx:id="textAreaTestLog" maxHeight="150.0" minHeight="150.0" prefHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

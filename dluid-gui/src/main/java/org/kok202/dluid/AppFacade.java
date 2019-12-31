@@ -159,4 +159,27 @@ public class AppFacade {
                 .setDisable(!disable);
     }
 
+    /*************************************************************************************************
+     /* Handling test tab
+     *************************************************************************************************/
+    public static long getTestInputLayerId(){
+        return Long.valueOf(AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestFeatureController()
+                .getModelTestFeatureTableController()
+                .getMenuButtonTestTarget()
+                .getText());
+    }
+
+    public static long getTestTargetResultLayerId(){
+        return Long.valueOf(AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestTestingController()
+                .getModelTestTestingTaskController()
+                .getMenuButtonTestTargetResultLayer()
+                .getText());
+    }
+
 }

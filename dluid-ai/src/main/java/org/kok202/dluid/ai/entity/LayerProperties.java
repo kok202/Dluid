@@ -20,9 +20,6 @@ public class LayerProperties {
     private int[] strideSize;
     private int[] paddingSize;
 
-    // for test input type;
-    private boolean isTestInput;
-
     // for output type
     private LossFunction lossFunction;
 
@@ -48,7 +45,6 @@ public class LayerProperties {
         weightInit = WeightInitilaizer.ONES;
         activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
-        isTestInput = false;
 
         switch (layerType){
             case CONVOLUTION_1D_LAYER:

@@ -3,24 +3,30 @@ package org.kok202.dluid.application.content.test;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
+import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.adapter.NumericTableViewAdapter;
 import org.kok202.dluid.application.content.TabModelTestController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class ModelTestFeatureTableController extends AbstractModelTestController {
     @FXML private TitledPane titledPane;
     @FXML private Label labelTestTarget;
-    @FXML private TextField textFieldTestTargetData;
+    @FXML private MenuButton menuButtonTestTarget;
     @FXML private TableView tableViewDataSet;
+    private MenuAdapter<Long> menuTestTargetAdapter;
     private NumericTableViewAdapter numericTableViewAdapter;
 
     public ModelTestFeatureTableController(TabModelTestController tabModelTestController) {
@@ -36,13 +42,30 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
 
     @Override
     protected void initialize() throws Exception {
+        menuTestTargetAdapter = new MenuAdapter<>(menuButtonTestTarget);
+        menuTestTargetAdapter.setMenuItemChangedListener(testInputLayerId -> {
+            AppWidgetSingleton.getInstance()
+                    .getTabsController()
+                    .getTabModelTestController()
+                    .getModelTestTestingController()
+                    .getModelTestTestingTaskController()
+                    .refreshTestTargetResultLayerInformation(testInputLayerId);
+        });
         numericTableViewAdapter = new NumericTableViewAdapter(tableViewDataSet);
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataTable.title"));
-        labelTestTarget.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetLayerId"));
+        labelTestTarget.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetInputLayerId"));
     }
 
     public void refreshTestInputLayerInformation(){
-        textFieldTestTargetData.setText(String.valueOf(CanvasFacade.findTestInputLayer().get().getData().getBlockLayer().getId()));
+        List<Long> layerIds = CanvasFacade
+                .findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
+                .stream()
+                .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
+                .collect(Collectors.toList());
+
+        menuTestTargetAdapter.clearMenuItems();
+        layerIds.forEach(layerId -> menuTestTargetAdapter.addMenuItem(String.valueOf(layerId), layerId));
+        menuTestTargetAdapter.setDefaultMenuItem();
     }
 
     public void refreshTableView(){

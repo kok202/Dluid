@@ -13,7 +13,7 @@ public class ModelParser {
         graphManagerSplitter.split(layerGraphManager);
 
         // Convert computation graph by splitted layer graph.
-        ComputationGraphChunkSet computationGraphChunkSet = ComputationGraphChunkSet.builder()
+        MultiLayerNetworkChunkSet multiLayerNetworkChunkSet = MultiLayerNetworkChunkSet.builder()
                 .managersMap(graphManagerSplitter.getSplittedLayerGraphManager()
                                 .entrySet()
                                 .stream()
@@ -21,16 +21,15 @@ public class ModelParser {
                                         entry -> entry.getKey(),
                                         entry -> GraphManagerConverter.convert(entry.getValue()))))
                 .outputLayerId(graphManagerSplitter.getOutputLayerId())
-                .testInputLayerId(graphManagerSplitter.getTestInputLayerId())
                 .linkageFromTo(graphManagerSplitter.getLinkageFromTo())
                 .build();
 
         // Link converted computation graph.
-        ComputationGraphChunkLinker computationGraphChunkLinker = new ComputationGraphChunkLinker();
-        List<LinkedComputationGraph> linkedComputationGraphs = computationGraphChunkLinker.link(computationGraphChunkSet);
+        MultiLayerNetworkChunkLinker multiLayerNetworkChunkLinker = new MultiLayerNetworkChunkLinker();
+        List<LinkedMultiLayerNetwork> linkedMultiLayerNetworks = multiLayerNetworkChunkLinker.link(multiLayerNetworkChunkSet);
 
         // Convert linked computation graph as model.
-        LinkedComputationGraphConverter linkedComputationGraphConverter = new LinkedComputationGraphConverter();
-        return linkedComputationGraphConverter.convert(linkedComputationGraphs);
+        LinkedMultiLayerNetworkConverter linkedMultiLayerNetworkConverter = new LinkedMultiLayerNetworkConverter();
+        return linkedMultiLayerNetworkConverter.convert(linkedMultiLayerNetworks);
     }
 }

@@ -2,23 +2,30 @@ package org.kok202.dluid.application.content.test;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
+import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.common.ExceptionHandler;
 import org.kok202.dluid.application.content.TabModelTestController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class ModelTestTestingTaskController extends AbstractModelTestController {
 
     @FXML private TitledPane titledPane;
+    @FXML private Label labelTestTargetResult;
+    @FXML private MenuButton menuButtonTestTargetResultLayer;
+
     @FXML private TextArea textAreaTestLog;
     @FXML private ProgressBar progressBarTestProgress;
     @FXML private Button buttonTest;
+
+    private MenuAdapter<Long> menuTestTargetResultLayerAdapter;
 
     public ModelTestTestingTaskController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
@@ -33,9 +40,24 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
 
     @Override
     protected void initialize() throws Exception {
+        menuTestTargetResultLayerAdapter = new MenuAdapter<>(menuButtonTestTargetResultLayer);
         buttonTest.setOnAction(event -> buttonTestActionHandler());
+        labelTestTargetResult.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetResultLayerId"));
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.title"));
         buttonTest.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.test"));
+    }
+
+    public void refreshTestTargetResultLayerInformation(long testInputLayerId){
+        List<Long> layerIds = CanvasFacade
+                .findAllReachableNode(testInputLayerId)
+                .stream()
+                .filter(blockNodeGraphNode -> !blockNodeGraphNode.getData().getBlockLayer().getType().isAssistLayerType())
+                .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
+                .collect(Collectors.toList());
+
+        menuTestTargetResultLayerAdapter.clearMenuItems();
+        layerIds.forEach(layerId -> menuTestTargetResultLayerAdapter.addMenuItem(String.valueOf(layerId), layerId));
+        menuTestTargetResultLayerAdapter.setDefaultMenuItemLast();
     }
 
     private void buttonTestActionHandler(){
