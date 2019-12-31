@@ -21,7 +21,7 @@ public enum LayerType {
      **********************************************************/
     INPUT_LAYER,
     PIPE_LAYER,
-    MERGE_LAYER,
+    MERGE_LAYER, // Deprecated
     RESHAPE_LAYER,
     SWITCH_LAYER,
 

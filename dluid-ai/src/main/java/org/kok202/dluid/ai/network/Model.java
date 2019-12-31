@@ -3,9 +3,9 @@ package org.kok202.dluid.ai.network;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.deeplearning4j.nn.graph.ComputationGraph;
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
-import org.nd4j.linalg.dataset.api.MultiDataSet;
+import org.nd4j.linalg.dataset.DataSet;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import java.util.List;
 public class Model {
     private long inputLayerId;
     private boolean isTestModel;
-    private ComputationGraph totalComputationGraph;
-    private List<ComputationGraph> computationGraphs;
+    private MultiLayerNetwork totalMultiLayerNetwork;
+    private List<MultiLayerNetwork> multiLayerNetworks;
 
-    public void train(MultiDataSet multiDataSet){
+    public void train(DataSet dataSet){
         // TODO
     }
 

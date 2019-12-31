@@ -1,6 +1,6 @@
 package org.kok202.dluid.ai.network.layer.binder;
 
-import org.deeplearning4j.nn.conf.ComputationGraphConfiguration.GraphBuilder;
+import org.deeplearning4j.nn.conf.NeuralNetConfiguration.ListBuilder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.structure.GraphNode;
@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class AbstractLayerGenerator {
 
     public abstract boolean support(GraphNode<Layer> currentLayerGraphNode);
-    public abstract void generate(GraphNode<Layer> currentLayerGraphNode, GraphBuilder graphBuilder);
+    public abstract void generate(GraphNode<Layer> currentLayerGraphNode, ListBuilder neuralNetBuilder);
 
     protected static String[] collectFromNodeIds(GraphNode<Layer> layerGraphNode){
         List<GraphNode<Layer>> incomingNodes = layerGraphNode.getIncomingNodes();

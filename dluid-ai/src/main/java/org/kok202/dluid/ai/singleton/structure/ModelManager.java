@@ -1,17 +1,18 @@
 package org.kok202.dluid.ai.singleton.structure;
 
 import lombok.Getter;
+import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.listener.TrainingEpochListener;
 import org.kok202.dluid.ai.network.Model;
 import org.kok202.dluid.ai.network.ModelParser;
 import org.kok202.dluid.ai.singleton.AISingleton;
-import org.kok202.dluid.ai.util.MultiDataSetIteratorUtil;
+import org.kok202.dluid.ai.util.DataSetConverter;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.nd4j.evaluation.classification.Evaluation;
-import org.nd4j.linalg.dataset.api.MultiDataSet;
-import org.nd4j.linalg.dataset.api.iterator.MultiDataSetIterator;
+import org.nd4j.linalg.dataset.DataSet;
+import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
 import java.util.List;
 import java.util.Map;
@@ -45,30 +46,30 @@ public class ModelManager {
      *************************************************************************************************/
     public void train(){
         // Collect all input data set
-        Map<Long, MultiDataSetIterator> multiDataSetIteratorMap = findAllInputLayerIds()
+        Map<Long, DataSetIterator> dataSetIteratorMap = findAllInputLayerIds()
                 .parallelStream()
                 .collect(Collectors.toMap(
                     inputLayerId -> inputLayerId,
                     inputLayerId -> {
                         NumericRecordSet featureDataSet = AISingleton.getInstance().getTrainDataManager().getDataSetManager(inputLayerId).getManagedFeatureRecordSet().getNumericRecordSet();
                         NumericRecordSet resultDataSet = AISingleton.getInstance().getTrainDataManager().getDataSetManager(inputLayerId).getManagedFeatureRecordSet().getNumericRecordSet();
-                        return MultiDataSetIteratorUtil.toMultiDataSetIterator(modelParameter.getBatchSize(), featureDataSet, resultDataSet);
+                        return new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
                     }));
 
         // Train it alternately.
         for(int epoch = 0; epoch < modelParameter.getEpoch(); epoch++){
-            multiDataSetIteratorMap.entrySet()
+            dataSetIteratorMap.entrySet()
                     .parallelStream()
                     .forEach(entry -> entry.getValue().reset());
 
             while(true){
-                long trainedDataSetNumber = multiDataSetIteratorMap.entrySet()
+                long trainedDataSetNumber = dataSetIteratorMap.entrySet()
                         .stream()
                         .filter(entry -> entry.getValue().hasNext())
                         .map(entry -> {
                             long inputLayerId = entry.getKey();
-                            MultiDataSet multiDataSet = entry.getValue().next();
-                            findModel(inputLayerId).train(multiDataSet);
+                            DataSet dataSet = entry.getValue().next();
+                            findModel(inputLayerId).train(dataSet);
                             return true;
                         })
                         .count();
@@ -83,8 +84,8 @@ public class ModelManager {
     }
 
     public void train(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(modelParameter.getBatchSize(), featureDataSet, resultDataSet);
-        findModel(inputLayerId).getTotalComputationGraph().fit(multiDataSetIterator, AISingleton.getInstance().getModelManager().getModelParameter().getEpoch());
+        DataSetIterator dataSetIterator = new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
+        findModel(inputLayerId).getTotalMultiLayerNetwork().fit(dataSetIterator, AISingleton.getInstance().getModelManager().getModelParameter().getEpoch());
     }
 
     /*************************************************************************************************
@@ -95,8 +96,8 @@ public class ModelManager {
     }
 
     public Evaluation test(NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        MultiDataSetIterator multiDataSetIterator = MultiDataSetIteratorUtil.toMultiDataSetIterator(modelParameter.getBatchSize(), featureDataSet, resultDataSet);
-        return findTestModel().getTotalComputationGraph().evaluate(multiDataSetIterator);
+        DataSetIterator dataSetIterator = new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList());
+        return findTestModel().getTotalMultiLayerNetwork().evaluate(dataSetIterator);
     }
 
     /*************************************************************************************************

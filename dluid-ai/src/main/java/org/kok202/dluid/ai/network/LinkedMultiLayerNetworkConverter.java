@@ -1,23 +1,23 @@
 package org.kok202.dluid.ai.network;
 
-import org.deeplearning4j.nn.graph.ComputationGraph;
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LinkedComputationGraphConverter {
-    public List<Model> convert(List<LinkedComputationGraph> linkedComputationGraphs){
-        return linkedComputationGraphs.stream()
+public class LinkedMultiLayerNetworkConverter {
+    public List<Model> convert(List<LinkedMultiLayerNetwork> linkedMultiLayerNetworks){
+        return linkedMultiLayerNetworks.stream()
                 .map(this::initializeModel)
                 .collect(Collectors.toList());
     }
 
-    private Model initializeModel(LinkedComputationGraph linkedComputationGraph){
-        linkedComputationGraph.getComputationGraphs().forEach(ComputationGraph::init);
+    private Model initializeModel(LinkedMultiLayerNetwork linkedMultiLayerNetwork){
+        linkedMultiLayerNetwork.getMultiLayerNetworks().forEach(MultiLayerNetwork::init);
 
         // TODO : 연결하고 동시에 학습이 가능한 방법을 찾아야만 한다...
 //        List<Layer> allComputationGraphConfigurationLayers = new ArrayList<>();
-//        for (ComputationGraph computationGraph : linkedComputationGraph.getComputationGraphs()) {
+//        for (ComputationGraph computationGraph : linkedMultiLayerNetwork.getMultiLayerNetworks()) {
 //            computationGraph.init();
 //            computationGraph.getVertices()
 //            for (org.deeplearning4j.nn.api.Layer layer : computationGraph.getLayers()) {
@@ -35,14 +35,14 @@ public class LinkedComputationGraphConverter {
 //
 //                .build();
 //
-//        ComputationGraph totalComputationGraph = new ComputationGraph(totalComputationGraphConfiguration);
-//        totalComputationGraph.init();
+//        ComputationGraph totalMultiLayerNetwork = new ComputationGraph(totalComputationGraphConfiguration);
+//        totalMultiLayerNetwork.init();
 
         return Model.builder()
-                .isTestModel(linkedComputationGraph.isTestModel())
-                .inputLayerId(linkedComputationGraph.getInputLayerId())
-                .totalComputationGraph(null)
-                .computationGraphs(linkedComputationGraph.getComputationGraphs())
+                .isTestModel(linkedMultiLayerNetwork.isTestModel())
+                .inputLayerId(linkedMultiLayerNetwork.getInputLayerId())
+                .totalMultiLayerNetwork(null)
+                .multiLayerNetworks(linkedMultiLayerNetwork.getMultiLayerNetworks())
                 .build();
     }
 }
