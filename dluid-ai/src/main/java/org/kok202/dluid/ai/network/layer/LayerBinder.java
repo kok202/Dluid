@@ -4,8 +4,6 @@ import org.deeplearning4j.nn.conf.NeuralNetConfiguration.ListBuilder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.network.layer.binder.AbstractLayerGenerator;
 import org.kok202.dluid.ai.network.layer.binder.DefaultLayerGenerator;
-import org.kok202.dluid.ai.network.layer.binder.NoopLayerGenerator;
-import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +14,13 @@ public class LayerBinder {
 
     static {
         layerGenerators = new ArrayList<>();
-        layerGenerators.add(new NoopLayerGenerator());
         layerGenerators.add(new DefaultLayerGenerator());
     }
 
-    public static void bind(GraphNode<Layer> currentLayerGraphNode, ListBuilder neuralNetBuilder){
+    public static void bind(Layer layer, ListBuilder neuralNetBuilder){
         for (AbstractLayerGenerator layerGenerator : layerGenerators) {
-            if(layerGenerator.support(currentLayerGraphNode)) {
-                layerGenerator.generate(currentLayerGraphNode, neuralNetBuilder);
+            if(layerGenerator.support(layer)) {
+                layerGenerator.generate(layer, neuralNetBuilder);
                 return;
             }
         }

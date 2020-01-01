@@ -10,12 +10,12 @@ import org.nd4j.linalg.factory.Nd4j;
 public class DataSetConverter {
 
     public static DataSet convert(NumericRecordSet featureRecordSet, NumericRecordSet resultRecordSet){
-        INDArray featureSet = convert(featureRecordSet);
-        INDArray resultSet = convert(resultRecordSet);
+        INDArray featureSet = convertAsINDArray(featureRecordSet);
+        INDArray resultSet = convertAsINDArray(resultRecordSet);
         return new DataSet(featureSet, resultSet);
     }
 
-    private static INDArray convert(NumericRecordSet dataSet){
+    public static INDArray convertAsINDArray(NumericRecordSet dataSet){
         int rowMax = dataSet.getRecords().size();
         int colMax = dataSet.getRecords().get(0).size();
         INDArray resultINDArray = Nd4j.zeros(rowMax, colMax);

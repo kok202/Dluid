@@ -4,8 +4,8 @@ import lombok.Getter;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.listener.TrainingEpochListener;
+import org.kok202.dluid.ai.network.GraphManagerConverter;
 import org.kok202.dluid.ai.network.Model;
-import org.kok202.dluid.ai.network.ModelParser;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.util.DataSetConverter;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
@@ -34,7 +34,7 @@ public class ModelManager {
      /* Initialize
      *************************************************************************************************/
     public void initialize(GraphManager<Layer> layerGraphManager) {
-        models = ModelParser.parse(layerGraphManager);
+        models = GraphManagerConverter.convert(layerGraphManager);
     }
 
     public void setTrainListener(TrainingEpochListener trainingEpochListener){
@@ -85,7 +85,7 @@ public class ModelManager {
 
     public void train(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
         DataSetIterator dataSetIterator = new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
-        findModel(inputLayerId).getTotalMultiLayerNetwork().fit(dataSetIterator, AISingleton.getInstance().getModelManager().getModelParameter().getEpoch());
+        findModel(inputLayerId).getMultiLayerNetwork().fit(dataSetIterator, AISingleton.getInstance().getModelManager().getModelParameter().getEpoch());
     }
 
     /*************************************************************************************************
@@ -97,7 +97,7 @@ public class ModelManager {
 
     public Evaluation test(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
         DataSetIterator dataSetIterator = new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList());
-        return findModel(inputLayerId).getTotalMultiLayerNetwork().evaluate(dataSetIterator);
+        return findModel(inputLayerId).getMultiLayerNetwork().evaluate(dataSetIterator);
     }
 
     /*************************************************************************************************
