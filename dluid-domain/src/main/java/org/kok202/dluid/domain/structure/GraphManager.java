@@ -88,6 +88,22 @@ public class GraphManager<T> {
                 .collect(Collectors.toList());
     }
 
+    public List<GraphNode<T>> findAllReachableNode(GraphNode<T> startNode) {
+        List<GraphNode<T>> graphNodes = new ArrayList<>();
+        findAllReachableNode(graphNodes, startNode.getOutgoingNodes());
+        return graphNodes;
+    }
+
+    private void findAllReachableNode(List<GraphNode<T>> graphNodes, List<GraphNode<T>> outgoingNodes){
+        if(outgoingNodes == null || outgoingNodes.isEmpty())
+            return;
+
+        for (GraphNode<T> outgoingNode : outgoingNodes) {
+            graphNodes.add(outgoingNode);
+            findAllReachableNode(graphNodes, outgoingNode.getOutgoingNodes());
+        }
+    }
+
     public int getHashCode(){
         if(graphNodes == null || dataNodes == null)
             return 0;

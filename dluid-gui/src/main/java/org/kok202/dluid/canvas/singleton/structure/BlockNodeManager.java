@@ -10,7 +10,6 @@ import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.structure.GraphNode;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -51,19 +50,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
     }
 
     public List<GraphNode<BlockNode>> findAllReachableNode(long layerId) {
-        List<GraphNode<BlockNode>> graphNodes = new ArrayList<>();
-        findAllReachableNode(graphNodes, findGraphNodeByLayerId(layerId).getOutgoingNodes());
-        return graphNodes;
-    }
-
-    private void findAllReachableNode(List<GraphNode<BlockNode>> graphNodes, List<GraphNode<BlockNode>> outgoingNodes){
-        if(outgoingNodes == null || outgoingNodes.isEmpty())
-            return;
-
-        for (GraphNode<BlockNode> outgoingNode : outgoingNodes) {
-            graphNodes.add(outgoingNode);
-            findAllReachableNode(graphNodes, outgoingNode.getOutgoingNodes());
-        }
+        return findAllReachableNode(findGraphNodeByLayerId(layerId));
     }
 
     public void notifyLayerDataChanged(long layerId){
