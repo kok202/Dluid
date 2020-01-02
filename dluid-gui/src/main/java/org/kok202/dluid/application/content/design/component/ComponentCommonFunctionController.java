@@ -50,6 +50,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
             layer.getProperties().setWeightInit(weightInit);
             notifyLayerDataChanged();
         });
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.followGlobal"), WeightInitilaizer.FOLLOW_GLOBAL_SETTING);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitilaizer.ONES);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitilaizer.ZERO);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitilaizer.XAVIER);

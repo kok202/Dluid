@@ -10,9 +10,14 @@ public enum WeightInitilaizer {
     ONES(WeightInit.ONES),
     NORMAL(WeightInit.NORMAL),
     UNIFORM(WeightInit.UNIFORM),
+    XAVIER(WeightInit.XAVIER),
+
+    /**********************************************************
+     * Not real weight initializer. custom setting.
+     **********************************************************/
     DISTRIBUTION_ZERO_TO_ONE(WeightInit.DISTRIBUTION),
     DISTRIBUTION_PLUS_MINUS_ONE(WeightInit.DISTRIBUTION),
-    XAVIER(WeightInit.XAVIER);
+    FOLLOW_GLOBAL_SETTING(null);
 
     @Getter
     private WeightInit weightInit;
