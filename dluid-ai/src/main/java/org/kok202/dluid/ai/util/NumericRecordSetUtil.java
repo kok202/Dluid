@@ -7,9 +7,9 @@ import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
 
 @Getter
-public class DataSetConverter {
+public class NumericRecordSetUtil {
 
-    public static DataSet convert(NumericRecordSet featureRecordSet, NumericRecordSet resultRecordSet){
+    public static DataSet convertAsDataSet(NumericRecordSet featureRecordSet, NumericRecordSet resultRecordSet){
         INDArray featureSet = convertAsINDArray(featureRecordSet);
         INDArray resultSet = convertAsINDArray(resultRecordSet);
         return new DataSet(featureSet, resultSet);
@@ -26,6 +26,15 @@ public class DataSetConverter {
             }
         }
         return resultINDArray;
+    }
+
+    public static NumericRecordSet convertAsNumericRecordSet(INDArray indArray){
+        NumericRecordSet numericRecordSet = new NumericRecordSet();
+        for(int i = 0; i < indArray.length(); i++){
+            INDArray record = indArray.getRow(i);
+            numericRecordSet.addRecord(record.toDoubleVector());
+        }
+        return numericRecordSet;
     }
 
 }

@@ -12,4 +12,5 @@ public class AIConstant {
     public static final int DEFAULT_BATCH_SIZE = 1;
     public static final int DEFAULT_EPOCH_SIZE = 5;
     public static final double DEFAULT_LEARNING_RATE = 0.005;
+    public static final int DEFAULT_LISTENING_PERIOD = 5;
 }

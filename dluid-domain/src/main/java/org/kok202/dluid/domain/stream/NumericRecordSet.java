@@ -24,7 +24,7 @@ public class NumericRecordSet {
         }
     }
 
-    public void addRecord(Double... fileds){
+    public void addRecord(double... fileds){
         ArrayList<Double> record = new ArrayList<>();
         for(Double field : fileds){
             record.add(field);

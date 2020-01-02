@@ -83,7 +83,7 @@ public class ModelTestFeatureRandomGeneratorController extends AbstractModelTest
 
             NumericRecordSet numericRecordSet = new NumericRecordSet();
             for(int i = 0; i < recordNumber; i++){
-                Double[] values = new Double[inputSize];
+                double[] values = new double[inputSize];
                 if(radioButtonIntegerType.isSelected()){
                     for(int j = 0; j < inputSize; j++)
                         values[j] = (double) RandomUtil.getInt(randomRangeMin, randomRangeMax);

@@ -23,11 +23,11 @@ public class AIFacade {
         AISingleton.getInstance().getModelManager().initialize(layerGraphManager);
     }
 
-    public static void initializeTrainListener(int epochTaskPeriod, Consumer epochTask){
+    public static void initializeTrainListener(Consumer epochTask){
         AISingleton.getInstance().getModelManager().setTrainListener(
                 TrainingEpochListener.builder()
                         .epochSize(AISingleton.getInstance().getModelManager().getModelParameter().getEpoch())
-                        .epochTaskPeriod(epochTaskPeriod)
+                        .epochTaskPeriod(AISingleton.getInstance().getModelManager().getModelParameter().getListeningPeriod())
                         .epochTask(epochTask)
                         .build());
     }
@@ -102,6 +102,14 @@ public class AIFacade {
     /*************************************************************************************************
      /* AI train property
      *************************************************************************************************/
+
+    public static int getListeningPeriod(){
+        return AISingleton.getInstance().getModelManager().getModelParameter().getListeningPeriod();
+    }
+
+    public static void setListeningPeriod(int listeningPeriod){
+        AISingleton.getInstance().getModelManager().getModelParameter().setListeningPeriod(listeningPeriod);
+    }
 
     public static int getTrainBatchSize(){
         return AISingleton.getInstance().getModelManager().getModelParameter().getBatchSize();

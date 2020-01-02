@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.kok202.dluid.domain.util.Counter;
 
 import java.util.function.Consumer;
+import java.util.function.DoubleSupplier;
 
 @Getter
 public class TrainingEpochListener {
@@ -18,12 +19,13 @@ public class TrainingEpochListener {
         epochCounter.initialize(1, epochTaskPeriod, epochSize);
     }
 
-    public void epochCount() {
+    public void count(DoubleSupplier doubleSupplier) {
         if(epochCounter.isAlarmIncludeStart()){
             if(epochTask != null) {
                 epochTask.accept(TrainingEpochContainer
                         .builder()
                         .epochCounter(epochCounter)
+                        .score(doubleSupplier.getAsDouble())
                         .progress(epochCounter.calcPercent())
                         .build());
             }

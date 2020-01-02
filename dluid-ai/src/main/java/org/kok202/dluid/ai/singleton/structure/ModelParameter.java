@@ -23,6 +23,7 @@ public class ModelParameter {
     private double learningMomentum;
     private int batchSize;
     private int epoch;
+    private int listeningPeriod;
 
     public ModelParameter() {
         optimizer = Optimizer.SGD;
@@ -31,6 +32,7 @@ public class ModelParameter {
         batchSize = AIConstant.DEFAULT_BATCH_SIZE;
         learningRate = AIConstant.DEFAULT_LEARNING_RATE;
         epoch = AIConstant.DEFAULT_EPOCH_SIZE;
+        listeningPeriod = AIConstant.DEFAULT_LISTENING_PERIOD;
         seed = RandomUtil.getLong();
         Nd4j.getRandom().setSeed(seed);
     }
