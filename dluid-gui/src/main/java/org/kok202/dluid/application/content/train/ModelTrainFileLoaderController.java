@@ -60,13 +60,11 @@ public class ModelTrainFileLoaderController extends AbstractModelTrainController
     private void setButtonFeatureFinderActionHandler(){
         trainFeatureFileFinder = new TrainFeatureFileFinder(textFieldFindTrainingFeature, buttonFindTrainingFeature, menuButtonTrainingTarget);
         trainFeatureFileFinder.initialize();
-        // FIXME : Total count 변경
     }
 
     private void setButtonResultFinderActionHandler(){
         trainResultFileFinder = new TrainResultFileFinder(textFieldFindTrainingResult, buttonFindTrainingResult, menuButtonTrainingTarget);
         trainResultFileFinder.initialize();
-        // FIXME : Total count 변경
     }
 
     public void refreshFileLoader(){
