@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.util.NumericRecordSetUtil;
+import org.kok202.dluid.domain.exception.CanNotFindLayerException;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -33,11 +34,17 @@ public class Model {
                 .forEach(model -> updateParams(model.getMultiLayerConfLayerMap()));
     }
 
-    public NumericRecordSet test(NumericRecordSet featureDataSet){
+    public NumericRecordSet test(NumericRecordSet featureDataSet, long targetResultLayerId){
         INDArray feature = NumericRecordSetUtil.convertAsINDArray(featureDataSet);
         List<INDArray> testResult = multiLayerNetwork.feedForward(feature);
-        INDArray lastLayerResult = testResult.get(testResult.size() - 1);
-        return NumericRecordSetUtil.convertAsNumericRecordSet(lastLayerResult);
+
+        NeuralNetLayer neuralNetLayer = multiLayerConfLayerMap.get(targetResultLayerId);
+        if(neuralNetLayer == null)
+            throw new CanNotFindLayerException(targetResultLayerId);
+
+        INDArray targetResultLayerOutput = testResult.get(neuralNetLayer.getSequence());
+        // FIXME : Debug here!
+        return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput);
     }
 
     public double score(){

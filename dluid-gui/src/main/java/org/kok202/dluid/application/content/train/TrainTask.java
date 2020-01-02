@@ -17,7 +17,7 @@ public class TrainTask extends Task<TrainProgressContainer> {
             if(newValue.isExistMessage())
                 modelTrainTaskController.getTextAreaTrainingLog().appendText(newValue.getMessage() + "\n");
             if(newValue.isExistEpoch() && newValue.isExistScore())
-                modelTrainTaskController.getLineChartAdapter().appendData(newValue.getEpoch(), newValue.getScore());
+                modelTrainTaskController.getLineChartAdapter().addData(newValue.getEpoch(), newValue.getScore());
             if(newValue.isExistProgress())
                 modelTrainTaskController.getProgressBarTrainingProgress().setProgress(newValue.getProgress());
         }));
@@ -30,26 +30,27 @@ public class TrainTask extends Task<TrainProgressContainer> {
         ModelStateManager.validateTrainPossible();
         updateValue(new TrainProgressContainer("Check training possible. [Successful]"));
         updateValue(new TrainProgressContainer("Try to add listener for print log."));
+        final int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
         AIFacade.initializeTrainListener(
                 (taskContainerObj) -> {
                     TrainingEpochContainer trainingEpochContainer = (TrainingEpochContainer) taskContainerObj;
                     TrainProgressContainer trainProgressContainer = new TrainProgressContainer();
-                    trainProgressContainer.setEpoch(trainingEpochContainer.getEpochCounter().getCount());
+                    trainProgressContainer.setEpoch(learnedEpoch + trainingEpochContainer.getEpochCounter().getCount());
                     trainProgressContainer.setScore(trainingEpochContainer.getScore());
                     trainProgressContainer.setProgress(trainingEpochContainer.getProgress());
-                    trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", trainingEpochContainer.getEpochCounter().getCount(), trainingEpochContainer.getScore()));
+                    trainProgressContainer.setMessage(String.format("Epoch : %d, Fitting score : %f", trainProgressContainer.getEpoch(), trainProgressContainer.getScore()));
                     updateValue(trainProgressContainer);
                 });
         updateValue(new TrainProgressContainer("Try to add listener for print log. [done]"));
         updateValue(new TrainProgressContainer("Training start."));
         AppFacade.setTrainingButtonDisable(true);
         AIFacade.trainModel();
-        AppFacade.setTrainingButtonDisable(false);
         return null;
     }
 
     @Override
     public void succeeded() {
+        AppFacade.setTrainingButtonDisable(false);
         updateValue(new TrainProgressContainer("Training done."));
         int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
         int trainedEpoch = AIFacade.getTrainEpoch();

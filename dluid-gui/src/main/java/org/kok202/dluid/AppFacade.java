@@ -159,6 +159,16 @@ public class AppFacade {
                 .setDisable(!disable);
     }
 
+    public static void setTestButtonDisable(boolean disable){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestTestingController()
+                .getModelTestTestingTaskController()
+                .getButtonTest()
+                .setDisable(disable);
+    }
+
     /*************************************************************************************************
      /* Handling test tab
      *************************************************************************************************/
@@ -180,6 +190,15 @@ public class AppFacade {
                 .getModelTestTestingTaskController()
                 .getMenuButtonTestTargetResultLayer()
                 .getText());
+    }
+
+    public static void refreshTestResultTable(){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestTestingController()
+                .getModelTestTestingResultTableController()
+                .refreshTableView();
     }
 
 }

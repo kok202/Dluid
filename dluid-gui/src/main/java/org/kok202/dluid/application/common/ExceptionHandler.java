@@ -174,6 +174,17 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof CanNotFindLayerException){
+            CanNotFindLayerException canNotFindLayerException = ((CanNotFindLayerException) exception);
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.layerNotExist.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.layerNotExist.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.layerNotExist.content"),
+                            canNotFindLayerException.getLayerId()))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof InvalidMergeConnectionExistException){
             InvalidMergeConnectionExistException invalidMergeConnectionExistException = ((InvalidMergeConnectionExistException) exception);
             DialogUtil.builder()

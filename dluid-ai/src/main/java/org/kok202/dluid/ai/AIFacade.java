@@ -7,6 +7,7 @@ import org.kok202.dluid.ai.listener.TrainingEpochListener;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
+import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
 
 import java.util.List;
@@ -34,6 +35,10 @@ public class AIFacade {
 
     public static void trainModel(){
         AISingleton.getInstance().getModelManager().train();
+    }
+
+    public static NumericRecordSet testModel(long inputLayerId, long targetResultLayerId){
+        return AISingleton.getInstance().getModelManager().test(inputLayerId, targetResultLayerId);
     }
 
     public static String getModelName(){

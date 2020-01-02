@@ -62,17 +62,17 @@ public class ModelTrainParamController extends AbstractModelTrainController {
         setEpoch();
     }
 
-    private void setLearningRate() {
+    public void setLearningRate() {
         double value = TextFieldUtil.parseDouble(textFieldLearningRate);
         AIFacade.setTrainLearningRate(value);
     }
 
-    private void setBatchSize() {
+    public void setBatchSize() {
         int value = TextFieldUtil.parseInteger(textFieldBatchSize);
         AIFacade.setTrainBatchSize(value);
     }
 
-    private void setEpoch() {
+    public void setEpoch() {
         int value = TextFieldUtil.parseInteger(textFieldEpoch);
         AIFacade.setTrainEpoch(value);
     }

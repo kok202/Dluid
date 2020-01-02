@@ -2,6 +2,7 @@ package org.kok202.dluid.ai.singleton.structure;
 
 import lombok.Getter;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
+import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.listener.TrainingEpochListener;
 import org.kok202.dluid.ai.network.GraphManagerConverter;
@@ -91,8 +92,8 @@ public class ModelManager {
     /*************************************************************************************************
      /* Test
      *************************************************************************************************/
-    public NumericRecordSet test(long inputLayerId, NumericRecordSet featureDataSet){
-        return findModel(inputLayerId).test(featureDataSet);
+    public NumericRecordSet test(long inputLayerId, long targetResultLayerId){
+        return findModel(inputLayerId).test(AIFacade.getTestFeatureSet().getNumericRecordSet(), targetResultLayerId);
     }
 
     public Evaluation test(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
