@@ -2,7 +2,7 @@ package org.kok202.dluid.ai;
 
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitilaizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.ai.listener.TrainingEpochListener;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.singleton.structure.DataSetManager;
@@ -140,11 +140,11 @@ public class AIFacade {
         AISingleton.getInstance().getModelManager().getModelParameter().setLearningRate(learningRate);
     }
 
-    public static WeightInitilaizer getTrainWeightInitializer() {
+    public static WeightInitializer getTrainWeightInitializer() {
         return AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer();
     }
 
-    public static void setTrainWeightInit(WeightInitilaizer weightInit) {
+    public static void setTrainWeightInit(WeightInitializer weightInit) {
         AISingleton.getInstance().getModelManager().getModelParameter().setWeightInitializer(weightInit);
     }
 

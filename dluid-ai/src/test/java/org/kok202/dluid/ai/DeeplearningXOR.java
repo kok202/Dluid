@@ -4,7 +4,7 @@ import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitilaizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.stream.StringRecordSet;
@@ -34,19 +34,19 @@ public class DeeplearningXOR {
         AISingleton.getInstance().getModelManager().getModelParameter().setOptimizer(Optimizer.ADAM);
         AISingleton.getInstance().getModelManager().getModelParameter().setEpoch(1000);
         AISingleton.getInstance().getModelManager().getModelParameter().setLearningRate(0.006);
-        AISingleton.getInstance().getModelManager().getModelParameter().setWeightInitializer(WeightInitilaizer.XAVIER);
+        AISingleton.getInstance().getModelManager().getModelParameter().setWeightInitializer(WeightInitializer.XAVIER);
         AISingleton.getInstance().getModelManager().getModelParameter().setLossFunction(LossFunction.NEGATIVELOGLIKELIHOOD);
 
         Layer layer0 = new Layer(LayerType.INPUT_LAYER);
         Layer layer1 = new Layer(LayerType.DENSE_LAYER);
-        layer1.getProperties().setWeightInit(WeightInitilaizer.XAVIER);
+        layer1.getProperties().setWeightInit(WeightInitializer.XAVIER);
         layer1.getProperties().setActivationFunction(ActivationWrapper.SIGMOID);
         layer1.getProperties().setInputSize(2);
         layer1.getProperties().setOutputSize(10);
 
         Layer layer2 = new Layer(LayerType.OUTPUT_LAYER);
         layer2.getProperties().setLossFunction(LossFunction.MSE);
-        layer2.getProperties().setWeightInit(WeightInitilaizer.XAVIER);
+        layer2.getProperties().setWeightInit(WeightInitializer.XAVIER);
         layer2.getProperties().setActivationFunction(ActivationWrapper.SIGMOID);
         layer2.getProperties().setInputSize(10);
         layer2.getProperties().setOutputSize(1);

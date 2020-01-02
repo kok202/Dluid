@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.AIConstant;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitilaizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.domain.util.RandomUtil;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.IUpdater;
@@ -17,7 +17,7 @@ public class ModelParameter {
     @Setter(AccessLevel.NONE)
     private long seed;
     private Optimizer optimizer;
-    private WeightInitilaizer weightInitializer;
+    private WeightInitializer weightInitializer;
     private LossFunctions.LossFunction lossFunction;
     private double learningRate;
     private double learningMomentum;
@@ -27,7 +27,7 @@ public class ModelParameter {
 
     public ModelParameter() {
         optimizer = Optimizer.SGD;
-        weightInitializer = WeightInitilaizer.ONES;
+        weightInitializer = WeightInitializer.ONES;
         lossFunction = LossFunctions.LossFunction.MSE;
         batchSize = AIConstant.DEFAULT_BATCH_SIZE;
         learningRate = AIConstant.DEFAULT_LEARNING_RATE;

@@ -3,7 +3,7 @@ package org.kok202.dluid.ai.entity;
 import lombok.Data;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitilaizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
 
 @Data
@@ -11,7 +11,7 @@ public class LayerProperties {
     // common properties
     private int[] inputSize;
     private int[] outputSize;
-    private WeightInitilaizer weightInit;
+    private WeightInitializer weightInit;
     private ActivationWrapper activationFunction;
     private double dropout;
 
@@ -42,7 +42,7 @@ public class LayerProperties {
     LayerProperties(LayerType layerType) {
         inputSize = new int[]{10, 1};
         outputSize = new int[]{10, 1};
-        weightInit = WeightInitilaizer.ONES;
+        weightInit = WeightInitializer.ONES;
         activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
 
