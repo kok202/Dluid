@@ -2,28 +2,34 @@ package org.kok202.dluid.application.adapter;
 
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LineChartAdapter {
+    @Getter
+    private int lastX;
     private LineChart<Number, Number> lineChart;
     private List<XYChart.Data<Number, Number>> data;
 
     public LineChartAdapter(LineChart<Number, Number> lineChart) {
+        this.lastX = 0;
         this.lineChart = lineChart;
         this.data = new ArrayList<>();
         lineChart.getXAxis().setAutoRanging(true);
-        lineChart.getYAxis().setAutoRanging(false);
+        lineChart.getYAxis().setAutoRanging(true);
         drawChart();
     }
 
     public void clearChart(){
+        lastX = 0;
         data.clear();
         drawChart();
     }
 
-    public void appendData(int x, double y){
+    public void addData(int x, double y){
+        lastX = Math.max(x, lastX);
         data.add(new XYChart.Data<>(x, y));
         drawChart();
     }
@@ -34,4 +40,5 @@ public class LineChartAdapter {
         lineChart.getData().clear();
         lineChart.getData().add(series);
     }
+
 }

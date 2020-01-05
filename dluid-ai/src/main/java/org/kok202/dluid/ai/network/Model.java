@@ -3,9 +3,10 @@ package org.kok202.dluid.ai.network;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.kok202.dluid.ai.util.DataSetConverter;
+import org.kok202.dluid.ai.singleton.AISingleton;
+import org.kok202.dluid.ai.util.NumericRecordSetUtil;
+import org.kok202.dluid.domain.exception.CanNotFindLayerException;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -23,26 +24,43 @@ public class Model {
 
     public void train(DataSet dataSet){
         multiLayerNetwork.fit(dataSet);
-        // TODO : 다른 model 에 subset 이겹치는 경우 전파
+
+        // Propagate trained param to other layers of model which is duplicated
+        AISingleton.getInstance()
+                .getModelManager()
+                .getModels()
+                .parallelStream()
+                .filter(model -> model.getInputLayerId() != inputLayerId)
+                .forEach(model -> updateParams(model.getMultiLayerConfLayerMap()));
     }
 
-    public NumericRecordSet test(NumericRecordSet featureDataSet){
-        INDArray feature = DataSetConverter.convertAsINDArray(featureDataSet);
+    public NumericRecordSet test(NumericRecordSet featureDataSet, long targetResultLayerId){
+        INDArray feature = NumericRecordSetUtil.convertAsINDArray(featureDataSet);
         List<INDArray> testResult = multiLayerNetwork.feedForward(feature);
-        INDArray lastLayerResult = testResult.get(testResult.size() - 1);
-        INDArray result = lastLayerResult.getRow(0);
-        // TODO
-        return null;
+        INDArray targetResultLayerOutput = testResult.get(getTestResultLayerSequence(targetResultLayerId));
+        // FIXME : Debug here!
+        return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput);
     }
 
-    private void updateParams(Map<Long, Layer> multiLayerMap){
+    private int getTestResultLayerSequence(long targetResultLayerId){
+        NeuralNetLayer neuralNetLayer = multiLayerConfLayerMap.get(targetResultLayerId);
+        if(neuralNetLayer == null)
+            throw new CanNotFindLayerException(targetResultLayerId);
+        return neuralNetLayer.getSequence() + 1; // Plus one : because first layer of testResult(List<INDArray>) is input layer
+    }
+
+    public double score(){
+        return multiLayerNetwork.score();
+    }
+
+    private void updateParams(Map<Long, NeuralNetLayer> multiLayerMap){
         multiLayerMap.entrySet()
                 .forEach(entry ->{
                     long layerId = entry.getKey();
-                    Layer layer = entry.getValue();
+                    NeuralNetLayer layer = entry.getValue();
                     NeuralNetLayer targetLayer = this.multiLayerConfLayerMap.get(layerId);
                     if(targetLayer != null){
-                        targetLayer.getLayer().setParams(layer.params());
+                        targetLayer.getLayer().setParams(layer.getLayer().params());
                     }
                 });
     }

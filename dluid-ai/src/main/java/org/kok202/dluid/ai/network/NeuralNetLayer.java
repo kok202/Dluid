@@ -9,6 +9,6 @@ import org.deeplearning4j.nn.api.Layer;
 @Builder
 @AllArgsConstructor
 public class NeuralNetLayer {
-    long sequence;
+    int sequence;
     Layer layer;
 }

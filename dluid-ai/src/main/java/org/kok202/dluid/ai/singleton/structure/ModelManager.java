@@ -2,12 +2,13 @@ package org.kok202.dluid.ai.singleton.structure;
 
 import lombok.Getter;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
+import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.listener.TrainingEpochListener;
 import org.kok202.dluid.ai.network.GraphManagerConverter;
 import org.kok202.dluid.ai.network.Model;
 import org.kok202.dluid.ai.singleton.AISingleton;
-import org.kok202.dluid.ai.util.DataSetConverter;
+import org.kok202.dluid.ai.util.NumericRecordSetUtil;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.nd4j.evaluation.classification.Evaluation;
@@ -52,8 +53,8 @@ public class ModelManager {
                     inputLayerId -> inputLayerId,
                     inputLayerId -> {
                         NumericRecordSet featureDataSet = AISingleton.getInstance().getTrainDataManager().getDataSetManager(inputLayerId).getManagedFeatureRecordSet().getNumericRecordSet();
-                        NumericRecordSet resultDataSet = AISingleton.getInstance().getTrainDataManager().getDataSetManager(inputLayerId).getManagedFeatureRecordSet().getNumericRecordSet();
-                        return new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
+                        NumericRecordSet resultDataSet = AISingleton.getInstance().getTrainDataManager().getDataSetManager(inputLayerId).getManagedResultRecordSet().getNumericRecordSet();
+                        return new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
                     }));
 
         // Train it alternately.
@@ -79,24 +80,24 @@ public class ModelManager {
             }
 
             if(trainingEpochListener != null)
-                trainingEpochListener.epochCount();
+                trainingEpochListener.count(() -> models.stream().mapToDouble(Model::score).sum());
         }
     }
 
     public void train(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        DataSetIterator dataSetIterator = new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
+        DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
         findModel(inputLayerId).getMultiLayerNetwork().fit(dataSetIterator, AISingleton.getInstance().getModelManager().getModelParameter().getEpoch());
     }
 
     /*************************************************************************************************
      /* Test
      *************************************************************************************************/
-    public NumericRecordSet test(long inputLayerId, NumericRecordSet featureDataSet){
-        return findModel(inputLayerId).test(featureDataSet);
+    public NumericRecordSet test(long inputLayerId, long targetResultLayerId){
+        return findModel(inputLayerId).test(AIFacade.getTestFeatureSet().getNumericRecordSet(), targetResultLayerId);
     }
 
     public Evaluation test(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        DataSetIterator dataSetIterator = new ListDataSetIterator<>(DataSetConverter.convert(featureDataSet, resultDataSet).asList());
+        DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList());
         return findModel(inputLayerId).getMultiLayerNetwork().evaluate(dataSetIterator);
     }
 

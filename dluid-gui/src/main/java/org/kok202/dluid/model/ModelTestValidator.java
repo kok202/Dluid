@@ -23,14 +23,7 @@ class ModelTestValidator {
     }
 
     private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
-        BlockNode outputBlockNode = CanvasFacade.findOutputLayer().get().getData();
-        int outputBlockNodeSize =
-                outputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
-                outputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
-
         int featureSetSize = AIFacade.getTestFeatureSet().getNumericRecordSet().getRecordSize();
-        int resultSetSize = AIFacade.getTestResultSet().getNumericRecordSet().getRecordSize();
-
         long testInputLayerId = AppFacade.getTestInputLayerId();
         GraphNode<BlockNode> testInputGraphNode = CanvasFacade.findGraphNodeByLayerId(testInputLayerId);
         int inputBlockNodeSize =
@@ -39,8 +32,6 @@ class ModelTestValidator {
 
         if(featureSetSize != inputBlockNodeSize)
             throw new FeatureSetDimensionUnmatchedException(testInputLayerId, inputBlockNodeSize, featureSetSize);
-        if(resultSetSize != outputBlockNodeSize)
-            throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeSize, testInputLayerId, resultSetSize);
     }
 
 }

@@ -52,7 +52,7 @@
                                         <Insets bottom="5.0" top="5.0" />
                                     </padding>
                                 </AnchorPane>
-                                <TextField fx:id="textFieldLearningRate" promptText="0.0005" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <TextField fx:id="textFieldLearningRate" promptText="0.1" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <padding>
                                         <Insets bottom="5.0" top="5.0" />
                                     </padding>

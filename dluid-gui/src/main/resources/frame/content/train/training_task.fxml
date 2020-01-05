@@ -28,6 +28,7 @@
                                       </LineChart>
                                    </children>
                                 </AnchorPane>
+
                                 <AnchorPane>
                                     <children>
                                         <TextArea fx:id="textAreaTrainingLog" maxHeight="150.0" minHeight="150.0" prefHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -36,6 +37,36 @@
                                         <Insets bottom="10.0" />
                                     </padding>
                                 </AnchorPane>
+
+                                <AnchorPane>
+                                    <children>
+                                        <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="130" prefWidth="140" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="80" prefWidth="240" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label fx:id="labelListeningPeriod" text="Epoch listening period : " GridPane.rowIndex="0" />
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                                    <children>
+                                                        <TextField fx:id="textFieldListeningPeriod" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        </TextField>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="5.0" top="5.0" />
+                                                    </padding>
+                                                </AnchorPane>
+                                            </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+
                                 <AnchorPane>
                                     <children>
                                         <JFXProgressBar fx:id="progressBarTrainingProgress" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -43,10 +74,11 @@
                                     <VBox.margin>
                                         <Insets />
                                     </VBox.margin>
-                                    <padding>
-                                        <Insets bottom="10.0" />
-                                    </padding>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
                                 </AnchorPane>
+
                                 <HBox alignment="TOP_RIGHT" prefWidth="200.0">
                                     <children>
                                         <Button fx:id="buttonTrainingOneTime" mnemonicParsing="false" styleClass="customGreenButton" text="1 번 학습">
