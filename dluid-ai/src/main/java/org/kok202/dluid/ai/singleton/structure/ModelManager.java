@@ -59,6 +59,7 @@ public class ModelManager {
 
         // Train it alternately.
         for(int epoch = 0; epoch < modelParameter.getEpoch(); epoch++){
+            // Reset data set iterator.
             dataSetIteratorMap.entrySet()
                     .parallelStream()
                     .forEach(entry -> entry.getValue().reset());
@@ -70,7 +71,8 @@ public class ModelManager {
                         .map(entry -> {
                             long inputLayerId = entry.getKey();
                             DataSet dataSet = entry.getValue().next();
-                            findModel(inputLayerId).train(dataSet);
+                            Model model = findModel(inputLayerId);
+                            model.train(dataSet);
                             return true;
                         })
                         .count();
