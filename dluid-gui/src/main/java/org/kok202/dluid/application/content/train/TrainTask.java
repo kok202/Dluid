@@ -4,7 +4,6 @@ import javafx.concurrent.Task;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.listener.TrainingEpochContainer;
-import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 import org.kok202.dluid.model.ModelStateManager;
 
 public class TrainTask extends Task<TrainProgressContainer> {
@@ -26,6 +25,7 @@ public class TrainTask extends Task<TrainProgressContainer> {
 
     @Override
     protected TrainProgressContainer call() {
+        AppFacade.setTrainingButtonDisable(true);
         updateValue(new TrainProgressContainer("Check training possible."));
         ModelStateManager.validateTrainPossible();
         updateValue(new TrainProgressContainer("Check training possible. [Successful]"));
@@ -43,7 +43,6 @@ public class TrainTask extends Task<TrainProgressContainer> {
                 });
         updateValue(new TrainProgressContainer("Try to add listener for print log. [done]"));
         updateValue(new TrainProgressContainer("Training start."));
-        AppFacade.setTrainingButtonDisable(true);
         AIFacade.trainModel();
         return null;
     }
@@ -55,7 +54,7 @@ public class TrainTask extends Task<TrainProgressContainer> {
         int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
         int trainedEpoch = AIFacade.getTrainEpoch();
         AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
-        AppWidgetSingleton.getInstance().getTabsController().getTabModelTrainController().getModelInformationController().refreshModelInformation();
+        AppFacade.refreshModelInformation();
     }
 
     @Override
