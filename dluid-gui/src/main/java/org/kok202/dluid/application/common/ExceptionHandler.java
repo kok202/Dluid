@@ -118,6 +118,18 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof FeatureSetResultSetUnmatchedException){
+            FeatureSetResultSetUnmatchedException featureSetResultSetUnmatchedException = ((FeatureSetResultSetUnmatchedException) exception);
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.recordSizeUnmatched.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.recordSizeUnmatched.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.recordSizeUnmatched.content"),
+                            featureSetResultSetUnmatchedException.getFeatureSetRowMax(),
+                            featureSetResultSetUnmatchedException.getResultSetRowMax()))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof InvalidParameterException){
             InvalidParameterException invalidParameterException = ((InvalidParameterException) exception);
             DialogUtil.builder()

@@ -54,7 +54,7 @@ public class ModelManager {
                     inputLayerId -> {
                         NumericRecordSet featureDataSet = AISingleton.getInstance().getTrainDataManager().getDataSetManager(inputLayerId).getManagedFeatureRecordSet().getNumericRecordSet();
                         NumericRecordSet resultDataSet = AISingleton.getInstance().getTrainDataManager().getDataSetManager(inputLayerId).getManagedResultRecordSet().getNumericRecordSet();
-                        return new ListDataSetIterator<>(NumericRecordSetUtil.convertAsDataSet(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
+                        return new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
                     }));
 
         // Train it alternately.
@@ -85,7 +85,7 @@ public class ModelManager {
     }
 
     public void train(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.convertAsDataSet(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
+        DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
         findModel(inputLayerId).getMultiLayerNetwork().fit(dataSetIterator, AISingleton.getInstance().getModelManager().getModelParameter().getEpoch());
     }
 
@@ -97,7 +97,7 @@ public class ModelManager {
     }
 
     public Evaluation test(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
-        DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.convertAsDataSet(featureDataSet, resultDataSet).asList());
+        DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList());
         return findModel(inputLayerId).getMultiLayerNetwork().evaluate(dataSetIterator);
     }
 

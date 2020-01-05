@@ -37,14 +37,16 @@ public class Model {
     public NumericRecordSet test(NumericRecordSet featureDataSet, long targetResultLayerId){
         INDArray feature = NumericRecordSetUtil.convertAsINDArray(featureDataSet);
         List<INDArray> testResult = multiLayerNetwork.feedForward(feature);
+        INDArray targetResultLayerOutput = testResult.get(getTestResultLayerSequence(targetResultLayerId));
+        // FIXME : Debug here!
+        return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput);
+    }
 
+    private int getTestResultLayerSequence(long targetResultLayerId){
         NeuralNetLayer neuralNetLayer = multiLayerConfLayerMap.get(targetResultLayerId);
         if(neuralNetLayer == null)
             throw new CanNotFindLayerException(targetResultLayerId);
-
-        INDArray targetResultLayerOutput = testResult.get(neuralNetLayer.getSequence());
-        // FIXME : Debug here!
-        return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput);
+        return neuralNetLayer.getSequence() + 1; // Plus one : because first layer of testResult(List<INDArray>) is input layer
     }
 
     public double score(){
