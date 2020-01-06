@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class DataSetManager {
-    private long inputLayerId;
+    private String inputLayerId;
     private ManagedRecordSet managedFeatureRecordSet;
     private ManagedRecordSet managedResultRecordSet;
 

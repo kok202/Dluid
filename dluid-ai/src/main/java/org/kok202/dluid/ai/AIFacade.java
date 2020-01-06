@@ -37,7 +37,7 @@ public class AIFacade {
         AISingleton.getInstance().getModelManager().train();
     }
 
-    public static NumericRecordSet testModel(long inputLayerId, long targetResultLayerId){
+    public static NumericRecordSet testModel(String inputLayerId, String targetResultLayerId){
         return AISingleton.getInstance().getModelManager().test(inputLayerId, targetResultLayerId);
     }
 
@@ -60,12 +60,12 @@ public class AIFacade {
     /*************************************************************************************************
      /* AI train data
      *************************************************************************************************/
-    public static void remainFilterTrainDataManagerSet(List<Long> inputLayerIds){
-        Set<Long> managedLayerIds = AISingleton.getInstance()
+    public static void remainFilterTrainDataManagerSet(List<String> inputLayerIds){
+        Set<String> managedLayerIds = AISingleton.getInstance()
                 .getTrainDataManager()
                 .getDataSetManagerMap()
                 .keySet();
-        Set<Long> deleteLayerIds = managedLayerIds
+        Set<String> deleteLayerIds = managedLayerIds
                 .stream()
                 .filter(inputLayerId -> !inputLayerIds.contains(inputLayerId))
                 .collect(Collectors.toSet());
@@ -84,20 +84,20 @@ public class AIFacade {
                 });
     }
 
-    public static Map<Long, DataSetManager> getTrainDataSetManagerMap(){
+    public static Map<String, DataSetManager> getTrainDataSetManagerMap(){
         return AISingleton.getInstance()
                 .getTrainDataManager()
                 .getDataSetManagerMap();
     }
 
-    public static ManagedRecordSet getTrainFeatureSet(long inputLayerId){
+    public static ManagedRecordSet getTrainFeatureSet(String inputLayerId){
         return AISingleton.getInstance()
                 .getTrainDataManager()
                 .getDataSetManager(inputLayerId)
                 .getManagedFeatureRecordSet();
     }
 
-    public static ManagedRecordSet getTrainResultSet(long inputLayerId){
+    public static ManagedRecordSet getTrainResultSet(String inputLayerId){
         return AISingleton.getInstance()
                 .getTrainDataManager()
                 .getDataSetManager(inputLayerId)

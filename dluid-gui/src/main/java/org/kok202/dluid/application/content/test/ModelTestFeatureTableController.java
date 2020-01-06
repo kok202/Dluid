@@ -26,7 +26,7 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
     @FXML private Label labelTestTarget;
     @FXML private MenuButton menuButtonTestTarget;
     @FXML private TableView tableViewDataSet;
-    private MenuAdapter<Long> menuTestTargetAdapter;
+    private MenuAdapter<String> menuTestTargetAdapter;
     private NumericTableViewAdapter numericTableViewAdapter;
 
     public ModelTestFeatureTableController(TabModelTestController tabModelTestController) {
@@ -57,14 +57,14 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
     }
 
     public void refreshTestInputLayerInformation(){
-        List<Long> layerIds = CanvasFacade
+        List<String> layerIds = CanvasFacade
                 .findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
                 .stream()
                 .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
                 .collect(Collectors.toList());
 
         menuTestTargetAdapter.clearMenuItems();
-        layerIds.forEach(layerId -> menuTestTargetAdapter.addMenuItem(String.valueOf(layerId), layerId));
+        layerIds.forEach(layerId -> menuTestTargetAdapter.addMenuItem(layerId, layerId));
         menuTestTargetAdapter.setDefaultMenuItem();
     }
 

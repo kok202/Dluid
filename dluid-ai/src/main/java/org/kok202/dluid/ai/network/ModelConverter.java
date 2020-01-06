@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ModelConverter {
-    private Map<Long, InputPreProcessor> inputPreProcessorRecycleMap;
+    private Map<String, InputPreProcessor> inputPreProcessorRecycleMap;
 
     public ModelConverter() {
         this.inputPreProcessorRecycleMap = new HashMap<>();
@@ -21,7 +21,7 @@ public class ModelConverter {
         return graphManagerAnalyzer.getInputLayerIds()
                 .stream()
                 .map(inputLayerId -> {
-                    Map<Long, org.kok202.dluid.ai.entity.Layer> dluidLayerMap = graphManagerAnalyzer.getMultiLayerManager().get(inputLayerId);
+                    Map<String, org.kok202.dluid.ai.entity.Layer> dluidLayerMap = graphManagerAnalyzer.getMultiLayerManager().get(inputLayerId);
                     List<org.kok202.dluid.ai.entity.Layer> dluidLayers = new ArrayList<>(dluidLayerMap.values());
 
                     NeuralNetConfiguration.ListBuilder listBuilder = createDefaultConfiguration();
@@ -32,9 +32,9 @@ public class ModelConverter {
                     MultiLayerNetwork multiLayerNetwork = new MultiLayerNetwork(multiLayerConfiguration);
                     multiLayerNetwork.init();
 
-                    Map<Long, NeuralNetLayer> NeuralNetLayerMap = new LinkedHashMap<>();
+                    Map<String, NeuralNetLayer> NeuralNetLayerMap = new LinkedHashMap<>();
                     for (int i = 0; i < dluidLayers.size(); i++) {
-                        long dluidLayerId = dluidLayers.get(i).getId();
+                        String dluidLayerId = dluidLayers.get(i).getId();
                         NeuralNetLayerMap.put(
                                 dluidLayerId,
                                 NeuralNetLayer.builder()

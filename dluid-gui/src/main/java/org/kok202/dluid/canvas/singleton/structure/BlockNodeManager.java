@@ -18,11 +18,14 @@ import java.util.stream.Stream;
 @Data
 public class BlockNodeManager extends GraphManager<BlockNode>{
 
-    public void removeGraphNode(long layerId) {
+    public void removeGraphNode(String layerId) {
+        GraphNode<BlockNode> targetBlockNodeGraphNode = findGraphNodeByLayerId(layerId);
+        targetBlockNodeGraphNode.getData().getBlockLayer().delete();
+
         // Remove all directly connected pipe layer
         Stream.concat(
-                findGraphNodeByLayerId(layerId).getIncomingNodes().stream(),
-                findGraphNodeByLayerId(layerId).getOutgoingNodes().stream())
+                targetBlockNodeGraphNode.getIncomingNodes().stream(),
+                targetBlockNodeGraphNode.getOutgoingNodes().stream())
                 .forEach(blockNodeGraphNode -> {
                     if (blockNodeGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER)
                         removeGraphNode(blockNodeGraphNode.getData().getBlockLayer().getId());
@@ -32,7 +35,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         removeGraphNode(
                 blockNodeObj -> {
                     BlockNode blockNode = (BlockNode) blockNodeObj;
-                    return blockNode.getBlockLayer().getId() == layerId;
+                    return blockNode.getBlockLayer().getId().equals(layerId);
                 },
                 graphNode -> {
                     GraphNode<BlockNode> blockGraphNode = (GraphNode<BlockNode>) graphNode;
@@ -42,18 +45,18 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         reshapeAllBlockByType();
     }
 
-    public GraphNode<BlockNode> findGraphNodeByLayerId(long layerId) {
+    public GraphNode<BlockNode> findGraphNodeByLayerId(String layerId) {
         return findGraphNode(blockNodeObj -> {
             BlockNode blockNode = (BlockNode) blockNodeObj;
-            return blockNode.getBlockLayer().getId() == layerId;
+            return blockNode.getBlockLayer().getId().equals(layerId);
         });
     }
 
-    public List<GraphNode<BlockNode>> findAllReachableNode(long layerId) {
+    public List<GraphNode<BlockNode>> findAllReachableNode(String layerId) {
         return findAllReachableNode(findGraphNodeByLayerId(layerId));
     }
 
-    public void notifyLayerDataChanged(long layerId){
+    public void notifyLayerDataChanged(String layerId){
         GraphNode<BlockNode> graphNode = findGraphNodeByLayerId(layerId);
         BlockNode blockNode = graphNode.getData();
         blockNode.reshapeBlockModel();
@@ -118,7 +121,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 .collect(Collectors.toList());
     }
 
-    public GraphNode<BlockNode> findStartBlockConnectedWithLayerId(long layerId) {
+    public GraphNode<BlockNode> findStartBlockConnectedWithLayerId(String layerId) {
         GraphNode<BlockNode> startNode = findGraphNodeByLayerId(layerId);
         return findStartBlockConnectedWithLayerIdSearch(startNode);
     }

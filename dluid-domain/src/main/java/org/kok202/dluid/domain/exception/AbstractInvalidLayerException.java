@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public abstract class AbstractInvalidLayerException extends RuntimeException {
-    private long layerId;
-    public AbstractInvalidLayerException(long layerId, String message){
+    private String layerId;
+    public AbstractInvalidLayerException(String layerId, String message){
         super(message);
         this.layerId = layerId;
     }

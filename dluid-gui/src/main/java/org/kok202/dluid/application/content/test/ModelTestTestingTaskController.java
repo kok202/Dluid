@@ -25,7 +25,7 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
     @FXML private ProgressBar progressBarTestProgress;
     @FXML private Button buttonTest;
 
-    private MenuAdapter<Long> menuTestTargetResultLayerAdapter;
+    private MenuAdapter<String> menuTestTargetResultLayerAdapter;
 
     public ModelTestTestingTaskController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
@@ -47,8 +47,8 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
         buttonTest.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.test"));
     }
 
-    public void refreshTestTargetResultLayerInformation(long testInputLayerId){
-        List<Long> layerIds = CanvasFacade
+    public void refreshTestTargetResultLayerInformation(String testInputLayerId){
+        List<String> layerIds = CanvasFacade
                 .findAllReachableNode(testInputLayerId)
                 .stream()
                 .filter(blockNodeGraphNode -> !blockNodeGraphNode.getData().getBlockLayer().getType().isAssistLayerType())
@@ -56,7 +56,7 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
                 .collect(Collectors.toList());
 
         menuTestTargetResultLayerAdapter.clearMenuItems();
-        layerIds.forEach(layerId -> menuTestTargetResultLayerAdapter.addMenuItem(String.valueOf(layerId), layerId));
+        layerIds.forEach(layerId -> menuTestTargetResultLayerAdapter.addMenuItem(layerId, layerId));
         menuTestTargetResultLayerAdapter.setDefaultMenuItemLast();
     }
 

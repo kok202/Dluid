@@ -110,12 +110,35 @@ public class AppFacade {
      /* Handling train tab
      *************************************************************************************************/
 
+    public static void refreshModelInformation(){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTrainController()
+                .getModelInformationController()
+                .refreshModelInformation();
+    }
+
     public static void refreshTrainingFileLoader(){
         AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTrainController()
                 .getModelTrainFileLoaderController()
                 .refreshFileLoader();
+    }
+
+    public static void refreshTrainingLog(){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTrainController()
+                .getModelTrainTaskController()
+                .getLineChartAdapter()
+                .clearChart();
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTrainController()
+                .getModelTrainTaskController()
+                .getTextAreaTrainingLog()
+                .clear();
     }
 
     public static void refreshTestInputLayerInformation(){
@@ -125,6 +148,16 @@ public class AppFacade {
                 .getModelTestFeatureController()
                 .getModelTestFeatureTableController()
                 .refreshTestInputLayerInformation();
+    }
+
+    public static void refreshTestLog(){
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestTestingController()
+                .getModelTestTestingTaskController()
+                .getTextAreaTestLog()
+                .clear();
     }
 
     public static void setTrainingAndTestSettingDisable(boolean disable){
@@ -149,7 +182,7 @@ public class AppFacade {
                 .getTabsController()
                 .getTabModelTrainController()
                 .getModelTrainTaskController()
-                .getButtonTrainingStop()
+                .getButtonTrainingNTime()
                 .setDisable(disable);
         AppWidgetSingleton.getInstance()
                 .getTabsController()
@@ -172,24 +205,24 @@ public class AppFacade {
     /*************************************************************************************************
      /* Handling test tab
      *************************************************************************************************/
-    public static long getTestInputLayerId(){
-        return Long.valueOf(AppWidgetSingleton.getInstance()
+    public static String getTestInputLayerId(){
+        return AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTestController()
                 .getModelTestFeatureController()
                 .getModelTestFeatureTableController()
                 .getMenuButtonTestTarget()
-                .getText());
+                .getText();
     }
 
-    public static long getTestTargetResultLayerId(){
-        return Long.valueOf(AppWidgetSingleton.getInstance()
+    public static String getTestTargetResultLayerId(){
+        return AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTestController()
                 .getModelTestTestingController()
                 .getModelTestTestingTaskController()
                 .getMenuButtonTestTargetResultLayer()
-                .getText());
+                .getText();
     }
 
     public static void refreshTestResultTable(){

@@ -18,9 +18,9 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 public class Model {
-    private long inputLayerId;
+    private String inputLayerId;
     private MultiLayerNetwork multiLayerNetwork;
-    private Map<Long, NeuralNetLayer> multiLayerConfLayerMap;
+    private Map<String, NeuralNetLayer> multiLayerConfLayerMap;
 
     public void train(DataSet dataSet){
         multiLayerNetwork.fit(dataSet);
@@ -30,11 +30,11 @@ public class Model {
                 .getModelManager()
                 .getModels()
                 .parallelStream()
-                .filter(model -> model.getInputLayerId() != inputLayerId)
+                .filter(model -> !model.getInputLayerId().equals(inputLayerId))
                 .forEach(model -> updateParams(model.getMultiLayerConfLayerMap()));
     }
 
-    public NumericRecordSet test(NumericRecordSet featureDataSet, long targetResultLayerId){
+    public NumericRecordSet test(NumericRecordSet featureDataSet, String targetResultLayerId){
         INDArray feature = NumericRecordSetUtil.convertAsINDArray(featureDataSet);
         List<INDArray> testResult = multiLayerNetwork.feedForward(feature);
         INDArray targetResultLayerOutput = testResult.get(getTestResultLayerSequence(targetResultLayerId));
@@ -42,7 +42,7 @@ public class Model {
         return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput);
     }
 
-    private int getTestResultLayerSequence(long targetResultLayerId){
+    private int getTestResultLayerSequence(String targetResultLayerId){
         NeuralNetLayer neuralNetLayer = multiLayerConfLayerMap.get(targetResultLayerId);
         if(neuralNetLayer == null)
             throw new CanNotFindLayerException(targetResultLayerId);
@@ -53,10 +53,10 @@ public class Model {
         return multiLayerNetwork.score();
     }
 
-    private void updateParams(Map<Long, NeuralNetLayer> multiLayerMap){
+    private void updateParams(Map<String, NeuralNetLayer> multiLayerMap){
         multiLayerMap.entrySet()
                 .forEach(entry ->{
-                    long layerId = entry.getKey();
+                    String layerId = entry.getKey();
                     NeuralNetLayer layer = entry.getValue();
                     NeuralNetLayer targetLayer = this.multiLayerConfLayerMap.get(layerId);
                     if(targetLayer != null){

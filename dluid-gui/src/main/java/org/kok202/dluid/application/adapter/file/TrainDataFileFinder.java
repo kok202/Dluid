@@ -13,7 +13,7 @@ public abstract class TrainDataFileFinder extends ExtendedFileFinder{
         this.menuButtonTrainingTarget = menuButtonTrainingTarget;
     }
 
-    protected long getTargetLayerId() {
-        return Long.parseLong(menuButtonTrainingTarget.getText());
+    protected String getTargetLayerId() {
+        return menuButtonTrainingTarget.getText();
     }
 }

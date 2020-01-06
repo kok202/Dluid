@@ -10,7 +10,7 @@ public class ResultSetDimensionUnmatchedException extends RuntimeException {
     private String inputLayerId;
     private String ResultSetDimension;
 
-    public ResultSetDimensionUnmatchedException(long outputLayerId, int outputLayerDimension, long inputLayerId, int ResultSetDimension) {
+    public ResultSetDimensionUnmatchedException(String outputLayerId, int outputLayerDimension, String inputLayerId, int ResultSetDimension) {
         super("Result set dimension is not matched");
         this.outputLayerId = String.valueOf(outputLayerId);
         this.outputLayerDimension = String.valueOf(outputLayerDimension);

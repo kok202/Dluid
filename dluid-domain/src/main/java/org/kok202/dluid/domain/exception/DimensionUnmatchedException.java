@@ -12,19 +12,11 @@ public class DimensionUnmatchedException extends RuntimeException {
     private String destinationLayerId;
     private String destinationInputSize;
 
-    public DimensionUnmatchedException(long sourceLayerId, int sourceLayerOutputSize, long destinationLayerId, int destinationInputSize) {
+    public DimensionUnmatchedException(String sourceLayerId, int[] out, String destinationLayerId, int[] in) {
         super("LayerType dimension is not matched");
-        this.sourceLayerId = String.valueOf(sourceLayerId);
-        this.sourceLayerOutputSize = String.valueOf(sourceLayerOutputSize);
-        this.destinationLayerId = String.valueOf(destinationLayerId);
-        this.destinationInputSize = String.valueOf(destinationInputSize);
-    }
-
-    public DimensionUnmatchedException(long sourceLayerId, int[] out, long destinationLayerId, int[] in) {
-        super("LayerType dimension is not matched");
-        this.sourceLayerId = String.valueOf(sourceLayerId);
+        this.sourceLayerId = sourceLayerId;
         this.sourceLayerOutputSize = Arrays.toString(out);
-        this.destinationLayerId = String.valueOf(destinationLayerId);
+        this.destinationLayerId = destinationLayerId;
         this.destinationInputSize = Arrays.toString(in);
     }
 

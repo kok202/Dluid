@@ -17,14 +17,14 @@ class ModelTestValidator {
     }
 
     private static void validateDataSetExist() throws FeatureSetDimensionUnmatchedException {
-        long testInputLayerId = AppFacade.getTestInputLayerId();
+        String testInputLayerId = AppFacade.getTestInputLayerId();
         if(AIFacade.getTestFeatureSet().getNumericRecordSet() == null)
             throw new CanNotFindFeatureSetException(testInputLayerId);
     }
 
     private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
         int featureSetSize = AIFacade.getTestFeatureSet().getNumericRecordSet().getRecordSize();
-        long testInputLayerId = AppFacade.getTestInputLayerId();
+        String testInputLayerId = AppFacade.getTestInputLayerId();
         GraphNode<BlockNode> testInputGraphNode = CanvasFacade.findGraphNodeByLayerId(testInputLayerId);
         int inputBlockNodeSize =
                 testInputGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[0] *

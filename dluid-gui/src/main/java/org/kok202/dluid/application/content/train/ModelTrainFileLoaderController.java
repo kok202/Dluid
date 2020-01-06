@@ -28,7 +28,7 @@ public class ModelTrainFileLoaderController extends AbstractModelTrainController
     @FXML private TextField textFieldFindTrainingResult;
     @FXML private Button buttonFindTrainingResult;
 
-    private MenuAdapter<Long> menuTrainingTargetAdapter;
+    private MenuAdapter<String> menuTrainingTargetAdapter;
     private TrainFeatureFileFinder trainFeatureFileFinder;
     private TrainResultFileFinder trainResultFileFinder;
 
@@ -68,21 +68,21 @@ public class ModelTrainFileLoaderController extends AbstractModelTrainController
     }
 
     public void refreshFileLoader(){
-        List<Long> layerIds = CanvasFacade
+        List<String> layerIds = CanvasFacade
                 .findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
                 .stream()
                 .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
                 .collect(Collectors.toList());
 
         menuTrainingTargetAdapter.clearMenuItems();
-        layerIds.forEach(layerId -> menuTrainingTargetAdapter.addMenuItem(String.valueOf(layerId), layerId));
+        layerIds.forEach(layerId -> menuTrainingTargetAdapter.addMenuItem(layerId, layerId));
         menuTrainingTargetAdapter.setDefaultMenuItem();
 
         setTitlePaneAvailable(!layerIds.isEmpty());
         AIFacade.remainFilterTrainDataManagerSet(layerIds);
     }
 
-    public void setTextField(long layerId){
+    public void setTextField(String layerId){
         trainFeatureFileFinder.setText(AIFacade.getTrainFeatureSet(layerId).getFilePath());
         trainResultFileFinder.setText(AIFacade.getTrainResultSet(layerId).getFilePath());
     }

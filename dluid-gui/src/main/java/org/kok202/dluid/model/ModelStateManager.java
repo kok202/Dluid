@@ -23,8 +23,12 @@ public class ModelStateManager {
         GraphNode<BlockNode> outputGraphNode = CanvasFacade.findOutputLayer().get();
         GraphManager<Layer> layerGraphManager = ModelGraphConverter.convertToLayerGraph(outputGraphNode);
         AIFacade.initializeModel(layerGraphManager);
+        AIFacade.setModelLearnedEpochNumber(0);
+        AppFacade.refreshModelInformation();
         AppFacade.refreshTrainingFileLoader();
+        AppFacade.refreshTrainingLog();
         AppFacade.refreshTestInputLayerInformation();
+        AppFacade.refreshTestLog();
         AppFacade.setTrainingAndTestSettingDisable(false);
     }
 

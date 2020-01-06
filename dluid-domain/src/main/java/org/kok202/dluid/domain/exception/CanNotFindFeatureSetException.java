@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class CanNotFindFeatureSetException extends AbstractInvalidLayerException {
 
-    public CanNotFindFeatureSetException(long layerId) {
+    public CanNotFindFeatureSetException(String layerId) {
         super(layerId, "Feature set is not set.");
     }
 }

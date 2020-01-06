@@ -38,7 +38,7 @@ public abstract class BlockNode {
 
     public BlockNode(Layer layer, int BLOCK_HEXAHEDRON_SIZE) {
         this.BLOCK_HEXAHEDRON_SIZE = BLOCK_HEXAHEDRON_SIZE;
-        this.blockInfo = new BlockInfo(layer.getType(), BLOCK_HEXAHEDRON_SIZE);
+        this.blockInfo = new BlockInfo(layer, BLOCK_HEXAHEDRON_SIZE);
         this.blockLayer = layer;
         clearHexahedronList();
         createBlockModel(layer);
