@@ -18,8 +18,8 @@ class ModelTrainValidator {
     }
 
     private static void validateDataSetExist() {
-        for (Map.Entry<Long, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
-            Long inputLayerId = entry.getKey();
+        for (Map.Entry<String, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
+            String inputLayerId = entry.getKey();
             DataSetManager dataSetManager = entry.getValue();
             if(dataSetManager.getManagedFeatureRecordSet().getNumericRecordSet() == null)
                 throw new CanNotFindFeatureSetException(inputLayerId);
@@ -34,8 +34,8 @@ class ModelTrainValidator {
                 outputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
                 outputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
 
-        for (Map.Entry<Long, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
-            Long inputLayerId = entry.getKey();
+        for (Map.Entry<String, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
+            String inputLayerId = entry.getKey();
             DataSetManager dataSetManager = entry.getValue();
             int featureSetSize = dataSetManager.getManagedFeatureRecordSet().getNumericRecordSet().getRecordSize();
             int resultSetSize = dataSetManager.getManagedResultRecordSet().getNumericRecordSet().getRecordSize();

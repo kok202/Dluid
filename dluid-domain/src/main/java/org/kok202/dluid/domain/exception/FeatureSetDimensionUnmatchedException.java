@@ -9,7 +9,7 @@ public class FeatureSetDimensionUnmatchedException extends RuntimeException {
     private String inputLayerDimension;
     private String featureSetDimension;
 
-    public FeatureSetDimensionUnmatchedException(long inputLayerId, int inputLayerDimension, int featureSetDimension) {
+    public FeatureSetDimensionUnmatchedException(String inputLayerId, int inputLayerDimension, int featureSetDimension) {
         super("Feature set dimension is not matched");
         this.inputLayerId = String.valueOf(inputLayerId);
         this.inputLayerDimension = String.valueOf(inputLayerDimension);

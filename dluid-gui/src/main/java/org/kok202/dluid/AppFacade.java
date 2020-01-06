@@ -205,24 +205,24 @@ public class AppFacade {
     /*************************************************************************************************
      /* Handling test tab
      *************************************************************************************************/
-    public static long getTestInputLayerId(){
-        return Long.valueOf(AppWidgetSingleton.getInstance()
+    public static String getTestInputLayerId(){
+        return AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTestController()
                 .getModelTestFeatureController()
                 .getModelTestFeatureTableController()
                 .getMenuButtonTestTarget()
-                .getText());
+                .getText();
     }
 
-    public static long getTestTargetResultLayerId(){
-        return Long.valueOf(AppWidgetSingleton.getInstance()
+    public static String getTestTargetResultLayerId(){
+        return AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTestController()
                 .getModelTestTestingController()
                 .getModelTestTestingTaskController()
                 .getMenuButtonTestTargetResultLayer()
-                .getText());
+                .getText();
     }
 
     public static void refreshTestResultTable(){

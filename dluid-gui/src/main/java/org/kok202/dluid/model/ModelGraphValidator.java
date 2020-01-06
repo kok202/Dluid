@@ -1,5 +1,6 @@
 package org.kok202.dluid.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.block.BlockNode;
@@ -57,11 +58,11 @@ class ModelGraphValidator {
     private static void validateMergeBlockNode() throws InvalidMergeConnectionExistException {
         List<GraphNode<BlockNode>> allMergeGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() == LayerType.MERGE_LAYER);
         for (GraphNode<BlockNode> mergeGraphNode : allMergeGraphNode) {
-            List<Long> sourceLayerIdsOfMergeBlockNode = mergeGraphNode
+            List<String> sourceLayerIdsOfMergeBlockNode = mergeGraphNode
                     .getIncomingNodes()
                     .stream()
                     .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdConnectedWithLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
-                    .filter(layerId -> layerId != -1)
+                    .filter(StringUtils::isNotEmpty)
                     .collect(Collectors.toList());
             if(sourceLayerIdsOfMergeBlockNode.stream().distinct().count() != 1)
                 throw new InvalidMergeConnectionExistException(mergeGraphNode.getData().getBlockLayer().getId());
@@ -71,11 +72,11 @@ class ModelGraphValidator {
     private static void validateSwitchBlockNode() throws InvalidSwitchConnectionExistException {
         List<GraphNode<BlockNode>> allSwitchGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getType() == LayerType.SWITCH_LAYER);
         for (GraphNode<BlockNode> switchGraphNode : allSwitchGraphNode) {
-            List<Long> sourceLayerIdsOfSwitchBlockNode = switchGraphNode
+            List<String> sourceLayerIdsOfSwitchBlockNode = switchGraphNode
                     .getIncomingNodes()
                     .stream()
                     .map(blockNodeGraphNode -> CanvasFacade.findStartLayerIdConnectedWithLayerId(blockNodeGraphNode.getData().getBlockLayer().getId()))
-                    .filter(layerId -> layerId != -1)
+                    .filter(StringUtils::isNotEmpty)
                     .collect(Collectors.toList());
             if(sourceLayerIdsOfSwitchBlockNode.size() != sourceLayerIdsOfSwitchBlockNode.stream().distinct().count())
                 throw new InvalidSwitchConnectionExistException(switchGraphNode.getData().getBlockLayer().getId());

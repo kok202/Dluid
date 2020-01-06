@@ -11,7 +11,7 @@ private List<BlockHexahedron> blockHexahedronList;
 #### BlockInfo
 BlockInfo is structure of block node properties in for creating hexahedron model in canvas like position, node height, textures etc...
 ````
-protected long id;
+protected String id;
 protected double height;
 protected Point3D position;
 protected List<String[]> textureSourcesList;

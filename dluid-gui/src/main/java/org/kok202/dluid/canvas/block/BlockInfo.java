@@ -4,13 +4,12 @@ import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.canvas.entity.InputBlockProperty;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
-import org.kok202.dluid.domain.util.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,15 +18,15 @@ import java.util.Map;
 
 @Data
 public class BlockInfo {
-    protected long id;
+    protected String id;
     protected double height;
     protected Point3D position;
     protected List<Map<BlockFace, String>> textureSourceMapList;
     protected List<Map<BlockFace, Color>> colorMapList;
     protected Object extra;
 
-    public BlockInfo(LayerType layerType, int blockHexahedronNumber) {
-        this.id = RandomUtil.getPositiveLong();
+    public BlockInfo(Layer layer, int blockHexahedronNumber) {
+        this.id = "BLOCK : " + layer.getId();
         this.height = CanvasConstant.NODE_DEFAULT_HEIGHT;
         this.position = new Point3D(0,0,0);
         this.textureSourceMapList = new ArrayList<>();
@@ -38,7 +37,7 @@ public class BlockInfo {
             this.colorMapList.add(new HashMap<>());
         }
 
-        switch (layerType){
+        switch (layer.getType()){
             case INPUT_LAYER:
                 extra = new InputBlockProperty();
                 break;

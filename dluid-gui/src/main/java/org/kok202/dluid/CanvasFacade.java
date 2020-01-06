@@ -49,17 +49,17 @@ public class CanvasFacade {
         return CanvasSingleton.getInstance().getBlockNodeManager().getHashCode();
     }
 
-    public static void notifyLayerDataChanged(long layerId){
+    public static void notifyLayerDataChanged(String layerId){
         CanvasSingleton.getInstance().getBlockNodeManager().notifyLayerDataChanged(layerId);
     }
 
-    public static List<GraphNode<BlockNode>> findAllReachableNode(long layerId){
+    public static List<GraphNode<BlockNode>> findAllReachableNode(String layerId){
         return CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .findAllReachableNode(layerId);
     }
 
-    public static void removeGraphNode(long layerId) {
+    public static void removeGraphNode(String layerId) {
         CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(layerId);
     }
 
@@ -70,7 +70,7 @@ public class CanvasFacade {
         }
     }
 
-    public static List<Layer> findIncomingLayers(long layerId){
+    public static List<Layer> findIncomingLayers(String layerId){
         return CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .findGraphNodeByLayerId(layerId)
@@ -84,12 +84,12 @@ public class CanvasFacade {
                 .collect(Collectors.toList());
     }
 
-    public static long findStartLayerIdConnectedWithLayerId(long layerId){
+    public static String findStartLayerIdConnectedWithLayerId(String layerId){
         GraphNode<BlockNode> sourceLayerGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().findStartBlockConnectedWithLayerId(layerId);
-        return (sourceLayerGraphNode != null)? sourceLayerGraphNode.getData().getBlockLayer().getId() : -1;
+        return (sourceLayerGraphNode != null)? sourceLayerGraphNode.getData().getBlockLayer().getId() : "";
     }
 
-    public static GraphNode<BlockNode> findGraphNodeByLayerId(long layerId){
+    public static GraphNode<BlockNode> findGraphNodeByLayerId(String layerId){
         return CanvasSingleton.getInstance().getBlockNodeManager().findGraphNodeByLayerId(layerId);
     }
 

@@ -32,8 +32,9 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
     @Override
     protected void initialize() throws Exception {
         textFieldLayerId.setText(String.valueOf(layer.getId()));
-        textFieldLayerType.setText(layer.getType().toString());
+        textFieldLayerType.setText(layer.getType().getReadableName());
         buttonDelete.setOnAction((event -> {
+            layer.delete();
             CanvasFacade.removeGraphNode(layer.getId());
             AppWidgetSingleton.getInstance()
                     .getTabsController()

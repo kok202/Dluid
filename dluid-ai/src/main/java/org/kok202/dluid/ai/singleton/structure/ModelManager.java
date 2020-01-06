@@ -47,7 +47,7 @@ public class ModelManager {
      *************************************************************************************************/
     public void train(){
         // Collect all input data set
-        Map<Long, DataSetIterator> dataSetIteratorMap = findAllInputLayerIds()
+        Map<String, DataSetIterator> dataSetIteratorMap = findAllInputLayerIds()
                 .parallelStream()
                 .collect(Collectors.toMap(
                     inputLayerId -> inputLayerId,
@@ -69,7 +69,7 @@ public class ModelManager {
                         .stream()
                         .filter(entry -> entry.getValue().hasNext())
                         .map(entry -> {
-                            long inputLayerId = entry.getKey();
+                            String inputLayerId = entry.getKey();
                             DataSet dataSet = entry.getValue().next();
                             Model model = findModel(inputLayerId);
                             model.train(dataSet);
@@ -86,7 +86,7 @@ public class ModelManager {
         }
     }
 
-    public void train(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
+    public void train(String inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
         DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList(), modelParameter.getBatchSize());
         findModel(inputLayerId).getMultiLayerNetwork().fit(dataSetIterator, AISingleton.getInstance().getModelManager().getModelParameter().getEpoch());
     }
@@ -94,11 +94,11 @@ public class ModelManager {
     /*************************************************************************************************
      /* Test
      *************************************************************************************************/
-    public NumericRecordSet test(long inputLayerId, long targetResultLayerId){
+    public NumericRecordSet test(String inputLayerId, String targetResultLayerId){
         return findModel(inputLayerId).test(AIFacade.getTestFeatureSet().getNumericRecordSet(), targetResultLayerId);
     }
 
-    public Evaluation test(long inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
+    public Evaluation test(String inputLayerId, NumericRecordSet featureDataSet, NumericRecordSet resultDataSet){
         DataSetIterator dataSetIterator = new ListDataSetIterator<>(NumericRecordSetUtil.shuffleAndConvertAsDataSet(featureDataSet, resultDataSet).asList());
         return findModel(inputLayerId).getMultiLayerNetwork().evaluate(dataSetIterator);
     }
@@ -106,15 +106,15 @@ public class ModelManager {
     /*************************************************************************************************
      /* ETC
      *************************************************************************************************/
-    private List<Long> findAllInputLayerIds() {
+    private List<String> findAllInputLayerIds() {
         return models.stream()
                 .map(Model::getInputLayerId)
                 .collect(Collectors.toList());
     }
 
-    private Model findModel(long inputLayerId){
+    private Model findModel(String inputLayerId){
         for (Model model : models){
-            if(model.getInputLayerId() == inputLayerId)
+            if(model.getInputLayerId().equals(inputLayerId))
                 return model;
         }
         throw new RuntimeException("Can not find model which start from input layer : " + inputLayerId);
