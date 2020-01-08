@@ -51,7 +51,9 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
         List<String> layerIds = CanvasFacade
                 .findAllReachableNode(testInputLayerId)
                 .stream()
-                .filter(blockNodeGraphNode -> !blockNodeGraphNode.getData().getBlockLayer().getType().isAssistLayerType())
+                .filter(blockNodeGraphNode ->
+                        !blockNodeGraphNode.getData().getBlockLayer().getType().isAssistLayerType() &&
+                        !blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
                 .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
                 .collect(Collectors.toList());
 
