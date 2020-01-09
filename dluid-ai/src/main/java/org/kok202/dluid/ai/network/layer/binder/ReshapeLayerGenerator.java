@@ -16,7 +16,14 @@ public class ReshapeLayerGenerator extends AbstractLayerGenerator {
 
     @Override
     public void generate(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
-        graphBuilder.addVertex(layer.getId(), new ReshapeVertex(), parseLayerIds(layerFroms));
+
+        int[] newShape = new int[]{
+                -1,
+                -1, //layerInputDepth
+                layer.getProperties().getOutputSize()[1],
+                layer.getProperties().getOutputSize()[0]
+        };
+        graphBuilder.addVertex(layer.getId(), new ReshapeVertex(newShape), parseLayerIds(layerFroms));
     }
 
 }

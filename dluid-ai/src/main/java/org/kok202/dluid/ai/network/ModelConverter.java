@@ -35,8 +35,8 @@ public class ModelConverter {
                     Map<String, Layer> computationGraphLayerMap = new LinkedHashMap<>();
                     for (org.kok202.dluid.ai.entity.Layer dluidLayer : dluidLayers) {
                         String dluidLayerId = dluidLayer.getId();
-                        Layer computationGraphLayer = computationGraph.getLayer(dluidLayerId);
-                        if (computationGraphLayer != null) {
+                        if(computationGraph.getVertex(dluidLayerId).hasLayer()){
+                            Layer computationGraphLayer = computationGraph.getVertex(dluidLayerId).getLayer();
                             computationGraphLayerMap.put(dluidLayerId, computationGraphLayer);
                             inputPreProcessorRecycleMap.put(dluidLayerId, graphBuilder.getInputPreProcessors().get(dluidLayerId));
                         }

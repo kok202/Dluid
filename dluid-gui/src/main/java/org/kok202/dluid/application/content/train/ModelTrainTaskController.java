@@ -23,7 +23,6 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
     @FXML private TextField textFieldListeningPeriod;
     @FXML private Button buttonTrainingOneTime;
     @FXML private Button buttonTrainingNTime;
-    @FXML private Button buttonTrainingStop;
     private LineChartAdapter lineChartAdapter;
 
     public AnchorPane createView() throws Exception {
@@ -38,7 +37,6 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         lineChartAdapter = new LineChartAdapter(lineChartTrainingChart);
         buttonTrainingOneTime.setDisable(false);
         buttonTrainingNTime.setDisable(false);
-        buttonTrainingStop.setDisable(true);
         buttonTrainingOneTime.setOnAction(event -> buttonTrainingOneTimeActionHandler());
         buttonTrainingNTime.setOnAction(event -> buttonTrainingNTimeActionHandler());
         TextFieldUtil.applyPositiveIntegerFilter(textFieldListeningPeriod, AIFacade.getListeningPeriod());
@@ -49,7 +47,6 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         labelListeningPeriod.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.listeningPeriod"));
         buttonTrainingOneTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.oneTime"));
         buttonTrainingNTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.nTime"));
-        buttonTrainingStop.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.stop"));
     }
 
     private void textFieldChangeHandler(){
@@ -62,7 +59,10 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
 
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
-        trainTask.exceptionProperty().addListener((observable, oldValue, newValue) -> ExceptionHandler.catchException(Thread.currentThread(), newValue));
+        trainTask.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            trainTask.cancel();
+            ExceptionHandler.catchException(Thread.currentThread(), newValue);
+        });
         Thread thread = new Thread(trainTask);
         thread.setDaemon(true);
         thread.start();
@@ -73,7 +73,10 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
 
         TrainTask trainTask = new TrainTask();
         trainTask.bindWithComponent(this);
-        trainTask.exceptionProperty().addListener((observable, oldValue, newValue) -> ExceptionHandler.catchException(Thread.currentThread(), newValue));
+        trainTask.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            trainTask.cancel();
+            ExceptionHandler.catchException(Thread.currentThread(), newValue);
+        });
         Thread thread = new Thread(trainTask);
         thread.setDaemon(true);
         thread.start();
