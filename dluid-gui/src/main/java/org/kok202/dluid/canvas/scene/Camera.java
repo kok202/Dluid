@@ -16,7 +16,7 @@ public class Camera extends PerspectiveCamera {
     private Rotate rotateY;
     private Rotate rotateZ;
     private Translate translate;
-    private double depth = -10;
+    private double depth = CanvasConstant.CAMERA_DEPTH_DEFAULT;
 
     public Camera() {
         super(true);

@@ -8,7 +8,8 @@ public class CanvasConstant {
     public static final double NODE_DEFAULT_HEIGHT = 0.2f;
     public static final double NODE_GAP = 0.4f;
     public static final double NODE_ACTIVATION_RATIO = 0.2f;
-    public static final double CAMERA_DEPTH_MAX = -5;
+    public static final double CAMERA_DEPTH_MAX = -2;
+    public static final double CAMERA_DEPTH_DEFAULT = -5;
     public static final double CAMERA_DEPTH_MIN = -100;
     public static final double CAMERA_FAR_CLIP = 1000;
     public static final double CAMERA_NEAR_CLIP = 0.1;
