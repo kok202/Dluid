@@ -47,7 +47,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
     private void initializeMenuButtonWeightInit(){
         MenuAdapter<WeightInitializer> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
         menuAdapter.setMenuItemChangedListener(weightInit -> {
-            layer.getProperties().setWeightInit(weightInit);
+            layer.getProperties().setWeightInitializer(weightInit);
             notifyLayerDataChanged();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.followGlobal"), WeightInitializer.FOLLOW_GLOBAL_SETTING);
@@ -58,7 +58,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitializer.NORMAL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitializer.DISTRIBUTION_ZERO_TO_ONE);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitializer.DISTRIBUTION_PLUS_MINUS_ONE);
-        menuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInit());
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInitializer());
     }
 
     private void initializeMenuButtonActivationFunction(){

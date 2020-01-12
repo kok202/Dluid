@@ -39,14 +39,14 @@ public class DeeplearningXOR {
 
         Layer layer0 = new Layer(LayerType.INPUT_LAYER);
         Layer layer1 = new Layer(LayerType.DENSE_LAYER);
-        layer1.getProperties().setWeightInit(WeightInitializer.XAVIER);
+        layer1.getProperties().setWeightInitializer(WeightInitializer.XAVIER);
         layer1.getProperties().setActivationFunction(ActivationWrapper.SIGMOID);
         layer1.getProperties().setInputSize(2);
         layer1.getProperties().setOutputSize(10);
 
         Layer layer2 = new Layer(LayerType.OUTPUT_LAYER);
         layer2.getProperties().setLossFunction(LossFunction.MSE);
-        layer2.getProperties().setWeightInit(WeightInitializer.XAVIER);
+        layer2.getProperties().setWeightInitializer(WeightInitializer.XAVIER);
         layer2.getProperties().setActivationFunction(ActivationWrapper.SIGMOID);
         layer2.getProperties().setInputSize(10);
         layer2.getProperties().setOutputSize(1);

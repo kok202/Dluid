@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.DoubleStringConverter;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class NumericTableViewAdapter {
     private TableColumn<ArrayList, Double> createTableColumn(int columnIndex, String head){
         TableColumn<ArrayList, Double> tableColumn = new TableColumn<>(head);
         tableColumn.setCellValueFactory(cellDataFeatures -> mappingToColumn(columnIndex, cellDataFeatures));
-        tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumericTableCellConverter()));
         tableColumn.setOnEditCommit(cell -> {
             ArrayList<Double> record = (ArrayList<Double>) tableView
                     .getItems()

@@ -11,7 +11,7 @@ public class LayerProperties {
     // common properties
     private int[] inputSize;
     private int[] outputSize;
-    private WeightInitializer weightInit;
+    private WeightInitializer weightInitializer;
     private ActivationWrapper activationFunction;
     private double dropout;
 
@@ -44,7 +44,7 @@ public class LayerProperties {
     LayerProperties(LayerType layerType) {
         inputSize = new int[]{10, 1};
         outputSize = new int[]{10, 1};
-        weightInit = WeightInitializer.FOLLOW_GLOBAL_SETTING;
+        weightInitializer = WeightInitializer.FOLLOW_GLOBAL_SETTING;
         activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
 

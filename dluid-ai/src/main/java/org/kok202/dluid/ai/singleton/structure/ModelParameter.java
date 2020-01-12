@@ -3,7 +3,6 @@ package org.kok202.dluid.ai.singleton.structure;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.AIConstant;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
@@ -39,9 +38,5 @@ public class ModelParameter {
 
     public IUpdater getIUpdater(){
         return optimizer.getIUpdater(learningRate);
-    }
-
-    public WeightInit getWeightInit(){
-        return weightInitializer.getWeightInit();
     }
 }

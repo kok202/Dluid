@@ -47,18 +47,28 @@
                                             </columnConstraints>
                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="labelListeningPeriod" text="Epoch listening period : " GridPane.rowIndex="0" />
-                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                                    <children>
-                                                        <TextField fx:id="textFieldListeningPeriod" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        </TextField>
-                                                    </children>
+                                                <Label fx:id="labelBatchSize" text="Batch size : " GridPane.rowIndex="0" />
+                                                <Label fx:id="labelEpoch" text="Epoch size : " GridPane.rowIndex="1" />
+                                                <Label fx:id="labelListeningPeriod" text="Epoch listening period : " GridPane.rowIndex="2" />
+                                                <TextField fx:id="textFieldBatchSize" text="1" promptText="32" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                                     <padding>
                                                         <Insets bottom="5.0" top="5.0" />
                                                     </padding>
-                                                </AnchorPane>
+                                                </TextField>
+                                                <TextField fx:id="textFieldEpoch" text="10" promptText="100" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                    <padding>
+                                                        <Insets bottom="5.0" top="5.0" />
+                                                    </padding>
+                                                </TextField>
+                                                <TextField fx:id="textFieldListeningPeriod" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                    <padding>
+                                                        <Insets bottom="5.0" top="5.0" />
+                                                    </padding>
+                                                </TextField>
                                             </children>
                                  <padding>
                                     <Insets bottom="10.0" />

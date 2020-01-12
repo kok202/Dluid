@@ -57,13 +57,13 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
         testResultDocumentFileSaver.initialize();
     }
 
+    private void convertTableViewToResultDataSet(){
+        AIFacade.getTestResultSet().setNumericRecordSet(numericTableViewAdapter.toNumericRecordSet());
+    }
+
     public void refreshTableView(){
         NumericRecordSet testNumericRecordSet = AIFacade.getTestResultSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
         titledPane.setExpanded(true);
-    }
-
-    private void convertTableViewToResultDataSet(){
-        AIFacade.getTestResultSet().setNumericRecordSet(numericTableViewAdapter.toNumericRecordSet());
     }
 }

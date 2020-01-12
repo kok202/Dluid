@@ -7,6 +7,7 @@ import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.kok202.dluid.ai.network.layer.LayerBinder;
 import org.kok202.dluid.ai.singleton.AISingleton;
+import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,12 +53,12 @@ public class ModelConverter {
     }
 
     private ComputationGraphConfiguration.GraphBuilder createDefaultConfiguration(){
-        return new NeuralNetConfiguration.Builder()
-                .seed(AISingleton.getInstance().getModelManager().getModelParameter().getSeed())
-                .updater(AISingleton.getInstance().getModelManager().getModelParameter().getIUpdater())
-                .weightInit(AISingleton.getInstance().getModelManager().getModelParameter().getWeightInit())
-                .miniBatch(false)
-                .graphBuilder();
+        NeuralNetConfiguration.Builder builder = new NeuralNetConfiguration.Builder();
+        builder.seed(AISingleton.getInstance().getModelManager().getModelParameter().getSeed());
+        builder.updater(AISingleton.getInstance().getModelManager().getModelParameter().getIUpdater());
+        WeightInitWrapperUtil.applyWeightInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer());
+        builder.miniBatch(false);
+        return builder.graphBuilder();
     }
 
     private void recycleInputPreProcessor(ComputationGraphConfiguration.GraphBuilder graphBuilder, List<org.kok202.dluid.ai.entity.Layer> dluidLayers){

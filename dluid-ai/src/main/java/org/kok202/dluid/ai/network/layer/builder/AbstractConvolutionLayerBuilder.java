@@ -25,8 +25,8 @@ public abstract class AbstractConvolutionLayerBuilder extends AbstractLayerBuild
             convolutionLayerBuilder.nIn(layer.getProperties().getInputChannelSize());
         if(layer.getProperties().getOutputSize() != null)
             convolutionLayerBuilder.nOut(layer.getProperties().getOutputChannelSize());
-        if(layer.getProperties().getWeightInit() != null)
-            WeightInitWrapperUtil.applyWeightInit(layer, convolutionLayerBuilder);
+        if(layer.getProperties().getWeightInitializer() != null)
+            WeightInitWrapperUtil.applyWeightInit(convolutionLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)
             convolutionLayerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
         if(layer.getProperties().getDropout() != 0)
