@@ -2,21 +2,29 @@ package org.kok202.dluid.application.content.train;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.AIFacade;
+import org.kok202.dluid.ai.entity.enumerator.Optimizer;
+import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
+import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.model.ModelStateManager;
 
 
 public class ModelInformationController extends AbstractModelTrainController {
     @FXML private TitledPane titledPane;
     @FXML private Label labelModelName;
+    @FXML private Label labelWeightInit;
+    @FXML private Label labelOptimizer;
+    @FXML private Label labelLearningRate;
     @FXML private Label labelEpochNumber;
+
     @FXML private TextField textFieldModelName;
+    @FXML private MenuButton menuButtonWeightInit;
+    @FXML private MenuButton menuButtonOptimizer;
+    @FXML private TextField textFieldLearningRate;
     @FXML private TextField textFieldEpochNumber;
     @FXML private Button buttonInitialize;
 
@@ -29,13 +37,35 @@ public class ModelInformationController extends AbstractModelTrainController {
 
     @Override
     protected void initialize() throws Exception {
-        textFieldModelName.textProperty().addListener(changeListener -> modelNameChangedHandler());
+        TextFieldUtil.applyPositiveDoubleFilter(textFieldLearningRate, AIFacade.getTrainLearningRate());
+        textFieldModelName.textProperty().addListener(changeListener -> textFieldChangeHandler());
+        textFieldLearningRate.textProperty().addListener(changeListener -> textFieldChangeHandler());
         buttonInitialize.setOnAction(event -> ModelStateManager.initializeModel());
+
+        initializeMenuButtonWeightInit();
+        initializeMenuButtonOptimizer();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.title"));
         labelModelName.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.name"));
+        labelWeightInit.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.initializer"));
+        labelOptimizer.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.optimizer"));
+        labelLearningRate.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.learningRate"));
         labelEpochNumber.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.totalEpoch"));
         buttonInitialize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.initialize"));
+    }
+
+    private void textFieldChangeHandler(){
+        setLearningRate();
+        setModeNameChanged();
+    }
+
+    public void setLearningRate() {
+        double value = TextFieldUtil.parseDouble(textFieldLearningRate);
+        AIFacade.setTrainLearningRate(value);
+    }
+
+    private void setModeNameChanged() {
+        AIFacade.setModelName(textFieldModelName.getText());
     }
 
     public void refreshModelInformation(){
@@ -43,7 +73,26 @@ public class ModelInformationController extends AbstractModelTrainController {
         textFieldEpochNumber.setText(AIFacade.getModelLearnedEpochNumber() + "");
     }
 
-    private void modelNameChangedHandler() {
-        AIFacade.setModelName(textFieldModelName.getText());
+    private void initializeMenuButtonWeightInit(){
+        MenuAdapter<WeightInitializer> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
+        menuAdapter.setMenuItemChangedListener(AIFacade::setTrainWeightInit);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitializer.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitializer.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitializer.XAVIER);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInitializer.UNIFORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitializer.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitializer.DISTRIBUTION_ZERO_TO_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitializer.DISTRIBUTION_PLUS_MINUS_ONE);
+        menuAdapter.setDefaultMenuItem(AIFacade.getTrainWeightInitializer());
+    }
+
+    private void initializeMenuButtonOptimizer(){
+        MenuAdapter<Optimizer> menuAdapter = new MenuAdapter<>(menuButtonOptimizer);
+        menuAdapter.setMenuItemChangedListener(AIFacade::setTrainOptimizer);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.sgd"), Optimizer.SGD);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.adam"), Optimizer.ADAM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.rmsProp"), Optimizer.RMS_PROP);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.optimizer.noop"), Optimizer.NOOP);
+        menuAdapter.setDefaultMenuItem(AIFacade.getTrainOptimizer());
     }
 }

@@ -14,6 +14,8 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.kok202.dluid.ai.entity.enumerator.LayerType.RESHAPE_LAYER;
+
 @Data
 public class ModelTestTestingTaskController extends AbstractModelTestController {
 
@@ -51,7 +53,10 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
         List<String> layerIds = CanvasFacade
                 .findAllReachableNode(testInputLayerId)
                 .stream()
-                .filter(blockNodeGraphNode -> !blockNodeGraphNode.getData().getBlockLayer().getType().isAssistLayerType())
+                .filter(blockNodeGraphNode ->
+                        !blockNodeGraphNode.getData().getBlockLayer().getType().isAssistLayerType() &&
+                        blockNodeGraphNode.getData().getBlockLayer().getType() != RESHAPE_LAYER &&
+                        !blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
                 .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
                 .collect(Collectors.toList());
 
@@ -63,7 +68,10 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
     private void buttonTestActionHandler(){
         TestTask testTask = new TestTask();
         testTask.bindWithComponent(this);
-        testTask.exceptionProperty().addListener((observable, oldValue, newValue) -> ExceptionHandler.catchException(Thread.currentThread(), newValue));
+        testTask.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            testTask.cancel();
+            ExceptionHandler.catchException(Thread.currentThread(), newValue);
+        });
         Thread thread = new Thread(testTask);
         thread.setDaemon(true);
         thread.start();

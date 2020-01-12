@@ -13,16 +13,16 @@ public abstract class AbstractRecurrentLayerBuilder extends AbstractLayerBuilder
 
     @Override
     protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
-        BaseRecurrentLayer.Builder baseRecurrentLayer = (BaseRecurrentLayer.Builder) builder;
+        BaseRecurrentLayer.Builder baseRecurrentLayerBuilder = (BaseRecurrentLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            baseRecurrentLayer.nIn(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]);
+            baseRecurrentLayerBuilder.nIn(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]);
         if(layer.getProperties().getOutputSize() != null)
-            baseRecurrentLayer.nOut(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]);
-        if(layer.getProperties().getWeightInit() != null)
-            WeightInitWrapperUtil.applyWeightInit(layer, baseRecurrentLayer);
+            baseRecurrentLayerBuilder.nOut(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]);
+        if(layer.getProperties().getWeightInitializer() != null)
+            WeightInitWrapperUtil.applyWeightInit(baseRecurrentLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)
-            baseRecurrentLayer.activation(layer.getProperties().getActivationFunction().getActivation());
+            baseRecurrentLayerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
         if(layer.getProperties().getDropout() != 0)
-            baseRecurrentLayer.dropOut(layer.getProperties().getDropout());
+            baseRecurrentLayerBuilder.dropOut(layer.getProperties().getDropout());
     }
 }

@@ -5,13 +5,13 @@ import org.kok202.dluid.domain.structure.GraphManager;
 
 import java.util.List;
 
-public class GraphManagerConverter {
+public class LayerGraphManagerConverter {
     public static List<Model> convert(GraphManager<Layer> layerGraphManager){
-        GraphManagerAnalyzer graphManagerAnalyzer = new GraphManagerAnalyzer();
-        graphManagerAnalyzer.analyze(layerGraphManager);
+        LayerGraphManagerAnalyzer layerGraphManagerAnalyzer = new LayerGraphManagerAnalyzer();
+        layerGraphManagerAnalyzer.analyze(layerGraphManager);
 
         // Convert linked computation graph as model.
         ModelConverter modelConverter = new ModelConverter();
-        return modelConverter.convert(graphManagerAnalyzer);
+        return modelConverter.convert(layerGraphManagerAnalyzer);
     }
 }

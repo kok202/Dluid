@@ -13,13 +13,9 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
 
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
-    @FXML private Label labelWidth;
-    @FXML private Label labelHeight;
 
-    @FXML private TextField textFieldInputSizeX;
-    @FXML private TextField textFieldInputSizeY;
-    @FXML private TextField textFieldOutputSizeX;
-    @FXML private TextField textFieldOutputSizeY;
+    @FXML private TextField textFieldInputSize;
+    @FXML private TextField textFieldOutputSize;
 
     public ComponentFeedforwardParamController(Layer layer) {
         super(layer);
@@ -34,23 +30,17 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
 
     @Override
     protected void initialize() throws Exception {
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeX, 1);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeY, 1);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeX, 1);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeY, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSize, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSize, 1);
         setTextFieldByLayerProperties();
     }
 
     protected void setTextFieldByLayerProperties(){
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX, textFieldOutputSizeY);
+        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]));
+        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]));
+        attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
-        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
     }
@@ -63,14 +53,12 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
     }
 
     private void changeInputSize(){
-        int x = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
-        int y = TextFieldUtil.parseInteger(textFieldInputSizeY, 1);
-        layer.getProperties().setInputSize(x, y);
+        int value = TextFieldUtil.parseInteger(textFieldInputSize, 1);
+        layer.getProperties().setInputSize(value);
     }
 
     private void changeOutputSize(){
-        int x = TextFieldUtil.parseInteger(textFieldOutputSizeX, 1);
-        int y = TextFieldUtil.parseInteger(textFieldOutputSizeY, 1);
-        layer.getProperties().setOutputSize(x, y);
+        int value = TextFieldUtil.parseInteger(textFieldOutputSize, 1);
+        layer.getProperties().setOutputSize(value);
     }
 }

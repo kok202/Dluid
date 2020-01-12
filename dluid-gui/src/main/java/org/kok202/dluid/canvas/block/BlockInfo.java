@@ -3,9 +3,9 @@ package org.kok202.dluid.canvas.block;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.canvas.entity.InputBlockProperty;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(of = {"id"})
 public class BlockInfo {
     protected String id;
     protected double height;
@@ -38,9 +39,6 @@ public class BlockInfo {
         }
 
         switch (layer.getType()){
-            case INPUT_LAYER:
-                extra = new InputBlockProperty();
-                break;
             case MERGE_LAYER:
                 extra = new MergeBlockProperty();
                 break;

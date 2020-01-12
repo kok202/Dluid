@@ -5,11 +5,11 @@ import javafx.scene.paint.Color;
 
 public class CanvasConstant {
     public static final double NODE_UNIT = 0.1f;
-    public static final double NODE_DEFAULT_HEIGHT = 0.5f;
-    public static final double NODE_GAP = 0.4f;
+    public static final double NODE_DEFAULT_HEIGHT = 0.2f;
     public static final double NODE_ACTIVATION_RATIO = 0.2f;
-    public static final double CAMERA_DEPTH_MAX = -5;
-    public static final double CAMERA_DEPTH_MIN = -50;
+    public static final double CAMERA_DEPTH_MAX = -2;
+    public static final double CAMERA_DEPTH_DEFAULT = -5;
+    public static final double CAMERA_DEPTH_MIN = -100;
     public static final double CAMERA_FAR_CLIP = 1000;
     public static final double CAMERA_NEAR_CLIP = 0.1;
     public static final double CAMERA_MAX_ANGLE = 45;
@@ -45,7 +45,7 @@ public class CanvasConstant {
 
     public static final Color CONTEXT_COLOR_POSSIBLE_APPEND = COLOR_YELLOW;
     public static final Color CONTEXT_COLOR_TRY_TO_APPEND = COLOR_RED;
-    public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_GRAY;
+    public static final Color CONTEXT_COLOR_IMPOSSIBLE_APPEND = COLOR_GRAY__;
     public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_WHITE;
     public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY__;
 

@@ -16,14 +16,15 @@ public class Camera extends PerspectiveCamera {
     private Rotate rotateY;
     private Rotate rotateZ;
     private Translate translate;
-    private double depth = -10;
+    private double depth;
 
     public Camera() {
         super(true);
-        rotateX = new Rotate(0, Rotate.X_AXIS);
-        rotateY = new Rotate(0, Rotate.Y_AXIS);
-        rotateZ = new Rotate(0, Rotate.Z_AXIS);
-        translate = new Translate(0,0, depth);
+        this.depth = CanvasConstant.CAMERA_DEPTH_DEFAULT;
+        this.rotateX = new Rotate(0, Rotate.X_AXIS);
+        this.rotateY = new Rotate(0, Rotate.Y_AXIS);
+        this.rotateZ = new Rotate(0, Rotate.Z_AXIS);
+        this.translate = new Translate(0,0, depth);
         setFarClip(CanvasConstant.CAMERA_FAR_CLIP);
         setNearClip(CanvasConstant.CAMERA_NEAR_CLIP);
         setVerticalFieldOfView(true);

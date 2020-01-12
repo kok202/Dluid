@@ -19,7 +19,7 @@ public class CanvasSingleton {
     private BlockNodeManager blockNodeManager;
     private double cameraMovementSpeed = -0.01;
     private double cameraRotationSpeed = 0.02;
-    private double cameraZoomSize = 0.03;
+    private double cameraZoomSize = 0.05;
 
     public void setMainCanvas(@NonNull MainCanvas mainCanvas) {
         this.mainCanvas = mainCanvas;

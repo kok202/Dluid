@@ -3,15 +3,14 @@ package org.kok202.dluid.ai.network;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.nn.api.Layer;
+import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.util.NumericRecordSetUtil;
-import org.kok202.dluid.domain.exception.CanNotFindLayerException;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -19,11 +18,11 @@ import java.util.Map;
 @AllArgsConstructor
 public class Model {
     private String inputLayerId;
-    private MultiLayerNetwork multiLayerNetwork;
-    private Map<String, NeuralNetLayer> multiLayerConfLayerMap;
+    private ComputationGraph computationGraph;
+    private Map<String, Layer> computationGraphLayerMap;
 
     public void train(DataSet dataSet){
-        multiLayerNetwork.fit(dataSet);
+        computationGraph.fit(dataSet);
 
         // Propagate trained param to other layers of model which is duplicated
         AISingleton.getInstance()
@@ -31,36 +30,28 @@ public class Model {
                 .getModels()
                 .parallelStream()
                 .filter(model -> !model.getInputLayerId().equals(inputLayerId))
-                .forEach(model -> updateParams(model.getMultiLayerConfLayerMap()));
+                .forEach(model -> updateParams(model.getComputationGraphLayerMap()));
     }
 
     public NumericRecordSet test(NumericRecordSet featureDataSet, String targetResultLayerId){
         INDArray feature = NumericRecordSetUtil.convertAsINDArray(featureDataSet);
-        List<INDArray> testResult = multiLayerNetwork.feedForward(feature);
-        INDArray targetResultLayerOutput = testResult.get(getTestResultLayerSequence(targetResultLayerId));
-        // FIXME : Debug here!
+        Map<String, INDArray> testResult = computationGraph.feedForward(feature, false);
+        INDArray targetResultLayerOutput = testResult.get(targetResultLayerId);
         return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput);
     }
 
-    private int getTestResultLayerSequence(String targetResultLayerId){
-        NeuralNetLayer neuralNetLayer = multiLayerConfLayerMap.get(targetResultLayerId);
-        if(neuralNetLayer == null)
-            throw new CanNotFindLayerException(targetResultLayerId);
-        return neuralNetLayer.getSequence() + 1; // Plus one : because first layer of testResult(List<INDArray>) is input layer
-    }
-
     public double score(){
-        return multiLayerNetwork.score();
+        return computationGraph.score();
     }
 
-    private void updateParams(Map<String, NeuralNetLayer> multiLayerMap){
+    private void updateParams(Map<String, Layer> multiLayerMap){
         multiLayerMap.entrySet()
                 .forEach(entry ->{
                     String layerId = entry.getKey();
-                    NeuralNetLayer layer = entry.getValue();
-                    NeuralNetLayer targetLayer = this.multiLayerConfLayerMap.get(layerId);
+                    Layer layer = entry.getValue();
+                    Layer targetLayer = this.computationGraphLayerMap.get(layerId);
                     if(targetLayer != null){
-                        targetLayer.getLayer().setParams(layer.getLayer().params());
+                        targetLayer.setParams(layer.params());
                     }
                 });
     }

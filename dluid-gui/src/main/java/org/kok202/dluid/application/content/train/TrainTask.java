@@ -9,7 +9,6 @@ import org.kok202.dluid.model.ModelStateManager;
 public class TrainTask extends Task<TrainProgressContainer> {
 
     public void bindWithComponent(ModelTrainTaskController modelTrainTaskController) {
-        modelTrainTaskController.getButtonTrainingStop().setOnAction(event -> cancel());
         valueProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue == null)
                 return;
@@ -58,7 +57,7 @@ public class TrainTask extends Task<TrainProgressContainer> {
     }
 
     @Override
-    public void cancelled() {
+    protected void failed() {
         AppFacade.setTrainingButtonDisable(false);
     }
 
