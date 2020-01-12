@@ -3,6 +3,7 @@ package org.kok202.dluid;
 public class AppConstant {
     public static final int DEFAULT_INPUT_SIZE = 1;
     public static final int DEFAULT_OUTPUT_SIZE = 1;
+    public static final int DEFAULT_CHANNEL_SIZE = 1;
     public static final int DEFAULT_STRIDE_SIZE = 1;
     public static final int DEFAULT_KERNEL_SIZE = 1;
     public static final int DEFAULT_PADDING_SIZE = 0;

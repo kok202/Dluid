@@ -16,6 +16,8 @@ public class LayerProperties {
     private double dropout;
 
     // for convolution type
+    private int inputChannelSize;
+    private int outputChannelSize;
     private int[] kernelSize;
     private int[] strideSize;
     private int[] paddingSize;

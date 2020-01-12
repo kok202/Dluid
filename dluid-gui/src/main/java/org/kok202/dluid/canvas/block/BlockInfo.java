@@ -3,6 +3,7 @@ package org.kok202.dluid.canvas.block;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(of = {"id"})
 public class BlockInfo {
     protected String id;
     protected double height;

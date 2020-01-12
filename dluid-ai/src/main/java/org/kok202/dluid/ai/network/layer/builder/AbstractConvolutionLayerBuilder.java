@@ -22,9 +22,9 @@ public abstract class AbstractConvolutionLayerBuilder extends AbstractLayerBuild
     protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
         ConvolutionLayer.Builder convolutionLayerBuilder = (ConvolutionLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            convolutionLayerBuilder.nIn(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]);
+            convolutionLayerBuilder.nIn(layer.getProperties().getInputChannelSize());
         if(layer.getProperties().getOutputSize() != null)
-            convolutionLayerBuilder.nOut(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]);
+            convolutionLayerBuilder.nOut(layer.getProperties().getOutputChannelSize());
         if(layer.getProperties().getWeightInit() != null)
             WeightInitWrapperUtil.applyWeightInit(layer, convolutionLayerBuilder);
         if(layer.getProperties().getActivationFunction() != null)
