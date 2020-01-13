@@ -26,9 +26,9 @@ public class OutputLayerBuilder extends AbstractLayerBuilder {
     protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
         OutputLayer.Builder outputLayerBuilder = (OutputLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            outputLayerBuilder.nIn(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]);
+            outputLayerBuilder.nIn(layer.getProperties().getInputVolume());
         if(layer.getProperties().getOutputSize() != null)
-            outputLayerBuilder.nOut(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]);
+            outputLayerBuilder.nOut(layer.getProperties().getOutputVolume());
         if(layer.getProperties().getWeightInitializer() != null)
             WeightInitWrapperUtil.applyWeightInit(outputLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)

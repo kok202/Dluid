@@ -68,7 +68,7 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
 
         int inputSize = 0;
         for (Layer incomingLayer : incomingLayers) {
-            inputSize += incomingLayer.getProperties().getOutputSize()[0] * incomingLayer.getProperties().getOutputSize()[1];
+            inputSize += incomingLayer.getProperties().getOutputVolume();
         }
         inputSize = Math.max(inputSize, 1);
 

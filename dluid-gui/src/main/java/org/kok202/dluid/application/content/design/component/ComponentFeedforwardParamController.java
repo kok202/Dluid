@@ -36,8 +36,8 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
     }
 
     protected void setTextFieldByLayerProperties(){
-        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]));
-        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]));
+        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputVolume()));
+        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputVolume()));
         attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
