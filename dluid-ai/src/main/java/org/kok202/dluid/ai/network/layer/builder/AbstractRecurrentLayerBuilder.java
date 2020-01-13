@@ -15,9 +15,9 @@ public abstract class AbstractRecurrentLayerBuilder extends AbstractLayerBuilder
     protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
         BaseRecurrentLayer.Builder baseRecurrentLayerBuilder = (BaseRecurrentLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            baseRecurrentLayerBuilder.nIn(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]);
+            baseRecurrentLayerBuilder.nIn(layer.getProperties().getInputVolume());
         if(layer.getProperties().getOutputSize() != null)
-            baseRecurrentLayerBuilder.nOut(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]);
+            baseRecurrentLayerBuilder.nOut(layer.getProperties().getOutputVolume());
         if(layer.getProperties().getWeightInitializer() != null)
             WeightInitWrapperUtil.applyWeightInit(baseRecurrentLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)

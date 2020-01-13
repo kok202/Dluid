@@ -26,9 +26,9 @@ public class DenseLayerBuilder extends AbstractLayerBuilder {
     protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
         DenseLayer.Builder denseLayerBuilder = (DenseLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            denseLayerBuilder.nIn(layer.getProperties().getInputSize()[0] * layer.getProperties().getInputSize()[1]);
+            denseLayerBuilder.nIn(layer.getProperties().getInputVolume());
         if(layer.getProperties().getOutputSize() != null)
-            denseLayerBuilder.nOut(layer.getProperties().getOutputSize()[0] * layer.getProperties().getOutputSize()[1]);
+            denseLayerBuilder.nOut(layer.getProperties().getOutputVolume());
         if(layer.getProperties().getWeightInitializer() != null)
             WeightInitWrapperUtil.applyWeightInit(denseLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)

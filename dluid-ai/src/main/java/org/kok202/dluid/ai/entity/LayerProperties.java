@@ -25,28 +25,50 @@ public class LayerProperties {
     // for output type
     private LossFunction lossFunction;
 
+    // for reshape layer
+    private int inputDimension;
+    private int outputDimension;
+
+    public int getInputVolume(){
+        return Math.max(inputSize[0] * inputSize[1] * inputSize[2], 1);
+    }
+
+    public int getOutputVolume(){
+        return Math.max(outputSize[0] * outputSize[1] * outputSize[2], 1);
+    }
+
     public void setInputSize(int inputSize) {
-        this.inputSize = new int[]{inputSize,1};
+        this.inputSize = new int[]{inputSize,1,1};
     }
 
     public void setInputSize(int inputSizeX, int inputSizeY) {
-        this.inputSize = new int[]{inputSizeX,inputSizeY};
+        this.inputSize = new int[]{inputSizeX,inputSizeY,1};
+    }
+
+    public void setInputSize(int inputSizeX, int inputSizeY, int inputSizeZ) {
+        this.inputSize = new int[]{inputSizeX,inputSizeY,inputSizeZ};
     }
 
     public void setOutputSize(int outputSize) {
-        this.outputSize = new int[]{outputSize,1};
+        this.outputSize = new int[]{outputSize,1,1};
     }
 
     public void setOutputSize(int outputSizeX, int outputSizeY) {
-        this.outputSize = new int[]{outputSizeX,outputSizeY};
+        this.outputSize = new int[]{outputSizeX,outputSizeY,1};
+    }
+
+    public void setOutputSize(int outputSizeX, int outputSizeY, int outputSizeZ) {
+        this.outputSize = new int[]{outputSizeX,outputSizeY,outputSizeZ};
     }
 
     LayerProperties(LayerType layerType) {
-        inputSize = new int[]{10, 1};
-        outputSize = new int[]{10, 1};
+        inputSize = new int[]{10, 1, 1};
+        outputSize = new int[]{10, 1, 1};
         weightInitializer = WeightInitializer.FOLLOW_GLOBAL_SETTING;
         activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
+        inputDimension = 1;
+        outputDimension = 1;
 
         switch (layerType){
             case CONVOLUTION_1D_LAYER:

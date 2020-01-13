@@ -20,6 +20,12 @@ public class TextFieldUtil {
         });
     }
 
+    public static void applyPositiveIntegerFilter(int defaultValue, TextField... textFields){
+        for (TextField textField : textFields) {
+            applyPositiveIntegerFilter(textField, defaultValue);
+        }
+    }
+
     public static void applyPositiveLongFilter(TextField textField, long defaultValue){
         textField.setText(String.valueOf(defaultValue));
         textField.textProperty().addListener((observable, oldValue, newValue) ->{
