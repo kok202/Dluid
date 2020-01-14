@@ -53,3 +53,21 @@
     -fx-background-repeat: no-repeat;
 	-fx-text-fill: white;
 }
+
+.layer-block-image-1d-pooling {
+    -fx-background-image: url("../images/block_1d_pooling.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-2d-pooling {
+    -fx-background-image: url("../images/block_2d_pooling.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-batch-normalization {
+    -fx-background-image: url("../images/block_batch_normalization.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}

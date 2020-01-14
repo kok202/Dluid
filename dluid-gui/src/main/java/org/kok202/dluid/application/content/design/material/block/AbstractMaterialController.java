@@ -57,6 +57,15 @@ public abstract class AbstractMaterialController extends AbstractController {
             case SWITCH_LAYER:
                 itself.getStyleClass().add("layer-block-image-switch");
                 break;
+            case POOLING_1D:
+                itself.getStyleClass().add("layer-block-image-1d-pooling");
+                break;
+            case POOLING_2D:
+                itself.getStyleClass().add("layer-block-image-2d-pooling");
+                break;
+            case BATCH_NORMALIZATION:
+                itself.getStyleClass().add("layer-block-image-batch-normalization");
+                break;
             default:
                 itself.getStyleClass().add("layer-block-image-fcnn");
                 break;

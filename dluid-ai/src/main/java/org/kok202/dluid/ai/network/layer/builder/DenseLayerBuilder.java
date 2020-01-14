@@ -1,7 +1,7 @@
 package org.kok202.dluid.ai.network.layer.builder;
 
-import org.deeplearning4j.nn.conf.layers.BaseLayer;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
+import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
@@ -13,17 +13,17 @@ public class DenseLayerBuilder extends AbstractLayerBuilder {
     }
 
     @Override
-    protected BaseLayer.Builder createBuilder(Layer layer) {
+    protected Builder createBuilder(Layer layer) {
         return new DenseLayer.Builder();
     }
 
     @Override
-    protected void setAddOnProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setAddOnProperties(Layer layer, Builder builder) {
         DenseLayer.Builder denseLayerBuilder = (DenseLayer.Builder) builder;
     }
 
     @Override
-    protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setCommonProperties(Layer layer, Builder builder) {
         DenseLayer.Builder denseLayerBuilder = (DenseLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
             denseLayerBuilder.nIn(layer.getProperties().getInputVolume());

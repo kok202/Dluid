@@ -17,6 +17,8 @@ public enum LayerType {
 
     OUTPUT_LAYER("Output layer"),
     BATCH_NORMALIZATION("Batch normalization layer"),
+    POOLING_1D("Pooling 1D"),
+    POOLING_2D("Pooling 2D"),
 
     /**********************************************************
      * NOT REAL LAYER
@@ -60,5 +62,9 @@ public enum LayerType {
 
     public boolean isAssistLayerType() {
         return this == PIPE_LAYER || this == SWITCH_LAYER;
+    }
+
+    public boolean isSubSamplingLayerType() {
+        return this == POOLING_1D || this == POOLING_2D;
     }
 }

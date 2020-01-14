@@ -1,14 +1,14 @@
 package org.kok202.dluid.ai.network.layer.builder;
 
-import org.deeplearning4j.nn.conf.layers.BaseLayer;
 import org.deeplearning4j.nn.conf.layers.ConvolutionLayer;
+import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 public abstract class AbstractConvolutionLayerBuilder extends AbstractLayerBuilder {
 
     @Override
-    protected void setAddOnProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setAddOnProperties(Layer layer, Builder builder) {
         ConvolutionLayer.Builder convolutionLayerBuilder = (ConvolutionLayer.Builder) builder;
         if(layer.getProperties().getKernelSize() != null)
             convolutionLayerBuilder.setKernelSize(layer.getProperties().getKernelSize());
@@ -19,7 +19,7 @@ public abstract class AbstractConvolutionLayerBuilder extends AbstractLayerBuild
     }
 
     @Override
-    protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setCommonProperties(Layer layer, Builder builder) {
         ConvolutionLayer.Builder convolutionLayerBuilder = (ConvolutionLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
             convolutionLayerBuilder.nIn(layer.getProperties().getInputChannelSize());

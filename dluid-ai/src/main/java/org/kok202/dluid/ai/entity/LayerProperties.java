@@ -1,6 +1,7 @@
 package org.kok202.dluid.ai.entity;
 
 import lombok.Data;
+import org.deeplearning4j.nn.conf.layers.PoolingType;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
@@ -28,6 +29,9 @@ public class LayerProperties {
     // for reshape layer
     private int inputDimension;
     private int outputDimension;
+
+    // for pooling layer
+    private PoolingType poolingType;
 
     public int getInputVolume(){
         return Math.max(inputSize[0] * inputSize[1] * inputSize[2], 1);
@@ -69,6 +73,7 @@ public class LayerProperties {
         dropout = 0;
         inputDimension = 1;
         outputDimension = 1;
+        poolingType = PoolingType.MAX;
 
         switch (layerType){
             case CONVOLUTION_1D_LAYER:

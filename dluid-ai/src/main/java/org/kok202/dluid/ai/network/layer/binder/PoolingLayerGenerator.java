@@ -7,11 +7,11 @@ import org.kok202.dluid.ai.network.layer.LayerFactory;
 
 import java.util.List;
 
-public class OutputLayerGenerator extends AbstractLayerGenerator {
+public class PoolingLayerGenerator extends AbstractLayerGenerator {
 
     @Override
     public boolean support(Layer layer) {
-        return layer.getType() == LayerType.OUTPUT_LAYER;
+        return layer.getType() == LayerType.POOLING_1D;
     }
 
     @Override

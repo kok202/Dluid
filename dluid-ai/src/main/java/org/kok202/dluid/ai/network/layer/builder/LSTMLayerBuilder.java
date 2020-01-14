@@ -1,7 +1,7 @@
 package org.kok202.dluid.ai.network.layer.builder;
 
-import org.deeplearning4j.nn.conf.layers.BaseLayer;
 import org.deeplearning4j.nn.conf.layers.LSTM;
+import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 
@@ -12,7 +12,7 @@ public class LSTMLayerBuilder extends AbstractRecurrentLayerBuilder {
     }
 
     @Override
-    protected BaseLayer.Builder createBuilder(Layer layer) {
+    protected Builder createBuilder(Layer layer) {
         return new LSTM.Builder();
     }
 }
