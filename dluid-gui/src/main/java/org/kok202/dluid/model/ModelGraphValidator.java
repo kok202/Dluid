@@ -2,7 +2,9 @@ package org.kok202.dluid.model;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.*;
 import org.kok202.dluid.domain.structure.GraphNode;
@@ -14,11 +16,21 @@ import java.util.stream.Collectors;
 class ModelGraphValidator {
 
     static void validateModelIsCorrect(){
+        validateModelParamIsValid();
         validateTrainInputBlockNodeExist();
         validateOutputBlockNodeExist();
         validateAllBlockNodeDimension();
         validateMergeBlockNode();
         validateSwitchBlockNode();
+    }
+
+    private static void validateModelParamIsValid() throws InvalidParameterException {
+        if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1)
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
+        if(AIFacade.getTrainWeightInitializer() == null)
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
+        if(AIFacade.getTrainOptimizer() == null)
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));
     }
 
     private static void validateTrainInputBlockNodeExist() throws RuntimeException{
@@ -53,6 +65,10 @@ class ModelGraphValidator {
                             currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize());
             }
         }
+    }
+
+    private static void validateReshapeLayerNeeded() throws DimensionUnmatchedReshapeNeededException{
+        //TODO
     }
 
     private static void validateMergeBlockNode() throws InvalidMergeConnectionExistException {

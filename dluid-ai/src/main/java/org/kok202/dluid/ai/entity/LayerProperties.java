@@ -73,26 +73,26 @@ public class LayerProperties {
         dropout = 0;
         inputDimension = 1;
         outputDimension = 1;
+        lossFunction = LossFunction.MSE;
         poolingType = PoolingType.MAX;
 
         switch (layerType){
             case CONVOLUTION_1D_LAYER:
+            case POOLING_1D:
                 kernelSize = new int[]{1};
                 strideSize = new int[]{1};
                 paddingSize = new int[]{0};
                 break;
             case CONVOLUTION_2D_LAYER:
             case DECONVOLUTION_2D_LAYER:
-                kernelSize = new int[]{1,1};
-                strideSize = new int[]{1,1};
-                paddingSize = new int[]{0,0};
+            case POOLING_2D:
+                kernelSize = new int[]{1, 1};
+                strideSize = new int[]{1, 1};
+                paddingSize = new int[]{0, 0};
                 break;
             case MERGE_LAYER:
-                inputSize = new int[]{1, 1};
-                outputSize = new int[]{1, 1};
-                break;
-            case OUTPUT_LAYER:
-                lossFunction = LossFunction.MSE;
+                inputSize = new int[]{1, 1, 1};
+                outputSize = new int[]{1, 1, 1};
                 break;
         }
     }
