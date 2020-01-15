@@ -32,9 +32,9 @@ public class Convolution1DLayerBuilder extends AbstractLayerBuilder {
     protected void setCommonProperties(Layer layer, Builder builder) {
         Convolution1DLayer.Builder convolutionLayerBuilder = (Convolution1DLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            convolutionLayerBuilder.nIn(layer.getProperties().getInputChannelSize());
+            convolutionLayerBuilder.nIn(layer.getProperties().getInputSize()[1]); // channel size
         if(layer.getProperties().getOutputSize() != null)
-            convolutionLayerBuilder.nOut(layer.getProperties().getOutputChannelSize());
+            convolutionLayerBuilder.nOut(layer.getProperties().getOutputSize()[1]); // channel size
         if(layer.getProperties().getWeightInitializer() != null)
             WeightInitWrapperUtil.applyWeightInit(convolutionLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)

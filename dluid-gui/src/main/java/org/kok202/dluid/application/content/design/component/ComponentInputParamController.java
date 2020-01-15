@@ -10,6 +10,8 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
 
 public class ComponentInputParamController extends AbstractLayerComponentController {
+
+    @FXML private Label labelInputOutputWidth;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
 
@@ -40,6 +42,7 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
         attachTextChangedListener(textFieldInputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelInputOutputWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
     }

@@ -14,53 +14,56 @@
                             <children>
                                 <AnchorPane>
 
-                                    <GridPane vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                         <columnConstraints>
                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="130" prefWidth="140" />
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80" prefWidth="240" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80" prefWidth="120" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80" prefWidth="120" />
                                         </columnConstraints>
                                         <rowConstraints>
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         </rowConstraints>
                                         <children>
-                                            <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="0" />
-                                            <Label fx:id="labelKernelSize" text="Kernel size" GridPane.rowIndex="1" />
-                                            <Label fx:id="labelStrideSize" text="Stride size" GridPane.rowIndex="2" />
-                                            <Label fx:id="labelPaddingSize" text="Padding size" GridPane.rowIndex="3" />
-                                            <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="4" />
+                                            <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="1" />
+                                            <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="2" />
                                             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                                <children>
+                                                    <Label fx:id="labelInputOutputWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                                <children>
+                                                    <Label fx:id="labelInputOutputChannel" alignment="CENTER" text="Channel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                </children>
+                                            </AnchorPane>
+                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                 <children>
                                                     <TextField fx:id="textFieldInputSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     </TextField>
                                                 </children>
                                             </AnchorPane>
-                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                 <children>
-                                                    <TextField fx:id="textFieldKernelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <TextField fx:id="textFieldInputChannelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     </TextField>
                                                 </children>
                                             </AnchorPane>
                                             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                 <children>
-                                                    <TextField fx:id="textFieldStrideSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    </TextField>
-                                                </children>
-                                            </AnchorPane>
-                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                                <children>
-                                                    <TextField fx:id="textFieldPaddingSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    </TextField>
-                                                </children>
-                                            </AnchorPane>
-                                            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                                <children>
                                                     <TextField fx:id="textFieldOutputSize" disable="true" editable="false" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                 </children>
                                             </AnchorPane>
+                                            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                <children>
+                                                    <TextField fx:id="textFieldOutputChannelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    </TextField>
+                                                </children>
+                                            </AnchorPane>
+
+
+
                                         </children>
                                     </GridPane>
                            <padding>
@@ -83,22 +86,33 @@
                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="labelInputChannelSize" text="Input channel size" GridPane.rowIndex="0" />
-                                                <Label fx:id="labelOutputChannelSize" text="Output channel size" GridPane.rowIndex="1" />
-
-                                                <!--==================================================================================Value Field==================================================================================-->
-
+                                                <Label fx:id="labelKernelSize" text="Kernel size" GridPane.rowIndex="1" />
+                                                <Label fx:id="labelStrideSize" text="Stride size" GridPane.rowIndex="2" />
+                                                <Label fx:id="labelPaddingSize" text="Padding size" GridPane.rowIndex="3" />
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                                     <children>
-                                                        <TextField fx:id="textFieldInputChannelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        </TextField>
+                                                        <Label fx:id="labelWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                     <children>
-                                                        <TextField fx:id="textFieldOutputChannelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <TextField fx:id="textFieldKernelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        </TextField>
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                    <children>
+                                                        <TextField fx:id="textFieldStrideSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        </TextField>
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                    <children>
+                                                        <TextField fx:id="textFieldPaddingSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         </TextField>
                                                     </children>
                                                 </AnchorPane>

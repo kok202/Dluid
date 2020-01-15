@@ -6,8 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.AppConstant;
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.util.ConvolutionCalculatorUtil;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
@@ -16,6 +14,9 @@ import org.kok202.dluid.domain.exception.ConvolutionOutputIsNegativeException;
 
 public class ComponentConvolution2DParamController extends AbstractConvolutionLayerComponentController {
 
+    @FXML private Label labelInputOutputWidth;
+    @FXML private Label labelInputOutputHeight;
+    @FXML private Label labelInputOutputChannel;
     @FXML private Label labelWidth;
     @FXML private Label labelHeight;
     @FXML private Label labelInputSize;
@@ -23,21 +24,19 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
     @FXML private Label labelKernelSize;
     @FXML private Label labelStrideSize;
     @FXML private Label labelPaddingSize;
-    @FXML private Label labelInputChannelSize;
-    @FXML private Label labelOutputChannelSize;
 
     @FXML private TextField textFieldInputSizeX;
     @FXML private TextField textFieldInputSizeY;
+    @FXML private TextField textFieldInputChannelSize;
     @FXML private TextField textFieldKernelSizeX;
     @FXML private TextField textFieldKernelSizeY;
+    @FXML private TextField textFieldOutputChannelSize;
     @FXML private TextField textFieldStrideSizeX;
     @FXML private TextField textFieldStrideSizeY;
     @FXML private TextField textFieldPaddingSizeX;
     @FXML private TextField textFieldPaddingSizeY;
-    @FXML private TextField textFieldOutputSizeValueX;
-    @FXML private TextField textFieldOutputSizeValueY;
-    @FXML private TextField textFieldInputChannelSize;
-    @FXML private TextField textFieldOutputChannelSize;
+    @FXML private TextField textFieldOutputSizeX;
+    @FXML private TextField textFieldOutputSizeY;
 
     public ComponentConvolution2DParamController(Layer layer) {
         super(layer);
@@ -65,15 +64,17 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
         setTextFieldByLayerProperties();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
-        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
+        labelInputOutputWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInputOutputHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelInputOutputChannel.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
+        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelKernelSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.kernelSize"));
         labelStrideSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.strideSize"));
         labelPaddingSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.paddingSize"));
-        labelInputChannelSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.inputChannelSize"));
-        labelOutputChannelSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.convolution.outputChannelSize"));
     }
 
     @Override
@@ -84,16 +85,16 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
                 textFieldInputChannelSize, textFieldOutputChannelSize);
         textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputSizeValueX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSizeValueY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldInputChannelSize.setText(String.valueOf(layer.getProperties().getInputSize()[2]));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldOutputChannelSize.setText(String.valueOf(layer.getProperties().getOutputSize()[2]));
         textFieldStrideSizeX.setText(String.valueOf(layer.getProperties().getStrideSize()[0]));
         textFieldStrideSizeY.setText(String.valueOf(layer.getProperties().getStrideSize()[1]));
         textFieldPaddingSizeX.setText(String.valueOf(layer.getProperties().getPaddingSize()[0]));
         textFieldPaddingSizeY.setText(String.valueOf(layer.getProperties().getPaddingSize()[1]));
         textFieldKernelSizeX.setText(String.valueOf(layer.getProperties().getKernelSize()[0]));
         textFieldKernelSizeY.setText(String.valueOf(layer.getProperties().getKernelSize()[1]));
-        textFieldInputChannelSize.setText(String.valueOf(layer.getProperties().getInputChannelSize()));
-        textFieldOutputChannelSize.setText(String.valueOf(layer.getProperties().getOutputChannelSize()));
         attachTextChangedListener(
                 textFieldInputSizeX, textFieldKernelSizeX, textFieldStrideSizeX, textFieldPaddingSizeX,
                 textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY,
@@ -110,7 +111,8 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
 
         layer.getProperties().setInputSize(
                 TextFieldUtil.parseInteger(textFieldInputSizeX),
-                TextFieldUtil.parseInteger(textFieldInputSizeY));
+                TextFieldUtil.parseInteger(textFieldInputSizeY),
+                TextFieldUtil.parseInteger(textFieldInputChannelSize));
         layer.getProperties().setKernelSize(new int[]{
                 TextFieldUtil.parseInteger(textFieldKernelSizeX),
                 TextFieldUtil.parseInteger(textFieldKernelSizeY)});
@@ -120,12 +122,12 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
         layer.getProperties().setPaddingSize(new int[]{
                 TextFieldUtil.parseInteger(textFieldPaddingSizeX),
                 TextFieldUtil.parseInteger(textFieldPaddingSizeY)});
-        layer.getProperties().setInputChannelSize(TextFieldUtil.parseInteger(textFieldInputChannelSize));
-        layer.getProperties().setOutputChannelSize(TextFieldUtil.parseInteger(textFieldOutputChannelSize));
-
-        textFieldOutputSizeValueX.setText(String.valueOf(outputSize[0]));
-        textFieldOutputSizeValueY.setText(String.valueOf(outputSize[1]));
-        layer.getProperties().setOutputSize(outputSize[0], outputSize[1]);
+        layer.getProperties().setOutputSize(
+                outputSize[0],
+                outputSize[1],
+                TextFieldUtil.parseInteger(textFieldOutputChannelSize));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
         notifyLayerDataChanged();
     }
 
@@ -144,12 +146,5 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
                 new int[]{
                         TextFieldUtil.parseInteger(textFieldPaddingSizeX),
                         TextFieldUtil.parseInteger(textFieldPaddingSizeY)});
-    }
-
-    @Override
-    protected void notifyLayerDataChanged(){
-        double height = layer.getProperties().getOutputChannelSize() * CanvasConstant.NODE_DEFAULT_HEIGHT;
-        CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().setHeight(height);
-        CanvasFacade.notifyLayerDataChanged(layer.getId());
     }
 }

@@ -17,6 +17,9 @@ import org.kok202.dluid.domain.exception.ConvolutionOutputIsNegativeException;
 
 public class ComponentPooling2DParamController extends AbstractConvolutionLayerComponentController {
 
+    @FXML private Label labelInputOutputWidth;
+    @FXML private Label labelInputOutputHeight;
+    @FXML private Label labelInputOutputChannel;
     @FXML private Label labelWidth;
     @FXML private Label labelHeight;
     @FXML private Label labelInputSize;
@@ -28,14 +31,16 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
 
     @FXML private TextField textFieldInputSizeX;
     @FXML private TextField textFieldInputSizeY;
+    @FXML private TextField textFieldInputSizeZ;
+    @FXML private TextField textFieldOutputSizeX;
+    @FXML private TextField textFieldOutputSizeY;
+    @FXML private TextField textFieldOutputSizeZ;
     @FXML private TextField textFieldKernelSizeX;
     @FXML private TextField textFieldKernelSizeY;
     @FXML private TextField textFieldStrideSizeX;
     @FXML private TextField textFieldStrideSizeY;
     @FXML private TextField textFieldPaddingSizeX;
     @FXML private TextField textFieldPaddingSizeY;
-    @FXML private TextField textFieldOutputSizeValueX;
-    @FXML private TextField textFieldOutputSizeValueY;
     @FXML private MenuButton menuButtonPoolingType;
 
     public ComponentPooling2DParamController(Layer layer) {
@@ -53,6 +58,12 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
     protected void initialize() throws Exception {
         TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeX, AppConstant.DEFAULT_INPUT_SIZE);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeY, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeZ, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeX, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeY, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeZ, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeX, AppConstant.DEFAULT_INPUT_SIZE);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeY, AppConstant.DEFAULT_INPUT_SIZE);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldKernelSizeX, AppConstant.DEFAULT_KERNEL_SIZE);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldKernelSizeY, AppConstant.DEFAULT_KERNEL_SIZE);
         TextFieldUtil.applyPositiveIntegerFilter(textFieldStrideSizeX, AppConstant.DEFAULT_STRIDE_SIZE);
@@ -63,8 +74,11 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
         initializeMenuButtonPoolingType();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
-        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
+        labelInputOutputWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInputOutputHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelInputOutputChannel.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
+        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelKernelSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.pooling.kernelSize"));
@@ -80,8 +94,10 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
                 textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY);
         textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
         textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputSizeValueX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSizeValueY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldInputSizeZ.setText(String.valueOf(layer.getProperties().getInputSize()[2]));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSize()[2]));
         textFieldStrideSizeX.setText(String.valueOf(layer.getProperties().getStrideSize()[0]));
         textFieldStrideSizeY.setText(String.valueOf(layer.getProperties().getStrideSize()[1]));
         textFieldPaddingSizeX.setText(String.valueOf(layer.getProperties().getPaddingSize()[0]));
@@ -116,7 +132,8 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
 
         layer.getProperties().setInputSize(
                 TextFieldUtil.parseInteger(textFieldInputSizeX),
-                TextFieldUtil.parseInteger(textFieldInputSizeY));
+                TextFieldUtil.parseInteger(textFieldInputSizeY),
+                TextFieldUtil.parseInteger(textFieldInputSizeZ));
         layer.getProperties().setKernelSize(new int[]{
                 TextFieldUtil.parseInteger(textFieldKernelSizeX),
                 TextFieldUtil.parseInteger(textFieldKernelSizeY)});
@@ -127,9 +144,10 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
                 TextFieldUtil.parseInteger(textFieldPaddingSizeX),
                 TextFieldUtil.parseInteger(textFieldPaddingSizeY)});
 
-        textFieldOutputSizeValueX.setText(String.valueOf(outputSize[0]));
-        textFieldOutputSizeValueY.setText(String.valueOf(outputSize[1]));
-        layer.getProperties().setOutputSize(outputSize[0], outputSize[1]);
+        layer.getProperties().setOutputSize(outputSize[0], outputSize[1], TextFieldUtil.parseInteger(textFieldInputSizeZ));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSize()[2]));
         notifyLayerDataChanged();
     }
 

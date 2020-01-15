@@ -12,12 +12,12 @@ public class DimensionUnmatchedReshapeNeededException extends RuntimeException {
     private String destinationLayerId;
     private String destinationInputSize;
 
-    public DimensionUnmatchedReshapeNeededException(String sourceLayerId, int[] out, String destinationLayerId, int[] in) {
+    public DimensionUnmatchedReshapeNeededException(String sourceLayerId, int outDimension, int[] out, String destinationLayerId, int inDimension, int[] in) {
         super("LayerType dimension is not matched");
         this.sourceLayerId = sourceLayerId;
-        this.sourceLayerOutputSize = Arrays.toString(out);
+        this.sourceLayerOutputSize = Arrays.stream(out, 0, outDimension).toString();
         this.destinationLayerId = destinationLayerId;
-        this.destinationInputSize = Arrays.toString(in);
+        this.destinationInputSize = Arrays.stream(in, 0, inDimension).toString();
     }
 
 }

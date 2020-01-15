@@ -52,8 +52,8 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
             refreshInputOutputSize();
         });
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
-        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
+        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
 

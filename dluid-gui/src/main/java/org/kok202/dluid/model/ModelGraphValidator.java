@@ -48,27 +48,31 @@ class ModelGraphValidator {
     private static void validateAllBlockNodeDimension() throws DimensionUnmatchedException{
         List<GraphNode<BlockNode>> allGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> true);
         for (GraphNode<BlockNode> currentGraphNode : allGraphNode) {
-            long sourceOutputSize =
-                    currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[0] *
-                    currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[1];
+            long sourceOutputDimension = currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension();
+            long sourceOutputVolume = currentGraphNode.getData().getBlockLayer().getProperties().getOutputVolume();
 
             List<GraphNode<BlockNode>> currentOutgoingGraphNodes = currentGraphNode.getOutgoingNodes();
             for (GraphNode<BlockNode> currentOutgoingGraphNode : currentOutgoingGraphNodes) {
-                long destinationInputSize =
-                        currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize()[0] *
-                        currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize()[1];
-                if (sourceOutputSize != destinationInputSize)
-                    throw new DimensionUnmatchedException(
+                long destinationInputDimension = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension();
+                long destinationInputVolume = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume();
+                if (sourceOutputDimension != destinationInputDimension)
+                    throw new DimensionUnmatchedReshapeNeededException(
                             currentGraphNode.getData().getBlockLayer().getId(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension(),
                             currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getId(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getInputDimension(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize());
+                if (sourceOutputVolume != destinationInputVolume)
+                    throw new DimensionUnmatchedException(
+                            currentGraphNode.getData().getBlockLayer().getId(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getId(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getInputDimension(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize());
             }
         }
-    }
-
-    private static void validateReshapeLayerNeeded() throws DimensionUnmatchedReshapeNeededException{
-        //TODO
     }
 
     private static void validateMergeBlockNode() throws InvalidMergeConnectionExistException {

@@ -10,15 +10,16 @@ import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
 @Data
 public class LayerProperties {
     // common properties
+    // In usual case dimension is not changed. But when you use reshape or switch layer, it can be changed.
     private int[] inputSize;
     private int[] outputSize;
+    private int inputDimension;
+    private int outputDimension;
     private WeightInitializer weightInitializer;
     private ActivationWrapper activationFunction;
     private double dropout;
 
     // for convolution type
-    private int inputChannelSize;
-    private int outputChannelSize;
     private int[] kernelSize;
     private int[] strideSize;
     private int[] paddingSize;
@@ -26,12 +27,10 @@ public class LayerProperties {
     // for output type
     private LossFunction lossFunction;
 
-    // for reshape layer
-    private int inputDimension;
-    private int outputDimension;
-
     // for pooling layer
     private PoolingType poolingType;
+
+    private boolean channelExist;
 
     public int getInputVolume(){
         return Math.max(inputSize[0] * inputSize[1] * inputSize[2], 1);
@@ -71,17 +70,32 @@ public class LayerProperties {
         weightInitializer = WeightInitializer.FOLLOW_GLOBAL_SETTING;
         activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
-        inputDimension = 1;
-        outputDimension = 1;
         lossFunction = LossFunction.MSE;
         poolingType = PoolingType.MAX;
 
         switch (layerType){
+            case DENSE_LAYER:
+            case INPUT_LAYER:
+            case OUTPUT_LAYER:
+            case RESHAPE_LAYER:
+            case SWITCH_LAYER:
+                inputDimension = 1;
+                outputDimension = 1;
+                channelExist = false;
+                break;
+            case PIPE_LAYER:
+                inputDimension = 2;
+                outputDimension = 2;
+                channelExist = false;
+                break;
             case CONVOLUTION_1D_LAYER:
             case POOLING_1D:
                 kernelSize = new int[]{1};
                 strideSize = new int[]{1};
                 paddingSize = new int[]{0};
+                inputDimension = 2;
+                outputDimension = 2;
+                channelExist = true;
                 break;
             case CONVOLUTION_2D_LAYER:
             case DECONVOLUTION_2D_LAYER:
@@ -89,10 +103,14 @@ public class LayerProperties {
                 kernelSize = new int[]{1, 1};
                 strideSize = new int[]{1, 1};
                 paddingSize = new int[]{0, 0};
+                inputDimension = 3;
+                outputDimension = 3;
+                channelExist = true;
                 break;
             case MERGE_LAYER:
                 inputSize = new int[]{1, 1, 1};
                 outputSize = new int[]{1, 1, 1};
+                channelExist = false;
                 break;
         }
     }
