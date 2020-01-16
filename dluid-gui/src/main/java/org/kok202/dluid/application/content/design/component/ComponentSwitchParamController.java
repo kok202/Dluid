@@ -93,18 +93,18 @@ public class ComponentSwitchParamController extends AbstractLayerComponentContro
                 textFieldInputSize1D,
                 textFieldInputSize2DX, textFieldInputSize2DY,
                 textFieldInputSize3DX, textFieldInputSize3DY, textFieldInputSize3DZ);
-        textFieldInputSize1D.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSize2DX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSize2DY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldInputSize3DX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSize3DY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldInputSize3DZ.setText(String.valueOf(layer.getProperties().getInputSize()[2]));
-        textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSize2DX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSize2DY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        textFieldOutputSize3DX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSize3DY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        textFieldOutputSize3DZ.setText(String.valueOf(layer.getProperties().getOutputSize()[2]));
+        textFieldInputSize1D.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSize2DX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSize2DY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldInputSize3DX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSize3DY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldInputSize3DZ.setText(String.valueOf(layer.getProperties().getInputSizeZ()));
+        textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSize2DX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSize2DY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldOutputSize3DX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSize3DY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldOutputSize3DZ.setText(String.valueOf(layer.getProperties().getOutputSizeZ()));
         attachTextChangedListener(
                 textFieldInputSize1D,
                 textFieldInputSize2DX, textFieldInputSize2DY,

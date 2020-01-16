@@ -16,6 +16,7 @@ import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.HexahedronFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.canvas.util.BlockNodeUtil;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
 import org.kok202.dluid.domain.exception.BlockConnectionImpossibleException;
 import org.kok202.dluid.domain.exception.IllegalConnectionRequest;
@@ -108,11 +109,11 @@ public class BlockConnectionHandler {
 
         Layer layer = LayerFactory.create(LayerType.PIPE_LAYER);
         layer.getProperties().setInputSize(
-            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[0],
-            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[1]);
+                BlockNodeUtil.getBlockNodeOutputX(sourceBlockNode.getBlockLayer()),
+                BlockNodeUtil.getBlockNodeOutputY(sourceBlockNode.getBlockLayer()));
         layer.getProperties().setOutputSize(
-            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[0],
-            sourceBlockNode.getBlockLayer().getProperties().getOutputSize()[1]);
+                BlockNodeUtil.getBlockNodeInputX(destinationBlockNode.getBlockLayer()),
+                BlockNodeUtil.getBlockNodeInputY(destinationBlockNode.getBlockLayer()));
 
         BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
         SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) pipeBlockNode.getBlockInfo().getExtra();

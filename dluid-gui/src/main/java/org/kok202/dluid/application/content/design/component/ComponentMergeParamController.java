@@ -57,10 +57,10 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
 
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
     }
 
     private void refreshInputOutputSize(){

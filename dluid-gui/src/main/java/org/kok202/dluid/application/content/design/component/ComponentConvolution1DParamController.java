@@ -65,10 +65,10 @@ public class ComponentConvolution1DParamController extends AbstractConvolutionLa
     @Override
     protected void setTextFieldByLayerProperties(){
         detachTextChangedListener(textFieldInputSize, textFieldKernelSize, textFieldStrideSize, textFieldPaddingSize, textFieldInputChannelSize, textFieldOutputChannelSize);
-        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputChannelSize.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputChannelSize.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputChannelSize.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputChannelSize.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
         textFieldKernelSize.setText(String.valueOf(layer.getProperties().getKernelSize()[0]));
         textFieldStrideSize.setText(String.valueOf(layer.getProperties().getStrideSize()[0]));
         textFieldPaddingSize.setText(String.valueOf(layer.getProperties().getPaddingSize()[0]));
@@ -88,7 +88,7 @@ public class ComponentConvolution1DParamController extends AbstractConvolutionLa
         layer.getProperties().setStrideSize(new int[]{TextFieldUtil.parseInteger(textFieldStrideSize)});
         layer.getProperties().setPaddingSize(new int[]{TextFieldUtil.parseInteger(textFieldPaddingSize)});
         layer.getProperties().setOutputSize(outputSize[0], TextFieldUtil.parseInteger(textFieldOutputChannelSize));
-        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
+        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
         notifyLayerDataChanged();
     }
 

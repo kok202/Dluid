@@ -57,6 +57,18 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof VolumeUnmatchedException){
+            VolumeUnmatchedException volumeUnmatchedException = ((VolumeUnmatchedException) exception);
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.content"),
+                            volumeUnmatchedException.getSourceLayerId(), volumeUnmatchedException.getSourceLayerOutputSize(), volumeUnmatchedException.getSourceLayerOutputVolume(),
+                            volumeUnmatchedException.getDestinationLayerId(), volumeUnmatchedException.getDestinationInputSize(), volumeUnmatchedException.getDestinationInputVolume()))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof DimensionUnmatchedException){
             DimensionUnmatchedException dimensionUnmatchedException = ((DimensionUnmatchedException) exception);
             DialogUtil.builder()
@@ -64,20 +76,8 @@ public class ExceptionHandler {
                     .title(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.title"))
                     .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.header"))
                     .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.content"),
-                            dimensionUnmatchedException.getSourceLayerId(), dimensionUnmatchedException.getSourceLayerOutputSize(),
-                            dimensionUnmatchedException.getDestinationLayerId(), dimensionUnmatchedException.getDestinationInputSize()))
-                    .build()
-                    .showAndWait();
-        }
-        else if(exception instanceof DimensionUnmatchedReshapeNeededException){
-            DimensionUnmatchedReshapeNeededException dimensionUnmatchedReshapeNeededException = ((DimensionUnmatchedReshapeNeededException) exception);
-            DialogUtil.builder()
-                    .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.reshapeNeeded.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.reshapeNeeded.header"))
-                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.reshapeNeeded.content"),
-                            dimensionUnmatchedReshapeNeededException.getSourceLayerId(), dimensionUnmatchedReshapeNeededException.getSourceLayerOutputSize(),
-                            dimensionUnmatchedReshapeNeededException.getDestinationLayerId(), dimensionUnmatchedReshapeNeededException.getDestinationInputSize()))
+                            dimensionUnmatchedException.getSourceLayerId(), dimensionUnmatchedException.getSourceLayerOutputSize(), dimensionUnmatchedException.getSourceLayerOutputDimension(),
+                            dimensionUnmatchedException.getDestinationLayerId(), dimensionUnmatchedException.getDestinationInputSize(), dimensionUnmatchedException.getSourceLayerInputDimension()))
                     .build()
                     .showAndWait();
         }

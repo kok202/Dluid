@@ -20,20 +20,20 @@ public class ReshapeLayerGenerator extends AbstractLayerGenerator {
         if(layer.getProperties().getOutputDimension() == 1){
             newShape = new int[]{
                     -1,
-                    layer.getProperties().getOutputSize()[0]};
+                    layer.getProperties().getOutputSizeX()};
         }
         else if(layer.getProperties().getOutputDimension() == 2){
             newShape = new int[]{
                     -1,
-                    layer.getProperties().getOutputSize()[1],
-                    layer.getProperties().getOutputSize()[0]};
+                    layer.getProperties().getOutputSizeY(),
+                    layer.getProperties().getOutputSizeX()};
         }
         else {
             newShape = new int[]{
                     -1,
-                    layer.getProperties().getOutputSize()[2],
-                    layer.getProperties().getOutputSize()[1],
-                    layer.getProperties().getOutputSize()[0]};
+                    layer.getProperties().getOutputSizeZ(),
+                    layer.getProperties().getOutputSizeY(),
+                    layer.getProperties().getOutputSizeX()};
         }
         graphBuilder.addVertex(layer.getId(), new ReshapeVertex(newShape), parseLayerIds(layerFroms));
     }

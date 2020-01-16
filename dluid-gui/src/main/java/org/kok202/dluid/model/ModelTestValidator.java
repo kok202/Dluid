@@ -26,12 +26,10 @@ class ModelTestValidator {
         int featureSetSize = AIFacade.getTestFeatureSet().getNumericRecordSet().getRecordSize();
         String testInputLayerId = AppFacade.getTestInputLayerId();
         GraphNode<BlockNode> testInputGraphNode = CanvasFacade.findGraphNodeByLayerId(testInputLayerId);
-        int inputBlockNodeSize =
-                testInputGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[0] *
-                testInputGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[1];
+        int inputBlockNodeVolume = testInputGraphNode.getData().getBlockLayer().getProperties().getOutputVolume();
 
-        if(featureSetSize != inputBlockNodeSize)
-            throw new FeatureSetDimensionUnmatchedException(testInputLayerId, inputBlockNodeSize, featureSetSize);
+        if(featureSetSize != inputBlockNodeVolume)
+            throw new FeatureSetDimensionUnmatchedException(testInputLayerId, inputBlockNodeVolume, featureSetSize);
     }
 
 }

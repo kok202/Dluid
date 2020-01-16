@@ -45,7 +45,7 @@ class ModelGraphValidator {
             throw new CanNotFindOutputLayerException();
     }
 
-    private static void validateAllBlockNodeDimension() throws DimensionUnmatchedException{
+    private static void validateAllBlockNodeDimension() throws VolumeUnmatchedException {
         List<GraphNode<BlockNode>> allGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> true);
         for (GraphNode<BlockNode> currentGraphNode : allGraphNode) {
             long sourceOutputDimension = currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension();
@@ -53,24 +53,27 @@ class ModelGraphValidator {
 
             List<GraphNode<BlockNode>> currentOutgoingGraphNodes = currentGraphNode.getOutgoingNodes();
             for (GraphNode<BlockNode> currentOutgoingGraphNode : currentOutgoingGraphNodes) {
+                while(currentOutgoingGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER){
+                    currentOutgoingGraphNode = currentOutgoingGraphNode.getOutgoingNodes().get(0);
+                }
                 long destinationInputDimension = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension();
                 long destinationInputVolume = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume();
                 if (sourceOutputDimension != destinationInputDimension)
-                    throw new DimensionUnmatchedReshapeNeededException(
-                            currentGraphNode.getData().getBlockLayer().getId(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getId(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getInputDimension(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize());
-                if (sourceOutputVolume != destinationInputVolume)
                     throw new DimensionUnmatchedException(
                             currentGraphNode.getData().getBlockLayer().getId(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension(),
                             currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getId(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getInputDimension(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize());
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension());
+                if (sourceOutputVolume != destinationInputVolume)
+                    throw new VolumeUnmatchedException(
+                            currentGraphNode.getData().getBlockLayer().getId(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputVolume(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getId(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume());
             }
         }
     }

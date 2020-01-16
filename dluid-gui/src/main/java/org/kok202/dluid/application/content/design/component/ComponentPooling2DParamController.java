@@ -92,12 +92,12 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
         detachTextChangedListener(
                 textFieldInputSizeX, textFieldKernelSizeX, textFieldStrideSizeX, textFieldPaddingSizeX,
                 textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY);
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldInputSizeZ.setText(String.valueOf(layer.getProperties().getInputSize()[2]));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSize()[2]));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldInputSizeZ.setText(String.valueOf(layer.getProperties().getInputSizeZ()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSizeZ()));
         textFieldStrideSizeX.setText(String.valueOf(layer.getProperties().getStrideSize()[0]));
         textFieldStrideSizeY.setText(String.valueOf(layer.getProperties().getStrideSize()[1]));
         textFieldPaddingSizeX.setText(String.valueOf(layer.getProperties().getPaddingSize()[0]));
@@ -145,9 +145,9 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
                 TextFieldUtil.parseInteger(textFieldPaddingSizeY)});
 
         layer.getProperties().setOutputSize(outputSize[0], outputSize[1], TextFieldUtil.parseInteger(textFieldInputSizeZ));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSize()[2]));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
         notifyLayerDataChanged();
     }
 
