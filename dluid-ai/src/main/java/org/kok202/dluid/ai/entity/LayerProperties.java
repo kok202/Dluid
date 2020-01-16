@@ -123,6 +123,7 @@ public class LayerProperties {
             case OUTPUT_LAYER:
             case RESHAPE_LAYER:
             case SWITCH_LAYER:
+            case BATCH_NORMALIZATION:
                 inputSize = new int[]{10};
                 outputSize = new int[]{10};
                 inputDimension = 1;

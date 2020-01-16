@@ -26,7 +26,7 @@
                                  <Label fx:id="labelLossFunction" text="Loss function" GridPane.rowIndex="3" />
                                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                      <children>
-                                         <Label fx:id="labelInputOutputWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                         <Label fx:id="labelInputOutputX" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                      </children>
                                  </AnchorPane>
                                  <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="1" >

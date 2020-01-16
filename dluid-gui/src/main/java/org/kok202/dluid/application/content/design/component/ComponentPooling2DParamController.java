@@ -17,13 +17,14 @@ import org.kok202.dluid.domain.exception.ConvolutionOutputIsNegativeException;
 
 public class ComponentPooling2DParamController extends AbstractConvolutionLayerComponentController {
 
-    @FXML private Label labelInputOutputWidth;
-    @FXML private Label labelInputOutputHeight;
-    @FXML private Label labelInputOutputChannel;
-    @FXML private Label labelWidth;
-    @FXML private Label labelHeight;
+    @FXML private Label labelInputOutputX;
+    @FXML private Label labelInputOutputY;
+    @FXML private Label labelInputOutputZ;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
+
+    @FXML private Label labelX;
+    @FXML private Label labelY;
     @FXML private Label labelKernelSize;
     @FXML private Label labelStrideSize;
     @FXML private Label labelPaddingSize;
@@ -74,11 +75,11 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
         initializeMenuButtonPoolingType();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelInputOutputWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
-        labelInputOutputHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
-        labelInputOutputChannel.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
-        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
-        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelInputOutputX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInputOutputY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelInputOutputZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
+        labelX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelKernelSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.pooling.kernelSize"));

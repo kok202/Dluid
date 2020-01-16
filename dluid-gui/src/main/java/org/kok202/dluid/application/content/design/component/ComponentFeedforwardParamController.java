@@ -11,7 +11,7 @@ import org.kok202.dluid.application.util.TextFieldUtil;
 
 public class ComponentFeedforwardParamController extends AbstractLayerComponentController {
 
-    @FXML private Label labelInputOutputWidth;
+    @FXML private Label labelInputOutputX;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
 
@@ -42,7 +42,7 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
         attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelInputOutputWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInputOutputX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
     }

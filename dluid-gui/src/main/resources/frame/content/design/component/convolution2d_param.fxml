@@ -31,17 +31,17 @@
                                                 <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="2" />
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                                     <children>
-                                                        <Label fx:id="labelInputOutputWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <Label fx:id="labelInputOutputX" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="0">
                                                     <children>
-                                                        <Label fx:id="labelInputOutputHeight" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <Label fx:id="labelInputOutputY" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="0">
                                                     <children>
-                                                        <Label fx:id="labelInputOutputChannel" alignment="CENTER" text="Channel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <Label fx:id="labelInputOutputZ" alignment="CENTER" text="Channel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
 
@@ -61,7 +61,7 @@
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="1">
                                                     <children>
-                                                        <TextField fx:id="textFieldInputChannelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <TextField fx:id="textFieldInputSizeZ" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         </TextField>
                                                     </children>
                                                 </AnchorPane>
@@ -78,7 +78,7 @@
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="2">
                                                     <children>
-                                                        <TextField fx:id="textFieldOutputChannelSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <TextField fx:id="textFieldOutputSizeZ" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         </TextField>
                                                     </children>
                                                 </AnchorPane>
@@ -121,12 +121,12 @@
                                                 <Label fx:id="labelPaddingSize" text="Padding size" GridPane.rowIndex="3" />
                                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                                     <children>
-                                                        <Label fx:id="labelWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <Label fx:id="labelX" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
                                                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="0">
                                                     <children>
-                                                        <Label fx:id="labelHeight" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <Label fx:id="labelY" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
 

@@ -11,12 +11,12 @@ import org.kok202.dluid.application.util.TextFieldUtil;
 
 public class ComponentInputParamController extends AbstractLayerComponentController {
 
-    @FXML private Label labelInputOutputWidth;
+    @FXML private Label labelInputOutputX;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
 
-    @FXML private TextField textFieldInputSize;
-    @FXML private TextField textFieldOutputSize;
+    @FXML private TextField textFieldInputSizeX;
+    @FXML private TextField textFieldOutputSizeX;
 
     public ComponentInputParamController(Layer layer) {
         super(layer);
@@ -31,28 +31,28 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
 
     @Override
     protected void initialize() throws Exception {
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSize, 1);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSize, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeX, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeX, 1);
         setTextFieldByLayerProperties();
     }
 
     protected void setTextFieldByLayerProperties() {
-        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputVolume()));
-        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputVolume()));
-        attachTextChangedListener(textFieldInputSize);
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputVolume()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputVolume()));
+        attachTextChangedListener(textFieldInputSizeX);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelInputOutputWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInputOutputX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
     }
 
     @Override
     protected void textFieldChangedHandler() {
-        int value = TextFieldUtil.parseInteger(textFieldInputSize, 1);
+        int value = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
         layer.getProperties().setInputSize(value);
         layer.getProperties().setOutputSize(value);
-        textFieldOutputSize.setText(String.valueOf(value));
+        textFieldOutputSizeX.setText(String.valueOf(value));
         notifyLayerDataChanged();
     }
 }

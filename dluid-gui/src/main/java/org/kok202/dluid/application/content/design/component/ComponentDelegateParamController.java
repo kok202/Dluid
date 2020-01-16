@@ -12,7 +12,7 @@ import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
 
-public class ComponentSwitchParamController extends AbstractLayerComponentController {
+public class ComponentDelegateParamController extends AbstractLayerComponentController {
 
     @FXML private Label labelInputOutput1DWidth;
     @FXML private Label labelInputOutput2DWidth;
@@ -52,13 +52,13 @@ public class ComponentSwitchParamController extends AbstractLayerComponentContro
 
     @FXML private MenuButton menuButtonInputDimension;
 
-    public ComponentSwitchParamController(Layer layer) {
+    public ComponentDelegateParamController(Layer layer) {
         super(layer);
     }
 
     @Override
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/component/switch_param.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/component/delegate_param.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

@@ -71,7 +71,7 @@ public class ComponentManager {
                 break;
             case SWITCH_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
-                componentList.add(new ComponentSwitchParamController(layer));
+                componentList.add(new ComponentDelegateParamController(layer));
                 break;
             case LSTM:
                 componentList.add(new ComponentCommonInfoController(layer));
@@ -88,6 +88,7 @@ public class ComponentManager {
             case BATCH_NORMALIZATION:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));
+                componentList.add(new ComponentDelegateParamController(layer));
                 break;
         }
     }

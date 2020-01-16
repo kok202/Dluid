@@ -26,12 +26,12 @@
                                     <children>
                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                             <children>
-                                                <Label fx:id="labelWidth" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Label fx:id="labelX" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="0">
                                             <children>
-                                                <Label fx:id="labelHeight" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Label fx:id="labelY" alignment="CENTER" text="Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="1" />
