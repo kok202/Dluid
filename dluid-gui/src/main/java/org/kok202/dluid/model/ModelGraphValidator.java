@@ -2,7 +2,9 @@ package org.kok202.dluid.model;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.*;
 import org.kok202.dluid.domain.structure.GraphNode;
@@ -14,11 +16,21 @@ import java.util.stream.Collectors;
 class ModelGraphValidator {
 
     static void validateModelIsCorrect(){
+        validateModelParamIsValid();
         validateTrainInputBlockNodeExist();
         validateOutputBlockNodeExist();
         validateAllBlockNodeDimension();
         validateMergeBlockNode();
         validateSwitchBlockNode();
+    }
+
+    private static void validateModelParamIsValid() throws InvalidParameterException {
+        if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1)
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
+        if(AIFacade.getTrainWeightInitializer() == null)
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
+        if(AIFacade.getTrainOptimizer() == null)
+            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));
     }
 
     private static void validateTrainInputBlockNodeExist() throws RuntimeException{
@@ -33,24 +45,35 @@ class ModelGraphValidator {
             throw new CanNotFindOutputLayerException();
     }
 
-    private static void validateAllBlockNodeDimension() throws DimensionUnmatchedException{
+    private static void validateAllBlockNodeDimension() throws VolumeUnmatchedException {
         List<GraphNode<BlockNode>> allGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> true);
         for (GraphNode<BlockNode> currentGraphNode : allGraphNode) {
-            long sourceOutputSize =
-                    currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[0] *
-                    currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize()[1];
+            long sourceOutputDimension = currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension();
+            long sourceOutputVolume = currentGraphNode.getData().getBlockLayer().getProperties().getOutputVolume();
 
             List<GraphNode<BlockNode>> currentOutgoingGraphNodes = currentGraphNode.getOutgoingNodes();
             for (GraphNode<BlockNode> currentOutgoingGraphNode : currentOutgoingGraphNodes) {
-                long destinationInputSize =
-                        currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize()[0] *
-                        currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize()[1];
-                if (sourceOutputSize != destinationInputSize)
+                while(currentOutgoingGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER){
+                    currentOutgoingGraphNode = currentOutgoingGraphNode.getOutgoingNodes().get(0);
+                }
+                long destinationInputDimension = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension();
+                long destinationInputVolume = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume();
+                if (sourceOutputDimension != destinationInputDimension)
                     throw new DimensionUnmatchedException(
                             currentGraphNode.getData().getBlockLayer().getId(),
                             currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getId(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize());
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension());
+                if (sourceOutputVolume != destinationInputVolume)
+                    throw new VolumeUnmatchedException(
+                            currentGraphNode.getData().getBlockLayer().getId(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputVolume(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getId(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize(),
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume());
             }
         }
     }

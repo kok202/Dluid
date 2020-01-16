@@ -23,15 +23,75 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label fx:id="labelInputDimension" text="Input dimension" GridPane.rowIndex="0" />
                                         <Label fx:id="labelInput" text="Input" GridPane.rowIndex="1" />
-                                        <Label fx:id="labelOutputDimension" text="Output dimension" GridPane.rowIndex="2" />
-                                        <Label fx:id="labelOutput" text="Output" GridPane.rowIndex="3" />
+                                        <Label fx:id="labelInputDimension" text="Input dimension" GridPane.rowIndex="2" />
+                                        <Label fx:id="labelOutput" text="Output" GridPane.rowIndex="4" />
+                                        <Label fx:id="labelOutputDimension" text="Output dimension" GridPane.rowIndex="5" />
 
                                         <!--==================================================================================Value Field==================================================================================-->
-                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0" >
-                                            <MenuButton fx:id="menuButtonInputDimension" styleClass="customMenuButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+                                        <AnchorPane fx:id="anchorPaneInputLabel1D" GridPane.columnIndex="1" GridPane.rowIndex="0" visible="false" >
+                                            <children>
+                                                <Label fx:id="labelInput1DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                            </children>
                                         </AnchorPane>
+                                        <AnchorPane fx:id="anchorPaneInputLabel2D" GridPane.columnIndex="1" GridPane.rowIndex="0" visible="false" >
+                                            <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                </rowConstraints>
+                                                <children>
+                                                    <AnchorPane >
+                                                        <children>
+                                                            <Label fx:id="labelInput2DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                    <AnchorPane GridPane.columnIndex="1">
+                                                        <children>
+                                                            <Label fx:id="labelInput2DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                </children>
+                                            </GridPane>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="anchorPaneInputLabel3D" GridPane.columnIndex="1" GridPane.rowIndex="0" visible="true" >
+                                            <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                </rowConstraints>
+                                                <children>
+                                                    <AnchorPane >
+                                                        <children>
+                                                            <Label fx:id="labelInput3DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                    <AnchorPane GridPane.columnIndex="1">
+                                                        <children>
+                                                            <Label fx:id="labelInput3DHeight" text="Height" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                    <AnchorPane GridPane.columnIndex="2">
+                                                        <children>
+                                                            <Label fx:id="labelInput3DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                </children>
+                                            </GridPane>
+                                        </AnchorPane>
+
+
+
+
+
                                         <AnchorPane fx:id="anchorPaneInputSize1D" GridPane.columnIndex="1" GridPane.rowIndex="1" visible="false" >
                                             <children>
                                                 <TextField fx:id="textFieldInputSize1D" text="1" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -95,25 +155,84 @@
                                                 </children>
                                             </GridPane>
                                         </AnchorPane>
-
-
-
-
-
-
-
-
-
                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2" >
-                                            <MenuButton fx:id="menuButtonOutputDimension" styleClass="customMenuButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                            <MenuButton fx:id="menuButtonInputDimension" styleClass="customMenuButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                         </AnchorPane>
-                                        <AnchorPane fx:id="anchorPaneOutputSize1D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="false" >
+
+
+
+
+
+
+                                        <AnchorPane fx:id="anchorPaneOutputLabel1D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="false" >
+                                            <children>
+                                                <Label fx:id="labelOutput1DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="anchorPaneOutputLabel2D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="false" >
+                                            <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                </rowConstraints>
+                                                <children>
+                                                    <AnchorPane >
+                                                        <children>
+                                                            <Label fx:id="labelOutput2DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                    <AnchorPane GridPane.columnIndex="1">
+                                                        <children>
+                                                            <Label fx:id="labelOutput2DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                </children>
+                                            </GridPane>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="anchorPaneOutputLabel3D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="true" >
+                                            <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                </rowConstraints>
+                                                <children>
+                                                    <AnchorPane >
+                                                        <children>
+                                                            <Label fx:id="labelOutput3DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                    <AnchorPane GridPane.columnIndex="1">
+                                                        <children>
+                                                            <Label fx:id="labelOutput3DHeight" text="Height" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                    <AnchorPane GridPane.columnIndex="2">
+                                                        <children>
+                                                            <Label fx:id="labelOutput3DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                        </children>
+                                                    </AnchorPane>
+                                                </children>
+                                            </GridPane>
+                                        </AnchorPane>
+
+
+
+
+
+                                        <AnchorPane fx:id="anchorPaneOutputSize1D" GridPane.columnIndex="1" GridPane.rowIndex="4" visible="false" >
                                             <children>
                                                 <TextField fx:id="textFieldOutputSize1D" editable="false" disable="true" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 </TextField>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="anchorPaneOutputSize2D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="false" >
+                                        <AnchorPane fx:id="anchorPaneOutputSize2D" GridPane.columnIndex="1" GridPane.rowIndex="4" visible="false" >
                                             <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <columnConstraints>
                                                     <ColumnConstraints hgrow="SOMETIMES" />
@@ -138,7 +257,7 @@
                                                 </children>
                                             </GridPane>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="anchorPaneOutputSize3D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="true" >
+                                        <AnchorPane fx:id="anchorPaneOutputSize3D" GridPane.columnIndex="1" GridPane.rowIndex="4" visible="true" >
                                             <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <columnConstraints>
                                                     <ColumnConstraints hgrow="SOMETIMES" />
@@ -169,6 +288,9 @@
                                                     </AnchorPane>
                                                 </children>
                                             </GridPane>
+                                        </AnchorPane>
+                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="5" >
+                                            <MenuButton fx:id="menuButtonOutputDimension" styleClass="customMenuButton" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                         </AnchorPane>
                                     </children>
                                 </GridPane>

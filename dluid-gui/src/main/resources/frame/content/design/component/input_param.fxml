@@ -21,22 +21,28 @@
                                         <rowConstraints>
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         </rowConstraints>
                                          <children>
-                                             <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="0" />
-                                             <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="1" />
+                                             <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="1" />
+                                             <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="2" />
+                                             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                                 <children>
+                                                     <Label fx:id="labelInputOutputX" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                 </children>
+                                             </AnchorPane>
             
                                              <!--==================================================================================Value Field==================================================================================-->
-                                             <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                                             <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                                  <children>
-                                                     <TextField fx:id="textFieldInputSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                     <TextField fx:id="textFieldInputSizeX" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                          </TextField>
                                                  </children>
                                              </AnchorPane>
             
-                                             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                  <children>
-                                                     <TextField fx:id="textFieldOutputSize" disable="true" editable="true" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                     <TextField fx:id="textFieldOutputSizeX" disable="true" editable="true" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                  </children>
                                              </AnchorPane>
 

@@ -27,6 +27,9 @@ public abstract class AbstractLayerComponentController extends AbstractComponent
     }
 
     protected void notifyLayerDataChanged(){
+        // Do we need to change the height value of the block node according to the channel?
+        // For reshape layers (when output dimension is 2D), we don't know that the y-values of output will be used as the depth of the block or as the height.
+        // Because y value can be used as channel or non channel.
         CanvasFacade.notifyLayerDataChanged(layer.getId());
     }
 }

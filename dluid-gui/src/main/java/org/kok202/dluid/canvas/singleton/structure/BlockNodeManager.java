@@ -7,6 +7,7 @@ import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.application.util.MathUtil;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
+import org.kok202.dluid.canvas.util.BlockNodeUtil;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.structure.GraphNode;
 
@@ -101,15 +102,20 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                     GraphNode<BlockNode> destinationGraphNodeBlockNode = graphNodeBlockNode.getOutgoingNodes().get(0); // Exist only one. because it is pipe block.
 
                     if(destinationGraphNodeBlockNode.getData().getBlockLayer().getType() == LayerType.MERGE_LAYER){
-                        int[] sourceOutputSize = sourceGraphNodeBlockNode.getData().getBlockLayer().getProperties().getOutputSize();
-                        int[] destinationInputSize = destinationGraphNodeBlockNode.getData().getBlockLayer().getProperties().getInputSize();
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setInputSize(sourceOutputSize[0], sourceOutputSize[1]);
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setOutputSize(destinationInputSize[0], destinationInputSize[1]);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setInputSize(
+                                BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer()),
+                                BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer()));
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setOutputSize(
+                                BlockNodeUtil.getBlockNodeInputX(destinationGraphNodeBlockNode.getData().getBlockLayer()),
+                                BlockNodeUtil.getBlockNodeInputY(destinationGraphNodeBlockNode.getData().getBlockLayer()));
                     }
                     else{
-                        int[] sourceOutputSize = sourceGraphNodeBlockNode.getData().getBlockLayer().getProperties().getOutputSize();
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setInputSize(sourceOutputSize[0], sourceOutputSize[1]);
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setOutputSize(sourceOutputSize[0], sourceOutputSize[1]);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setInputSize(
+                                BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer()),
+                                BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer()));
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setOutputSize(
+                                BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer()),
+                                BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer()));
                     }
                     graphNodeBlockNode.getData().reshapeBlockModel();
                 });

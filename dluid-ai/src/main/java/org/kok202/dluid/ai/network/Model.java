@@ -37,7 +37,9 @@ public class Model {
         INDArray feature = NumericRecordSetUtil.convertAsINDArray(featureDataSet);
         Map<String, INDArray> testResult = computationGraph.feedForward(feature, false);
         INDArray targetResultLayerOutput = testResult.get(targetResultLayerId);
-        return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput);
+
+        int featureDataSize = featureDataSet.getRecordsSize();
+        return NumericRecordSetUtil.convertAsNumericRecordSet(targetResultLayerOutput.reshape(new int[]{featureDataSize, -1}));
     }
 
     public double score(){

@@ -1,6 +1,6 @@
 package org.kok202.dluid.ai.network.layer.builder;
 
-import org.deeplearning4j.nn.conf.layers.BaseLayer;
+import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
@@ -13,17 +13,17 @@ public class OutputLayerBuilder extends AbstractLayerBuilder {
     }
 
     @Override
-    protected BaseLayer.Builder createBuilder(Layer layer) {
+    protected Builder createBuilder(Layer layer) {
         return new OutputLayer.Builder(layer.getProperties().getLossFunction());
     }
 
     @Override
-    protected void setAddOnProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setAddOnProperties(Layer layer, Builder builder) {
         OutputLayer.Builder outputLayerBuilder = (OutputLayer.Builder) builder;
     }
 
     @Override
-    protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setCommonProperties(Layer layer, Builder builder) {
         OutputLayer.Builder outputLayerBuilder = (OutputLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
             outputLayerBuilder.nIn(layer.getProperties().getInputVolume());

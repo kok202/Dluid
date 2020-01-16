@@ -30,9 +30,7 @@ class ModelTrainValidator {
 
     private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
         BlockNode outputBlockNode = CanvasFacade.findOutputLayer().get().getData();
-        int outputBlockNodeSize =
-                outputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
-                outputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
+        int outputBlockNodeVolume = outputBlockNode.getBlockLayer().getProperties().getOutputVolume();
 
         for (Map.Entry<String, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
             String inputLayerId = entry.getKey();
@@ -41,25 +39,17 @@ class ModelTrainValidator {
             int resultSetSize = dataSetManager.getManagedResultRecordSet().getNumericRecordSet().getRecordSize();
             BlockNode inputBlockNode = CanvasFacade.findGraphNodeByLayerId(inputLayerId).getData();
 
-            int inputBlockNodeSize =
-                    inputBlockNode.getBlockLayer().getProperties().getOutputSize()[0] *
-                    inputBlockNode.getBlockLayer().getProperties().getOutputSize()[1];
+            int inputBlockNodeVolume = inputBlockNode.getBlockLayer().getProperties().getInputVolume();
 
-            if(featureSetSize != inputBlockNodeSize)
-                throw new FeatureSetDimensionUnmatchedException(inputLayerId, inputBlockNodeSize, featureSetSize);
-            if(resultSetSize != outputBlockNodeSize)
-                throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeSize, inputLayerId, resultSetSize);
+            if(featureSetSize != inputBlockNodeVolume)
+                throw new FeatureSetDimensionUnmatchedException(inputLayerId, inputBlockNodeVolume, featureSetSize);
+            if(resultSetSize != outputBlockNodeVolume)
+                throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeVolume, inputLayerId, resultSetSize);
         }
     }
 
-    private static void validateParameterSetting() throws InvalidParameterException, InvalidBatchSize {
+    private static void validateParameterSetting() throws InvalidParameterException {
         if(AIFacade.getTrainEpoch() <= 0)
             throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.invalidBatchSize.content"));
-        if(AIFacade.getTrainLearningRate() <= 0 || AIFacade.getTrainLearningRate() >= 1)
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.learningRate.content"));
-        if(AIFacade.getTrainWeightInitializer() == null)
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullWeightInit.content"));
-        if(AIFacade.getTrainOptimizer() == null)
-            throw new InvalidParameterException(AppPropertiesSingleton.getInstance().get("frame.dialog.paramError.nullOptimizer.content"));
     }
 }

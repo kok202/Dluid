@@ -14,6 +14,7 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 public class ComponentOutputParamController extends AbstractLayerComponentController {
 
+    @FXML private Label labelInputOutputX;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
     @FXML private Label labelLossFunction;
@@ -41,6 +42,7 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
         initializeMenuButtonLossFunction();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelInputOutputX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelLossFunction.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.lossFunction"));

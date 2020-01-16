@@ -27,6 +27,12 @@ public class BlockNodeFactory {
                 return new ReshapeBlockNode(layer);
             case SWITCH_LAYER:
                 return new SwitchBlockNode(layer);
+            case POOLING_1D:
+                return new Pooling1DBlockNode(layer);
+            case POOLING_2D:
+                return new Pooling2DBlockNode(layer);
+            case BATCH_NORMALIZATION:
+                return new BatchNormalizationBlockNode(layer);
         }
         return null;
     }

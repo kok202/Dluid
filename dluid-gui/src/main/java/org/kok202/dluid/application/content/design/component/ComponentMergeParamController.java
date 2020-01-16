@@ -16,8 +16,8 @@ import java.util.List;
 
 public class ComponentMergeParamController extends AbstractLayerComponentController {
 
-    @FXML private Label labelWidth;
-    @FXML private Label labelHeight;
+    @FXML private Label labelX;
+    @FXML private Label labelY;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
 
@@ -52,15 +52,15 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
             refreshInputOutputSize();
         });
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.width"));
-        labelHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.2d.height"));
+        labelX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
 
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
     }
 
     private void refreshInputOutputSize(){

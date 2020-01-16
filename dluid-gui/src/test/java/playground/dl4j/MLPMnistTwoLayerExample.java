@@ -82,15 +82,15 @@ public class MLPMnistTwoLayerExample {
             .updater(new Nadam())
             .l2(rate * 0.005) // regularize learning model
             .list()
-            .layer(new DenseLayer.Builder() //create the first input type.
+            .layer(new DenseLayer.Builder() //build the first input type.
                     .nIn(numRows * numColumns)
                     .nOut(500)
                     .build())
-            .layer(new DenseLayer.Builder() //create the second input type
+            .layer(new DenseLayer.Builder() //build the second input type
                     .nIn(500)
                     .nOut(100)
                     .build())
-            .layer(new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD) //create hidden type
+            .layer(new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD) //build hidden type
                     .activation(Activation.SOFTMAX)
                     .nOut(outputNum)
                     .build())

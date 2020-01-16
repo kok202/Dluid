@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import org.kok202.dluid.AppConstant;
-import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.application.adapter.MenuAdapter;
@@ -22,11 +21,26 @@ import java.util.List;
 
 public class ComponentReshapeParamController extends AbstractLayerComponentController {
 
-    @FXML private Label labelInputDimension;
+    @FXML private Label labelInput1DWidth;
+    @FXML private Label labelInput2DWidth;
+    @FXML private Label labelInput2DChannel;
+    @FXML private Label labelInput3DWidth;
+    @FXML private Label labelInput3DHeight;
+    @FXML private Label labelInput3DChannel;
+    @FXML private Label labelOutput1DWidth;
+    @FXML private Label labelOutput2DWidth;
+    @FXML private Label labelOutput2DChannel;
+    @FXML private Label labelOutput3DWidth;
+    @FXML private Label labelOutput3DHeight;
+    @FXML private Label labelOutput3DChannel;
     @FXML private Label labelInput;
-    @FXML private Label labelOutputDimension;
+    @FXML private Label labelInputDimension;
     @FXML private Label labelOutput;
+    @FXML private Label labelOutputDimension;
 
+    @FXML private AnchorPane anchorPaneInputLabel1D;
+    @FXML private AnchorPane anchorPaneInputLabel2D;
+    @FXML private AnchorPane anchorPaneInputLabel3D;
     @FXML private AnchorPane anchorPaneInputSize1D;
     @FXML private AnchorPane anchorPaneInputSize2D;
     @FXML private AnchorPane anchorPaneInputSize3D;
@@ -38,6 +52,9 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
     @FXML private TextField textFieldInputSize3DY;
     @FXML private TextField textFieldInputSize3DZ;
 
+    @FXML private AnchorPane anchorPaneOutputLabel1D;
+    @FXML private AnchorPane anchorPaneOutputLabel2D;
+    @FXML private AnchorPane anchorPaneOutputLabel3D;
     @FXML private AnchorPane anchorPaneOutputSize1D;
     @FXML private AnchorPane anchorPaneOutputSize2D;
     @FXML private AnchorPane anchorPaneOutputSize3D;
@@ -95,6 +112,18 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         initializeMenuButtonInputDimension();
         initializeMenuButtonOutputDimension();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
+        labelInput1DWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInput2DWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInput2DChannel.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelInput3DWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInput3DHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelInput3DChannel.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
+        labelOutput1DWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelOutput2DWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelOutput2DChannel.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelOutput3DWidth.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelOutput3DHeight.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+        labelOutput3DChannel.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
         labelInput.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutput.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelInputDimension.setText(AppPropertiesSingleton.getInstance().get("frame.component.reshape.inputDimension"));
@@ -107,18 +136,18 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
                 textFieldInputSize2DX, textFieldInputSize2DY,
                 textFieldInputSize3DX, textFieldInputSize3DY, textFieldInputSize3DZ,
                 textFieldOutputSize3DZ);
-        textFieldInputSize1D.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSize2DX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSize2DY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldInputSize3DX.setText(String.valueOf(layer.getProperties().getInputSize()[0]));
-        textFieldInputSize3DY.setText(String.valueOf(layer.getProperties().getInputSize()[1]));
-        textFieldInputSize3DZ.setText(String.valueOf(layer.getProperties().getInputSize()[2]));
-        textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSize2DX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSize2DY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        textFieldOutputSize3DX.setText(String.valueOf(layer.getProperties().getOutputSize()[0]));
-        textFieldOutputSize3DY.setText(String.valueOf(layer.getProperties().getOutputSize()[1]));
-        textFieldOutputSize3DZ.setText(String.valueOf(layer.getProperties().getOutputSize()[2]));
+        textFieldInputSize1D.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSize2DX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSize2DY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldInputSize3DX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSize3DY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldInputSize3DZ.setText(String.valueOf(layer.getProperties().getInputSizeZ()));
+        textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSize2DX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSize2DY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldOutputSize3DX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSize3DY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldOutputSize3DZ.setText(String.valueOf(layer.getProperties().getOutputSizeZ()));
         attachTextChangedListener(
                 textFieldInputSize1D,
                 textFieldInputSize2DX, textFieldInputSize2DY,
@@ -137,6 +166,9 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         MenuAdapter<Integer> menuAdapter = new MenuAdapter<>(menuButtonInputDimension);
         menuAdapter.setMenuItemChangedListener(dimension -> {
             layer.getProperties().setInputDimension(dimension);
+            anchorPaneInputLabel1D.setVisible(dimension == 1);
+            anchorPaneInputLabel2D.setVisible(dimension == 2);
+            anchorPaneInputLabel3D.setVisible(dimension == 3);
             anchorPaneInputSize1D.setVisible(dimension == 1);
             anchorPaneInputSize2D.setVisible(dimension == 2);
             anchorPaneInputSize3D.setVisible(dimension == 3);
@@ -154,6 +186,9 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         MenuAdapter<Integer> menuAdapter = new MenuAdapter<>(menuButtonOutputDimension);
         menuAdapter.setMenuItemChangedListener(dimension -> {
             layer.getProperties().setOutputDimension(dimension);
+            anchorPaneOutputLabel1D.setVisible(dimension == 1);
+            anchorPaneOutputLabel2D.setVisible(dimension == 2);
+            anchorPaneOutputLabel3D.setVisible(dimension == 3);
             anchorPaneOutputSize1D.setVisible(dimension == 1);
             anchorPaneOutputSize2D.setVisible(dimension == 2);
             anchorPaneOutputSize3D.setVisible(dimension == 3);
@@ -202,7 +237,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         }
         else{
             int outputSizeZ = TextFieldUtil.parseInteger(textFieldOutputSize3DZ);
-            if(outputSizeZ != layer.getProperties().getOutputSize()[2]){
+            if(outputSizeZ != layer.getProperties().getOutputSizeZ()){
                 // textFieldOutputSize3DZ changed!
                 if(inputVolume % outputSizeZ != 0)
                     outputSizeZ = 1;
@@ -221,9 +256,6 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
             textFieldOutputSize3DZ.setText(String.valueOf(outputSizeZ));
             attachTextChangedListener(textFieldOutputSize3DZ);
         }
-        CanvasFacade.findGraphNodeByLayerId(layer.getId())
-                .getData()
-                .setHeight(layer.getProperties().getOutputSize()[2] * CanvasConstant.NODE_DEFAULT_HEIGHT);
     }
 
     private ReshapeBlockProperty getReshapeBlockProperty(){

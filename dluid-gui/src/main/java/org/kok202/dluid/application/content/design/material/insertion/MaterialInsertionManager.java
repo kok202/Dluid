@@ -87,7 +87,7 @@ public class MaterialInsertionManager {
             if(!checkIsPossibleToAddLayer(layerType))
                 return;
 
-            // create container and set on clipboard
+            // build container and set on clipboard
             MaterialInsertionInfoHolder materialInsertionInfoHolder = new MaterialInsertionInfoHolder();
             materialInsertionInfoHolder.setLayerType(layerType);
             ClipboardContent clipboardContent = new ClipboardContent();

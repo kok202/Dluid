@@ -18,24 +18,30 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                              <children>
-                                 <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="0" />
-                                 <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="1" />
-                                 <Label fx:id="labelLossFunction" text="Loss function" GridPane.rowIndex="2" />
-                                 <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1" >
+                                 <Label fx:id="labelInputSize" text="Input size" GridPane.rowIndex="1" />
+                                 <Label fx:id="labelOutputSize" text="Output size" GridPane.rowIndex="2" />
+                                 <Label fx:id="labelLossFunction" text="Loss function" GridPane.rowIndex="3" />
+                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                     <children>
+                                         <Label fx:id="labelInputOutputX" alignment="CENTER" text="Width" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                     </children>
+                                 </AnchorPane>
+                                 <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="1" >
                                      <children>
                                          <TextField fx:id="textFieldInputSize" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                          </TextField>
                                      </children>
                                  </AnchorPane>
-                                 <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="1" >
+                                 <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1" >
                                      <children>
                                          <TextField fx:id="textFieldOutputSize" promptText="100" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                          </TextField>
                                      </children>
                                  </AnchorPane>
-                                 <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1" >
+                                 <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1" >
                                      <children>
                                          <MenuButton fx:id="menuButtonLossFunction" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <items>

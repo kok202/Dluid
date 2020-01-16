@@ -16,7 +16,7 @@ import org.nd4j.linalg.learning.config.Sgd;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 /**
- * This basic example shows how to manually create a DataSet and train it to an basic Network.
+ * This basic example shows how to manually build a DataSet and train it to an basic Network.
  * <p>
  * The network consists in 2 input-neurons, 1 hidden-type with 4 hidden-neurons, and 2 output-neurons.
  * <p>
@@ -58,7 +58,7 @@ public class XorExample {
         INDArray labels = Nd4j.zeros(4, 2);
 
         //==============================================================================
-        // create first dataset
+        // build first dataset
         // when first input=0 and second input=0
         input.putScalar(new int[]{0, 0}, 0); // row 0, col 0 위치에 0을 넣겠다.
         input.putScalar(new int[]{0, 1}, 0); // row 0, col 1 위치에 0을 넣겠다.
@@ -97,7 +97,7 @@ public class XorExample {
 
 
         // 모델 설계
-        // create dataset object
+        // build dataset object
         // input
         // labels : output from input
         DataSet ds = new DataSet(input, labels);
@@ -140,7 +140,7 @@ public class XorExample {
         }
 
         // 학습 결과
-        // create output for every training sample
+        // build output for every training sample
         INDArray output = net.output(ds.getFeatures());
         System.out.println(output);
 

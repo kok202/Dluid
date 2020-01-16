@@ -10,6 +10,7 @@ import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.canvas.util.BlockNodeUtil;
 
 public abstract class ActivationBlockNode extends BlockNode {
     public static final int LAYER_BLOCK_INDEX = 0;
@@ -22,12 +23,8 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     @Override
     protected final void createBlockModel(Layer layer){
-        Point2D topSize = new Point2D(
-                layer.getProperties().getInputSize()[0] * CanvasConstant.NODE_UNIT,
-                layer.getProperties().getInputSize()[1] * CanvasConstant.NODE_UNIT);
-        Point2D bottomSize = new Point2D(
-                layer.getProperties().getOutputSize()[0] * CanvasConstant.NODE_UNIT,
-                layer.getProperties().getOutputSize()[1] * CanvasConstant.NODE_UNIT);
+        Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
+        Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
 
         Point3D topSkewed = getTopSkewed();
@@ -63,10 +60,8 @@ public abstract class ActivationBlockNode extends BlockNode {
     public final void reshapeBlockModel() {
         deleteHexahedrons();
         Layer layer = getBlockLayer();
-        Point2D topSize = new Point2D(layer.getProperties().getInputSize()[0], layer.getProperties().getInputSize()[1])
-                .multiply(CanvasConstant.NODE_UNIT);
-        Point2D bottomSize = new Point2D(layer.getProperties().getOutputSize()[0], layer.getProperties().getOutputSize()[1])
-                .multiply(CanvasConstant.NODE_UNIT);
+        Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
+        Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
         Point3D topSkewed = getTopSkewed();
         Point3D bottomSkewed = getBottomSkewed();

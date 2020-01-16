@@ -71,11 +71,24 @@ public class ComponentManager {
                 break;
             case SWITCH_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
-                componentList.add(new ComponentSwitchParamController(layer));
+                componentList.add(new ComponentDelegateParamController(layer));
                 break;
             case LSTM:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));
+                break;
+            case POOLING_1D:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentPooling1DParamController(layer));
+                break;
+            case POOLING_2D:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentPooling2DParamController(layer));
+                break;
+            case BATCH_NORMALIZATION:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentCommonFunctionController(layer));
+                componentList.add(new ComponentDelegateParamController(layer));
                 break;
         }
     }

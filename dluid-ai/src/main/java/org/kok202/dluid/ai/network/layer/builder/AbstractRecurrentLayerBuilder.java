@@ -1,18 +1,18 @@
 package org.kok202.dluid.ai.network.layer.builder;
 
-import org.deeplearning4j.nn.conf.layers.BaseLayer;
 import org.deeplearning4j.nn.conf.layers.BaseRecurrentLayer;
+import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 public abstract class AbstractRecurrentLayerBuilder extends AbstractLayerBuilder {
     @Override
-    protected void setAddOnProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setAddOnProperties(Layer layer, Builder builder) {
         BaseRecurrentLayer.Builder baseRecurrentLayer = (BaseRecurrentLayer.Builder) builder;
     }
 
     @Override
-    protected void setCommonProperties(Layer layer, BaseLayer.Builder builder) {
+    protected void setCommonProperties(Layer layer, Builder builder) {
         BaseRecurrentLayer.Builder baseRecurrentLayerBuilder = (BaseRecurrentLayer.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
             baseRecurrentLayerBuilder.nIn(layer.getProperties().getInputVolume());
