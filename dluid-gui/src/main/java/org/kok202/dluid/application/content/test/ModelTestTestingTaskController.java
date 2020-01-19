@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.common.ExceptionHandler;
@@ -66,6 +67,7 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
     }
 
     private void buttonTestActionHandler(){
+        AppFacade.clearTestResultTableView();
         TestTask testTask = new TestTask();
         testTask.bindWithComponent(this);
         testTask.exceptionProperty().addListener((observable, oldValue, newValue) -> {

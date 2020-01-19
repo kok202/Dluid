@@ -226,4 +226,12 @@ public class AppFacade {
                 .setTestResultTableExpandAndDisable(false);
     }
 
+    public static void clearTestResultTableView() {
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestTestingController()
+                .getModelTestTestingResultTableController()
+                .clearTestResultTableView();
+    }
 }

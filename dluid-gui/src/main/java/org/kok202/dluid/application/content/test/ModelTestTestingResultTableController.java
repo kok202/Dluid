@@ -71,4 +71,9 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
         testResultDocumentFileSaver = new TestResultDocumentFileSaver(buttonExportAsDocument);
         testResultDocumentFileSaver.initialize();
     }
+
+    public void clearTestResultTableView() {
+        tableViewResultSet.setDisable(true);
+        tableViewResultSet.getItems().clear();
+    }
 }
