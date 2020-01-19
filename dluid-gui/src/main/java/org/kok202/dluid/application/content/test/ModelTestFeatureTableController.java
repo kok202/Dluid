@@ -51,7 +51,11 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
                     .getModelTestTestingTaskController()
                     .refreshTestTargetResultLayerInformation(testInputLayerId);
         });
-        numericTableViewAdapter = new NumericTableViewAdapter(tableViewDataSet);
+        tableViewDataSet.setDisable(true);
+        numericTableViewAdapter = NumericTableViewAdapter.builder()
+                .tableView(tableViewDataSet)
+                .editable(true)
+                .build();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataTable.title"));
         labelTestTarget.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetInputLayerId"));
     }
@@ -72,5 +76,6 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
         NumericRecordSet testNumericRecordSet = AIFacade.getTestFeatureSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
         titledPane.setExpanded(true);
+        tableViewDataSet.setDisable(false);
     }
 }

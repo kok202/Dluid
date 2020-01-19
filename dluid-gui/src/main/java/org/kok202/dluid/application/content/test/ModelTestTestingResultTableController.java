@@ -3,6 +3,7 @@ package org.kok202.dluid.application.content.test;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +22,8 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
 
     @FXML private TitledPane titledPane;
     @FXML private TableView tableViewResultSet;
+    @FXML private CheckBox checkBoxHighlight;
+    @FXML private Button buttonLoadOnTable;
     @FXML private Button buttonExportAsImage;
     @FXML private Button buttonExportAsDocument;
     private NumericTableViewAdapter numericTableViewAdapter;
@@ -40,30 +43,37 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
 
     @Override
     protected void initialize() throws Exception {
-        numericTableViewAdapter = new NumericTableViewAdapter(tableViewResultSet);
-        setButtonSaverActionHandler();
+        tableViewResultSet.setDisable(true);
+        checkBoxHighlight.setSelected(false);
+        checkBoxHighlight.selectedProperty().addListener((observable, oldValue, newValue) -> numericTableViewAdapter.setClassificationStyle(newValue));
+        numericTableViewAdapter = NumericTableViewAdapter.builder()
+                .tableView(tableViewResultSet)
+                .editable(false)
+                .build();
+        setButtonActionHandler();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.title"));
+        checkBoxHighlight.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.classificationFilter"));
+        buttonLoadOnTable.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.loadOnTable"));
         buttonExportAsImage.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsImage"));
         buttonExportAsDocument.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsDocument"));
     }
 
-    private void setButtonSaverActionHandler(){
+    private void setButtonActionHandler(){
+        buttonLoadOnTable.setOnAction(event -> {
+            NumericRecordSet testNumericRecordSet = AIFacade.getTestResultSet().getNumericRecordSet();
+            numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
+            checkBoxHighlight.setSelected(false);
+            tableViewResultSet.setDisable(false);
+        });
         testResultImageDirectoryChooser = new DirectoryChooserAdapter(buttonExportAsImage);
-        testResultImageDirectoryChooser.setCallbackBeforeFind(this::convertTableViewToResultDataSet);
         testResultImageDirectoryChooser.setCallbackAfterFind(file -> new TestResultImageSaver().popUpWindow(file));
         testResultImageDirectoryChooser.initialize();
         testResultDocumentFileSaver = new TestResultDocumentFileSaver(buttonExportAsDocument);
-        testResultDocumentFileSaver.setCallbackBeforeSave(this::convertTableViewToResultDataSet);
         testResultDocumentFileSaver.initialize();
     }
 
-    private void convertTableViewToResultDataSet(){
-        AIFacade.getTestResultSet().setNumericRecordSet(numericTableViewAdapter.toNumericRecordSet());
-    }
-
-    public void refreshTableView(){
-        NumericRecordSet testNumericRecordSet = AIFacade.getTestResultSet().getNumericRecordSet();
-        numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
-        titledPane.setExpanded(true);
+    public void clearTestResultTableView() {
+        tableViewResultSet.setDisable(true);
+        tableViewResultSet.getItems().clear();
     }
 }

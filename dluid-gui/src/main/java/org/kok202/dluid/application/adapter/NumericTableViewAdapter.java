@@ -1,28 +1,41 @@
 package org.kok202.dluid.application.adapter;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
+import lombok.Builder;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class NumericTableViewAdapter {
-    private TableView tableView;
-    private TableColumn<ArrayList, Double>[] tableColumns;
+    private boolean editable = false;
+    private EventHandler classificationEventHandler = (event) -> classificationCellListener();
+    private Map<Integer, Double> classificationMaxValueMap;
+    private static final String CLASSIFIED_CELL = "customHighlightCell";
 
-    public NumericTableViewAdapter(TableView tableView) {
+    private TableView tableView;
+    private TableColumn<ArrayList<Double>, Double>[] tableColumns;
+    private NumericRecordSet numericRecordSet;
+
+    @Builder
+    public NumericTableViewAdapter(boolean editable, TableView tableView) {
+        this.editable = editable;
         this.tableView = tableView;
     }
 
     public void setRecordSetAndRefresh(NumericRecordSet numericRecordSet) {
-        refreshHeader(numericRecordSet);
-        refreshRecord(numericRecordSet);
+        this.numericRecordSet = numericRecordSet;
+        ArrayList<String> header = refreshHeader();
+        initializeColumn(header);
+        refreshRecord();
     }
 
-    private void refreshHeader(NumericRecordSet numericRecordSet){
+    private ArrayList<String> refreshHeader(){
         tableView.setEditable(true);
         tableView.getItems().clear();
         tableView.getColumns().clear();
@@ -30,61 +43,69 @@ public class NumericTableViewAdapter {
         ArrayList<String> header = numericRecordSet.getHeader();
         if(header == null){
             header = new ArrayList<>();
-            int columnSize = numericRecordSet.getRecords().get(0).size();
+            int columnSize = numericRecordSet.getColumnSize();
             for(int i = 0; i < columnSize; i++){
                 header.add("Column " + i+1);
             }
         }
+        return header;
+    }
 
-        tableColumns = null;
-        tableColumns = new TableColumn[header.size()];
-        for(int i = 0; i < header.size(); i ++){
-            String head = header.get(i);
-            tableColumns[i] = createTableColumn(i, head);
-            tableView.getColumns().add(tableColumns[i]);
+    private void initializeColumn(ArrayList<String> header) {
+        tableColumns = new TableColumn[numericRecordSet.getColumnSize()];
+        for(int i = 0; i < numericRecordSet.getColumnSize(); i ++){
+            final int columnIndex = i;
+            TableColumn<ArrayList<Double>, Double> tableColumn = new TableColumn<>(header.get(columnIndex));
+            /*************************************************************************************************
+             /* Initialize cell mapping
+             *************************************************************************************************/
+            tableColumn.setCellValueFactory(cellDataFeatures -> {
+                // No data for mapped column
+                if(columnIndex >= cellDataFeatures.getValue().size()){
+                    return new SimpleDoubleProperty(0).asObject();
+                }
+                // Get i'th element from record and set it to i'th column
+                double data = cellDataFeatures.getValue().get(columnIndex);
+                return new SimpleDoubleProperty(data).asObject();
+            });
+
+            /*************************************************************************************************
+             /* Initialize cell property
+             *************************************************************************************************/
+            if(editable){
+                tableColumn.setCellFactory((column) -> new EditableTableCell());
+                tableColumn.setOnEditCommit(cell -> {
+                    ArrayList<Double> record = (ArrayList<Double>) tableView.getItems().get(cell.getTablePosition().getRow());
+                    record.set(columnIndex, cell.getNewValue());
+                });
+            }
+            else{
+                tableColumn.setCellFactory((column) -> new LabelTableCell());
+            }
+
+            tableColumns[columnIndex] = tableColumn;
+            tableView.getColumns().add(tableColumns[columnIndex]);
         }
     }
 
-    private TableColumn<ArrayList, Double> createTableColumn(int columnIndex, String head){
-        TableColumn<ArrayList, Double> tableColumn = new TableColumn<>(head);
-        tableColumn.setCellValueFactory(cellDataFeatures -> mappingToColumn(columnIndex, cellDataFeatures));
-        tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumericTableCellConverter()));
-        tableColumn.setOnEditCommit(cell -> {
-            ArrayList<Double> record = (ArrayList<Double>) tableView
-                    .getItems()
-                    .get(cell.getTablePosition().getRow());
-            record.set(columnIndex, cell.getNewValue());
-        });
-        return tableColumn;
-    }
-
-    private ObjectProperty mappingToColumn(int columnIndex, TableColumn.CellDataFeatures<ArrayList, Double> cellDataFeatures){
-        // No data for mapped column
-        if(columnIndex >= cellDataFeatures.getValue().size()){
-            return new SimpleDoubleProperty(0).asObject();
-        }
-        // Get i'th element from record and set it to i'th column
-        double data = (double) cellDataFeatures.getValue().get(columnIndex);
-        return new SimpleDoubleProperty(data).asObject();
-    }
-
-    private void refreshRecord(NumericRecordSet numericRecordSet){
-        numericRecordSet.getRecords().forEach(record ->{
-            tableView.getItems().add(record);
-        });
+    private void refreshRecord(){
+        numericRecordSet.getRecords().forEach(record -> tableView.getItems().add(record));
     }
 
     public NumericRecordSet toNumericRecordSet(){
+        if(!editable)
+            return numericRecordSet;
+
         ArrayList<String> header = new ArrayList<>();
         ArrayList<ArrayList<Double>> records = new ArrayList<>();
 
-        for(TableColumn<ArrayList, Double> tableColumn : tableColumns) {
+        for(TableColumn<ArrayList<Double>, Double> tableColumn : tableColumns) {
             header.add(tableColumn.getText());
         }
         for(int row = 0; row < tableView.getItems().size(); row++){
             ArrayList<Double> record = new ArrayList<>();
             for(int col = 0; col < tableColumns.length; col++){
-                record.add(getValue(row, col));
+                record.add(tableColumns[col].getCellObservableValue(row).getValue());
             }
             records.add(record);
         }
@@ -95,7 +116,50 @@ public class NumericTableViewAdapter {
         return numericRecordSet;
     }
 
-    private Double getValue(int row, int col) {
-        return tableColumns[col].getCellObservableValue(row).getValue();
+    public void setClassificationStyle(boolean classification){
+        if(classification) {
+            tableView.removeEventHandler(MouseEvent.ANY, classificationEventHandler);
+            tableView.addEventHandler(MouseEvent.ANY, classificationEventHandler);
+            classificationMaxValueMap = new HashMap<>();
+            for(int i = 0; i < numericRecordSet.getRecords().size(); i++)
+                classificationMaxValueMap.put(i, Collections.max(numericRecordSet.getRecords().get(i)));
+            classificationCellListener();
+        }
+        else{
+            tableView.removeEventHandler(MouseEvent.ANY, classificationEventHandler);
+            getAllTableCells().stream()
+                    .filter(Objects::nonNull)
+                    .filter(tableCell -> !tableCell.isEmpty())
+                    .forEach(tableCell -> tableCell.getStyleClass().remove(CLASSIFIED_CELL));
+        }
+    }
+
+    private void classificationCellListener(){
+        getAllTableCells().stream()
+                .filter(tableCell -> tableCell != null && !tableCell.isEmpty())
+                .forEach(tableCell -> {
+                    Double tableValue = (Double) tableCell.getItem();
+                    int rowIndex = tableCell.getIndex();
+                    if(rowIndex < 0 || rowIndex >= numericRecordSet.getRecordsSize())
+                        return;
+                    double maxValue = classificationMaxValueMap.getOrDefault(rowIndex, Double.MIN_VALUE);
+
+                    tableCell.setText(String.format("%f" ,tableValue));
+                    tableCell.getStyleClass().remove(CLASSIFIED_CELL);
+                    if(tableValue == maxValue)
+                        tableCell.getStyleClass().add(CLASSIFIED_CELL);
+                });
+    }
+
+    private Set<TableCell> getAllTableCells() {
+        Set<Node> lookupAll = tableView.lookupAll("*");
+        Set<TableCell> returnTableCellSet = new HashSet<>();
+        for (Node node : lookupAll){
+            if (node instanceof TableCell){
+                TableCell tableCell = (TableCell) node;
+                returnTableCellSet.add(tableCell);
+            }
+        }
+        return returnTableCellSet;
     }
 }
