@@ -136,8 +136,7 @@ public class NumericTableViewAdapter {
 
     private void classificationCellListener(){
         getAllTableCells().stream()
-                .filter(Objects::nonNull)
-                .filter(tableCell -> !tableCell.isEmpty())
+                .filter(tableCell -> tableCell != null && !tableCell.isEmpty())
                 .forEach(tableCell -> {
                     Double tableValue = (Double) tableCell.getItem();
                     int rowIndex = tableCell.getIndex();
