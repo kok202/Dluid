@@ -19,6 +19,7 @@ class ModelGraphValidator {
         validateModelParamIsValid();
         validateTrainInputBlockNodeExist();
         validateOutputBlockNodeExist();
+        validateReachableOutputBlockNode();
         validateAllBlockNodeDimension();
         validateMergeBlockNode();
         validateSwitchBlockNode();
@@ -48,6 +49,9 @@ class ModelGraphValidator {
     private static void validateAllBlockNodeDimension() throws VolumeUnmatchedException {
         List<GraphNode<BlockNode>> allGraphNode = CanvasFacade.findAllGraphNode(blockNodeGraphNode -> true);
         for (GraphNode<BlockNode> currentGraphNode : allGraphNode) {
+            if(currentGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER)
+                continue;
+
             long sourceOutputDimension = currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension();
             long sourceOutputVolume = currentGraphNode.getData().getBlockLayer().getProperties().getOutputVolume();
 
@@ -103,6 +107,23 @@ class ModelGraphValidator {
                     .collect(Collectors.toList());
             if(sourceLayerIdsOfSwitchBlockNode.size() != sourceLayerIdsOfSwitchBlockNode.stream().distinct().count())
                 throw new InvalidSwitchConnectionExistException(switchGraphNode.getData().getBlockLayer().getId());
+        }
+    }
+
+    private static void validateReachableOutputBlockNode() throws InvalidSwitchConnectionExistException {
+        List<GraphNode<BlockNode>> inputGraphNodes = CanvasFacade.findAllInputLayer();
+        Optional<GraphNode<BlockNode>> outputGraphNode = CanvasFacade.findOutputLayer();
+        for (GraphNode<BlockNode> inputGraphNode : inputGraphNodes) {
+            String inputLayerId = inputGraphNode.getData().getBlockLayer().getId();
+            String outputLayerId = outputGraphNode.get().getData().getBlockLayer().getId();
+            boolean reachable = CanvasFacade.findAllReachableNode(inputGraphNode.getData().getBlockLayer().getId())
+                    .parallelStream()
+                    .anyMatch(blockNodeGraphNode ->{
+                        String blockNodeGraphNodeLayerId = blockNodeGraphNode.getData().getBlockLayer().getId();
+                        return blockNodeGraphNodeLayerId.equals(outputLayerId);
+                    });
+            if(!reachable)
+                throw new UnreachableOutputLayerException(inputLayerId);
         }
     }
 }

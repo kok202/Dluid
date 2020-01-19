@@ -197,6 +197,16 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof UnreachableOutputLayerException){
+            UnreachableOutputLayerException unreachableOutputLayerException = ((UnreachableOutputLayerException) exception);
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.unreachableOutput.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.unreachableOutput.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.unreachableOutput.content"), unreachableOutputLayerException.getLayerId()))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof InvalidMergeConnectionExistException){
             InvalidMergeConnectionExistException invalidMergeConnectionExistException = ((InvalidMergeConnectionExistException) exception);
             DialogUtil.builder()
@@ -245,13 +255,13 @@ public class ExceptionHandler {
                     .showAndWait();
         }
         else {
-            DialogUtil.builder()
-                    .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.default.error.title"))
-                    .headerText(exception.getClass().getName())
-                    .contentText(exception.getMessage())
-                    .build()
-                    .showAndWait();
+//            DialogUtil.builder()
+//                    .alertType(Alert.AlertType.ERROR)
+//                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.default.error.title"))
+//                    .headerText(exception.getClass().getName())
+//                    .contentText(exception.getMessage())
+//                    .build()
+//                    .showAndWait();
         }
     }
 }

@@ -40,7 +40,11 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
 
     @Override
     protected void initialize() throws Exception {
-        numericTableViewAdapter = new NumericTableViewAdapter(tableViewResultSet);
+        numericTableViewAdapter = NumericTableViewAdapter.builder()
+                .tableView(tableViewResultSet)
+                .editable(false)
+                .highlight(true)
+                .build();
         setButtonSaverActionHandler();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.title"));
         buttonExportAsImage.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsImage"));

@@ -85,4 +85,12 @@ public class NumericRecordSet {
             return 0;
         return getRecords().get(0).size();
     }
+
+    public int getColumnSize(){
+        if(header != null)
+            return header.size();
+        if(records != null)
+            return (records.isEmpty())? 0 : records.get(0).size();
+        return 0;
+    }
 }
