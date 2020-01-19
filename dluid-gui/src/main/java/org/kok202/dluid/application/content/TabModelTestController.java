@@ -43,6 +43,7 @@ public class TabModelTestController extends AbstractController {
         labelTestDataSetting.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.label"));
         labelTestTask.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.label"));
         setSettingExpandAndDisable(true);
+        setTestResultTableExpandAndDisable(true);
     }
 
     public void setSettingExpandAndDisable(boolean disable){
@@ -54,6 +55,9 @@ public class TabModelTestController extends AbstractController {
         modelTestFeatureController.getModelTestFeatureTableController().getTitledPane().setExpanded(!disable);
         modelTestTestingController.getModelTestTestingTaskController().getTitledPane().setDisable(disable);
         modelTestTestingController.getModelTestTestingTaskController().getTitledPane().setExpanded(!disable);
+    }
+
+    public void setTestResultTableExpandAndDisable(boolean disable){
         modelTestTestingController.getModelTestTestingResultTableController().getTitledPane().setDisable(disable);
         modelTestTestingController.getModelTestTestingResultTableController().getTitledPane().setExpanded(!disable);
     }

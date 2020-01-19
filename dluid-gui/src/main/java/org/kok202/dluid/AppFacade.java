@@ -186,6 +186,9 @@ public class AppFacade {
                 .setDisable(disable);
     }
 
+    /*************************************************************************************************
+     /* Handling test tab
+     *************************************************************************************************/
     public static void setTestButtonDisable(boolean disable){
         AppWidgetSingleton.getInstance()
                 .getTabsController()
@@ -196,9 +199,6 @@ public class AppFacade {
                 .setDisable(disable);
     }
 
-    /*************************************************************************************************
-     /* Handling test tab
-     *************************************************************************************************/
     public static String getTestInputLayerId(){
         return AppWidgetSingleton.getInstance()
                 .getTabsController()
@@ -219,23 +219,11 @@ public class AppFacade {
                 .getText();
     }
 
-    public static void refreshTestResultTable(){
+    public static void notifyTestDone() {
         AppWidgetSingleton.getInstance()
                 .getTabsController()
                 .getTabModelTestController()
-                .getModelTestTestingController()
-                .getModelTestTestingResultTableController()
-                .refreshTableView();
-    }
-
-    public static boolean isTestResultClassficationFilterOn(){
-        return AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelTestController()
-                .getModelTestTestingController()
-                .getModelTestTestingResultTableController()
-                .getCheckBoxHighlight()
-                .isSelected();
+                .setTestResultTableExpandAndDisable(false);
     }
 
 }

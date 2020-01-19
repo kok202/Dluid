@@ -36,8 +36,8 @@ public class TestTask extends Task<TestProgressContainer> {
     @Override
     public void succeeded() {
         AppFacade.setTestButtonDisable(false);
-        updateValue(new TestProgressContainer("Training done."));
-        AppFacade.refreshTestResultTable();
+        updateValue(new TestProgressContainer("Test done."));
+        AppFacade.notifyTestDone();
     }
 
     @Override

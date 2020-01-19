@@ -51,6 +51,7 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
                     .getModelTestTestingTaskController()
                     .refreshTestTargetResultLayerInformation(testInputLayerId);
         });
+        tableViewDataSet.setDisable(true);
         numericTableViewAdapter = NumericTableViewAdapter.builder()
                 .tableView(tableViewDataSet)
                 .editable(true)
@@ -75,5 +76,6 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
         NumericRecordSet testNumericRecordSet = AIFacade.getTestFeatureSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
         titledPane.setExpanded(true);
+        tableViewDataSet.setDisable(false);
     }
 }
