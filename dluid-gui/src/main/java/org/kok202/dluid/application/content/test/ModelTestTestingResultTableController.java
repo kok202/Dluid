@@ -3,6 +3,7 @@ package org.kok202.dluid.application.content.test;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +22,7 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
 
     @FXML private TitledPane titledPane;
     @FXML private TableView tableViewResultSet;
+    @FXML private CheckBox checkBoxHighlight;
     @FXML private Button buttonExportAsImage;
     @FXML private Button buttonExportAsDocument;
     private NumericTableViewAdapter numericTableViewAdapter;
@@ -40,13 +42,15 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
 
     @Override
     protected void initialize() throws Exception {
+        checkBoxHighlight.setSelected(false);
+        checkBoxHighlight.selectedProperty().addListener((observable, oldValue, newValue) -> numericTableViewAdapter.setClassificationStyle(newValue));
         numericTableViewAdapter = NumericTableViewAdapter.builder()
                 .tableView(tableViewResultSet)
                 .editable(false)
-                .highlight(true)
                 .build();
         setButtonSaverActionHandler();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.title"));
+        checkBoxHighlight.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.classificationFilter"));
         buttonExportAsImage.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsImage"));
         buttonExportAsDocument.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsDocument"));
     }
@@ -68,6 +72,7 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
     public void refreshTableView(){
         NumericRecordSet testNumericRecordSet = AIFacade.getTestResultSet().getNumericRecordSet();
         numericTableViewAdapter.setRecordSetAndRefresh(testNumericRecordSet);
+        checkBoxHighlight.setSelected(false);
         titledPane.setExpanded(true);
     }
 }

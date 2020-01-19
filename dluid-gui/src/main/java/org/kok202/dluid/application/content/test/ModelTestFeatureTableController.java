@@ -54,7 +54,6 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
         numericTableViewAdapter = NumericTableViewAdapter.builder()
                 .tableView(tableViewDataSet)
                 .editable(true)
-                .highlight(false)
                 .build();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataTable.title"));
         labelTestTarget.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetInputLayerId"));

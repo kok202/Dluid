@@ -1,37 +1,41 @@
 package org.kok202.dluid.application.adapter;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import lombok.Builder;
-import lombok.Setter;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class NumericTableViewAdapter {
-    @Setter
     private boolean editable = false;
-    @Setter
-    private boolean highlight = false;
+    private EventHandler classificationEventHandler = (event) -> classificationCellListener();
+    private Map<Integer, Double> classificationMaxValueMap;
+    private static final String CLASSIFIED_CELL = "customHighlightCell";
+
     private TableView tableView;
     private TableColumn<ArrayList<Double>, Double>[] tableColumns;
+    private NumericRecordSet numericRecordSet;
 
     @Builder
-    public NumericTableViewAdapter(boolean editable, boolean highlight, TableView tableView) {
+    public NumericTableViewAdapter(boolean editable, TableView tableView) {
         this.editable = editable;
-        this.highlight = highlight;
         this.tableView = tableView;
     }
 
     public void setRecordSetAndRefresh(NumericRecordSet numericRecordSet) {
-        ArrayList<String> header = refreshHeader(numericRecordSet);
-        initializeColumn(numericRecordSet, header);
-        refreshRecord(numericRecordSet);
+        this.numericRecordSet = numericRecordSet;
+        ArrayList<String> header = refreshHeader();
+        initializeColumn(header);
+        refreshRecord();
     }
 
-    private ArrayList<String> refreshHeader(NumericRecordSet numericRecordSet){
+    private ArrayList<String> refreshHeader(){
         tableView.setEditable(true);
         tableView.getItems().clear();
         tableView.getColumns().clear();
@@ -47,7 +51,7 @@ public class NumericTableViewAdapter {
         return header;
     }
 
-    private void initializeColumn(NumericRecordSet numericRecordSet, ArrayList<String> header) {
+    private void initializeColumn(ArrayList<String> header) {
         tableColumns = new TableColumn[numericRecordSet.getColumnSize()];
         for(int i = 0; i < numericRecordSet.getColumnSize(); i ++){
             final int columnIndex = i;
@@ -75,11 +79,8 @@ public class NumericTableViewAdapter {
                     record.set(columnIndex, cell.getNewValue());
                 });
             }
-            else if(highlight){
-                tableColumn.setCellFactory((column) -> new HighLightTableCell(numericRecordSet));
-            }
             else{
-                tableColumn.setCellFactory((column) -> new TableCell<>());
+                tableColumn.setCellFactory((column) -> new LabelTableCell());
             }
 
             tableColumns[columnIndex] = tableColumn;
@@ -87,11 +88,14 @@ public class NumericTableViewAdapter {
         }
     }
 
-    private void refreshRecord(NumericRecordSet numericRecordSet){
+    private void refreshRecord(){
         numericRecordSet.getRecords().forEach(record -> tableView.getItems().add(record));
     }
 
     public NumericRecordSet toNumericRecordSet(){
+        if(!editable)
+            return numericRecordSet;
+
         ArrayList<String> header = new ArrayList<>();
         ArrayList<ArrayList<Double>> records = new ArrayList<>();
 
@@ -110,5 +114,53 @@ public class NumericTableViewAdapter {
         numericRecordSet.setHeader(header);
         numericRecordSet.setRecords(records);
         return numericRecordSet;
+    }
+
+    public void setClassificationStyle(boolean classification){
+        if(classification) {
+            tableView.removeEventHandler(MouseEvent.ANY, classificationEventHandler);
+            tableView.addEventHandler(MouseEvent.ANY, classificationEventHandler);
+            classificationMaxValueMap = new HashMap<>();
+            for(int i = 0; i < numericRecordSet.getRecords().size(); i++)
+                classificationMaxValueMap.put(i, Collections.max(numericRecordSet.getRecords().get(i)));
+            classificationCellListener();
+        }
+        else{
+            tableView.removeEventHandler(MouseEvent.ANY, classificationEventHandler);
+            getAllTableCells().stream()
+                    .filter(Objects::nonNull)
+                    .filter(tableCell -> !tableCell.isEmpty())
+                    .forEach(tableCell -> tableCell.getStyleClass().remove(CLASSIFIED_CELL));
+        }
+    }
+
+    private void classificationCellListener(){
+        getAllTableCells().stream()
+                .filter(Objects::nonNull)
+                .filter(tableCell -> !tableCell.isEmpty())
+                .forEach(tableCell -> {
+                    Double tableValue = (Double) tableCell.getItem();
+                    int rowIndex = tableCell.getIndex();
+                    if(rowIndex < 0 || rowIndex >= numericRecordSet.getRecordsSize())
+                        return;
+                    double maxValue = classificationMaxValueMap.getOrDefault(rowIndex, Double.MIN_VALUE);
+
+                    tableCell.setText(String.format("%f" ,tableValue));
+                    tableCell.getStyleClass().remove(CLASSIFIED_CELL);
+                    if(tableValue == maxValue)
+                        tableCell.getStyleClass().add(CLASSIFIED_CELL);
+                });
+    }
+
+    private Set<TableCell> getAllTableCells() {
+        Set<Node> lookupAll = tableView.lookupAll("*");
+        Set<TableCell> returnTableCellSet = new HashSet<>();
+        for (Node node : lookupAll){
+            if (node instanceof TableCell){
+                TableCell tableCell = (TableCell) node;
+                returnTableCellSet.add(tableCell);
+            }
+        }
+        return returnTableCellSet;
     }
 }

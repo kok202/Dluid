@@ -408,7 +408,7 @@
     -fx-background-color: CONTEXT-COLOR-TABLE-TEXT-FIELD-FOCUSED-BACKGROUND;
 }
 
-.customHighLightCell {
+.customHighlightCell {
     -fx-alignment: CENTER;
     -fx-background-color: CONTEXT-COLOR-TABLE-HIGHLIGHT-TABLE-CELL-BACKGROUND;
 }

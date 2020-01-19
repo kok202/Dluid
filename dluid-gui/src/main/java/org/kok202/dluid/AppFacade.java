@@ -228,4 +228,14 @@ public class AppFacade {
                 .refreshTableView();
     }
 
+    public static boolean isTestResultClassficationFilterOn(){
+        return AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTestController()
+                .getModelTestTestingController()
+                .getModelTestTestingResultTableController()
+                .getCheckBoxHighlight()
+                .isSelected();
+    }
+
 }
