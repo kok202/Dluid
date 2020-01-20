@@ -1,4 +1,4 @@
-package org.kok202.dluid.canvas.block.activation;
+package org.kok202.dluid.canvas.block.recurrent;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -16,29 +16,30 @@ import org.kok202.dluid.canvas.util.BlockNodeUtil;
 
 import java.util.Map;
 
-public abstract class ActivationBlockNode extends BlockNode {
-    public static final int LAYER_BLOCK_INDEX = 0;
-    public static final int ACTIVATION_BLOCK_INDEX = 1;
+public abstract class RecurrentBlockNode extends BlockNode {
+    public static final int INPUT_BLOCK_INDEX = 0;
+    public static final int OUTPUT_BLOCK_INDEX = 1;
     public static final int BLOCK_HEXAHEDRON_SIZE = 2;
 
-    public ActivationBlockNode(Layer layer) {
+    public RecurrentBlockNode(Layer layer) {
         super(layer, BLOCK_HEXAHEDRON_SIZE);
     }
 
     @Override
     protected final void createBlockModel(Layer layer){
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
+        Point2D middleSize = topSize;
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
-        Point2D middleSize = getMiddleSize(topSize, bottomSize);
+        refreshBottomSkewed(middleSize, bottomSize);
 
         Point3D topSkewed = getTopSkewed();
         Point3D bottomSkewed = getBottomSkewed();
-        Point3D middleSkewed = getMiddleSkewed(topSkewed, bottomSkewed);
+        Point3D middleSkewed = getMiddleSkewed();
 
-        BlockHexahedron layerHexahedron = createHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight());
-        BlockHexahedron activationHexahedron = createHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight());
-        getBlockHexahedronList().set(LAYER_BLOCK_INDEX, layerHexahedron);
-        getBlockHexahedronList().set(ACTIVATION_BLOCK_INDEX, activationHexahedron);
+        BlockHexahedron inputHexahedron = createHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight());
+        BlockHexahedron outputHexahedron = createHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight());
+        getBlockHexahedronList().set(INPUT_BLOCK_INDEX, inputHexahedron);
+        getBlockHexahedronList().set(OUTPUT_BLOCK_INDEX, outputHexahedron);
     }
 
     private BlockHexahedron createHexahedron(
@@ -65,16 +66,18 @@ public abstract class ActivationBlockNode extends BlockNode {
         deleteHexahedrons();
         Layer layer = getBlockLayer();
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
+        Point2D middleSize = topSize;
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
-        Point2D middleSize = getMiddleSize(topSize, bottomSize);
+        refreshBottomSkewed(middleSize, bottomSize);
+
         Point3D topSkewed = getTopSkewed();
         Point3D bottomSkewed = getBottomSkewed();
-        Point3D middleSkewed = getMiddleSkewed(topSkewed, bottomSkewed);
+        Point3D middleSkewed = getMiddleSkewed();
 
-        BlockHexahedron layerHexahedron = reshapeHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight(), getLayerBlockPosition(getBlockInfo().getPosition()));
-        BlockHexahedron activationHexahedron = reshapeHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight(), getActivationBlockPosition(getBlockInfo().getPosition()));
-        getBlockHexahedronList().set(LAYER_BLOCK_INDEX, layerHexahedron);
-        getBlockHexahedronList().set(ACTIVATION_BLOCK_INDEX, activationHexahedron);
+        BlockHexahedron inputHexahedron = reshapeHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight(), getInputBlockPosition(getBlockInfo().getPosition()));
+        BlockHexahedron outputHexahedron = reshapeHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight(), getOutputBlockPosition(getBlockInfo().getPosition()));
+        getBlockHexahedronList().set(INPUT_BLOCK_INDEX, inputHexahedron);
+        getBlockHexahedronList().set(OUTPUT_BLOCK_INDEX, outputHexahedron);
         refreshBlockCover();
     }
 
@@ -86,14 +89,19 @@ public abstract class ActivationBlockNode extends BlockNode {
         return blockHexahedron;
     }
 
+    private void refreshBottomSkewed(Point2D middleSize, Point2D bottomSize){
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
+        skewedBlockProperty.setBottomSkewed(new Point3D((middleSize.getX() - bottomSize.getX()) / 2, 0, 0));
+    }
+
     @Override
     public final void refreshBlockCover(){
         super.refreshBlockCover();
         Map<BlockFace, Color> outputColor = isActivationFunctionExist()?
-                getBlockInfo().getColorMapList().get(ACTIVATION_BLOCK_INDEX) :
-                getBlockInfo().getColorMapList().get(LAYER_BLOCK_INDEX);
-        getBlockHexahedronList().get(ACTIVATION_BLOCK_INDEX).setColorMap(outputColor);
-        getBlockHexahedronList().get(ACTIVATION_BLOCK_INDEX).refreshBlockCover();
+                getBlockInfo().getColorMapList().get(OUTPUT_BLOCK_INDEX) :
+                getBlockInfo().getColorMapList().get(INPUT_BLOCK_INDEX);
+        getBlockHexahedronList().get(OUTPUT_BLOCK_INDEX).setColorMap(outputColor);
+        getBlockHexahedronList().get(OUTPUT_BLOCK_INDEX).refreshBlockCover();
     }
 
     @Override
@@ -103,8 +111,8 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     @Override
     public final void setPosition(double x, double y, double z){
-        getBlockHexahedronList().get(LAYER_BLOCK_INDEX).setPosition(getLayerBlockPosition(x, y, z));
-        getBlockHexahedronList().get(ACTIVATION_BLOCK_INDEX).setPosition(getActivationBlockPosition(x, y, z));
+        getBlockHexahedronList().get(INPUT_BLOCK_INDEX).setPosition(getInputBlockPosition(x, y, z));
+        getBlockHexahedronList().get(OUTPUT_BLOCK_INDEX).setPosition(getOutputBlockPosition(x, y, z));
         getBlockInfo().setPosition(x, y, z);
     }
 
@@ -114,27 +122,19 @@ public abstract class ActivationBlockNode extends BlockNode {
     }
 
     private double getLayerModelHeight(){
-        return !isActivationFunctionExist()? getBlockInfo().getHeight() : getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
+        return getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private double getActivationModelHeight(){
-        return !isActivationFunctionExist()? 0 : getBlockInfo().getHeight() * (CanvasConstant.NODE_ACTIVATION_RATIO);
+        return getBlockInfo().getHeight() * (CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
-    private Point2D getMiddleSize(Point2D topSize, Point2D bottomSize){
-        return !isActivationFunctionExist()?
-                bottomSize :
-                new Point2D(
-                        bottomSize.getX() + (topSize.getX() - bottomSize.getX()) * CanvasConstant.NODE_ACTIVATION_RATIO,
-                        bottomSize.getY() + (topSize.getY() - bottomSize.getY()) * CanvasConstant.NODE_ACTIVATION_RATIO);
+    private Point3D getInputBlockPosition(Point3D position){
+        return getInputBlockPosition(position.getX(), position.getY(), position.getZ());
     }
 
-    private Point3D getLayerBlockPosition(Point3D position){
-        return getLayerBlockPosition(position.getX(), position.getY(), position.getZ());
-    }
-
-    private Point3D getActivationBlockPosition(Point3D position){
-        return getActivationBlockPosition(position.getX(), position.getY(), position.getZ());
+    private Point3D getOutputBlockPosition(Point3D position){
+        return getOutputBlockPosition(position.getX(), position.getY(), position.getZ());
     }
 
     private Point3D getTopSkewed(){
@@ -155,21 +155,16 @@ public abstract class ActivationBlockNode extends BlockNode {
                 skewedBlockProperty.getBottomSkewed();
     }
 
-    private Point3D getMiddleSkewed(Point3D topSkewed, Point3D bottomSkewed){
-        return !isActivationFunctionExist()?
-                bottomSkewed :
-                new Point3D(
-                        bottomSkewed.getX() + (topSkewed.getX() - bottomSkewed.getX()) * CanvasConstant.NODE_ACTIVATION_RATIO,
-                        bottomSkewed.getY() + (topSkewed.getY() - bottomSkewed.getY()) * CanvasConstant.NODE_ACTIVATION_RATIO,
-                        bottomSkewed.getZ() + (topSkewed.getZ() - bottomSkewed.getZ()) * CanvasConstant.NODE_ACTIVATION_RATIO);
+    private Point3D getMiddleSkewed(){
+        return new Point3D(0, 0, 0);
     }
 
-    private Point3D getLayerBlockPosition(double x, double y, double z){
-        return new Point3D(x, !isActivationFunctionExist()? y : y - getBlockInfo().getHeight() / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
+    private Point3D getInputBlockPosition(double x, double y, double z){
+        return new Point3D(x, y - getBlockInfo().getHeight() / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
-    private Point3D getActivationBlockPosition(double x, double y, double z){
-        return new Point3D(x, !isActivationFunctionExist()? 0 : y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
+    private Point3D getOutputBlockPosition(double x, double y, double z){
+        return new Point3D(x, y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
     @Override

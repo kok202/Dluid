@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
 import org.kok202.dluid.AppConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.util.ConvolutionCalculatorUtil;
@@ -12,6 +13,7 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.domain.exception.ConvolutionOutputIsNegativeException;
 
+@Getter
 public class ComponentConvolution1DParamController extends AbstractConvolutionLayerComponentController {
 
     @FXML private Label labelInputOutputX;

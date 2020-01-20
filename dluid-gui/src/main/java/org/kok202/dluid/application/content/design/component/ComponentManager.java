@@ -44,10 +44,14 @@ public class ComponentManager {
                 componentList.add(new ComponentConvolution1DParamController(layer));
                 break;
             case CONVOLUTION_2D_LAYER:
-            case DECONVOLUTION_2D_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));
                 componentList.add(new ComponentConvolution2DParamController(layer));
+                break;
+            case DECONVOLUTION_2D_LAYER:
+                componentList.add(new ComponentCommonInfoController(layer));
+                componentList.add(new ComponentCommonFunctionController(layer));
+                componentList.add(new ComponentDeConvolution2DParamController(layer));
                 break;
             case INPUT_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
@@ -73,9 +77,11 @@ public class ComponentManager {
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentDelegateParamController(layer));
                 break;
+            case BASE_RECURRENT_LAYER:
             case LSTM:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));
+                componentList.add(new ComponentRecurrentParamController(layer));
                 break;
             case POOLING_1D:
                 componentList.add(new ComponentCommonInfoController(layer));

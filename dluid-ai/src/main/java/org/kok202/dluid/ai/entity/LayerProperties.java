@@ -124,6 +124,8 @@ public class LayerProperties {
             case RESHAPE_LAYER:
             case SWITCH_LAYER:
             case BATCH_NORMALIZATION:
+            case BASE_RECURRENT_LAYER:
+            case LSTM:
                 inputSize = new int[]{10};
                 outputSize = new int[]{10};
                 inputDimension = 1;

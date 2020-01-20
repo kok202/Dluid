@@ -3,17 +3,17 @@ package org.kok202.dluid.application.content.design.material.list;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
-import org.kok202.dluid.application.content.design.material.block.MaterialInputController;
-import org.kok202.dluid.application.content.design.material.block.MaterialOutputController;
+import org.kok202.dluid.application.content.design.material.block.MaterialLSTMController;
+import org.kok202.dluid.application.content.design.material.block.MaterialRNNController;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
 @Getter
-public class MaterialListAssistantLayer extends AbstractMaterialList {
+public class MaterialListRNNLayer extends AbstractMaterialList {
 
     private MaterialInsertionManager materialInsertionManager;
 
-    public MaterialListAssistantLayer(MaterialInsertionManager materialInsertionManager) {
+    public MaterialListRNNLayer(MaterialInsertionManager materialInsertionManager) {
         this.materialInsertionManager = materialInsertionManager;
     }
 
@@ -26,9 +26,9 @@ public class MaterialListAssistantLayer extends AbstractMaterialList {
 
     @Override
     protected void initialize() throws Exception {
-        addAbstractMaterialController(new MaterialInputController());
-        addAbstractMaterialController(new MaterialOutputController());
+        addAbstractMaterialController(new MaterialRNNController());
+        addAbstractMaterialController(new MaterialLSTMController());
         addAbstractMaterialControllerToVBox(getLayerListBox(), materialInsertionManager);
-        getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.assistant.title"));
+        getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.rnn.title"));
     }
 }
