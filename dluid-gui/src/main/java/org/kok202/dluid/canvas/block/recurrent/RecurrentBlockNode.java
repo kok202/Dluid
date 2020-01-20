@@ -18,8 +18,9 @@ import java.util.Map;
 
 public abstract class RecurrentBlockNode extends BlockNode {
     public static final int INPUT_BLOCK_INDEX = 0;
-    public static final int OUTPUT_BLOCK_INDEX = 1;
-    public static final int BLOCK_HEXAHEDRON_SIZE = 2;
+    public static final int RECURRENT_BLOCK_INDEX = 1;
+    public static final int OUTPUT_BLOCK_INDEX = 2;
+    public static final int BLOCK_HEXAHEDRON_SIZE = 3;
 
     public RecurrentBlockNode(Layer layer) {
         super(layer, BLOCK_HEXAHEDRON_SIZE);
@@ -28,17 +29,22 @@ public abstract class RecurrentBlockNode extends BlockNode {
     @Override
     protected final void createBlockModel(Layer layer){
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
-        Point2D middleSize = topSize;
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
-        refreshBottomSkewed(middleSize, bottomSize);
+        Point2D recurrentTopSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
+        Point2D recurrentBottomSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
+        refreshTopSkewed(topSize, recurrentTopSize);
+        refreshBottomSkewed(recurrentBottomSize, bottomSize);
 
         Point3D topSkewed = getTopSkewed();
+        Point3D recurrentTopSkewed = getRecurrentTopSkewed();
+        Point3D recurrentBottomSkewed = getRecurrentBottomSkewed();
         Point3D bottomSkewed = getBottomSkewed();
-        Point3D middleSkewed = getMiddleSkewed();
 
-        BlockHexahedron inputHexahedron = createHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight());
-        BlockHexahedron outputHexahedron = createHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight());
+        BlockHexahedron inputHexahedron = createHexahedron(topSize, topSkewed, recurrentTopSize, recurrentTopSkewed, getInputModelHeight());
+        BlockHexahedron recurrentHexahedron = createHexahedron(recurrentTopSize, recurrentTopSkewed, recurrentBottomSize, recurrentBottomSkewed, getRecurrentModelHeight());
+        BlockHexahedron outputHexahedron = createHexahedron(recurrentBottomSize, recurrentBottomSkewed, bottomSize, bottomSkewed, getOutputModelHeight());
         getBlockHexahedronList().set(INPUT_BLOCK_INDEX, inputHexahedron);
+        getBlockHexahedronList().set(RECURRENT_BLOCK_INDEX, recurrentHexahedron);
         getBlockHexahedronList().set(OUTPUT_BLOCK_INDEX, outputHexahedron);
     }
 
@@ -66,17 +72,22 @@ public abstract class RecurrentBlockNode extends BlockNode {
         deleteHexahedrons();
         Layer layer = getBlockLayer();
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
-        Point2D middleSize = topSize;
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
-        refreshBottomSkewed(middleSize, bottomSize);
+        Point2D recurrentTopSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
+        Point2D recurrentBottomSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
+        refreshTopSkewed(topSize, recurrentTopSize);
+        refreshBottomSkewed(recurrentBottomSize, bottomSize);
 
         Point3D topSkewed = getTopSkewed();
+        Point3D recurrentTopSkewed = getRecurrentTopSkewed();
+        Point3D recurrentBottomSkewed = getRecurrentBottomSkewed();
         Point3D bottomSkewed = getBottomSkewed();
-        Point3D middleSkewed = getMiddleSkewed();
 
-        BlockHexahedron inputHexahedron = reshapeHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight(), getInputBlockPosition(getBlockInfo().getPosition()));
-        BlockHexahedron outputHexahedron = reshapeHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight(), getOutputBlockPosition(getBlockInfo().getPosition()));
+        BlockHexahedron inputHexahedron = reshapeHexahedron(topSize, topSkewed, recurrentTopSize, recurrentTopSkewed, getInputModelHeight(), getInputBlockPosition(getBlockInfo().getPosition()));
+        BlockHexahedron recurrentHexahedron = reshapeHexahedron(recurrentTopSize, recurrentTopSkewed, recurrentBottomSize, recurrentBottomSkewed, getRecurrentModelHeight(), getRecurrentBlockPosition(getBlockInfo().getPosition()));
+        BlockHexahedron outputHexahedron = reshapeHexahedron(recurrentBottomSize, recurrentBottomSkewed, bottomSize, bottomSkewed, getOutputModelHeight(), getOutputBlockPosition(getBlockInfo().getPosition()));
         getBlockHexahedronList().set(INPUT_BLOCK_INDEX, inputHexahedron);
+        getBlockHexahedronList().set(RECURRENT_BLOCK_INDEX, recurrentHexahedron);
         getBlockHexahedronList().set(OUTPUT_BLOCK_INDEX, outputHexahedron);
         refreshBlockCover();
     }
@@ -89,9 +100,14 @@ public abstract class RecurrentBlockNode extends BlockNode {
         return blockHexahedron;
     }
 
-    private void refreshBottomSkewed(Point2D middleSize, Point2D bottomSize){
+    private void refreshTopSkewed(Point2D topSize, Point2D recurrentTopSize){
         SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        skewedBlockProperty.setBottomSkewed(new Point3D((middleSize.getX() - bottomSize.getX()) / 2, 0, 0));
+        skewedBlockProperty.setTopSkewed(new Point3D((topSize.getX() - recurrentTopSize.getX()) / 2, 0, 0));
+    }
+
+    private void refreshBottomSkewed(Point2D recurrentBottomSize, Point2D bottomSize){
+        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
+        skewedBlockProperty.setBottomSkewed(new Point3D((recurrentBottomSize.getX() - bottomSize.getX()) / 2, 0, 0));
     }
 
     @Override
@@ -99,7 +115,7 @@ public abstract class RecurrentBlockNode extends BlockNode {
         super.refreshBlockCover();
         Map<BlockFace, Color> outputColor = isActivationFunctionExist()?
                 getBlockInfo().getColorMapList().get(OUTPUT_BLOCK_INDEX) :
-                getBlockInfo().getColorMapList().get(INPUT_BLOCK_INDEX);
+                getBlockInfo().getColorMapList().get(RECURRENT_BLOCK_INDEX);
         getBlockHexahedronList().get(OUTPUT_BLOCK_INDEX).setColorMap(outputColor);
         getBlockHexahedronList().get(OUTPUT_BLOCK_INDEX).refreshBlockCover();
     }
@@ -112,6 +128,7 @@ public abstract class RecurrentBlockNode extends BlockNode {
     @Override
     public final void setPosition(double x, double y, double z){
         getBlockHexahedronList().get(INPUT_BLOCK_INDEX).setPosition(getInputBlockPosition(x, y, z));
+        getBlockHexahedronList().get(RECURRENT_BLOCK_INDEX).setPosition(getRecurrentBlockPosition(x, y, z));
         getBlockHexahedronList().get(OUTPUT_BLOCK_INDEX).setPosition(getOutputBlockPosition(x, y, z));
         getBlockInfo().setPosition(x, y, z);
     }
@@ -121,16 +138,24 @@ public abstract class RecurrentBlockNode extends BlockNode {
                 getBlockLayer().getProperties().getActivationFunction() != ActivationWrapper.IDENTITY;
     }
 
-    private double getLayerModelHeight(){
-        return getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
+    private double getInputModelHeight(){
+        return getBlockInfo().getHeight() * (CanvasConstant.NODE_RECURRENT_SKEWED_RATIO);
     }
 
-    private double getActivationModelHeight(){
-        return getBlockInfo().getHeight() * (CanvasConstant.NODE_ACTIVATION_RATIO);
+    private double getRecurrentModelHeight(){
+        return getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_RECURRENT_SKEWED_RATIO * 2);
+    }
+
+    private double getOutputModelHeight(){
+        return getBlockInfo().getHeight() * (CanvasConstant.NODE_RECURRENT_SKEWED_RATIO);
     }
 
     private Point3D getInputBlockPosition(Point3D position){
         return getInputBlockPosition(position.getX(), position.getY(), position.getZ());
+    }
+
+    private Point3D getRecurrentBlockPosition(Point3D position){
+        return getRecurrentBlockPosition(position.getX(), position.getY(), position.getZ());
     }
 
     private Point3D getOutputBlockPosition(Point3D position){
@@ -155,16 +180,24 @@ public abstract class RecurrentBlockNode extends BlockNode {
                 skewedBlockProperty.getBottomSkewed();
     }
 
-    private Point3D getMiddleSkewed(){
+    private Point3D getRecurrentTopSkewed(){
+        return new Point3D(0, 0, 0);
+    }
+
+    private Point3D getRecurrentBottomSkewed(){
         return new Point3D(0, 0, 0);
     }
 
     private Point3D getInputBlockPosition(double x, double y, double z){
-        return new Point3D(x, y - getBlockInfo().getHeight() / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, y - getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_RECURRENT_SKEWED_RATIO), z);
+    }
+
+    private Point3D getRecurrentBlockPosition(double x, double y, double z){
+        return new Point3D(x, y, z);
     }
 
     private Point3D getOutputBlockPosition(double x, double y, double z){
-        return new Point3D(x, y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_RECURRENT_SKEWED_RATIO), z);
     }
 
     @Override

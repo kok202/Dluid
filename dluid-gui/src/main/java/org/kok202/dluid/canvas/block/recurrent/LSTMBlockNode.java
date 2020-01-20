@@ -11,6 +11,10 @@ public class LSTMBlockNode extends RecurrentBlockNode {
         setBlockColor(INPUT_BLOCK_INDEX, BlockFace.LEFT, CanvasConstant.COLOR_GREEN_);
         setBlockColor(INPUT_BLOCK_INDEX, BlockFace.RIGHT, CanvasConstant.COLOR_GREEN_);
         setBlockColor(INPUT_BLOCK_INDEX, BlockFace.BACK, CanvasConstant.COLOR_GREEN_);
+        setBlockColor(RECURRENT_BLOCK_INDEX, BlockFace.FRONT, CanvasConstant.COLOR_GREEN);
+        setBlockColor(RECURRENT_BLOCK_INDEX, BlockFace.LEFT, CanvasConstant.COLOR_GREEN_);
+        setBlockColor(RECURRENT_BLOCK_INDEX, BlockFace.RIGHT, CanvasConstant.COLOR_GREEN_);
+        setBlockColor(RECURRENT_BLOCK_INDEX, BlockFace.BACK, CanvasConstant.COLOR_GREEN_);
         setBlockColor(OUTPUT_BLOCK_INDEX, BlockFace.FRONT, CanvasConstant.COLOR_GREEN_);
         setBlockColor(OUTPUT_BLOCK_INDEX, BlockFace.LEFT, CanvasConstant.COLOR_GREEN__);
         setBlockColor(OUTPUT_BLOCK_INDEX, BlockFace.RIGHT, CanvasConstant.COLOR_GREEN__);

@@ -7,6 +7,7 @@ public class CanvasConstant {
     public static final double NODE_UNIT = 0.1f;
     public static final double NODE_DEFAULT_HEIGHT = 0.2f;
     public static final double NODE_ACTIVATION_RATIO = 0.2f;
+    public static final double NODE_RECURRENT_SKEWED_RATIO = 0.33f;
     public static final double CAMERA_DEPTH_MAX = -2;
     public static final double CAMERA_DEPTH_DEFAULT = -5;
     public static final double CAMERA_DEPTH_MIN = -100;
