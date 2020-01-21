@@ -30,8 +30,8 @@ public abstract class RecurrentBlockNode extends BlockNode {
     protected final void createBlockModel(Layer layer){
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
-        Point2D recurrentTopSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
-        Point2D recurrentBottomSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
+        Point2D recurrentTopSize = getRecurrentSize(topSize, bottomSize);
+        Point2D recurrentBottomSize = getRecurrentSize(topSize, bottomSize);
         refreshTopSkewed(topSize, recurrentTopSize);
         refreshBottomSkewed(recurrentBottomSize, bottomSize);
 
@@ -73,8 +73,8 @@ public abstract class RecurrentBlockNode extends BlockNode {
         Layer layer = getBlockLayer();
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
-        Point2D recurrentTopSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
-        Point2D recurrentBottomSize = new Point2D(topSize.getX() + bottomSize.getX(), topSize.getY()); // TODO
+        Point2D recurrentTopSize = getRecurrentSize(topSize, bottomSize);
+        Point2D recurrentBottomSize = getRecurrentSize(topSize, bottomSize);
         refreshTopSkewed(topSize, recurrentTopSize);
         refreshBottomSkewed(recurrentBottomSize, bottomSize);
 
@@ -160,6 +160,12 @@ public abstract class RecurrentBlockNode extends BlockNode {
 
     private Point3D getOutputBlockPosition(Point3D position){
         return getOutputBlockPosition(position.getX(), position.getY(), position.getZ());
+    }
+
+    private Point2D getRecurrentSize(Point2D topSize, Point2D bottomSize){
+        return new Point2D(
+                Math.max(topSize.getX(), bottomSize.getX()),
+                Math.max(topSize.getY(), bottomSize.getY()));
     }
 
     private Point3D getTopSkewed(){
