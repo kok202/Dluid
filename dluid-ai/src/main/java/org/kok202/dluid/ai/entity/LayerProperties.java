@@ -114,9 +114,9 @@ public class LayerProperties {
 
     LayerProperties(LayerType layerType) {
         weightInitializer = WeightInitializer.FOLLOW_GLOBAL_SETTING;
-        activationFunction = ActivationWrapper.IDENTITY;
+        activationFunction = (layerType != LayerType.RNN_OUTPUT_LAYER)? ActivationWrapper.IDENTITY : ActivationWrapper.SOFTMAX;
         dropout = 0;
-        lossFunction = LossFunction.MSE;
+        lossFunction = (layerType != LayerType.RNN_OUTPUT_LAYER)? LossFunction.MSE : LossFunction.MCXENT;
         poolingType = PoolingType.MAX;
 
         switch (layerType){
@@ -127,6 +127,7 @@ public class LayerProperties {
             case SWITCH_LAYER:
             case BATCH_NORMALIZATION:
             case BASE_RECURRENT_LAYER:
+            case RNN_OUTPUT_LAYER:
             case LSTM:
                 inputSize = new int[]{10};
                 outputSize = new int[]{10};

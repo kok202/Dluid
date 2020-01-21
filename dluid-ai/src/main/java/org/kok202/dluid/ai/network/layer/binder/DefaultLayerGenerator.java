@@ -15,7 +15,7 @@ public class DefaultLayerGenerator extends AbstractLayerGenerator {
 
     @Override
     public void generate(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
-        graphBuilder.layer(layer.getId(), LayerFactory.create(layer), parseLayerIds(layerFroms));
+        graphBuilder.addLayer(layer.getId(), LayerFactory.create(layer), parseLayerIds(layerFroms));
     }
 
 }

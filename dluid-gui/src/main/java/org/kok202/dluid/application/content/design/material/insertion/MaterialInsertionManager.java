@@ -99,14 +99,13 @@ public class MaterialInsertionManager {
     }
 
     private boolean checkIsPossibleToAddLayer(LayerType layerType){
-        switch (layerType){
-            case OUTPUT_LAYER:
-                for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
-                    if (graphNode.getData().getBlockLayer().getType().isOutputLayerType()) {
-                        throw new MultiOutputLayerException();
-                    }
+        if(layerType.isOutputLayerType()){
+            for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
+                if (graphNode.getData().getBlockLayer().getType().isOutputLayerType()) {
+                    throw new MultiOutputLayerException();
                 }
-                return true;
+            }
+            return true;
         }
         return true;
     }

@@ -255,13 +255,13 @@ public class ExceptionHandler {
                     .showAndWait();
         }
         else {
-//            DialogUtil.builder()
-//                    .alertType(Alert.AlertType.ERROR)
-//                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.default.error.title"))
-//                    .headerText(exception.getClass().getName())
-//                    .contentText(exception.getMessage())
-//                    .build()
-//                    .showAndWait();
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.default.error.title"))
+                    .headerText(exception.getClass().getName())
+                    .contentText(exception.getMessage())
+                    .build()
+                    .showAndWait();
         }
     }
 }

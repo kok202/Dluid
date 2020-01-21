@@ -5,6 +5,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import org.kok202.dluid.application.content.design.material.block.MaterialLSTMController;
 import org.kok202.dluid.application.content.design.material.block.MaterialRNNController;
+import org.kok202.dluid.application.content.design.material.block.MaterialRNNOutputController;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
@@ -28,6 +29,7 @@ public class MaterialListRNNLayer extends AbstractMaterialList {
     protected void initialize() throws Exception {
         addAbstractMaterialController(new MaterialRNNController());
         addAbstractMaterialController(new MaterialLSTMController());
+        addAbstractMaterialController(new MaterialRNNOutputController());
         addAbstractMaterialControllerToVBox(getLayerListBox(), materialInsertionManager);
         getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.rnn.title"));
     }

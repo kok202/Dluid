@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
@@ -13,6 +14,7 @@ import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
+@Getter
 public class ComponentCommonFunctionController extends AbstractLayerComponentController {
 
     @FXML private Label labelWeightInitializer;
@@ -49,7 +51,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         labelDropout.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.dropOut"));
     }
 
-    private void initializeMenuButtonWeightInit(){
+    protected void initializeMenuButtonWeightInit(){
         MenuAdapter<WeightInitializer> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
         menuAdapter.setMenuItemChangedListener(weightInit -> {
             layer.getProperties().setWeightInitializer(weightInit);
@@ -66,7 +68,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         menuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInitializer());
     }
 
-    private void initializeMenuButtonBiasInit(){
+    protected void initializeMenuButtonBiasInit(){
         MenuAdapter<BiasInitializer> menuAdapter = new MenuAdapter<>(menuButtonBiasInit);
         menuAdapter.setMenuItemChangedListener(biasInitializer -> {
             layer.getProperties().setBiasInitializer(biasInitializer);
@@ -79,7 +81,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         menuAdapter.setDefaultMenuItem(layer.getProperties().getBiasInitializer());
     }
 
-    private void initializeMenuButtonActivationFunction(){
+    protected void initializeMenuButtonActivationFunction(){
         MenuAdapter<ActivationWrapper> menuAdapter = new MenuAdapter<>(menuButtonActivationFunction);
         menuAdapter.setMenuItemChangedListener(activation -> {
             layer.getProperties().setActivationFunction(activation);
@@ -94,7 +96,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         menuAdapter.setDefaultMenuItem(layer.getProperties().getActivationFunction());
     }
 
-    private void initializeSliderDropout(){
+    protected void initializeSliderDropout(){
         sliderDropout.setValue(layer.getProperties().getDropout());
         sliderDropout.valueProperty().addListener((observable, oldValue, newValue) -> {
             double inputRetainProbability = newValue.doubleValue();

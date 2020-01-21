@@ -16,6 +16,7 @@ public enum LayerType {
     RNN_LOSS_LAYER("Null"),
 
     OUTPUT_LAYER("Output layer"),
+    RNN_OUTPUT_LAYER("Rnn Output layer"),
     BATCH_NORMALIZATION("Batch normalization layer"),
     POOLING_1D("Pooling 1D"),
     POOLING_2D("Pooling 2D"),
@@ -57,7 +58,7 @@ public enum LayerType {
     }
 
     public boolean isOutputLayerType(){
-        return this == OUTPUT_LAYER;
+        return this == OUTPUT_LAYER || this == RNN_OUTPUT_LAYER;
     }
 
     public boolean isAssistLayerType() {

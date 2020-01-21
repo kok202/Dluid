@@ -5,6 +5,7 @@ import org.kok202.dluid.canvas.block.activation.*;
 import org.kok202.dluid.canvas.block.mono.*;
 import org.kok202.dluid.canvas.block.recurrent.LSTMBlockNode;
 import org.kok202.dluid.canvas.block.recurrent.RNNBlockNode;
+import org.kok202.dluid.canvas.block.recurrent.RNNOutputBlockNode;
 
 public class BlockNodeFactory {
     public static BlockNode create(Layer layer){
@@ -21,6 +22,8 @@ public class BlockNodeFactory {
                 return new InputBlockNode(layer);
             case OUTPUT_LAYER:
                 return new OutputBlockNode(layer);
+            case RNN_OUTPUT_LAYER:
+                return new RNNOutputBlockNode(layer);
             case PIPE_LAYER:
                 return new PipeBlockNode(layer);
             case MERGE_LAYER:
