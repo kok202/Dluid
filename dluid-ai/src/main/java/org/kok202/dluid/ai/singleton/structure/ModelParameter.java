@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import org.kok202.dluid.ai.AIConstant;
+import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.domain.util.RandomUtil;
@@ -16,6 +17,7 @@ public class ModelParameter {
     @Setter(AccessLevel.NONE)
     private long seed;
     private Optimizer optimizer;
+    private BiasInitializer biasInitializer;
     private WeightInitializer weightInitializer;
     private LossFunctions.LossFunction lossFunction;
     private double learningRate;
@@ -26,6 +28,7 @@ public class ModelParameter {
 
     public ModelParameter() {
         optimizer = Optimizer.SGD;
+        biasInitializer = BiasInitializer.ZERO;
         weightInitializer = WeightInitializer.ONES;
         lossFunction = LossFunctions.LossFunction.MSE;
         batchSize = AIConstant.DEFAULT_BATCH_SIZE;

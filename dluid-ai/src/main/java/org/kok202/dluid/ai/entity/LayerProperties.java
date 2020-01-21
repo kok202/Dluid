@@ -3,6 +3,7 @@ package org.kok202.dluid.ai.entity;
 import lombok.Data;
 import org.deeplearning4j.nn.conf.layers.PoolingType;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
+import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
@@ -17,6 +18,7 @@ public class LayerProperties {
     private int[] outputSize;
     private int inputDimension;
     private int outputDimension;
+    private BiasInitializer biasInitializer;
     private WeightInitializer weightInitializer;
     private ActivationWrapper activationFunction;
     private double dropout;

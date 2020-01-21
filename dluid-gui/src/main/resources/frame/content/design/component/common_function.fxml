@@ -19,11 +19,13 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label fx:id="labelWeightInitializer" text="Weight Initializer" GridPane.rowIndex="0" />
-                                <Label fx:id="labelActivationFunction" text="Activation function" GridPane.rowIndex="1" />
-                                <Label fx:id="labelDropout" text="Dropout ratio" GridPane.rowIndex="2" />
+                                <Label fx:id="labelBiasInitializer" text="Bias Initializer" GridPane.rowIndex="1" />
+                                <Label fx:id="labelActivationFunction" text="Activation function" GridPane.rowIndex="2" />
+                                <Label fx:id="labelDropout" text="Dropout ratio" GridPane.rowIndex="3" />
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <children>
                                         <MenuButton fx:id="menuButtonWeightInit" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -34,13 +36,21 @@
                                 </AnchorPane>
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <children>
-                                        <MenuButton fx:id="menuButtonActivationFunction" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <MenuButton fx:id="menuButtonBiasInit" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                             </items>
                                         </MenuButton>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <children>
+                                        <MenuButton fx:id="menuButtonActivationFunction" styleClass="customMenuButton" mnemonicParsing="false" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                            </items>
+                                        </MenuButton>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <children>
                                         <JFXSlider fx:id="sliderDropout" max="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                         </JFXSlider>

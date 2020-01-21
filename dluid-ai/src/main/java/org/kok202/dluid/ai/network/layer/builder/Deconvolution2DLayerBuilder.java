@@ -1,10 +1,10 @@
 package org.kok202.dluid.ai.network.layer.builder;
 
-import org.deeplearning4j.nn.conf.layers.ConvolutionLayer;
 import org.deeplearning4j.nn.conf.layers.Deconvolution2D;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.BiasInitUtil;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 public class Deconvolution2DLayerBuilder extends AbstractLayerBuilder {
@@ -20,27 +20,29 @@ public class Deconvolution2DLayerBuilder extends AbstractLayerBuilder {
 
     @Override
     protected void setAddOnProperties(Layer layer, Builder builder) {
-        ConvolutionLayer.Builder convolutionLayerBuilder = (ConvolutionLayer.Builder) builder;
+        Deconvolution2D.Builder deconvolutionLayerBuilder = (Deconvolution2D.Builder) builder;
         if(layer.getProperties().getKernelSize() != null)
-            convolutionLayerBuilder.setKernelSize(layer.getProperties().getKernelSize());
+            deconvolutionLayerBuilder.setKernelSize(layer.getProperties().getKernelSize());
         if(layer.getProperties().getPaddingSize() != null)
-            convolutionLayerBuilder.setPadding(layer.getProperties().getPaddingSize());
+            deconvolutionLayerBuilder.setPadding(layer.getProperties().getPaddingSize());
         if(layer.getProperties().getStrideSize() != null)
-            convolutionLayerBuilder.setStride(layer.getProperties().getStrideSize());
+            deconvolutionLayerBuilder.setStride(layer.getProperties().getStrideSize());
     }
 
     @Override
     protected void setCommonProperties(Layer layer, Builder builder) {
-        ConvolutionLayer.Builder convolutionLayerBuilder = (ConvolutionLayer.Builder) builder;
+        Deconvolution2D.Builder deconvolutionLayerBuilder = (Deconvolution2D.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            convolutionLayerBuilder.nIn(layer.getProperties().getInputSizeZ()); // channel size
+            deconvolutionLayerBuilder.nIn(layer.getProperties().getInputSizeZ()); // channel size
         if(layer.getProperties().getOutputSize() != null)
-            convolutionLayerBuilder.nOut(layer.getProperties().getOutputSizeZ()); // channel size
+            deconvolutionLayerBuilder.nOut(layer.getProperties().getOutputSizeZ()); // channel size
+        if(layer.getProperties().getBiasInitializer() != null)
+            BiasInitUtil.applyBiasInit(deconvolutionLayerBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
-            WeightInitWrapperUtil.applyWeightInit(convolutionLayerBuilder, layer.getProperties().getWeightInitializer());
+            WeightInitWrapperUtil.applyWeightInit(deconvolutionLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)
-            convolutionLayerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
+            deconvolutionLayerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
         if(layer.getProperties().getDropout() != 0)
-            convolutionLayerBuilder.dropOut(layer.getProperties().getDropout());
+            deconvolutionLayerBuilder.dropOut(layer.getProperties().getDropout());
     }
 }

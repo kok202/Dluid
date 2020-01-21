@@ -4,6 +4,7 @@ import org.deeplearning4j.nn.conf.layers.BatchNormalization;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.BiasInitUtil;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 public class BatchNormalizationLayerBuilder extends AbstractLayerBuilder {
@@ -35,6 +36,8 @@ public class BatchNormalizationLayerBuilder extends AbstractLayerBuilder {
             batchNormalizationBuilder.nIn(layer.getProperties().getInputVolume());
         if(layer.getProperties().getOutputSize() != null)
             batchNormalizationBuilder.nOut(layer.getProperties().getOutputVolume());
+        if(layer.getProperties().getBiasInitializer() != null)
+            BiasInitUtil.applyBiasInit(batchNormalizationBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
             WeightInitWrapperUtil.applyWeightInit(batchNormalizationBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)

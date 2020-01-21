@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.ai.AIFacade;
+import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.application.adapter.MenuAdapter;
@@ -23,6 +24,7 @@ public class ModelInformationController extends AbstractModelTrainController {
 
     @FXML private TextField textFieldModelName;
     @FXML private MenuButton menuButtonWeightInit;
+    @FXML private MenuButton menuButtonBiasInit;
     @FXML private MenuButton menuButtonOptimizer;
     @FXML private TextField textFieldLearningRate;
     @FXML private TextField textFieldEpochNumber;
@@ -43,6 +45,7 @@ public class ModelInformationController extends AbstractModelTrainController {
         buttonInitialize.setOnAction(event -> ModelStateManager.initializeModel());
 
         initializeMenuButtonWeightInit();
+        initializeMenuButtonBiasInit();
         initializeMenuButtonOptimizer();
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.title"));
@@ -75,15 +78,24 @@ public class ModelInformationController extends AbstractModelTrainController {
 
     private void initializeMenuButtonWeightInit(){
         MenuAdapter<WeightInitializer> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
-        menuAdapter.setMenuItemChangedListener(AIFacade::setTrainWeightInit);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitializer.ONES);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitializer.ZERO);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitializer.XAVIER);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInitializer.UNIFORM);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitializer.NORMAL);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitializer.DISTRIBUTION_ZERO_TO_ONE);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitializer.DISTRIBUTION_PLUS_MINUS_ONE);
+        menuAdapter.setMenuItemChangedListener(AIFacade::setTrainWeightInitializer);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.one"), WeightInitializer.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.zero"), WeightInitializer.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.xavier"), WeightInitializer.XAVIER);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.uniform"), WeightInitializer.UNIFORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.normal"), WeightInitializer.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.distributionZeroToOne"), WeightInitializer.DISTRIBUTION_ZERO_TO_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.distributionPlusMinusOne"), WeightInitializer.DISTRIBUTION_PLUS_MINUS_ONE);
         menuAdapter.setDefaultMenuItem(AIFacade.getTrainWeightInitializer());
+    }
+
+    private void initializeMenuButtonBiasInit(){
+        MenuAdapter<BiasInitializer> menuAdapter = new MenuAdapter<>(menuButtonBiasInit);
+        menuAdapter.setMenuItemChangedListener(AIFacade::setTrainBiasInitializer);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.one"), BiasInitializer.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.xavier"), BiasInitializer.SMALL_VALUE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.zero"), BiasInitializer.ZERO);
+        menuAdapter.setDefaultMenuItem(AIFacade.getTrainBiasInitializer());
     }
 
     private void initializeMenuButtonOptimizer(){

@@ -4,6 +4,7 @@ import org.deeplearning4j.nn.conf.layers.Convolution1DLayer;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.BiasInitUtil;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 public class Convolution1DLayerBuilder extends AbstractLayerBuilder {
@@ -35,6 +36,8 @@ public class Convolution1DLayerBuilder extends AbstractLayerBuilder {
             convolutionLayerBuilder.nIn(layer.getProperties().getInputSizeY()); // channel size
         if(layer.getProperties().getOutputSize() != null)
             convolutionLayerBuilder.nOut(layer.getProperties().getOutputSizeY()); // channel size
+        if(layer.getProperties().getBiasInitializer() != null)
+            BiasInitUtil.applyBiasInit(convolutionLayerBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
             WeightInitWrapperUtil.applyWeightInit(convolutionLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)

@@ -114,17 +114,15 @@ public abstract class ActivationBlockNode extends BlockNode {
     }
 
     private double getLayerModelHeight(){
-        return !isActivationFunctionExist()? getBlockInfo().getHeight() : getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
+        return getBlockInfo().getHeight() * (1 - CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private double getActivationModelHeight(){
-        return !isActivationFunctionExist()? 0 : getBlockInfo().getHeight() * (CanvasConstant.NODE_ACTIVATION_RATIO);
+        return getBlockInfo().getHeight() * (CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private Point2D getMiddleSize(Point2D topSize, Point2D bottomSize){
-        return !isActivationFunctionExist()?
-                bottomSize :
-                new Point2D(
+        return new Point2D(
                         bottomSize.getX() + (topSize.getX() - bottomSize.getX()) * CanvasConstant.NODE_ACTIVATION_RATIO,
                         bottomSize.getY() + (topSize.getY() - bottomSize.getY()) * CanvasConstant.NODE_ACTIVATION_RATIO);
     }
@@ -156,20 +154,18 @@ public abstract class ActivationBlockNode extends BlockNode {
     }
 
     private Point3D getMiddleSkewed(Point3D topSkewed, Point3D bottomSkewed){
-        return !isActivationFunctionExist()?
-                bottomSkewed :
-                new Point3D(
+        return new Point3D(
                         bottomSkewed.getX() + (topSkewed.getX() - bottomSkewed.getX()) * CanvasConstant.NODE_ACTIVATION_RATIO,
                         bottomSkewed.getY() + (topSkewed.getY() - bottomSkewed.getY()) * CanvasConstant.NODE_ACTIVATION_RATIO,
                         bottomSkewed.getZ() + (topSkewed.getZ() - bottomSkewed.getZ()) * CanvasConstant.NODE_ACTIVATION_RATIO);
     }
 
     private Point3D getLayerBlockPosition(double x, double y, double z){
-        return new Point3D(x, !isActivationFunctionExist()? y : y - getBlockInfo().getHeight() / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, y - getBlockInfo().getHeight() / 2 * (CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
     private Point3D getActivationBlockPosition(double x, double y, double z){
-        return new Point3D(x, !isActivationFunctionExist()? 0 : y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
+        return new Point3D(x, y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
     }
 
     @Override
