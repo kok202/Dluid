@@ -109,7 +109,7 @@ public class LayerProperties {
 
     LayerProperties(LayerType layerType) {
         weightInitializer = WeightInitializer.FOLLOW_GLOBAL_SETTING;
-        activationFunction = (layerType != LayerType.RNN_OUTPUT_LAYER)? ActivationWrapper.IDENTITY : ActivationWrapper.SOFTMAX;
+        activationFunction = ActivationWrapper.IDENTITY;
         dropout = 0;
         lossFunction = (layerType != LayerType.RNN_OUTPUT_LAYER)? LossFunction.MSE : LossFunction.MCXENT;
         poolingType = PoolingType.MAX;
