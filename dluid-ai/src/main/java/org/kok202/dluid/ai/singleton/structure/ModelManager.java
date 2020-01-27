@@ -26,9 +26,13 @@ public class ModelManager {
     private List<Model> models;
     private TrainingEpochListener trainingEpochListener;
 
+    private int trainedEpoch;
+    private boolean trainingStop;
+
     public ModelManager(){
         modelInformation = new ModelInformation();
         modelParameter = new ModelParameter();
+        trainingStop = false;
     }
 
     /*************************************************************************************************
@@ -40,6 +44,10 @@ public class ModelManager {
 
     public void setTrainListener(TrainingEpochListener trainingEpochListener){
         this.trainingEpochListener = trainingEpochListener;
+    }
+
+    public void setTrainingStop(boolean trainingStop) {
+        this.trainingStop = trainingStop;
     }
 
     /*************************************************************************************************
@@ -58,7 +66,9 @@ public class ModelManager {
                     }));
 
         // Train it alternately.
-        for(int epoch = 0; epoch < modelParameter.getEpoch(); epoch++){
+        final int epochSize = modelParameter.getEpoch();
+        for(int epoch = 0; epoch < epochSize; epoch++){
+            trainedEpoch = epoch;
             // Reset data set iterator.
             dataSetIteratorMap.entrySet()
                     .parallelStream()
@@ -83,6 +93,11 @@ public class ModelManager {
 
             if(trainingEpochListener != null)
                 trainingEpochListener.count(() -> models.stream().mapToDouble(Model::score).sum());
+
+            if(trainingStop){
+                trainingStop = false;
+                break;
+            }
         }
     }
 

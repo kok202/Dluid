@@ -29,6 +29,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
 
     @FXML private Button buttonTrainingOneTime;
     @FXML private Button buttonTrainingNTime;
+    @FXML private Button buttonTrainingStop;
     private LineChartAdapter lineChartAdapter;
 
     public AnchorPane createView() throws Exception {
@@ -43,8 +44,10 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         lineChartAdapter = new LineChartAdapter(lineChartTrainingChart);
         buttonTrainingOneTime.setDisable(false);
         buttonTrainingNTime.setDisable(false);
+        buttonTrainingStop.setDisable(true);
         buttonTrainingOneTime.setOnAction(event -> buttonTrainingOneTimeActionHandler());
         buttonTrainingNTime.setOnAction(event -> buttonTrainingNTimeActionHandler());
+        buttonTrainingStop.setOnAction(event -> buttonTrainingStopActionHandler());
 
         textFieldBatchSize.textProperty().addListener(changeListener -> textFieldChangeHandler());
         textFieldEpoch.textProperty().addListener(changeListener -> textFieldChangeHandler());
@@ -61,6 +64,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         labelListeningPeriod.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.listeningPeriod"));
         buttonTrainingOneTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.oneTime"));
         buttonTrainingNTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.nTime"));
+        buttonTrainingStop.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.stop"));
     }
 
     private void textFieldChangeHandler(){
@@ -110,5 +114,9 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         Thread thread = new Thread(trainTask);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    private void buttonTrainingStopActionHandler() {
+        AIFacade.setTrainingStop(true);
     }
 }

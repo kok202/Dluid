@@ -51,7 +51,7 @@ public class TrainTask extends Task<TrainProgressContainer> {
         AppFacade.setTrainingButtonDisable(false);
         updateValue(new TrainProgressContainer("Training done."));
         int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
-        int trainedEpoch = AIFacade.getTrainEpoch();
+        int trainedEpoch = AIFacade.getTrainedEpoch();
         AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
         AppFacade.refreshModelInformation();
     }

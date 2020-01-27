@@ -101,6 +101,11 @@
                                                 <Insets left="5.0" />
                                             </HBox.margin>
                                         </Button>
+                                        <Button fx:id="buttonTrainingStop" mnemonicParsing="false" styleClass="customGreenButton" text="N 번 학습">
+                                            <HBox.margin>
+                                                <Insets left="5.0" />
+                                            </HBox.margin>
+                                        </Button>
                                     </children>
                                     <VBox.margin>
                                         <Insets />
