@@ -14,13 +14,16 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 public class ComponentRecurrentOutputParamController extends AbstractLayerComponentController {
 
-    @FXML private Label labelInputMask;
     @FXML private Label labelInputSize;
     @FXML private Label labelOutputSize;
+    @FXML private Label labelInputOutputX;
+    @FXML private Label labelInputOutputY;
     @FXML private Label labelLossFunction;
 
-    @FXML private TextField textFieldInputSize;
-    @FXML private TextField textFieldOutputSize;
+    @FXML private TextField textFieldInputSizeX;
+    @FXML private TextField textFieldInputSizeY;
+    @FXML private TextField textFieldOutputSizeX;
+    @FXML private TextField textFieldOutputSizeY;
     @FXML private MenuButton menuButtonLossFunction;
 
     public ComponentRecurrentOutputParamController(Layer layer) {
@@ -36,22 +39,28 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
 
     @Override
     protected void initialize() throws Exception {
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSize, 1);
-        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSize, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeX, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldInputSizeY, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeX, 1);
+        TextFieldUtil.applyPositiveIntegerFilter(textFieldOutputSizeY, 1);
         setTextFieldByLayerProperties();
         initializeMenuButtonLossFunction();
-    }
-
-    protected void setTextFieldByLayerProperties(){
-        textFieldInputSize.setText(String.valueOf(layer.getProperties().getInputVolume()));
-        textFieldOutputSize.setText(String.valueOf(layer.getProperties().getOutputVolume()));
-        attachTextChangedListener(textFieldInputSize, textFieldOutputSize);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelInputMask.setText(AppPropertiesSingleton.getInstance().get("frame.component.recurrent"));
+        labelInputOutputX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+        labelInputOutputY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelLossFunction.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.lossFunction"));
+    }
+
+    protected void setTextFieldByLayerProperties(){
+        detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX, textFieldOutputSizeY);
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputVolume()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputVolume()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputVolume()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputVolume()));
+        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX, textFieldOutputSizeY);
     }
 
     private void initializeMenuButtonLossFunction(){
@@ -74,12 +83,14 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
     }
 
     private void changeInputSize(){
-        int value = TextFieldUtil.parseInteger(textFieldInputSize, 1);
-        layer.getProperties().setInputSize(value);
+        int x = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
+        int y = TextFieldUtil.parseInteger(textFieldInputSizeY, 1);
+        layer.getProperties().setInputSize(x, y);
     }
 
     private void changeOutputSize(){
-        int value = TextFieldUtil.parseInteger(textFieldOutputSize, 1);
-        layer.getProperties().setOutputSize(value);
+        int x = TextFieldUtil.parseInteger(textFieldOutputSizeX, 1);
+        int y = TextFieldUtil.parseInteger(textFieldOutputSizeY, 1);
+        layer.getProperties().setOutputSize(x, y);
     }
 }

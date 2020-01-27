@@ -14,14 +14,14 @@ public class DimensionUnmatchedException extends RuntimeException {
     private String destinationInputSize;
     private String sourceLayerInputDimension;
 
-    public DimensionUnmatchedException(String sourceLayerId, int[] out, int outDimension, String destinationLayerId, int[] in, int inDimension) {
+    public DimensionUnmatchedException(String sourceLayerId, int[] out, String outDimension, String destinationLayerId, int[] in, String inDimension) {
         super("LayerType dimension is not matched");
         this.sourceLayerId = sourceLayerId;
         this.sourceLayerOutputSize = Arrays.toString(out);
-        this.sourceLayerOutputDimension = String.valueOf(outDimension);
+        this.sourceLayerOutputDimension = outDimension;
         this.destinationLayerId = destinationLayerId;
         this.destinationInputSize = Arrays.toString(in);
-        this.sourceLayerInputDimension = String.valueOf(inDimension);
+        this.sourceLayerInputDimension = inDimension;
     }
 
 }

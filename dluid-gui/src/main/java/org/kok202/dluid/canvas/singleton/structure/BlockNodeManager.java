@@ -167,7 +167,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
     private void replaceAllBlockByChannelBlock() {
         getGraphNodes()
                 .stream()
-                .filter(graphNodeBlockNode -> graphNodeBlockNode.getData().getBlockLayer().getProperties().isChannelExist())
+                .filter(graphNodeBlockNode -> graphNodeBlockNode.getData().getBlockLayer().getProperties().getInputDimension().isHasChannel())
                 .forEach(graphNodeBlockNode -> {
                     double incomingOverlappedY = 0;
                     double outgoingOverlappedY = 0;
