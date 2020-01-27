@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
 import org.kok202.dluid.ai.entity.enumerator.Optimizer;
@@ -13,7 +14,7 @@ import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.model.ModelStateManager;
 
-
+@Getter
 public class ModelInformationController extends AbstractModelTrainController {
     @FXML private TitledPane titledPane;
     @FXML private Label labelModelName;

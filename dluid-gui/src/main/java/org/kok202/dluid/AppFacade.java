@@ -190,6 +190,12 @@ public class AppFacade {
                 .getModelTrainTaskController()
                 .getButtonTrainingStop()
                 .setDisable(!disable);
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelTrainController()
+                .getModelInformationController()
+                .getButtonInitialize()
+                .setDisable(disable);
     }
 
     /*************************************************************************************************
