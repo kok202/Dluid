@@ -151,6 +151,15 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof MultiInputLayerException){
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.INFORMATION)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInputLayer.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInputLayer.header"))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.multiInputLayer.content"))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof MultiOutputLayerException){
             DialogUtil.builder()
                     .alertType(Alert.AlertType.INFORMATION)

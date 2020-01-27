@@ -11,10 +11,8 @@ import javafx.scene.layout.Pane;
 import lombok.Data;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.canvas.block.BlockNode;
-import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.domain.exception.MultiInputLayerException;
 import org.kok202.dluid.domain.exception.MultiOutputLayerException;
-import org.kok202.dluid.domain.structure.GraphNode;
 import org.kok202.dluid.domain.structure.Vector2D;
 
 @Data
@@ -100,12 +98,11 @@ public class MaterialInsertionManager {
 
     private boolean checkIsPossibleToAddLayer(LayerType layerType){
         if(layerType.isOutputLayerType()){
-            for (GraphNode<BlockNode> graphNode : CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes()) {
-                if (graphNode.getData().getBlockLayer().getType().isOutputLayerType()) {
-                    throw new MultiOutputLayerException();
-                }
-            }
-            return true;
+            if (CanvasFacade.findOutputLayer().isPresent())
+                throw new MultiOutputLayerException();
+        } else if(layerType.isInputLayerType()){
+            if (!CanvasFacade.findAllInputLayer().isEmpty())
+                throw new MultiInputLayerException();
         }
         return true;
     }

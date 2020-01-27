@@ -10,9 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.application.adapter.NumericTableViewAdapter;
-import org.kok202.dluid.application.adapter.file.DirectoryChooserAdapter;
 import org.kok202.dluid.application.adapter.file.TestResultDocumentFileSaver;
-import org.kok202.dluid.application.adapter.file.TestResultImageSaver;
 import org.kok202.dluid.application.content.TabModelTestController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
@@ -24,11 +22,13 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
     @FXML private TableView tableViewResultSet;
     @FXML private CheckBox checkBoxHighlight;
     @FXML private Button buttonLoadOnTable;
-    @FXML private Button buttonExportAsImage;
     @FXML private Button buttonExportAsDocument;
     private NumericTableViewAdapter numericTableViewAdapter;
-    private DirectoryChooserAdapter testResultImageDirectoryChooser;
     private TestResultDocumentFileSaver testResultDocumentFileSaver;
+
+//    // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
+//    @FXML private Button buttonExportAsImage;
+//    private DirectoryChooserAdapter testResultImageDirectoryChooser;
 
     public ModelTestTestingResultTableController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
@@ -54,7 +54,8 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.title"));
         checkBoxHighlight.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.classificationFilter"));
         buttonLoadOnTable.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.loadOnTable"));
-        buttonExportAsImage.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsImage"));
+//        // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
+//        buttonExportAsImage.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsImage"));
         buttonExportAsDocument.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsDocument"));
     }
 
@@ -65,9 +66,10 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
             checkBoxHighlight.setSelected(false);
             tableViewResultSet.setDisable(false);
         });
-        testResultImageDirectoryChooser = new DirectoryChooserAdapter(buttonExportAsImage);
-        testResultImageDirectoryChooser.setCallbackAfterFind(file -> new TestResultImageSaver().popUpWindow(file));
-        testResultImageDirectoryChooser.initialize();
+//        // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
+//        testResultImageDirectoryChooser = new DirectoryChooserAdapter(buttonExportAsImage);
+//        testResultImageDirectoryChooser.setCallbackAfterFind(file -> new TestResultImageSaver().popUpWindow(file));
+//        testResultImageDirectoryChooser.initialize();
         testResultDocumentFileSaver = new TestResultDocumentFileSaver(buttonExportAsDocument);
         testResultDocumentFileSaver.initialize();
     }
