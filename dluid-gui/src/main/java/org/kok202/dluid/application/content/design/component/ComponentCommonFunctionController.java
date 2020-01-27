@@ -75,9 +75,9 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
             notifyLayerDataChanged();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.followGlobal"), BiasInitializer.FOLLOW_GLOBAL_SETTING);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.one"), BiasInitializer.ONES);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.smallValue"), BiasInitializer.SMALL_VALUE);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.zero"), BiasInitializer.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.one"), BiasInitializer.ONES);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getBiasInitializer());
     }
 

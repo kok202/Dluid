@@ -92,9 +92,9 @@ public class ModelInformationController extends AbstractModelTrainController {
     private void initializeMenuButtonBiasInit(){
         MenuAdapter<BiasInitializer> menuAdapter = new MenuAdapter<>(menuButtonBiasInit);
         menuAdapter.setMenuItemChangedListener(AIFacade::setTrainBiasInitializer);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.one"), BiasInitializer.ONES);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.smallValue"), BiasInitializer.SMALL_VALUE);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.zero"), BiasInitializer.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.smallValue"), BiasInitializer.SMALL_VALUE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.one"), BiasInitializer.ONES);
         menuAdapter.setDefaultMenuItem(AIFacade.getTrainBiasInitializer());
     }
 
