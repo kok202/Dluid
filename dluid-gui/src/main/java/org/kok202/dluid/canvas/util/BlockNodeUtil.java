@@ -62,7 +62,6 @@ public class BlockNodeUtil {
         throw new RuntimeException("Can not find block node Y value");
     }
 
-    // usable?
     public static double getBlockNodeZ(Layer layer){
         if(layer.getProperties().getInputDimension() == 1)
             return CanvasConstant.NODE_DEFAULT_HEIGHT;

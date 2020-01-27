@@ -8,7 +8,6 @@ import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.canvas.block.BlockNode;
-import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
@@ -30,6 +29,7 @@ public abstract class ActivationBlockNode extends BlockNode {
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
         Point2D middleSize = getMiddleSize(topSize, bottomSize);
+        getBlockInfo().setHeight(calcHeight());
 
         Point3D topSkewed = getTopSkewed();
         Point3D bottomSkewed = getBottomSkewed();
@@ -70,6 +70,7 @@ public abstract class ActivationBlockNode extends BlockNode {
         Point3D topSkewed = getTopSkewed();
         Point3D bottomSkewed = getBottomSkewed();
         Point3D middleSkewed = getMiddleSkewed(topSkewed, bottomSkewed);
+        getBlockInfo().setHeight(calcHeight());
 
         BlockHexahedron layerHexahedron = reshapeHexahedron(topSize, topSkewed, middleSize, middleSkewed, getLayerModelHeight(), getLayerBlockPosition(getBlockInfo().getPosition()));
         BlockHexahedron activationHexahedron = reshapeHexahedron(middleSize, middleSkewed, bottomSize, bottomSkewed, getActivationModelHeight(), getActivationBlockPosition(getBlockInfo().getPosition()));
@@ -135,24 +136,6 @@ public abstract class ActivationBlockNode extends BlockNode {
         return getActivationBlockPosition(position.getX(), position.getY(), position.getZ());
     }
 
-    private Point3D getTopSkewed(){
-        if(getBlockInfo().getExtra() == null)
-            return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        return (skewedBlockProperty.getTopSkewed() == null)?
-                new Point3D(0, 0, 0):
-                skewedBlockProperty.getTopSkewed();
-    }
-
-    private Point3D getBottomSkewed(){
-        if(getBlockInfo().getExtra() == null)
-            return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        return (skewedBlockProperty.getBottomSkewed() == null)?
-                new Point3D(0, 0, 0):
-                skewedBlockProperty.getBottomSkewed();
-    }
-
     private Point3D getMiddleSkewed(Point3D topSkewed, Point3D bottomSkewed){
         return new Point3D(
                         bottomSkewed.getX() + (topSkewed.getX() - bottomSkewed.getX()) * CanvasConstant.NODE_ACTIVATION_RATIO,
@@ -166,19 +149,5 @@ public abstract class ActivationBlockNode extends BlockNode {
 
     private Point3D getActivationBlockPosition(double x, double y, double z){
         return new Point3D(x, y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_ACTIVATION_RATIO), z);
-    }
-
-    @Override
-    public Point3D getTopCenterPosition(){
-        return getBlockInfo().getPosition()
-                .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
-                .add(getTopSkewed());
-    }
-
-    @Override
-    public Point3D getBottomCenterPosition(){
-        return getBlockInfo().getPosition()
-                .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
-                .add(getBottomSkewed());
     }
 }

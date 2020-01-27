@@ -58,7 +58,7 @@ class ModelGraphValidator {
             List<GraphNode<BlockNode>> currentOutgoingGraphNodes = currentGraphNode.getOutgoingNodes();
             for (GraphNode<BlockNode> currentOutgoingGraphNode : currentOutgoingGraphNodes) {
                 while(currentOutgoingGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER){
-                    currentOutgoingGraphNode = currentOutgoingGraphNode.getOutgoingNodes().get(0);
+                    currentOutgoingGraphNode = currentOutgoingGraphNode.getOutgoingNode().get();
                 }
                 long destinationInputDimension = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension();
                 long destinationInputVolume = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume();

@@ -10,9 +10,11 @@ import lombok.ToString;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.canvas.entity.ExtraBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.canvas.util.BlockNodeUtil;
 import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.dluid.domain.structure.GraphNode;
 
@@ -141,6 +143,44 @@ public abstract class BlockNode {
         }
     }
 
+    public double calcHeight(){
+        return BlockNodeUtil.getBlockNodeZ(getBlockLayer());
+    }
+
+    public Point3D getPosition(){
+        return getBlockInfo().getPosition();
+    }
+
+    public Point3D getTopSkewed(){
+        if(getBlockInfo().getExtra() == null)
+            return new Point3D(0, 0, 0);
+        ExtraBlockProperty extraBlockProperty = getBlockInfo().getExtra();
+        return (extraBlockProperty.getTopSkewed() == null)?
+                new Point3D(0, 0, 0):
+                extraBlockProperty.getTopSkewed();
+    }
+
+    public Point3D getBottomSkewed(){
+        if(getBlockInfo().getExtra() == null)
+            return new Point3D(0, 0, 0);
+        ExtraBlockProperty extraBlockProperty = getBlockInfo().getExtra();
+        return (extraBlockProperty.getBottomSkewed() == null)?
+                new Point3D(0, 0, 0):
+                extraBlockProperty.getBottomSkewed();
+    }
+
+    public Point3D getTopCenterPosition(){
+        return getBlockInfo().getPosition()
+                .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
+                .add(getTopSkewed());
+    }
+
+    public Point3D getBottomCenterPosition(){
+        return getBlockInfo().getPosition()
+                .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
+                .add(getBottomSkewed());
+    }
+
     public abstract void setHeight(double height);
 
     public abstract void setPosition(double x, double y, double z);
@@ -148,8 +188,4 @@ public abstract class BlockNode {
     protected abstract void createBlockModel(Layer layer);
 
     public abstract void reshapeBlockModel();
-
-    public abstract Point3D getTopCenterPosition();
-
-    public abstract Point3D getBottomCenterPosition();
 }

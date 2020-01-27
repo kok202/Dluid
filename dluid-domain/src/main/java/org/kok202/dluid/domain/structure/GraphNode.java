@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,6 +55,14 @@ public class GraphNode<T> {
                 .collect(toList());
     }
 
+    // This is meaningful when only guaranteed that one block is connected.
+    public Optional<GraphNode<T>> getOutgoingNode(){
+        List<GraphNode<T>> outgoingNodes = getOutgoingNodes();
+        if(outgoingNodes.isEmpty())
+            return Optional.empty();
+        return Optional.of(outgoingNodes.get(0));
+    }
+
     public List<GraphNode<T>> getIncomingNodes(){
         return edges.stream()
                 .filter(graphEdge -> graphEdge.getDestinationGraphNode() == this)
@@ -61,15 +70,23 @@ public class GraphNode<T> {
                 .collect(toList());
     }
 
+    // This is meaningful when only guaranteed that one block is connected.
+    public Optional<GraphNode<T>> getIncomingNode(){
+        List<GraphNode<T>> incomingNodes = getIncomingNodes();
+        if(incomingNodes.isEmpty())
+            return Optional.empty();
+        return Optional.of(incomingNodes.get(0));
+    }
+
     void createEdgeTo(GraphNode<T> to){
-        // TODO : For safe it needs for cycle validation.
+        // NOTICE : For safe it needs for cycle validation.
         GraphEdge<T> newEdge = new GraphEdge<>(this, to);
         this.edges.add(newEdge);
         to.edges.add(newEdge);
     }
 
     void createEdgeFrom(GraphNode<T> from){
-        // TODO : For safe it needs for cycle validation.
+        // NOTICE : For safe it needs for cycle validation.
         GraphEdge<T> newEdge = new GraphEdge<>(from, this);
         this.edges.add(newEdge);
         from.edges.add(newEdge);
@@ -87,7 +104,7 @@ public class GraphNode<T> {
         data = null;
     }
 
-    // TODO : IMPORTANT : if it possible, it must not have cycle
+    // NOTICE : if it possible, it must not have cycle
     public List<GraphNode<T>> getAllLinkedNodes(){
         List<GraphNode<T>> result = new ArrayList<>();
         result.add(this);

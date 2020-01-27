@@ -8,7 +8,6 @@ import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
 import org.kok202.dluid.canvas.block.BlockNode;
-import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
@@ -34,6 +33,7 @@ public abstract class RecurrentBlockNode extends BlockNode {
         Point2D recurrentBottomSize = getRecurrentSize(topSize, bottomSize);
         refreshTopSkewed(topSize, recurrentTopSize);
         refreshBottomSkewed(recurrentBottomSize, bottomSize);
+        getBlockInfo().setHeight(calcHeight());
 
         Point3D topSkewed = getTopSkewed();
         Point3D recurrentTopSkewed = getRecurrentTopSkewed();
@@ -77,6 +77,7 @@ public abstract class RecurrentBlockNode extends BlockNode {
         Point2D recurrentBottomSize = getRecurrentSize(topSize, bottomSize);
         refreshTopSkewed(topSize, recurrentTopSize);
         refreshBottomSkewed(recurrentBottomSize, bottomSize);
+        getBlockInfo().setHeight(calcHeight());
 
         Point3D topSkewed = getTopSkewed();
         Point3D recurrentTopSkewed = getRecurrentTopSkewed();
@@ -101,13 +102,11 @@ public abstract class RecurrentBlockNode extends BlockNode {
     }
 
     private void refreshTopSkewed(Point2D topSize, Point2D recurrentTopSize){
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        skewedBlockProperty.setTopSkewed(new Point3D((topSize.getX() - recurrentTopSize.getX()) / 2, 0, 0));
+        getBlockInfo().getExtra().setTopSkewed(new Point3D((topSize.getX() - recurrentTopSize.getX()) / 2, 0, 0));
     }
 
     private void refreshBottomSkewed(Point2D recurrentBottomSize, Point2D bottomSize){
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        skewedBlockProperty.setBottomSkewed(new Point3D((recurrentBottomSize.getX() - bottomSize.getX()) / 2, 0, 0));
+        getBlockInfo().getExtra().setBottomSkewed(new Point3D((recurrentBottomSize.getX() - bottomSize.getX()) / 2, 0, 0));
     }
 
     @Override
@@ -168,24 +167,6 @@ public abstract class RecurrentBlockNode extends BlockNode {
                 Math.max(topSize.getY(), bottomSize.getY()));
     }
 
-    private Point3D getTopSkewed(){
-        if(getBlockInfo().getExtra() == null)
-            return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        return (skewedBlockProperty.getTopSkewed() == null)?
-                new Point3D(0, 0, 0):
-                skewedBlockProperty.getTopSkewed();
-    }
-
-    private Point3D getBottomSkewed(){
-        if(getBlockInfo().getExtra() == null)
-            return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        return (skewedBlockProperty.getBottomSkewed() == null)?
-                new Point3D(0, 0, 0):
-                skewedBlockProperty.getBottomSkewed();
-    }
-
     private Point3D getRecurrentTopSkewed(){
         return new Point3D(0, 0, 0);
     }
@@ -204,19 +185,5 @@ public abstract class RecurrentBlockNode extends BlockNode {
 
     private Point3D getOutputBlockPosition(double x, double y, double z){
         return new Point3D(x, y + getBlockInfo().getHeight() / 2 * (1 - CanvasConstant.NODE_RECURRENT_SKEWED_RATIO), z);
-    }
-
-    @Override
-    public Point3D getTopCenterPosition(){
-        return getBlockInfo().getPosition()
-                .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
-                .add(getTopSkewed());
-    }
-
-    @Override
-    public Point3D getBottomCenterPosition(){
-        return getBlockInfo().getPosition()
-                .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
-                .add(getBottomSkewed());
     }
 }

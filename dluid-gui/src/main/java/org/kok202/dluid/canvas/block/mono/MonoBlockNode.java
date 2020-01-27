@@ -5,7 +5,6 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.canvas.block.BlockNode;
-import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
@@ -22,6 +21,7 @@ public abstract class MonoBlockNode extends BlockNode {
     protected final void createBlockModel(Layer layer){
         Point2D topSize = BlockNodeUtil.getBlockNodeTopXY(layer);
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
+        getBlockInfo().setHeight(calcHeight());
 
         Point3D topSkewed = getTopSkewed();
         Point3D bottomSkewed = getBottomSkewed();
@@ -59,6 +59,7 @@ public abstract class MonoBlockNode extends BlockNode {
         Point2D bottomSize = BlockNodeUtil.getBlockNodeBottomXY(layer);
         Point3D topSkewed = getTopSkewed();
         Point3D bottomSkewed = getBottomSkewed();
+        getBlockInfo().setHeight(calcHeight());
 
         BlockHexahedron layerHexahedron = reshapeHexahedron(
                 topSize, topSkewed,
@@ -86,37 +87,5 @@ public abstract class MonoBlockNode extends BlockNode {
     public void setPosition(double x, double y, double z){
         getBlockHexahedronList().forEach(blockHexahedron -> blockHexahedron.setPosition(x,y,z));
         getBlockInfo().setPosition(x, y, z);
-    }
-
-    private Point3D getTopSkewed(){
-        if(getBlockInfo().getExtra() == null)
-            return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        return (skewedBlockProperty.getTopSkewed() == null)?
-                new Point3D(0, 0, 0):
-                skewedBlockProperty.getTopSkewed();
-    }
-
-    private Point3D getBottomSkewed(){
-        if(getBlockInfo().getExtra() == null)
-            return new Point3D(0, 0, 0);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) getBlockInfo().getExtra();
-        return (skewedBlockProperty.getBottomSkewed() == null)?
-                new Point3D(0, 0, 0):
-                skewedBlockProperty.getBottomSkewed();
-    }
-
-    @Override
-    public Point3D getTopCenterPosition(){
-        return getBlockInfo().getPosition()
-                .add(new Point3D(0, -getBlockInfo().getHeight() / 2, 0))
-                .add(getTopSkewed());
-    }
-
-    @Override
-    public Point3D getBottomCenterPosition(){
-        return getBlockInfo().getPosition()
-                .add(new Point3D(0, getBlockInfo().getHeight() / 2, 0))
-                .add(getBottomSkewed());
     }
 }
