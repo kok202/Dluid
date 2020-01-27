@@ -39,7 +39,7 @@ public class ModelTestFeatureController extends AbstractModelTestController {
         modelTestFeatureTableController.createView();
 
         accordion.getPanes().add(modelTestFeatureFileLoaderController.getTitledPane());
-        accordion.getPanes().add(modelTestFeatureRandomGeneratorController.getTitledPane());
+//        accordion.getPanes().add(modelTestFeatureRandomGeneratorController.getTitledPane()); // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
         container.getChildren().add(modelTestFeatureTableController.getTitledPane());
     }
 }
