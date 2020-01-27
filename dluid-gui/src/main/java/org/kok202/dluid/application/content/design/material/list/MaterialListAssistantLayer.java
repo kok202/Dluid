@@ -19,7 +19,7 @@ public class MaterialListAssistantLayer extends AbstractMaterialList {
 
     @Override
     public AnchorPane createView() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/material/list/layer_assistant_list.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/material/material_list.fxml"));
         fxmlLoader.setController(this);
         return fxmlLoader.load();
     }

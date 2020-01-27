@@ -2,9 +2,7 @@ package org.kok202.dluid.ai.entity;
 
 import lombok.Data;
 import org.deeplearning4j.nn.conf.layers.PoolingType;
-import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
+import org.kok202.dluid.ai.entity.enumerator.*;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
 
 import java.util.Arrays;
@@ -15,8 +13,9 @@ public class LayerProperties {
     // In usual case dimension is not changed. But when you use reshape or switch layer, it can be changed.
     private int[] inputSize;
     private int[] outputSize;
-    private int inputDimension;
-    private int outputDimension;
+    private Dimension inputDimension;
+    private Dimension outputDimension;
+    private BiasInitializer biasInitializer;
     private WeightInitializer weightInitializer;
     private ActivationWrapper activationFunction;
     private double dropout;
@@ -31,8 +30,6 @@ public class LayerProperties {
 
     // for pooling layer
     private PoolingType poolingType;
-
-    private boolean channelExist;
 
     public int getInputVolume(){
         int product = 1;
@@ -77,11 +74,11 @@ public class LayerProperties {
     }
 
     public int getInputSizeY(){
-        return (inputDimension >= 2)? inputSize[1] : 1;
+        return (inputDimension.getDimension() >= 2)? inputSize[1] : 1;
     }
 
     public int getInputSizeZ(){
-        return (inputDimension >= 3)? inputSize[2] : 1;
+        return (inputDimension.getDimension() >= 3)? inputSize[2] : 1;
     }
 
     public int getOutputSizeX(){
@@ -89,32 +86,32 @@ public class LayerProperties {
     }
 
     public int getOutputSizeY(){
-        return (outputDimension >= 2)? outputSize[1] : 1;
+        return (outputDimension.getDimension() >= 2)? outputSize[1] : 1;
     }
 
     public int getOutputSizeZ(){
-        return (outputDimension >= 3)? outputSize[2] : 1;
+        return (outputDimension.getDimension() >= 3)? outputSize[2] : 1;
     }
 
-    public void setInputDimension(int inputDimension) {
+    public void setInputDimension(Dimension inputDimension) {
         this.inputDimension = inputDimension;
-        while(inputDimension > inputSize.length) {
+        while(inputDimension.getDimension() > inputSize.length) {
             inputSize = append(inputSize, 1);
         }
     }
 
-    public void setOutputDimension(int outputDimension) {
+    public void setOutputDimension(Dimension outputDimension) {
         this.outputDimension = outputDimension;
-        while(outputDimension > outputSize.length) {
+        while(outputDimension.getDimension() > outputSize.length) {
             outputSize = append(outputSize, 1);
         }
     }
 
     LayerProperties(LayerType layerType) {
         weightInitializer = WeightInitializer.FOLLOW_GLOBAL_SETTING;
-        activationFunction = ActivationWrapper.IDENTITY;
+        activationFunction = (layerType != LayerType.RNN_OUTPUT_LAYER)? ActivationWrapper.IDENTITY : ActivationWrapper.SOFTMAX;
         dropout = 0;
-        lossFunction = LossFunction.MSE;
+        lossFunction = (layerType != LayerType.RNN_OUTPUT_LAYER)? LossFunction.MSE : LossFunction.MCXENT;
         poolingType = PoolingType.MAX;
 
         switch (layerType){
@@ -126,16 +123,17 @@ public class LayerProperties {
             case BATCH_NORMALIZATION:
                 inputSize = new int[]{10};
                 outputSize = new int[]{10};
-                inputDimension = 1;
-                outputDimension = 1;
-                channelExist = false;
+                inputDimension = Dimension.ONE_DIMENSION;
+                outputDimension = Dimension.ONE_DIMENSION;
                 break;
+            case BASE_RECURRENT_LAYER:
+            case RNN_OUTPUT_LAYER:
+            case LSTM:
             case PIPE_LAYER:
                 inputSize = new int[]{10, 1};
                 outputSize = new int[]{10, 1};
-                inputDimension = 2;
-                outputDimension = 2;
-                channelExist = false;
+                inputDimension = Dimension.TWO_DIMENSION;
+                outputDimension = Dimension.TWO_DIMENSION;
                 break;
             case CONVOLUTION_1D_LAYER:
             case POOLING_1D:
@@ -144,9 +142,8 @@ public class LayerProperties {
                 kernelSize = new int[]{1};
                 strideSize = new int[]{1};
                 paddingSize = new int[]{0};
-                inputDimension = 2;
-                outputDimension = 2;
-                channelExist = true;
+                inputDimension = Dimension.TWO_DIMENSION_WITH_CHANNEL;
+                outputDimension = Dimension.TWO_DIMENSION_WITH_CHANNEL;
                 break;
             case CONVOLUTION_2D_LAYER:
             case DECONVOLUTION_2D_LAYER:
@@ -156,14 +153,12 @@ public class LayerProperties {
                 kernelSize = new int[]{1, 1};
                 strideSize = new int[]{1, 1};
                 paddingSize = new int[]{0, 0};
-                inputDimension = 3;
-                outputDimension = 3;
-                channelExist = true;
+                inputDimension = Dimension.THREE_DIMENSION_WITH_CHANNEL;
+                outputDimension = Dimension.THREE_DIMENSION_WITH_CHANNEL;
                 break;
             case MERGE_LAYER:
                 inputSize = new int[]{1, 1, 1};
                 outputSize = new int[]{1, 1, 1};
-                channelExist = false;
                 break;
         }
     }

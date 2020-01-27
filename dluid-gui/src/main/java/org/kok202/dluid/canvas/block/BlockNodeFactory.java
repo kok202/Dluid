@@ -3,6 +3,9 @@ package org.kok202.dluid.canvas.block;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.canvas.block.activation.*;
 import org.kok202.dluid.canvas.block.mono.*;
+import org.kok202.dluid.canvas.block.recurrent.LSTMBlockNode;
+import org.kok202.dluid.canvas.block.recurrent.RNNBlockNode;
+import org.kok202.dluid.canvas.block.recurrent.RNNOutputBlockNode;
 
 public class BlockNodeFactory {
     public static BlockNode create(Layer layer){
@@ -19,6 +22,8 @@ public class BlockNodeFactory {
                 return new InputBlockNode(layer);
             case OUTPUT_LAYER:
                 return new OutputBlockNode(layer);
+            case RNN_OUTPUT_LAYER:
+                return new RNNOutputBlockNode(layer);
             case PIPE_LAYER:
                 return new PipeBlockNode(layer);
             case MERGE_LAYER:
@@ -33,6 +38,10 @@ public class BlockNodeFactory {
                 return new Pooling2DBlockNode(layer);
             case BATCH_NORMALIZATION:
                 return new BatchNormalizationBlockNode(layer);
+            case BASE_RECURRENT_LAYER:
+                return new RNNBlockNode(layer);
+            case LSTM:
+                return new LSTMBlockNode(layer);
         }
         return null;
     }

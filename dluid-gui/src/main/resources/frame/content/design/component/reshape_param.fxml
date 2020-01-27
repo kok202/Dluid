@@ -32,7 +32,7 @@
 
                                         <AnchorPane fx:id="anchorPaneInputLabel1D" GridPane.columnIndex="1" GridPane.rowIndex="0" visible="false" >
                                             <children>
-                                                <Label fx:id="labelInput1DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                <Label fx:id="labelInput1DX" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="anchorPaneInputLabel2D" GridPane.columnIndex="1" GridPane.rowIndex="0" visible="false" >
@@ -47,12 +47,12 @@
                                                 <children>
                                                     <AnchorPane >
                                                         <children>
-                                                            <Label fx:id="labelInput2DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelInput2DX" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                     <AnchorPane GridPane.columnIndex="1">
                                                         <children>
-                                                            <Label fx:id="labelInput2DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelInput2DY" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                 </children>
@@ -71,17 +71,17 @@
                                                 <children>
                                                     <AnchorPane >
                                                         <children>
-                                                            <Label fx:id="labelInput3DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelInput3DX" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                     <AnchorPane GridPane.columnIndex="1">
                                                         <children>
-                                                            <Label fx:id="labelInput3DHeight" text="Height" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelInput3DY" text="Height" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                     <AnchorPane GridPane.columnIndex="2">
                                                         <children>
-                                                            <Label fx:id="labelInput3DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelInput3DZ" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                 </children>
@@ -166,7 +166,7 @@
 
                                         <AnchorPane fx:id="anchorPaneOutputLabel1D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="false" >
                                             <children>
-                                                <Label fx:id="labelOutput1DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                <Label fx:id="labelOutput1DX" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="anchorPaneOutputLabel2D" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="false" >
@@ -181,12 +181,12 @@
                                                 <children>
                                                     <AnchorPane >
                                                         <children>
-                                                            <Label fx:id="labelOutput2DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelOutput2DX" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                     <AnchorPane GridPane.columnIndex="1">
                                                         <children>
-                                                            <Label fx:id="labelOutput2DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelOutput2DY" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                 </children>
@@ -205,17 +205,17 @@
                                                 <children>
                                                     <AnchorPane >
                                                         <children>
-                                                            <Label fx:id="labelOutput3DWidth" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelOutput3DX" text="Width" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                     <AnchorPane GridPane.columnIndex="1">
                                                         <children>
-                                                            <Label fx:id="labelOutput3DHeight" text="Height" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelOutput3DY" text="Height" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                     <AnchorPane GridPane.columnIndex="2">
                                                         <children>
-                                                            <Label fx:id="labelOutput3DChannel" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                                            <Label fx:id="labelOutput3DZ" text="Channel" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                                         </children>
                                                     </AnchorPane>
                                                 </children>

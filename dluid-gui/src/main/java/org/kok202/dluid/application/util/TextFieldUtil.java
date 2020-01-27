@@ -2,6 +2,7 @@ package org.kok202.dluid.application.util;
 
 
 import javafx.scene.control.TextField;
+import org.nd4j.linalg.io.StringUtils;
 
 public class TextFieldUtil {
     public static void applyPositiveWithZeroIntegerFilter(TextField textField, int defaultValue){
@@ -44,29 +45,35 @@ public class TextFieldUtil {
 
     public static int parseInteger(TextField textField){
         String targetText = textField.getText();
+        if(StringUtils.isEmpty(targetText))
+            return 0;
         return Integer.parseInt(targetText);
     }
 
     public static long parseLong(TextField textField){
         String targetText = textField.getText();
+        if(StringUtils.isEmpty(targetText))
+            return 0;
         return Long.parseLong(targetText);
     }
 
     public static double parseDouble(TextField textField){
         String targetText = textField.getText();
+        if(StringUtils.isEmpty(targetText))
+            return 0;
         return Double.parseDouble(targetText);
     }
 
     public static int parseInteger(TextField textField, int defaultValue){
         String targetText = textField.getText();
-        if(!validatePositiveInteger(targetText))
+        if(StringUtils.isEmpty(targetText) || !validatePositiveInteger(targetText))
             return defaultValue;
         return Integer.parseInt(targetText);
     }
 
     public static double parseDouble(TextField textField, double defaultValue){
         String targetText = textField.getText();
-        if(!validateDouble(targetText))
+        if(StringUtils.isEmpty(targetText) || !validateDouble(targetText))
             return defaultValue;
         return Double.parseDouble(targetText);
     }

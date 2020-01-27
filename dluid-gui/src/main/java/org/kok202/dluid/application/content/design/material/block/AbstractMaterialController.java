@@ -45,6 +45,9 @@ public abstract class AbstractMaterialController extends AbstractController {
             case OUTPUT_LAYER:
                 itself.getStyleClass().add("layer-block-image-output");
                 break;
+            case RNN_OUTPUT_LAYER:
+                itself.getStyleClass().add("layer-block-image-rnn-output");
+                break;
             case PIPE_LAYER:
                 itself.getStyleClass().add("layer-block-image-pipe");
                 break;
@@ -65,6 +68,12 @@ public abstract class AbstractMaterialController extends AbstractController {
                 break;
             case BATCH_NORMALIZATION:
                 itself.getStyleClass().add("layer-block-image-batch-normalization");
+                break;
+            case BASE_RECURRENT_LAYER:
+                itself.getStyleClass().add("layer-block-image-rnn");
+                break;
+            case LSTM:
+                itself.getStyleClass().add("layer-block-image-lstm");
                 break;
             default:
                 itself.getStyleClass().add("layer-block-image-fcnn");

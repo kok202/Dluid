@@ -17,12 +17,12 @@ public class ReshapeLayerGenerator extends AbstractLayerGenerator {
     @Override
     public void generate(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
         int[] newShape;
-        if(layer.getProperties().getOutputDimension() == 1){
+        if(layer.getProperties().getOutputDimension().getDimension() == 1){
             newShape = new int[]{
                     -1,
                     layer.getProperties().getOutputSizeX()};
         }
-        else if(layer.getProperties().getOutputDimension() == 2){
+        else if(layer.getProperties().getOutputDimension().getDimension() == 2){
             newShape = new int[]{
                     -1,
                     layer.getProperties().getOutputSizeY(),

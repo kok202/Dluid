@@ -25,4 +25,9 @@ public class PipeBlockNode extends MonoBlockNode {
     public boolean isPossibleToAppendBackByConnection() {
         return false;
     }
+
+    @Override
+    public double calcHeight(){
+        return getBlockInfo().getHeight();
+    }
 }

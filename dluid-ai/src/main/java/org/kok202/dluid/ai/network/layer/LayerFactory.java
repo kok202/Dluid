@@ -23,6 +23,7 @@ public class LayerFactory {
         baseLayerBuilders.add(new Pooling1DLayerBuilder());
         baseLayerBuilders.add(new Pooling2DLayerBuilder());
         baseLayerBuilders.add(new BatchNormalizationLayerBuilder());
+        baseLayerBuilders.add(new RNNOutputLayerBuilder());
     }
 
     public static org.deeplearning4j.nn.conf.layers.Layer create(Layer layer){

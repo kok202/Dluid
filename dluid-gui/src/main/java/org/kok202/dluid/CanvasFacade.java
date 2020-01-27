@@ -78,7 +78,7 @@ public class CanvasFacade {
                 .stream()
                 .map(incomingGraphNode -> {
                     if(incomingGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER)
-                        return incomingGraphNode.getIncomingNodes().get(0).getData().getBlockLayer();
+                        return incomingGraphNode.getIncomingNode().get().getData().getBlockLayer();
                     return incomingGraphNode.getData().getBlockLayer();
                 })
                 .collect(Collectors.toList());

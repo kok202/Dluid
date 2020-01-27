@@ -7,6 +7,7 @@ import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.kok202.dluid.ai.network.layer.LayerBinder;
 import org.kok202.dluid.ai.singleton.AISingleton;
+import org.kok202.dluid.ai.util.BiasInitUtil;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 import java.util.*;
@@ -56,6 +57,7 @@ public class ModelConverter {
         NeuralNetConfiguration.Builder builder = new NeuralNetConfiguration.Builder();
         builder.seed(AISingleton.getInstance().getModelManager().getModelParameter().getSeed());
         builder.updater(AISingleton.getInstance().getModelManager().getModelParameter().getIUpdater());
+        BiasInitUtil.applyBiasInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getBiasInitializer());
         WeightInitWrapperUtil.applyWeightInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer());
         builder.miniBatch(false);
         return builder.graphBuilder();

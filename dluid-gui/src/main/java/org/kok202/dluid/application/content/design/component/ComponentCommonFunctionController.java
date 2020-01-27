@@ -6,19 +6,24 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
+import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
 import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 
+@Getter
 public class ComponentCommonFunctionController extends AbstractLayerComponentController {
 
     @FXML private Label labelWeightInitializer;
+    @FXML private Label labelBiasInitializer;
     @FXML private Label labelActivationFunction;
     @FXML private Label labelDropout;
 
     @FXML private MenuButton menuButtonWeightInit;
+    @FXML private MenuButton menuButtonBiasInit;
     @FXML private MenuButton menuButtonActivationFunction;
     @FXML private Slider sliderDropout;
 
@@ -36,32 +41,47 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
     @Override
     protected void initialize() throws Exception {
         initializeMenuButtonWeightInit();
+        initializeMenuButtonBiasInit();
         initializeMenuButtonActivationFunction();
         initializeSliderDropout();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.title"));
-        labelWeightInitializer.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.Initializer"));
+        labelWeightInitializer.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.weightInitializer"));
+        labelBiasInitializer.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.biasInitializer"));
         labelActivationFunction.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.activationFunction"));
         labelDropout.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.function.dropOut"));
     }
 
-    private void initializeMenuButtonWeightInit(){
+    protected void initializeMenuButtonWeightInit(){
         MenuAdapter<WeightInitializer> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
         menuAdapter.setMenuItemChangedListener(weightInit -> {
             layer.getProperties().setWeightInitializer(weightInit);
             notifyLayerDataChanged();
         });
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.followGlobal"), WeightInitializer.FOLLOW_GLOBAL_SETTING);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.one"), WeightInitializer.ONES);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.zero"), WeightInitializer.ZERO);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.xavier"), WeightInitializer.XAVIER);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.uniform"), WeightInitializer.UNIFORM);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.normal"), WeightInitializer.NORMAL);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionZeroToOne"), WeightInitializer.DISTRIBUTION_ZERO_TO_ONE);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.initializer.distributionPlusMinusOne"), WeightInitializer.DISTRIBUTION_PLUS_MINUS_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.followGlobal"), WeightInitializer.FOLLOW_GLOBAL_SETTING);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.one"), WeightInitializer.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.zero"), WeightInitializer.ZERO);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.xavier"), WeightInitializer.XAVIER);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.uniform"), WeightInitializer.UNIFORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.normal"), WeightInitializer.NORMAL);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.distributionZeroToOne"), WeightInitializer.DISTRIBUTION_ZERO_TO_ONE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.distributionPlusMinusOne"), WeightInitializer.DISTRIBUTION_PLUS_MINUS_ONE);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getWeightInitializer());
     }
 
-    private void initializeMenuButtonActivationFunction(){
+    protected void initializeMenuButtonBiasInit(){
+        MenuAdapter<BiasInitializer> menuAdapter = new MenuAdapter<>(menuButtonBiasInit);
+        menuAdapter.setMenuItemChangedListener(biasInitializer -> {
+            layer.getProperties().setBiasInitializer(biasInitializer);
+            notifyLayerDataChanged();
+        });
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.followGlobal"), BiasInitializer.FOLLOW_GLOBAL_SETTING);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.one"), BiasInitializer.ONES);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.smallValue"), BiasInitializer.SMALL_VALUE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.zero"), BiasInitializer.ZERO);
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getBiasInitializer());
+    }
+
+    protected void initializeMenuButtonActivationFunction(){
         MenuAdapter<ActivationWrapper> menuAdapter = new MenuAdapter<>(menuButtonActivationFunction);
         menuAdapter.setMenuItemChangedListener(activation -> {
             layer.getProperties().setActivationFunction(activation);
@@ -76,7 +96,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         menuAdapter.setDefaultMenuItem(layer.getProperties().getActivationFunction());
     }
 
-    private void initializeSliderDropout(){
+    protected void initializeSliderDropout(){
         sliderDropout.setValue(layer.getProperties().getDropout());
         sliderDropout.valueProperty().addListener((observable, oldValue, newValue) -> {
             double inputRetainProbability = newValue.doubleValue();

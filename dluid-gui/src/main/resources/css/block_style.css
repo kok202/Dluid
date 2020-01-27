@@ -24,6 +24,36 @@
 	-fx-text-fill: white;
 }
 
+.layer-block-image-1d-decnn {
+    -fx-background-image: url("../images/block_1d_decnn.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-2d-decnn {
+    -fx-background-image: url("../images/block_2d_decnn.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-rnn {
+    -fx-background-image: url("../images/block_rnn.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-lstm {
+    -fx-background-image: url("../images/block_lstm.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
+.layer-block-image-rnn-output {
+    -fx-background-image: url("../images/block_rnn_output.png");
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: white;
+}
+
 .layer-block-image-input {
     -fx-background-image: url("../images/block_input.png");
     -fx-background-repeat: no-repeat;

@@ -4,6 +4,7 @@ import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.BiasInitUtil;
 import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
 
 public class DenseLayerBuilder extends AbstractLayerBuilder {
@@ -29,6 +30,8 @@ public class DenseLayerBuilder extends AbstractLayerBuilder {
             denseLayerBuilder.nIn(layer.getProperties().getInputVolume());
         if(layer.getProperties().getOutputSize() != null)
             denseLayerBuilder.nOut(layer.getProperties().getOutputVolume());
+        if(layer.getProperties().getBiasInitializer() != null)
+            BiasInitUtil.applyBiasInit(denseLayerBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
             WeightInitWrapperUtil.applyWeightInit(denseLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)

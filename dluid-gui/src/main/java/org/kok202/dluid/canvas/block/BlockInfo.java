@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.kok202.dluid.CanvasConstant;
 import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.entity.ExtraBlockProperty;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
-import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class BlockInfo {
     protected Point3D position;
     protected List<Map<BlockFace, String>> textureSourceMapList;
     protected List<Map<BlockFace, Color>> colorMapList;
-    protected Object extra;
+    protected ExtraBlockProperty extra;
 
     public BlockInfo(Layer layer, int blockHexahedronNumber) {
         this.id = "BLOCK : " + layer.getId();
@@ -46,7 +46,7 @@ public class BlockInfo {
                 extra = new ReshapeBlockProperty();
                 break;
             default:
-                extra = new SkewedBlockProperty();
+                extra = new ExtraBlockProperty();
                 break;
         }
     }

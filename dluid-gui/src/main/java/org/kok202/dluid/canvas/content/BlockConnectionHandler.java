@@ -13,7 +13,7 @@ import org.kok202.dluid.ai.entity.LayerFactory;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
-import org.kok202.dluid.canvas.entity.SkewedBlockProperty;
+import org.kok202.dluid.canvas.entity.ExtraBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.HexahedronFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
@@ -88,7 +88,8 @@ public class BlockConnectionHandler {
                 else {
                     throw new BlockConnectionImpossibleException();
                 }
-                CanvasSingleton.getInstance().getBlockNodeManager().reshapeAllBlockByType();
+                CanvasSingleton.getInstance().getBlockNodeManager().reshapeAllBlock();
+                CanvasSingleton.getInstance().getBlockNodeManager().replaceAllBlock();
             }
             releaseConnectionProcess();
         }
@@ -116,9 +117,9 @@ public class BlockConnectionHandler {
                 BlockNodeUtil.getBlockNodeInputY(destinationBlockNode.getBlockLayer()));
 
         BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
-        SkewedBlockProperty skewedBlockProperty = (SkewedBlockProperty) pipeBlockNode.getBlockInfo().getExtra();
-        skewedBlockProperty.setTopSkewed(topSkewed);
-        skewedBlockProperty.setBottomSkewed(bottomSkewed);
+        ExtraBlockProperty extraBlockProperty = pipeBlockNode.getBlockInfo().getExtra();
+        extraBlockProperty.setTopSkewed(topSkewed);
+        extraBlockProperty.setBottomSkewed(bottomSkewed);
         pipeBlockNode.setHeight(height);
         pipeBlockNode.addedToScene(sceneRoot, position);
         pipeBlockNode.reshapeBlockModel();

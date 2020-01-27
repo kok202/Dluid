@@ -3,7 +3,7 @@ package org.kok202.dluid.canvas.entity;
 import lombok.Data;
 
 @Data
-public class ReshapeBlockProperty extends SkewedBlockProperty{
+public class ReshapeBlockProperty extends ExtraBlockProperty {
     private int pointingIndex;
 
     public int getPointingIndex(int excludeMaxSize){
