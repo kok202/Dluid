@@ -64,7 +64,7 @@ public class ComponentManager {
                 break;
             case RNN_OUTPUT_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
-                componentList.add(new ComponentRecurrentFunctionController(layer));
+                componentList.add(new ComponentCommonFunctionController(layer));
                 componentList.add(new ComponentRecurrentOutputParamController(layer));
                 break;
             case MERGE_LAYER:

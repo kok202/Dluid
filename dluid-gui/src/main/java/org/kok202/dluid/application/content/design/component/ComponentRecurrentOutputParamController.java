@@ -56,10 +56,10 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
 
     protected void setTextFieldByLayerProperties(){
         detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX, textFieldOutputSizeY);
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputVolume()));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputVolume()));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputVolume()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputVolume()));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
         attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX, textFieldOutputSizeY);
     }
 
@@ -69,6 +69,10 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
             layer.getProperties().setLossFunction(lossFunction);
             notifyLayerDataChanged();
         });
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mse"), LossFunctions.LossFunction.MSE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l1"), LossFunctions.LossFunction.L1);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l2"), LossFunctions.LossFunction.L2);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.klDivergence"), LossFunctions.LossFunction.KL_DIVERGENCE);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mcxent"), LossFunctions.LossFunction.MCXENT);
 
         layer.getProperties().setLossFunction(LossFunctions.LossFunction.MSE);

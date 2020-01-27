@@ -48,7 +48,7 @@
 	-fx-text-fill: white;
 }
 
-.layer-block-image-output {
+.layer-block-image-rnn-output {
     -fx-background-image: url("../images/block_rnn_output.png");
     -fx-background-repeat: no-repeat;
 	-fx-text-fill: white;
