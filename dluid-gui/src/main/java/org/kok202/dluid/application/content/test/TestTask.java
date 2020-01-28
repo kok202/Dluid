@@ -26,10 +26,8 @@ public class TestTask extends Task<TestProgressContainer> {
         ModelStateManager.validateTestPossible();
         updateValue(new TestProgressContainer("Check test possible. [Successful]"));
         updateValue(new TestProgressContainer("Test start."));
-        AppFacade.setTrainingButtonDisable(true);
         NumericRecordSet resultNumericRecordSet = AIFacade.testModel(AppFacade.getTestInputLayerId(), AppFacade.getTestTargetResultLayerId());
         AIFacade.getTestResultSet().setNumericRecordSet(resultNumericRecordSet);
-        AppFacade.setTrainingButtonDisable(false);
         return null;
     }
 
