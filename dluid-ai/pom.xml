@@ -5,7 +5,7 @@
     <parent>
         <artifactId>dluid</artifactId>
         <groupId>org.kok202.dluid</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>dluid-ai</artifactId>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.kok202.dluid</groupId>
             <artifactId>dluid-domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 

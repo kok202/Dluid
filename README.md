@@ -4,9 +4,9 @@ DLUID (Deep Learning User Interface Design)
 Dluid is a learning application for non-specialists in the computer programming but who want to study deep learning.  
 
 - No complex package installation required.
-- Do not require programming knowledge.
-- Create and practice a simple sequence model.
-- Use relatively familiar Excel data, or at least csv data.
+- No require programming knowledge.
+- Easy create a simple sequence model and test it.
+- You can use excel or csv data set.
 
 ## Demonstration
 #### Iris problem
