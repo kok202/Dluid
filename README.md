@@ -9,8 +9,15 @@ Dluid is a learning application for non-specialists in the computer programming 
 - You can use excel or csv data set.
 
 ## Demonstration
-#### Iris problem
-![iris_problem](document/resources/iris_problem_50.gif)
+<details open markdown="1">  
+<summary>Iris problem</summary>  
+<img src="./document/resources/iris_problem_100.gif">
+</details>  
+  
+<details markdown="1">  
+<summary>Mnist problem</summary>  
+<img src="./document/resources/mnist_problem_50.gif">
+</details>
 
 ## Motivation
 Many people compare the process of making models using deep learning to Lego.
@@ -41,8 +48,15 @@ We need to at least get out of this fantasy.
 So I wanted to make a GUI tool that can make learn deep learning easily.
 DLUID is a learning tool that provides a simple hands-on experience for these people.
 
+For someone who want to study deep learning. try this application with below recommend lecture.  
+[Lecture 1 (English)](https://www.youtube.com/watch?v=SKq-pmkekTk&list=PLlMkM4tgfjnJ3I-dbhO9JTw7gNty6o_2m&index=2&t=0s)  
+[Lecture 2 (Korean)](https://www.youtube.com/watch?v=BS6O0zOGX4E&list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm)
+
 ## Version
-- v0.1.0 (2020.02.01)
+#### v0.1.0 (2020.02.01)  
+- [Download executable file](https://github.com/kok202/Dluid/releases/download/v0.1.0/Executable.file.zip) 
+- [Download sample data set](https://github.com/kok202/Dluid/releases/download/v0.1.0/Sample.data.set.zip)
+- Main feature
   - Support layer
     - Input
     - Output
@@ -61,14 +75,15 @@ DLUID is a learning tool that provides a simple hands-on experience for these pe
     - Excel, csv data load
     - Visualize learning curve
     - Confirm test data set
-    - Confirm test result and export it
+    - Confirm test result and export it  
   
 ## Comment
 - Block double click : connection start  
 - You can download simple dataset in this repository. (./document/dataset)
 
 ## TODO 
-- Save and load model
-- Training RNN (bug(?))
+- Check training RNN correctly. (bug(?)).
+- Save and load model.
+- Save model as python or dl4j code.
 - Develop merge and switch layer. Goal : create several model and train them while finding interaction. 
 - Extend project to application that can make MNIST VAE or GAN.
