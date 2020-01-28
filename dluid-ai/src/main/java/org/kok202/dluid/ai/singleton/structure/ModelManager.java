@@ -68,7 +68,7 @@ public class ModelManager {
         // Train it alternately.
         final int epochSize = modelParameter.getEpoch();
         for(int epoch = 0; epoch < epochSize; epoch++){
-            trainedEpoch = epoch;
+            trainedEpoch = epoch + 1;
             // Reset data set iterator.
             dataSetIteratorMap.entrySet()
                     .parallelStream()

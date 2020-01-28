@@ -55,12 +55,12 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
     }
 
     protected void setTextFieldByLayerProperties(){
-        detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX, textFieldOutputSizeY);
+        detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeY);
         textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
         textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
-        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX, textFieldOutputSizeY);
+        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeY);
     }
 
     private void initializeMenuButtonLossFunction(){
@@ -89,6 +89,7 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
     private void changeInputSize(){
         int x = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
         int y = TextFieldUtil.parseInteger(textFieldInputSizeY, 1);
+        textFieldOutputSizeX.setText(textFieldInputSizeX.getText());
         layer.getProperties().setInputSize(x, y);
     }
 

@@ -65,7 +65,7 @@ public enum LayerType {
         return this == PIPE_LAYER || this == SWITCH_LAYER;
     }
 
-    public boolean isRecurrentLayerType() { return this == BASE_RECURRENT_LAYER || this == LSTM; }
+    public boolean isInclinedLayerType() { return false; }
 
     public boolean isSubSamplingLayerType() {
         return this == POOLING_1D || this == POOLING_2D;
