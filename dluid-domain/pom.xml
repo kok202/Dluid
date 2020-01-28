@@ -15,7 +15,7 @@
         <jackson.version>2.9.8</jackson.version>
         <poi.version>4.1.0</poi.version>
         <poi-ooxml.version>4.1.0</poi-ooxml.version>
-        <common-compress.version>1.18</common-compress.version>
+        <common-compress.version>1.19</common-compress.version>
         <opencsv.version>4.6</opencsv.version>
         <math3.version>3.6.1</math3.version>
         <junit.version>4.11</junit.version>
