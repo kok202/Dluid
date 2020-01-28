@@ -9,10 +9,15 @@ Dluid is a learning application for non-specialists in the computer programming 
 - You can use excel or csv data set.
 
 ## Demonstration
-#### Iris problem
-![iris_problem](./document/resources/iris_problem_100.gif)
-#### Mnist problem
+<details open markdown="1">  
+<summary>Iris problem</summary>  
+![iris_problem](./document/resources/iris_problem_100.gif)   
+</details>  
+  
+<details markdown="1">  
+<summary>Mnist problem</summary>  
 ![Mnist_problem](./document/resources/mnist_problem_50.gif)
+</details>
 
 ## Motivation
 Many people compare the process of making models using deep learning to Lego.
