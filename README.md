@@ -5,7 +5,7 @@ Dluid is a learning application for non-specialists in the computer programming 
 
 - No complex package installation required.
 - No require programming knowledge.
-- Easy create a simple sequence model and test it.
+- Easy create a sequence model and test it.
 - You can use excel or csv data set.
 
 ## Demonstration
@@ -26,27 +26,28 @@ But why don't we have tools like Lego for deep learning?
 Let me give you an example.
 There is a business student 'Raynor' who wants to study deep learning because it's so hot.
 He wants to know how deep learning can be used in future management issues.
-Full of enthusiasm, he took a video lesson on deep learning. 
+Full of enthusiasm, he took a lecture about deep learning. 
 Now, it's time to practice.
-Unfortunately, he has no experience about programming languages.
-Will student he complete the deep learning exercise safely?
+But unfortunately, he doesn't have experience about programming languages.
+Can this student complete the studying about deep learning safely?
 
 As you know, generally when you study deep learning, it has same mean that studying tensorflow.
-We know tensorflow is a great library.
-But no matter how cool the tensorflow is, even developers have to spend their time to study and learn it .
-Do you think non developer like raynor easily learn about such a library?
-'from', 'in', 'for', 'if' ... Even simple grammar is obstacle.
+Yeah, We know tensorflow is a great library.
+But no matter how cool the tensorflow is, It's a difficult library to learn for non-developers.
+Because even developers have to spend their time for studying it.
+Do you really think non developer like raynor easily learn about such a library?
+'from', 'in', 'for', 'if' ... Even simple grammar is obstacle for them.
 The code is messy and he have no idea how to organize it.
-He just wanted to study deep learning, but he spend a whole night catching Python grammar errors.
+He just wanted to study deep learning, but he spend a whole night fixing Python grammar errors.
 And even he have to install a tensorflow library using a tool called a "pip" that he can't guess what abbreviation is.
-And more, if his operating system is Windows, they need to install 'conda' and create a 'virtual environment'!
+And more, if his OS is Windows, he needs to install 'conda' and create a 'virtual environment'!
 
-These people might give up these deep learning before I even start studying it.
-For raynor, deep learning feels like a more darker black box.
+Maybe these people might give up deep learning before start studying it.
+They feels deep learning like a more darker black box.
 And for them, it seems like artificial intelligence will take away all the jobs and dominate the world after overwhelming the humans.
-We need to at least get out of this fantasy.
-So I wanted to make a GUI tool that can make learn deep learning easily.
-DLUID is a learning tool that provides a simple hands-on experience for these people.
+We need to at least get out of this fiction.
+So I thought it would be nice to have a GUI tool for studying deep learning.
+Dluid is a studying tool that provides a simple hands-on experience for these people.
 
 For someone who want to study deep learning. try this application with below recommend lecture.  
 [Lecture 1 (English)](https://www.youtube.com/watch?v=SKq-pmkekTk&list=PLlMkM4tgfjnJ3I-dbhO9JTw7gNty6o_2m&index=2&t=0s)  
@@ -71,15 +72,14 @@ For someone who want to study deep learning. try this application with below rec
     - Pooling 1D
     - Pooling 2D
     - Batch norm
-  - Create simple sequence model and test it.
+  - Easily create sequence model and test it.
     - Excel, csv data load
     - Visualize learning curve
     - Confirm test data set
     - Confirm test result and export it  
   
 ## Comment
-- Block double click : connection start  
-- You can download simple dataset in this repository. (./document/dataset)
+- Double click block : connection start.
 
 ## TODO 
 - Check training RNN correctly. (bug(?)).
