@@ -10,9 +10,9 @@ Dluid is a learning application for non-specialists in the computer programming 
 
 ## Demonstration
 #### Iris problem
-![iris_problem](document/resources/iris_problem_100.gif)
+![iris_problem](./document/resources/iris_problem_100.gif)
 #### Mnist problem
-![Mnist_problem](document/resources/mnist_problem_100.gif)
+![Mnist_problem](./document/resources/mnist_problem_50.gif)
 
 ## Motivation
 Many people compare the process of making models using deep learning to Lego.
