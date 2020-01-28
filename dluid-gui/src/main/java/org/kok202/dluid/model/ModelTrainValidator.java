@@ -28,7 +28,7 @@ class ModelTrainValidator {
         }
     }
 
-    private static void validateDataSetDimension() throws FeatureSetDimensionUnmatchedException, ResultSetDimensionUnmatchedException {
+    private static void validateDataSetDimension() throws FeatureSetVolumeUnmatchedException, ResultSetVolumeUnmatchedException {
         BlockNode outputBlockNode = CanvasFacade.findOutputLayer().get().getData();
         int outputBlockNodeVolume = outputBlockNode.getBlockLayer().getProperties().getOutputVolume();
 
@@ -42,9 +42,9 @@ class ModelTrainValidator {
             int inputBlockNodeVolume = inputBlockNode.getBlockLayer().getProperties().getInputVolume();
 
             if(featureSetSize != inputBlockNodeVolume)
-                throw new FeatureSetDimensionUnmatchedException(inputLayerId, inputBlockNodeVolume, featureSetSize);
+                throw new FeatureSetVolumeUnmatchedException(inputLayerId, inputBlockNodeVolume, featureSetSize);
             if(resultSetSize != outputBlockNodeVolume)
-                throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeVolume, outputBlockNode.getBlockLayer().getId(), resultSetSize);
+                throw new ResultSetVolumeUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeVolume, outputBlockNode.getBlockLayer().getId(), resultSetSize);
         }
     }
 
