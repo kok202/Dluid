@@ -44,6 +44,7 @@ DLUID is a learning tool that provides a simple hands-on experience for these pe
 ## Version
 #### v0.1.0 (2020.02.01)  
 - [Download executable file](https://github.com/kok202/Dluid/releases/download/v0.1.0/Executable.file.zip) 
+- [Download sample data set](https://github.com/kok202/Dluid/releases/download/v0.1.0/Sample.data.set.zip)
 - Main feature
   - Support layer
     - Input
