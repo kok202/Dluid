@@ -48,7 +48,7 @@ public class TabModelTestController extends AbstractController {
 
     public void setSettingExpandAndDisable(boolean disable){
         modelTestFeatureController.getModelTestFeatureFileLoaderController().getTitledPane().setDisable(disable);
-        modelTestFeatureController.getModelTestFeatureFileLoaderController().getTitledPane().setExpanded(false);
+        modelTestFeatureController.getModelTestFeatureFileLoaderController().getTitledPane().setExpanded(!disable);
 //        // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
 //        modelTestFeatureController.getModelTestFeatureRandomGeneratorController().getTitledPane().setDisable(disable);
 //        modelTestFeatureController.getModelTestFeatureRandomGeneratorController().getTitledPane().setExpanded(false);
