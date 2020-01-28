@@ -36,7 +36,7 @@ public class TabModelTrainController extends AbstractController {
         AnchorPane content = fxmlLoader.load();
 
         Tab instanceTab = new Tab();
-        instanceTab.setText(AppPropertiesSingleton.getInstance().get("frame.tabs.model.setting"));
+        instanceTab.setText(AppPropertiesSingleton.getInstance().get("frame.tabs.model.train"));
         instanceTab.setContent(content);
         return instanceTab;
     }

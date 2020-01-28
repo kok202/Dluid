@@ -101,31 +101,31 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
-        else if(exception instanceof FeatureSetDimensionUnmatchedException){
-            FeatureSetDimensionUnmatchedException featureSetDimensionUnmatchedException = ((FeatureSetDimensionUnmatchedException) exception);
+        else if(exception instanceof FeatureSetVolumeUnmatchedException){
+            FeatureSetVolumeUnmatchedException featureSetVolumeUnmatchedException = ((FeatureSetVolumeUnmatchedException) exception);
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.featureSet.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.featureSet.header"))
-                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.featureSet.content"),
-                            featureSetDimensionUnmatchedException.getInputLayerId(),
-                            featureSetDimensionUnmatchedException.getInputLayerDimension(),
-                            featureSetDimensionUnmatchedException.getInputLayerId(),
-                            featureSetDimensionUnmatchedException.getFeatureSetDimension()))
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.featureSet.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.featureSet.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.featureSet.content"),
+                            featureSetVolumeUnmatchedException.getInputLayerId(),
+                            featureSetVolumeUnmatchedException.getInputLayerDimension(),
+                            featureSetVolumeUnmatchedException.getInputLayerId(),
+                            featureSetVolumeUnmatchedException.getFeatureSetDimension()))
                     .build()
                     .showAndWait();
         }
-        else if(exception instanceof ResultSetDimensionUnmatchedException){
-            ResultSetDimensionUnmatchedException resultSetDimensionUnmatchedException = ((ResultSetDimensionUnmatchedException) exception);
+        else if(exception instanceof ResultSetVolumeUnmatchedException){
+            ResultSetVolumeUnmatchedException resultSetVolumeUnmatchedException = ((ResultSetVolumeUnmatchedException) exception);
             DialogUtil.builder()
                     .alertType(Alert.AlertType.ERROR)
-                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.resultSet.title"))
-                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.resultSet.header"))
-                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.dimensionUnmatched.resultSet.content"),
-                            resultSetDimensionUnmatchedException.getOutputLayerId(),
-                            resultSetDimensionUnmatchedException.getOutputLayerDimension(),
-                            resultSetDimensionUnmatchedException.getInputLayerId(),
-                            resultSetDimensionUnmatchedException.getResultSetDimension()))
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.resultSet.title"))
+                    .headerText(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.resultSet.header"))
+                    .contentText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.volumeUnmatched.resultSet.content"),
+                            resultSetVolumeUnmatchedException.getOutputLayerId(),
+                            resultSetVolumeUnmatchedException.getOutputLayerDimension(),
+                            resultSetVolumeUnmatchedException.getInputLayerId(),
+                            resultSetVolumeUnmatchedException.getResultSetDimension()))
                     .build()
                     .showAndWait();
         }
