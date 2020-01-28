@@ -42,7 +42,9 @@ So I wanted to make a GUI tool that can make learn deep learning easily.
 DLUID is a learning tool that provides a simple hands-on experience for these people.
 
 ## Version
-- v0.1.0 (2020.02.01)
+#### v0.1.0 (2020.02.01)  
+- [Download executable file](https://github.com/kok202/Dluid/releases/download/v0.1.0/Executable.file.zip) 
+- Main feature
   - Support layer
     - Input
     - Output
@@ -61,14 +63,15 @@ DLUID is a learning tool that provides a simple hands-on experience for these pe
     - Excel, csv data load
     - Visualize learning curve
     - Confirm test data set
-    - Confirm test result and export it
+    - Confirm test result and export it  
   
 ## Comment
 - Block double click : connection start  
 - You can download simple dataset in this repository. (./document/dataset)
 
 ## TODO 
-- Save and load model
-- Training RNN (bug(?))
+- Check training RNN correctly. (bug(?)).
+- Save and load model.
+- Save model as python or dl4j code.
 - Develop merge and switch layer. Goal : create several model and train them while finding interaction. 
 - Extend project to application that can make MNIST VAE or GAN.
