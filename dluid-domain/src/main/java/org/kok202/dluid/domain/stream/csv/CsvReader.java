@@ -21,12 +21,13 @@ public class CsvReader {
     public StringRecordSet read(String filePath){
         StringRecordSet stringRecordSet = new StringRecordSet();
         try(FileInputStream fis = new FileInputStream(filePath);
-            InputStreamReader is = new InputStreamReader(fis, "EUC-KR")){
+            InputStreamReader is = new InputStreamReader(fis, "UTF-8")){
             CSVReader reader = new CSVReader(is);
             List<String[]> list = reader.readAll();
 
             if(hasHead){
-                stringRecordSet.setHeader(list.get(0));
+                stringRecordSet.setHeader(subList(list.get(0), colStart, colEnd));
+
                 list.subList(1,list.size()).forEach(record -> {
                     String[] stringArrays = subList(record, colStart, colEnd);
                     stringRecordSet.addRecord(stringArrays);
