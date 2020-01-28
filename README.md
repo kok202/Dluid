@@ -11,12 +11,12 @@ Dluid is a learning application for non-specialists in the computer programming 
 ## Demonstration
 <details open markdown="1">  
 <summary>Iris problem</summary>  
-![iris_problem](./document/resources/iris_problem_100.gif)   
+<img src="./document/resources/iris_problem_100.gif">
 </details>  
   
 <details markdown="1">  
 <summary>Mnist problem</summary>  
-![Mnist_problem](./document/resources/mnist_problem_50.gif)
+<img src="./document/resources/mnist_problem_50.gif">
 </details>
 
 ## Motivation
