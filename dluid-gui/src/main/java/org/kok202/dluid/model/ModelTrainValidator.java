@@ -44,7 +44,7 @@ class ModelTrainValidator {
             if(featureSetSize != inputBlockNodeVolume)
                 throw new FeatureSetDimensionUnmatchedException(inputLayerId, inputBlockNodeVolume, featureSetSize);
             if(resultSetSize != outputBlockNodeVolume)
-                throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeVolume, inputLayerId, resultSetSize);
+                throw new ResultSetDimensionUnmatchedException(outputBlockNode.getBlockLayer().getId(), outputBlockNodeVolume, outputBlockNode.getBlockLayer().getId(), resultSetSize);
         }
     }
 

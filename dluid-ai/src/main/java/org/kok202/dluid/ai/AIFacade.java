@@ -133,6 +133,10 @@ public class AIFacade {
         AISingleton.getInstance().getModelManager().getModelParameter().setEpoch(epoch);
     }
 
+    public static int getTrainedEpoch() {
+        return AISingleton.getInstance().getModelManager().getTrainedEpoch();
+    }
+
     public static double getTrainLearningRate() {
         return AISingleton.getInstance().getModelManager().getModelParameter().getLearningRate();
     }
@@ -163,6 +167,14 @@ public class AIFacade {
 
     public static void setTrainOptimizer(Optimizer optimizer) {
         AISingleton.getInstance().getModelManager().getModelParameter().setOptimizer(optimizer);
+    }
+
+    public static boolean isTrainingStop() {
+        return AISingleton.getInstance().getModelManager().isTrainingStop();
+    }
+
+    public static void setTrainingStop(boolean trainingStop) {
+        AISingleton.getInstance().getModelManager().setTrainingStop(trainingStop);
     }
 
     /*************************************************************************************************

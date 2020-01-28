@@ -27,9 +27,9 @@ public class LSTMLayerBuilder extends AbstractLayerBuilder {
     protected void setCommonProperties(Layer layer, Builder builder) {
         LSTM.Builder lstmBuilder = (LSTM.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            lstmBuilder.nIn(layer.getProperties().getInputVolume());
+            lstmBuilder.nIn(layer.getProperties().getInputSizeY());
         if(layer.getProperties().getOutputSize() != null)
-            lstmBuilder.nOut(layer.getProperties().getOutputVolume());
+            lstmBuilder.nOut(layer.getProperties().getOutputSizeY());
         if(layer.getProperties().getBiasInitializer() != null)
             BiasInitUtil.applyBiasInit(lstmBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)

@@ -12,12 +12,9 @@ public class MathUtil {
             Collections.singletonList(1);
 
         List<Integer> divisors = new ArrayList<>();
-        int sqrtSize = (int) Math.sqrt(size);
-        for(int i = 1; i <= sqrtSize; i++){
+        for(int i = 1; i <= size; i++){
             if(size % i == 0){
                 divisors.add(i);
-                if(i != sqrtSize)
-                    divisors.add(size/i);
             }
         }
 
@@ -25,16 +22,4 @@ public class MathUtil {
         return divisors;
     }
 
-
-    public static int[] getRecommendedDivisors(int size){
-        List<Integer> divisors = getDivisors(size);
-        if(divisors.size() == 1)
-            return new int[]{size, 1};
-
-        int middle = divisors.size() / 2;
-        if (divisors.size() % 2 == 0)
-            return new int[]{divisors.get(middle-1), divisors.get(middle)};
-        else
-            return new int[]{divisors.get(middle-1), divisors.get(middle-1)};
-    }
 }

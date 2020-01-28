@@ -74,7 +74,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
     }
 
     public void replaceAllBlock(){
-        replaceAllBlockByRecurrentBlock();
+        replaceAllBlockByInclinedBlock();
         replaceAllBlockByChannelBlock();
     }
 
@@ -130,10 +130,10 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                 });
     }
 
-    private void replaceAllBlockByRecurrentBlock() {
+    private void replaceAllBlockByInclinedBlock() {
         getGraphNodes()
                 .stream()
-                .filter(graphNodeBlockNode -> graphNodeBlockNode.getData().getBlockLayer().getType().isRecurrentLayerType())
+                .filter(graphNodeBlockNode -> graphNodeBlockNode.getData().getBlockLayer().getType().isInclinedLayerType())
                 .forEach(graphNodeBlockNode -> {
                     double incomingSkewedX = 0;
                     double outgoingSkewedX = 0;

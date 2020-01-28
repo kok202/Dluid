@@ -51,7 +51,7 @@
                                  </AnchorPane>
                                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                      <children>
-                                         <TextField fx:id="textFieldOutputSizeX" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                         <TextField fx:id="textFieldOutputSizeX" disable="true" editable="false" promptText="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                      </children>
                                  </AnchorPane>
                                  <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">

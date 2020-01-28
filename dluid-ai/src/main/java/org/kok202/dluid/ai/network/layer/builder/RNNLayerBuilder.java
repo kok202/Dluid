@@ -27,9 +27,9 @@ public class RNNLayerBuilder extends AbstractLayerBuilder {
     protected void setCommonProperties(Layer layer, Builder builder) {
         SimpleRnn.Builder simpleRnnBuilder = (SimpleRnn.Builder) builder;
         if(layer.getProperties().getInputSize() != null)
-            simpleRnnBuilder.nIn(layer.getProperties().getInputVolume());
+            simpleRnnBuilder.nIn(layer.getProperties().getInputSizeY());
         if(layer.getProperties().getOutputSize() != null)
-            simpleRnnBuilder.nOut(layer.getProperties().getOutputVolume());
+            simpleRnnBuilder.nOut(layer.getProperties().getOutputSizeY());
         if(layer.getProperties().getBiasInitializer() != null)
             BiasInitUtil.applyBiasInit(simpleRnnBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
