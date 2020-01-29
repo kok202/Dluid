@@ -35,15 +35,15 @@ As you know, generally when you study deep learning, it has same mean that study
 Yeah, We know tensorflow is a great library.
 But no matter how cool the tensorflow is, It's a difficult library to learn for non-developers.
 Because even developers have to spend their time for studying it.
-Do you really think non developer like raynor easily learn about such a library?
+Do you really think non developer like raynor easily learns about such a library?
 'from', 'in', 'for', 'if' ... Even simple grammar is obstacle for them.
-The code is messy and he have no idea how to organize it.
-He just wanted to study deep learning, but he spend a whole night fixing Python grammar errors.
-And even he have to install a tensorflow library using a tool called a "pip" that he can't guess what abbreviation is.
+The code is messy and he has no idea how to organize it.
+He just wanted to study deep learning, but he spends a whole night fixing Python grammar errors.
+And even he has to install a tensorflow library using a tool called a "pip" that he can't guess what abbreviation is.
 And more, if his OS is Windows, he needs to install 'conda' and create a 'virtual environment'!
 
 Maybe these people might give up deep learning before start studying it.
-They feels deep learning like a more darker black box.
+They feel deep learning like a more darker black box.
 And for them, it seems like artificial intelligence will take away all the jobs and dominate the world after overwhelming the humans.
 We need to at least get out of this fiction.
 So I thought it would be nice to have a GUI tool for studying deep learning.
