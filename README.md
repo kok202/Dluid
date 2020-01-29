@@ -31,25 +31,25 @@ Now, it's time to practice.
 But unfortunately, he doesn't have experience about programming languages.
 Can this student complete the studying about deep learning safely?
 
-As you know, generally when you study deep learning, it has same mean that studying tensorflow.
+As you know, generally when you study deep learning, it has same meaning with studying tensorflow.
 Yeah, We know tensorflow is a great library.
 But no matter how cool the tensorflow is, It's a difficult library to learn for non-developers.
 Because even developers have to spend their time for studying it.
 Do you really think non developer like raynor easily learn about such a library?
 'from', 'in', 'for', 'if' ... Even simple grammar is obstacle for them.
-The code is messy and he have no idea how to organize it.
-He just wanted to study deep learning, but he spend a whole night fixing Python grammar errors.
-And even he have to install a tensorflow library using a tool called a "pip" that he can't guess what abbreviation is.
+The code was messy, he had no idea how to organize it.
+He just wanted to study deep learning, but he spent a whole night fixing Python grammar errors.
+And even he had to install a tensorflow library using a tool called a "pip" that he couldn't guess what abbreviation is.
 And more, if his OS is Windows, he needs to install 'conda' and create a 'virtual environment'!
 
 Maybe these people might give up deep learning before start studying it.
-They feels deep learning like a more darker black box.
+They feel deep learning like a darker black box.
 And for them, it seems like artificial intelligence will take away all the jobs and dominate the world after overwhelming the humans.
 We need to at least get out of this fiction.
 So I thought it would be nice to have a GUI tool for studying deep learning.
 Dluid is a studying tool that provides a simple hands-on experience for these people.
 
-For someone who want to study deep learning. try this application with below recommend lecture.  
+For someone who want to study deep learning. Try this application with below recommend lecture.  
 [Lecture 1 (English)](https://www.youtube.com/watch?v=SKq-pmkekTk&list=PLlMkM4tgfjnJ3I-dbhO9JTw7gNty6o_2m&index=2&t=0s)  
 [Lecture 2 (Korean)](https://www.youtube.com/watch?v=BS6O0zOGX4E&list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm)
 
