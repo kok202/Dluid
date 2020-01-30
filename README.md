@@ -8,7 +8,7 @@ Dluid is a learning application for non-specialists in the computer programming 
 - Easy create a sequence model and test it.
 - You can use excel or csv data set.
 
-##### Download [Here](https://drive.google.com/drive/folders/1B6ooDPBGy94OTpspymnPlBNzPIsgyBsE?usp=sharing)
+**Download [\[Here\]](https://drive.google.com/drive/folders/1B6ooDPBGy94OTpspymnPlBNzPIsgyBsE?usp=sharing)**
 
 ## Demonstration
 <details open markdown="1">  
@@ -55,8 +55,8 @@ For someone who want to study deep learning. try this application with below rec
 [Lecture 1 (English)](https://www.youtube.com/watch?v=SKq-pmkekTk&list=PLlMkM4tgfjnJ3I-dbhO9JTw7gNty6o_2m&index=2&t=0s)  
 [Lecture 2 (Korean)](https://www.youtube.com/watch?v=BS6O0zOGX4E&list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm)
 
-## Version
-#### v0.1.0 (2020.02.01)  
+## Main version
+#### v0.1.x (2020.01.29)  
 - Main feature
   - Support layer
     - Input
@@ -77,7 +77,7 @@ For someone who want to study deep learning. try this application with below rec
     - Visualize learning curve
     - Confirm test data set
     - Confirm test result and export it  
-  
+
 ## Comment
 - Double click block : connection start.
 - If you want to change language, change setting and restart application.  
