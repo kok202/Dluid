@@ -80,6 +80,7 @@ For someone who want to study deep learning. try this application with below rec
   
 ## Comment
 - Double click block : connection start.
+- If you want to change language, change setting and restart application.  
 
 ## TODO 
 - Check training RNN correctly. (bug(?)).
