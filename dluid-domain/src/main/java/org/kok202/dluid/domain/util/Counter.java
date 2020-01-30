@@ -35,8 +35,8 @@ public class Counter {
 
     public double calcPercent(){
         if(count == max)
-            return 100;
-        double result = count / (double)(max) * 100;
+            return 1;
+        double result = count / (double)(max);
         return Math.round(result * ROUNDED_UNIT) / ROUNDED_UNIT;
     }
 
