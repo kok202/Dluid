@@ -11,8 +11,8 @@
     <artifactId>dluid-ai</artifactId>
 
     <properties>
-        <nd4j.version>1.0.0-beta4</nd4j.version>
-        <dl4j.version>1.0.0-beta4</dl4j.version>
+        <nd4j.version>1.0.0-beta6</nd4j.version>
+        <dl4j.version>1.0.0-beta6</dl4j.version>
         <junit.version>4.11</junit.version>
     </properties>
 
