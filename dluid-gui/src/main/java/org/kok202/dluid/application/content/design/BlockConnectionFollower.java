@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.CubicCurve;
-import org.kok202.dluid.CanvasConstant;
+import org.kok202.dluid.AppConstant;
 import org.kok202.dluid.application.common.AbstractController;
 
 public class BlockConnectionFollower extends AbstractController {
@@ -30,8 +30,8 @@ public class BlockConnectionFollower extends AbstractController {
         DoubleProperty controllerY1 = new SimpleDoubleProperty();
         DoubleProperty controllerX2 = new SimpleDoubleProperty();
         DoubleProperty controllerY2 = new SimpleDoubleProperty();
-        offsetX.set(CanvasConstant.CUBIC_CURVE_OFFSET_X);
-        offsetY.set(CanvasConstant.CUBIC_CURVE_OFFSET_Y);
+        offsetX.set(AppConstant.CUBIC_CURVE_OFFSET_X);
+        offsetY.set(AppConstant.CUBIC_CURVE_OFFSET_Y);
         controllerX1.bind(new When(cubicCurve.startXProperty().greaterThan(cubicCurve.endXProperty())).then(-1.0).otherwise(1.0));
         controllerX2.bind(new When(cubicCurve.startXProperty().greaterThan(cubicCurve.endXProperty())).then(1.0).otherwise(-1.0));
         cubicCurve.controlX1Property().bind(Bindings.add(cubicCurve.startXProperty(), offsetX.multiply(controllerX1)));
