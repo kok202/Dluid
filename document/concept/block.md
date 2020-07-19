@@ -20,13 +20,15 @@ protected Object extra;
 ````
 
 #### BlockLayer
-It means layer type of block. 
-````
-You can get more information about layer data in document/layer.md
-````
+BlockLayer is layer type of block. 
+You can get more information about layer data in [here](./layer.md).
 
 #### BlockHexahedron
-BlockNode is combination of some hexahedron models. And BlockHexahedron is box polygon which has referencing to BlockNode. Basically blockNode has one hex. But when application need to show visually activation function is set. In that case we need to use two hex. so blockNode can have N numbers hexahedron.
+BlockNode is combination of some hexahedron models.
+And BlockHexahedron is box polygon which has referencing to BlockNode. 
+Basically blockNode has one hex. 
+But when application need to show visually activation function is set. 
+In that case we need to use two hex. so blockNode can have N numbers hexahedron.
 ````
 private BlockNode blockNode;
 ````

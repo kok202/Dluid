@@ -13,12 +13,12 @@ Dluid is a learning application for non-specialists in the computer programming 
 ## Demonstration
 <details open markdown="1">  
 <summary>Iris problem</summary>  
-<img src="./document/resources/iris_problem_100.gif">
+<img src="./document/resources/iris-problem-100.gif">
 </details>  
   
 <details markdown="1">  
 <summary>Mnist problem</summary>  
-<img src="./document/resources/mnist_problem_50.gif">
+<img src="./document/resources/mnist-problem-50.gif">
 </details>
 
 ## Motivation
@@ -79,12 +79,21 @@ For someone who want to study deep learning. try this application with below rec
     - Confirm test result and export it  
 
 ## Comment
-- Double click block : connection start.
-- If you want to change language, change setting and restart application.  
+- Mouse left click : Choose block
+- Mouse left double click `block` : Connection start.
+- Mouse right click : Camera rotation
+- Mouse scroll : Camera zoom in / out 
+- Mouse scroll click : Camera movement
+- This project support a multilingual. Change language setting, and restart program.
 
-## TODO 
-- Check training RNN correctly. (bug(?)).
-- Save and load model.
-- Save model as python or dl4j code.
-- Develop merge and switch layer. Goal : create several model and train them while finding interaction. 
-- Extend project to application that can make MNIST VAE or GAN.
+## Requirement 
+This project is developed by `Java`. 
+For that reason, unfortunately, although we try to minimize set up, java must be installed in your computer. 
+So there is a [Java installation guide](./document/java/README.md) for user who want to just use `Dluid` only.  
+Although there is belief guide, java installation process may be different depending on your computer environment. 
+Please google `install openjdk 8`. There are many detailed articles about the Java installation process.
+This project does not receive Java installation inquiries beyond the prepared Guide document. 
+
+## Contribution
+Dluid is open source application, so anyone can contribute.
+If you want to contribute for the Dluid, please refer to the [Concept document](./document/README.md) below. 
