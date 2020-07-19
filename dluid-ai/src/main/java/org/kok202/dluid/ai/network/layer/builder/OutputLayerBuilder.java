@@ -2,10 +2,12 @@ package org.kok202.dluid.ai.network.layer.builder;
 
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.ActivationUtil;
 import org.kok202.dluid.ai.util.BiasInitUtil;
-import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
+import org.kok202.dluid.ai.util.LossFunctionUtil;
+import org.kok202.dluid.ai.util.WeightInitUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 public class OutputLayerBuilder extends AbstractLayerBuilder {
     @Override
@@ -15,7 +17,7 @@ public class OutputLayerBuilder extends AbstractLayerBuilder {
 
     @Override
     protected Builder createBuilder(Layer layer) {
-        return new OutputLayer.Builder(layer.getProperties().getLossFunction());
+        return new OutputLayer.Builder(LossFunctionUtil.get(layer.getProperties().getLossFunction()));
     }
 
     @Override
@@ -33,9 +35,9 @@ public class OutputLayerBuilder extends AbstractLayerBuilder {
         if(layer.getProperties().getBiasInitializer() != null)
             BiasInitUtil.applyBiasInit(outputLayerBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
-            WeightInitWrapperUtil.applyWeightInit(outputLayerBuilder, layer.getProperties().getWeightInitializer());
+            WeightInitUtil.applyWeightInit(outputLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)
-            outputLayerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
+            outputLayerBuilder.activation(ActivationUtil.get(layer.getProperties().getActivationFunction()));
         if(layer.getProperties().getDropout() != 0)
             outputLayerBuilder.dropOut(layer.getProperties().getDropout());
     }

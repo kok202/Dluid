@@ -8,7 +8,7 @@ import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.kok202.dluid.ai.network.layer.LayerBinder;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.util.BiasInitUtil;
-import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
+import org.kok202.dluid.ai.util.WeightInitUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,7 +24,7 @@ public class ModelConverter {
         return layerGraphManagerAnalyzer.getInputLayerIds()
                 .stream()
                 .map(inputLayerId -> {
-                    List<org.kok202.dluid.ai.entity.Layer> dluidLayers = new ArrayList<>(layerGraphManagerAnalyzer.getMultiLayerManager().get(inputLayerId).values());
+                    List<org.kok202.dluid.domain.entity.Layer> dluidLayers = new ArrayList<>(layerGraphManagerAnalyzer.getMultiLayerManager().get(inputLayerId).values());
 
                     ComputationGraphConfiguration.GraphBuilder graphBuilder = createDefaultConfiguration();
                     dluidLayers.forEach(dluidLayer -> LayerBinder.bind(dluidLayer, layerGraphManagerAnalyzer.getLayerFroms(dluidLayer, inputLayerId), graphBuilder));
@@ -35,7 +35,7 @@ public class ModelConverter {
                     computationGraph.init();
 
                     Map<String, Layer> computationGraphLayerMap = new LinkedHashMap<>();
-                    for (org.kok202.dluid.ai.entity.Layer dluidLayer : dluidLayers) {
+                    for (org.kok202.dluid.domain.entity.Layer dluidLayer : dluidLayers) {
                         String dluidLayerId = dluidLayer.getId();
                         if(computationGraph.getVertex(dluidLayerId).hasLayer()){
                             Layer computationGraphLayer = computationGraph.getVertex(dluidLayerId).getLayer();
@@ -58,14 +58,14 @@ public class ModelConverter {
         builder.seed(AISingleton.getInstance().getModelManager().getModelParameter().getSeed());
         builder.updater(AISingleton.getInstance().getModelManager().getModelParameter().getIUpdater());
         BiasInitUtil.applyBiasInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getBiasInitializer());
-        WeightInitWrapperUtil.applyWeightInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer());
+        WeightInitUtil.applyWeightInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer());
         builder.miniBatch(false);
         return builder.graphBuilder();
     }
 
-    private void recycleInputPreProcessor(ComputationGraphConfiguration.GraphBuilder graphBuilder, List<org.kok202.dluid.ai.entity.Layer> dluidLayers){
+    private void recycleInputPreProcessor(ComputationGraphConfiguration.GraphBuilder graphBuilder, List<org.kok202.dluid.domain.entity.Layer> dluidLayers){
         for (int i = 0; i < dluidLayers.size(); i++) {
-            org.kok202.dluid.ai.entity.Layer layer = dluidLayers.get(i);
+            org.kok202.dluid.domain.entity.Layer layer = dluidLayers.get(i);
             InputPreProcessor inputPreProcessor = inputPreProcessorRecycleMap.get(layer.getId());
             if(inputPreProcessor == null)
                 continue;

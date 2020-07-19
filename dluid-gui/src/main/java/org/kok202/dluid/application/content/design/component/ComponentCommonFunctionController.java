@@ -7,12 +7,12 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
-import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.ActivationWrapper;
+import org.kok202.dluid.domain.entity.enumerator.BiasInitializer;
+import org.kok202.dluid.domain.entity.enumerator.WeightInitializer;
 
 @Getter
 public class ComponentCommonFunctionController extends AbstractLayerComponentController {

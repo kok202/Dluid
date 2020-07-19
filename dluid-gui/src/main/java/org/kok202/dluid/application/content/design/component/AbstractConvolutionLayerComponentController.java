@@ -1,6 +1,6 @@
 package org.kok202.dluid.application.content.design.component;
 
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.domain.entity.Layer;
 
 public abstract class AbstractConvolutionLayerComponentController extends AbstractLayerComponentController {
     AbstractConvolutionLayerComponentController(Layer layer) {

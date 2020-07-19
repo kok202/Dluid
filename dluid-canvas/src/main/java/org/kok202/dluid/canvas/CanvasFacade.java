@@ -2,6 +2,7 @@ package org.kok202.dluid.canvas;
 
 import lombok.Data;
 import org.kok202.dluid.canvas.block.BlockNode;
+import org.kok202.dluid.canvas.content.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
@@ -15,7 +16,9 @@ import java.util.stream.Collectors;
 
 @Data
 public class CanvasFacade {
-
+    /*************************************************************************************************
+     /* Canvas, state machine
+     *************************************************************************************************/
     public static void resizingCanvas(double canvasWidth, double canvasHeight){
         CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneSize().setX(canvasWidth);
         CanvasSingleton.getInstance().getMainCanvas().getMainScene().refreshSceneSize();
@@ -25,6 +28,25 @@ public class CanvasFacade {
 
     public static void addObserver(Observer observer){
         CanvasSingleton.getInstance().getStateMachine().addObserver(observer);
+    }
+
+    /*************************************************************************************************
+     /* Canvas -> MainContent
+     *************************************************************************************************/
+    public static void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
+        CanvasSingleton.getInstance()
+                .getMainCanvas()
+                .getMainContent()
+                .getMaterialInsertionHandler()
+                .hoveringListener(materialInsertionInfoHolder);
+    }
+
+    public static void insertListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
+        CanvasSingleton.getInstance()
+                .getMainCanvas()
+                .getMainContent()
+                .getMaterialInsertionHandler()
+                .insertListener(materialInsertionInfoHolder);
     }
 
     /*************************************************************************************************

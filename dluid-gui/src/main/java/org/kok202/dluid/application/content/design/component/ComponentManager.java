@@ -1,11 +1,15 @@
 package org.kok202.dluid.application.content.design.component;
 
 import lombok.Getter;
-import lombok.NonNull;
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.application.content.design.ComponentContainerController;
+import org.kok202.dluid.canvas.CanvasFacade;
+import org.kok202.dluid.domain.action.Action;
+import org.kok202.dluid.domain.action.ActionType;
+import org.kok202.dluid.domain.action.Reducer;
+import org.kok202.dluid.domain.entity.Layer;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 public class ComponentManager {
     @Getter
@@ -17,13 +21,23 @@ public class ComponentManager {
         this.componentContainerController = componentContainerController;
     }
 
-    public void refreshContainerByLayer(@NonNull Layer layer){
-        if(layer == null)
-            return;
+    public void addCanvasObserver(){
+        CanvasFacade.addObserver(new Reducer() {
+            @Override
+            public boolean support(Action action) {
+                return action.getType() == ActionType.BLOCK_PICK_UP;
+            }
 
-        clearComponentContainer();
-        attachComponentBoxOnList(layer);
-        attachComponentBoxOnContainer();
+            @Override
+            public void update(Observable o, Action action) {
+                Layer layer = (Layer) action.getPayload();
+                if(layer == null)
+                    return;
+                clearComponentContainer();
+                attachComponentBoxOnList(layer);
+                attachComponentBoxOnContainer();
+            }
+        });
     }
 
     public void clearComponentContainer(){

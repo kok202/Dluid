@@ -1,8 +1,8 @@
 package org.kok202.dluid.application.content.design.component;
 
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.util.ConvolutionCalculatorUtil;
 import org.kok202.dluid.application.util.TextFieldUtil;
+import org.kok202.dluid.domain.entity.Layer;
 
 public class ComponentDeConvolution2DParamController extends ComponentConvolution2DParamController {
 

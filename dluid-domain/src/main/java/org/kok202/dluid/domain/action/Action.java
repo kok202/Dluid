@@ -10,4 +10,9 @@ public class Action {
     public Action(ActionType type) {
         this.type = type;
     }
+
+    public Action(ActionType type, Object payload) {
+        this.type = type;
+        this.payload = payload;
+    }
 }

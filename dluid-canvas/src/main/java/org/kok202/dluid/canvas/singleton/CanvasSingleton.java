@@ -29,5 +29,6 @@ public class CanvasSingleton {
 
     private CanvasSingleton(){
         blockNodeManager = new BlockNodeManager();
+        stateMachine = new StateMachine();
     }
 }

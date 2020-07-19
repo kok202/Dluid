@@ -57,7 +57,7 @@ public class Main extends Application {
         AppWidgetSingleton.getInstance().setBorderPane(borderPane);
         AppWidgetSingleton.getInstance().setMenuBarController(menuBarController);
         AppWidgetSingleton.getInstance().setTabsController(tabsController);
-        AppFacade.setCanvasResizeSubscriber();
+        AppFacade.initialize();
     }
 
     private void initWindowFrame(Stage primaryStage, Parent fxmlRoot){

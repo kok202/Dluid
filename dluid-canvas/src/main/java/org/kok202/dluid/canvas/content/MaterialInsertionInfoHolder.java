@@ -1,9 +1,9 @@
-package org.kok202.dluid.application.content.design.material.insertion;
+package org.kok202.dluid.canvas.content;
 
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import lombok.Data;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 import java.io.Serializable;
 

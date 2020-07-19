@@ -40,27 +40,27 @@ public class BlockConnectionFollower extends AbstractController {
         cubicCurve.controlY2Property().bind(Bindings.add(cubicCurve.startYProperty(), offsetY.multiply(controllerY2)));
     }
 
-    void setVisible(boolean visible){
+    public void setVisible(boolean visible){
         cubicCurve.setVisible(visible);
     }
 
-    void setStart(Point2D position) {
+    public void setStart(Point2D position) {
         cubicCurve.setStartX(position.getX());
         cubicCurve.setStartY(position.getY());
     }
 
-    void setEnd(Point2D position) {
+    public void setEnd(Point2D position) {
         cubicCurve.setEndX(position.getX());
         cubicCurve.setEndY(position.getY());
     }
 
-    Point2D getStart() {
+    public Point2D getStart() {
         return new Point2D(
-                cubicCurve.getStartX(),
-                cubicCurve.getStartY());
+            cubicCurve.getStartX(),
+            cubicCurve.getStartY());
     }
 
-    Point2D getEnd() {
+    public Point2D getEnd() {
         return new Point2D(
             cubicCurve.getEndX(),
             cubicCurve.getEndY());

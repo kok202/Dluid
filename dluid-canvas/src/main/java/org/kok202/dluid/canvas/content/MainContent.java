@@ -7,11 +7,11 @@ public class MainContent{
     private Group sceneRoot;
 
     @Getter
-    private BlockInsertionHandler blockInsertionHandler;
+    private MaterialInsertionHandler materialInsertionHandler;
 
     public MainContent(Group sceneRoot) {
         this.sceneRoot = sceneRoot;
         this.sceneRoot.getChildren().add(new Coordinate());
-        this.blockInsertionHandler = new BlockInsertionHandler(sceneRoot);
+        this.materialInsertionHandler = new MaterialInsertionHandler(sceneRoot);
     }
 }

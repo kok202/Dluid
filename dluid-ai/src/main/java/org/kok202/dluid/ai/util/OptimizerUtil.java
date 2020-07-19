@@ -1,21 +1,11 @@
-package org.kok202.dluid.ai.entity.enumerator;
+package org.kok202.dluid.ai.util;
 
+import org.kok202.dluid.domain.entity.enumerator.Optimizer;
 import org.nd4j.linalg.learning.config.*;
 
-public enum Optimizer {
-    ADAM,
-    ADA_DELTA,
-    ADA_GRAD,
-    ADA_MAX,
-    AMS_GRAD,
-    NADAM,
-    NESTEROVS,
-    NOOP,
-    RMS_PROP,
-    SGD;
-
-    public IUpdater getIUpdater(double learningRate){
-        switch (this){
+public class OptimizerUtil {
+    public static IUpdater getIUpdater(Optimizer optimizer, double learningRate){
+        switch (optimizer){
             case ADAM:
                 return new Adam(learningRate);
             case ADA_DELTA:

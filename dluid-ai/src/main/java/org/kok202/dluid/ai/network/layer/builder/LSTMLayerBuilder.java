@@ -2,10 +2,11 @@ package org.kok202.dluid.ai.network.layer.builder;
 
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.ActivationUtil;
 import org.kok202.dluid.ai.util.BiasInitUtil;
-import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
+import org.kok202.dluid.ai.util.WeightInitUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 public class LSTMLayerBuilder extends AbstractLayerBuilder {
     @Override
@@ -33,9 +34,9 @@ public class LSTMLayerBuilder extends AbstractLayerBuilder {
         if(layer.getProperties().getBiasInitializer() != null)
             BiasInitUtil.applyBiasInit(lstmBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
-            WeightInitWrapperUtil.applyWeightInit(lstmBuilder, layer.getProperties().getWeightInitializer());
+            WeightInitUtil.applyWeightInit(lstmBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)
-            lstmBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
+            lstmBuilder.activation(ActivationUtil.get(layer.getProperties().getActivationFunction()));
         if(layer.getProperties().getDropout() != 0)
             lstmBuilder.dropOut(layer.getProperties().getDropout());
     }

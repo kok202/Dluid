@@ -2,10 +2,11 @@ package org.kok202.dluid.ai.network.layer.builder;
 
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.ActivationUtil;
 import org.kok202.dluid.ai.util.BiasInitUtil;
-import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
+import org.kok202.dluid.ai.util.WeightInitUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 public class DenseLayerBuilder extends AbstractLayerBuilder {
     @Override
@@ -33,9 +34,9 @@ public class DenseLayerBuilder extends AbstractLayerBuilder {
         if(layer.getProperties().getBiasInitializer() != null)
             BiasInitUtil.applyBiasInit(denseLayerBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
-            WeightInitWrapperUtil.applyWeightInit(denseLayerBuilder, layer.getProperties().getWeightInitializer());
+            WeightInitUtil.applyWeightInit(denseLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)
-            denseLayerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
+            denseLayerBuilder.activation(ActivationUtil.get(layer.getProperties().getActivationFunction()));
         if(layer.getProperties().getDropout() != 0)
             denseLayerBuilder.dropOut(layer.getProperties().getDropout());
     }

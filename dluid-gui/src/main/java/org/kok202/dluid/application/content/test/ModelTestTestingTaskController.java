@@ -15,7 +15,7 @@ import org.kok202.dluid.canvas.CanvasFacade;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.kok202.dluid.ai.entity.enumerator.LayerType.RESHAPE_LAYER;
+import static org.kok202.dluid.domain.entity.enumerator.LayerType.RESHAPE_LAYER;
 
 @Data
 public class ModelTestTestingTaskController extends AbstractModelTestController {

@@ -4,8 +4,6 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.PickResult;
-import org.kok202.dluid.AppFacade;
-import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
@@ -15,20 +13,22 @@ import org.kok202.dluid.canvas.polygon.block.HexahedronVerticalFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.Math3D;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.domain.entity.LayerFactory;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 // PickResult is always not null.
 // Although user point at empty space, PickResult returns SubScene node
-public class BlockInsertionHandler {
+public class MaterialInsertionHandler {
     private Group sceneRoot;
     private HexahedronVerticalFace pastBlockHexahedronVerticalFace;
 
-    public BlockInsertionHandler(Group sceneRoot) {
+    public MaterialInsertionHandler(Group sceneRoot) {
         this.sceneRoot = sceneRoot;
     }
 
+    // TODO
     public void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
         PickResult pickResult = materialInsertionInfoHolder.getDragEvent().getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
@@ -51,6 +51,7 @@ public class BlockInsertionHandler {
         }
     }
 
+    // TODO
     public void insertListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
         PickResult pickResult = materialInsertionInfoHolder.getDragEvent().getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
@@ -88,7 +89,9 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkFromNewData(insertedBlockNode, targetBlockNode);
-        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockLayer());
+        CanvasSingleton.getInstance()
+                .getStateMachine()
+                .dispatchAction(ActionType.BLOCK_PICK_UP, insertedBlockNode.getBlockLayer());
     }
 
     private void appendBackToSpecificBlock(LayerType layerType, BlockNode targetBlockNode){
@@ -101,7 +104,9 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkToNewData(targetBlockNode, insertedBlockNode);
-        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockLayer());
+        CanvasSingleton.getInstance()
+                .getStateMachine()
+                .dispatchAction(ActionType.BLOCK_PICK_UP, insertedBlockNode.getBlockLayer());
     }
 
     private void createNewBlock(LayerType layerType, Point3D insertingPoint){
@@ -111,7 +116,9 @@ public class BlockInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .registerSoloNode(insertedBlockNode);
-        AppFacade.refreshComponentContainer(insertedBlockNode.getBlockLayer());
+        CanvasSingleton.getInstance()
+                .getStateMachine()
+                .dispatchAction(ActionType.BLOCK_PICK_UP, insertedBlockNode.getBlockLayer());
     }
 
     private BlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){

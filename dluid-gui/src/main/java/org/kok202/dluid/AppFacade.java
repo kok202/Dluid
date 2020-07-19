@@ -1,7 +1,8 @@
 package org.kok202.dluid;
 
-import javafx.geometry.Point2D;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.application.reducer.ConnectionMoveReducer;
+import org.kok202.dluid.application.reducer.ConnectionReleaseReducer;
+import org.kok202.dluid.application.reducer.ConnectionStartReducer;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 import org.kok202.dluid.canvas.CanvasFacade;
 
@@ -10,6 +11,19 @@ public class AppFacade {
     /*************************************************************************************************
      /* Canvas sizing
      *************************************************************************************************/
+    public static void initialize(){
+        setCanvasResizeSubscriber();
+        AppWidgetSingleton.getInstance()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getComponentContainerController()
+                .getComponentManager()
+                .addCanvasObserver();
+        CanvasFacade.addObserver(new ConnectionStartReducer());
+        CanvasFacade.addObserver(new ConnectionMoveReducer());
+        CanvasFacade.addObserver(new ConnectionReleaseReducer());
+    }
+
     public static void setCanvasResizeSubscriber(){
         AppWidgetSingleton.getInstance().getPrimaryStage().widthProperty().addListener(listener -> resizingCanvas());
         AppWidgetSingleton.getInstance().getPrimaryStage().heightProperty().addListener(listener -> resizingCanvas());
@@ -51,44 +65,6 @@ public class AppFacade {
     }
 
     /*************************************************************************************************
-     /* Block connection manager
-     *************************************************************************************************/
-    public static void setConnectionArrowStart(Point2D point2D){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionManager()
-                .setStart(point2D);
-    }
-    public static void setConnectionArrowEnd(Point2D point2D){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionManager()
-                .setEnd(point2D);
-    }
-
-    public static void setConnectionArrowVisible(boolean visible){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionManager()
-                .setVisible(visible);
-    }
-
-    public static boolean isConnectionArrowUpward(){
-        return AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionManager()
-                .isUpward();
-    }
-
-    /*************************************************************************************************
      /* Component container (split right container)
      *************************************************************************************************/
     public static void clearComponentContainer(){
@@ -98,15 +74,6 @@ public class AppFacade {
                 .getComponentContainerController()
                 .getComponentManager()
                 .clearComponentContainer();
-    }
-
-    public static void refreshComponentContainer(Layer layer){
-        AppWidgetSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getComponentContainerController()
-                .getComponentManager()
-                .refreshContainerByLayer(layer);
     }
 
     /*************************************************************************************************

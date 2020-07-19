@@ -6,7 +6,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
-import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
@@ -15,6 +14,7 @@ import org.kok202.dluid.canvas.polygon.block.HexahedronFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.domain.entity.LayerFactory;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
@@ -24,6 +24,8 @@ import org.kok202.dluid.domain.exception.IllegalConnectionRequest;
 public class BlockConnectionHandler {
     private static boolean isClicked = false;
     private static BlockNode pastPickedBlockNode = null;
+    private static Point2D startPoint;
+    private static Point2D endPoint;
 
     public static void setOnMouseClicked(Group sceneRoot, MouseEvent mouseEvent){
         if(mouseEvent.getClickCount() <= 1)
@@ -39,9 +41,15 @@ public class BlockConnectionHandler {
             }
 
             isClicked = true;
-            AppFacade.setConnectionArrowStart(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
-            AppFacade.setConnectionArrowEnd(new Point2D(mouseEvent.getX(),mouseEvent.getY()));
-            AppFacade.setConnectionArrowVisible(true);
+            startPoint = new Point2D(mouseEvent.getX(), mouseEvent.getY());
+            endPoint = new Point2D(mouseEvent.getX(), mouseEvent.getY());
+            BlockConnectionPayload blockConnectionPayload = new BlockConnectionPayload();
+            blockConnectionPayload.setStart(startPoint);
+            blockConnectionPayload.setEnd(endPoint);
+            blockConnectionPayload.setVisible(true);
+            CanvasSingleton.getInstance()
+                .getStateMachine()
+                .dispatchAction(ActionType.BLOCK_CONNECTION_START, blockConnectionPayload);
         }
         else{
             releaseConnectionProcess();
@@ -51,12 +59,17 @@ public class BlockConnectionHandler {
     // While
     public static void setOnMouseMoved(Group sceneRoot, MouseEvent mouseEvent){
         if(isClicked){
-            boolean isUpward = AppFacade.isConnectionArrowUpward();
-            AppFacade.setConnectionArrowEnd(new
-                    Point2D(mouseEvent.getX(),mouseEvent.getY())
-                    .add(isUpward?
-                            CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_UPWARD :
-                            CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_DOWNWARD));
+            endPoint = new Point2D(mouseEvent.getX(), mouseEvent.getY())
+                .add(isUpward()
+                    ? CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_UPWARD
+                    : CanvasConstant.CUBIC_CURVE_END_GAP_WHEN_DOWNWARD);
+            BlockConnectionPayload blockConnectionPayload = new BlockConnectionPayload();
+            blockConnectionPayload.setStart(startPoint);
+            blockConnectionPayload.setEnd(endPoint);
+            blockConnectionPayload.setVisible(true);
+            CanvasSingleton.getInstance()
+                .getStateMachine()
+                .dispatchAction(ActionType.BLOCK_CONNECTION_MOVE, blockConnectionPayload);
         }
     }
 
@@ -74,13 +87,12 @@ public class BlockConnectionHandler {
                     return;
                 }
 
-                boolean isUpward = AppFacade.isConnectionArrowUpward();
-                if(isUpward && currentPickedBlockNode.isPossibleToAppendBackByConnection()){
+                if(isUpward() && currentPickedBlockNode.isPossibleToAppendBackByConnection()){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, currentPickedBlockNode, pastPickedBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(currentPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, pastPickedBlockNode);
                 }
-                else if(!isUpward && currentPickedBlockNode.isPossibleToAppendFrontByConnection()){
+                else if(!isUpward() && currentPickedBlockNode.isPossibleToAppendFrontByConnection()){
                     BlockNode pipeBlockNode = insertPipeBlockNode(sceneRoot, pastPickedBlockNode, currentPickedBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().linkToNewData(pastPickedBlockNode, pipeBlockNode);
                     CanvasSingleton.getInstance().getBlockNodeManager().link(pipeBlockNode, currentPickedBlockNode);
@@ -129,6 +141,12 @@ public class BlockConnectionHandler {
     private static void releaseConnectionProcess(){
         isClicked = false;
         pastPickedBlockNode = null;
-        AppFacade.setConnectionArrowVisible(false);
+        CanvasSingleton.getInstance()
+                .getStateMachine()
+                .dispatchAction(ActionType.BLOCK_CONNECTION_RELEASE);
+    }
+
+    private static boolean isUpward() {
+        return (startPoint.getY() - endPoint.getY()) > 0;
     }
 }

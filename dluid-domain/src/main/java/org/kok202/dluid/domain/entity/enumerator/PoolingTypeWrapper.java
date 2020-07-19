@@ -5,8 +5,5 @@ public enum PoolingTypeWrapper {
     AVG,
     SUM,
     PNORM;
-
-    private PoolingTypeWrapper() {
-    }
 }
 
