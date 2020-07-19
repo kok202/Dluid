@@ -4,9 +4,10 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import org.kok202.dluid.ai.AIConstant;
-import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
-import org.kok202.dluid.ai.entity.enumerator.Optimizer;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
+import org.kok202.dluid.ai.util.OptimizerUtil;
+import org.kok202.dluid.domain.entity.enumerator.BiasInitializer;
+import org.kok202.dluid.domain.entity.enumerator.Optimizer;
+import org.kok202.dluid.domain.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.domain.util.RandomUtil;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.IUpdater;
@@ -40,6 +41,6 @@ public class ModelParameter {
     }
 
     public IUpdater getIUpdater(){
-        return optimizer.getIUpdater(learningRate);
+        return OptimizerUtil.getIUpdater(optimizer, learningRate);
     }
 }

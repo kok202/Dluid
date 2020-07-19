@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.kok202.dluid.CanvasFacade;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.application.common.ExceptionHandler;
 import org.kok202.dluid.application.content.TabsController;
 import org.kok202.dluid.application.menu.MenuBarController;
@@ -57,7 +57,7 @@ public class Main extends Application {
         AppWidgetSingleton.getInstance().setBorderPane(borderPane);
         AppWidgetSingleton.getInstance().setMenuBarController(menuBarController);
         AppWidgetSingleton.getInstance().setTabsController(tabsController);
-        CanvasFacade.initialize();
+        AppFacade.initialize();
     }
 
     private void initWindowFrame(Stage primaryStage, Parent fxmlRoot){

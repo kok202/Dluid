@@ -6,11 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
-import org.nd4j.linalg.lossfunctions.LossFunctions;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LossFunctionWrapper;
 
 public class ComponentOutputParamController extends AbstractLayerComponentController {
 
@@ -55,17 +55,17 @@ public class ComponentOutputParamController extends AbstractLayerComponentContro
     }
 
     private void initializeMenuButtonLossFunction(){
-        MenuAdapter<LossFunctions.LossFunction> menuAdapter = new MenuAdapter<>(menuButtonLossFunction);
+        MenuAdapter<LossFunctionWrapper> menuAdapter = new MenuAdapter<>(menuButtonLossFunction);
         menuAdapter.setMenuItemChangedListener(lossFunction -> {
             layer.getProperties().setLossFunction(lossFunction);
             notifyLayerDataChanged();
         });
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mse"), LossFunctions.LossFunction.MSE);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l1"), LossFunctions.LossFunction.L1);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l2"), LossFunctions.LossFunction.L2);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.klDivergence"), LossFunctions.LossFunction.KL_DIVERGENCE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mse"), LossFunctionWrapper.MSE);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l1"), LossFunctionWrapper.L1);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l2"), LossFunctionWrapper.L2);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.klDivergence"), LossFunctionWrapper.KL_DIVERGENCE);
 
-        layer.getProperties().setLossFunction(LossFunctions.LossFunction.MSE);
+        layer.getProperties().setLossFunction(LossFunctionWrapper.MSE);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getLossFunction());
     }
 

@@ -1,7 +1,7 @@
 package org.kok202.dluid.ai.network;
 
 import lombok.Getter;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.domain.exception.CanNotFindLayerException;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.structure.GraphNode;

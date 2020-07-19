@@ -1,9 +1,9 @@
 package org.kok202.dluid.model;
 
-import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.exception.*;
 

@@ -1,13 +1,13 @@
 package org.kok202.dluid.ai;
 
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
-import org.kok202.dluid.ai.entity.enumerator.Optimizer;
-import org.kok202.dluid.ai.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.ai.listener.TrainingEpochListener;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.singleton.structure.DataSetManager;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.BiasInitializer;
+import org.kok202.dluid.domain.entity.enumerator.Optimizer;
+import org.kok202.dluid.domain.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.domain.structure.GraphManager;
 

@@ -1,7 +1,7 @@
 package org.kok202.dluid.ai.network.layer.builder;
 
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.domain.entity.Layer;
 
 public abstract class AbstractLayerBuilder {
 

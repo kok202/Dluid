@@ -6,16 +6,16 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
 import org.kok202.dluid.AppFacade;
-import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.common.ExceptionHandler;
 import org.kok202.dluid.application.content.TabModelTestController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.canvas.CanvasFacade;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.kok202.dluid.ai.entity.enumerator.LayerType.RESHAPE_LAYER;
+import static org.kok202.dluid.domain.entity.enumerator.LayerType.RESHAPE_LAYER;
 
 @Data
 public class ModelTestTestingTaskController extends AbstractModelTestController {

@@ -8,8 +8,8 @@ import javafx.scene.layout.Pane;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.application.common.AbstractController;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.structure.Vector2D;
 
 public abstract class AbstractMaterialController extends AbstractController {

@@ -9,7 +9,7 @@ import org.kok202.dluid.canvas.MainCanvas;
 @Getter
 public class CanvasContainerController extends AbstractController {
 
-    private BlockConnectionManager blockConnectionManager;
+    private BlockConnectionFollower blockConnectionFollower;
 
     public Pane createView() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/frame/content/design/canvas_container.fxml"));
@@ -19,10 +19,10 @@ public class CanvasContainerController extends AbstractController {
 
     @Override
     protected void initialize() throws Exception {
-        blockConnectionManager = new BlockConnectionManager();
+        blockConnectionFollower = new BlockConnectionFollower();
         MainCanvas mainCanvas = new MainCanvas(600, 600);
         ((Pane)itself).getChildren().add(mainCanvas.getMainScene().getSceneNode());
-        ((Pane)itself).getChildren().add(blockConnectionManager.getBlockConnectionFollower().createView());
-        blockConnectionManager.setVisible(false);
+        ((Pane)itself).getChildren().add(blockConnectionFollower.createView());
+        blockConnectionFollower.setVisible(false);
     }
 }

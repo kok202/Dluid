@@ -2,8 +2,8 @@ package org.kok202.dluid.application.content.design.component;
 
 import javafx.beans.InvalidationListener;
 import javafx.scene.control.TextField;
-import org.kok202.dluid.CanvasFacade;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.CanvasFacade;
+import org.kok202.dluid.domain.entity.Layer;
 
 public abstract class AbstractLayerComponentController extends AbstractComponentController {
     private InvalidationListener changeListener = (changeListener) -> textFieldChangedHandler();

@@ -6,13 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.deeplearning4j.nn.conf.layers.PoolingType;
 import org.kok202.dluid.AppConstant;
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.util.ConvolutionCalculatorUtil;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.PoolingTypeWrapper;
 import org.kok202.dluid.domain.exception.ConvolutionOutputIsNegativeException;
 
 public class ComponentPooling1DParamController extends AbstractConvolutionLayerComponentController {
@@ -73,15 +73,15 @@ public class ComponentPooling1DParamController extends AbstractConvolutionLayerC
     }
 
     private void initializeMenuButtonPoolingType(){
-        MenuAdapter<PoolingType> menuAdapter = new MenuAdapter<>(menuButtonPoolingType);
+        MenuAdapter<PoolingTypeWrapper> menuAdapter = new MenuAdapter<>(menuButtonPoolingType);
         menuAdapter.setMenuItemChangedListener(poolingType -> {
             layer.getProperties().setPoolingType(poolingType);
             notifyLayerDataChanged();
         });
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.max"), PoolingType.MAX);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.sum"), PoolingType.SUM);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.avg"), PoolingType.AVG);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.pnorm"), PoolingType.PNORM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.max"), PoolingTypeWrapper.MAX);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.sum"), PoolingTypeWrapper.SUM);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.avg"), PoolingTypeWrapper.AVG);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.pnorm"), PoolingTypeWrapper.PNORM);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getPoolingType());
     }
 

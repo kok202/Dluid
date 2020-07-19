@@ -3,7 +3,7 @@ package org.kok202.dluid.ai.util;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.BaseLayer;
 import org.kok202.dluid.ai.AIFacade;
-import org.kok202.dluid.ai.entity.enumerator.BiasInitializer;
+import org.kok202.dluid.domain.entity.enumerator.BiasInitializer;
 
 public class BiasInitUtil {
 

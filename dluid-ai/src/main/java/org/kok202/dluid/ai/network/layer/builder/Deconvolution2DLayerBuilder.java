@@ -2,10 +2,11 @@ package org.kok202.dluid.ai.network.layer.builder;
 
 import org.deeplearning4j.nn.conf.layers.Deconvolution2D;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.ai.util.ActivationUtil;
 import org.kok202.dluid.ai.util.BiasInitUtil;
-import org.kok202.dluid.ai.util.WeightInitWrapperUtil;
+import org.kok202.dluid.ai.util.WeightInitUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 public class Deconvolution2DLayerBuilder extends AbstractLayerBuilder {
     @Override
@@ -39,9 +40,9 @@ public class Deconvolution2DLayerBuilder extends AbstractLayerBuilder {
         if(layer.getProperties().getBiasInitializer() != null)
             BiasInitUtil.applyBiasInit(deconvolutionLayerBuilder, layer.getProperties().getBiasInitializer());
         if(layer.getProperties().getWeightInitializer() != null)
-            WeightInitWrapperUtil.applyWeightInit(deconvolutionLayerBuilder, layer.getProperties().getWeightInitializer());
+            WeightInitUtil.applyWeightInit(deconvolutionLayerBuilder, layer.getProperties().getWeightInitializer());
         if(layer.getProperties().getActivationFunction() != null)
-            deconvolutionLayerBuilder.activation(layer.getProperties().getActivationFunction().getActivation());
+            deconvolutionLayerBuilder.activation(ActivationUtil.get(layer.getProperties().getActivationFunction()));
         if(layer.getProperties().getDropout() != 0)
             deconvolutionLayerBuilder.dropOut(layer.getProperties().getDropout());
     }

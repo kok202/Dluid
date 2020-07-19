@@ -4,12 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.adapter.file.TrainFeatureFileFinder;
 import org.kok202.dluid.application.adapter.file.TrainResultFileFinder;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.canvas.CanvasFacade;
 
 import java.util.List;
 import java.util.stream.Collectors;
