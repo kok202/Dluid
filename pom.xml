@@ -19,6 +19,7 @@
         <module>dluid-gui</module>
         <module>dluid-ai</module>
         <module>dluid-domain</module>
+        <module>dluid-canvas</module>
     </modules>
 
     <build>

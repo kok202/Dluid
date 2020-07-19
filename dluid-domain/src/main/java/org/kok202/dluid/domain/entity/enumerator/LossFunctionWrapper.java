@@ -1,0 +1,22 @@
+package org.kok202.dluid.domain.entity.enumerator;
+
+public enum LossFunctionWrapper {
+    MSE,
+    L1,
+    XENT,
+    MCXENT,
+    SPARSE_MCXENT,
+    SQUARED_LOSS,
+    RECONSTRUCTION_CROSSENTROPY,
+    NEGATIVELOGLIKELIHOOD,
+    COSINE_PROXIMITY,
+    HINGE,
+    SQUARED_HINGE,
+    KL_DIVERGENCE,
+    MEAN_ABSOLUTE_ERROR,
+    L2,
+    MEAN_ABSOLUTE_PERCENTAGE_ERROR,
+    MEAN_SQUARED_LOGARITHMIC_ERROR,
+    POISSON,
+    WASSERSTEIN;
+}
