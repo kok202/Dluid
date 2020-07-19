@@ -25,5 +25,3 @@ mesh.getPoints().setAll(meshPoints);
 mesh.getTexCoords().setAll(textureCoords);
 mesh.getFaces().setAll(faces);
 ```
-
-If you curious about texture mapping, you could get more information [here](https://kok202.tistory.com/180?category=803457).

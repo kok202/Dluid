@@ -1,9 +1,9 @@
 ## Texture mapping
 
-Sample texture.  
+### Sample texture.  
 ![sample-texture](../resources/sample-texture.png)
 
-Sample code.
+### Sample code.
 ```java
 public class Cube extends MeshView {
     private final float zero = 0;
@@ -73,15 +73,15 @@ public class Cube extends MeshView {
 }
 ```
 
-Faces is set of ((meshPoint A, textureCoords A), (meshPoint B, textureCoords B), (meshPoint C, textureCoords C)).  
-For example, first face is triainge which has points of meshPoint[0], meshPoint[2], meshPoint[1], and it's texture is mapped by specific range of image. (Range created by triangle textureCoords[0], textureCoords[5], textureCoords[1].)
-
-Usage
+### Usage
 ```
 String texturePath = getClass().getClassLoader().getResource("images/sample_texture.png").toString();
 Cube cube = new Cube(2, texturePath);
 sceneRoot.getChildren().add(cube);
 ```
+
+Faces is set of ((meshPoint A, textureCoords A), (meshPoint B, textureCoords B), (meshPoint C, textureCoords C)).  
+For example, first face is triainge which has points of meshPoint[0], meshPoint[2], meshPoint[1], and it's texture is mapped by specific range of image. (Range created by triangle textureCoords[0], textureCoords[5], textureCoords[1].)
 
 ![mapping-00](../resources/mapping-00.png)  
 Light green is clock wise. (CW)  

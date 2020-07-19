@@ -13,9 +13,50 @@ RecordSet is set of record
 Record is one row in table.
 ````
 
-For example, there is a xor dataset below.  
-|제목|내용|설명|
-|:------:|:---:|:---:|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
+For example, there is a xor data set below.  
+
+|a|b|a xor b|
+|:---:|:---:|:---:|
+|0|0|0|
+|0|1|1|
+|1|0|1|
+|1|1|0|
+
+In this case feature set is. 
+
+|a|b|
+|:---:|:---:|
+|0|0|
+|0|1|
+|1|0|
+|1|1|
+
+And result set is. 
+
+|a xor b|
+|:---:|
+|0|
+|1|
+|1|
+|0|
+
+And record is
+
+|a|b|a xor b|
+|:---:|:---:|:---:|
+|0|0|0|
+
+|a|b|a xor b|
+|:---:|:---:|:---:|
+|0|1|1|
+
+|a|b|a xor b|
+|:---:|:---:|:---:|
+|1|0|1|
+
+|a|b|a xor b|
+|:---:|:---:|:---:|
+|1|1|1|
+
+And record set is collection of record.
+So `data set`, `feature set` and `result set` are sub type of record set.
