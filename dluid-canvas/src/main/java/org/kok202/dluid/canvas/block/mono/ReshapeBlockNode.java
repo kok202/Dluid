@@ -1,8 +1,8 @@
 package org.kok202.dluid.canvas.block.mono;
 
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
+import org.kok202.dluid.domain.entity.Layer;
 
 public class ReshapeBlockNode extends MonoBlockNode {
     public ReshapeBlockNode(Layer layer) {

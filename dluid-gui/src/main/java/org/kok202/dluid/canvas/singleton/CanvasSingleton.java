@@ -25,10 +25,6 @@ public class CanvasSingleton {
         this.mainCanvas = mainCanvas;
     }
 
-    public void afterAllWidgetSet(){
-        this.mainCanvas.setResizingListener();
-    }
-
     private CanvasSingleton(){
         blockNodeManager = new BlockNodeManager();
     }

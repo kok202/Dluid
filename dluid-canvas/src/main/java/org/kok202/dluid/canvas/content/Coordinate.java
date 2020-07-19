@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Translate;
-import org.kok202.dluid.CanvasConstant;
+import org.kok202.dluid.canvas.CanvasConstant;
 
 public class Coordinate extends Group {
 

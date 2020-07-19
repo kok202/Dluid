@@ -7,7 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-import org.kok202.dluid.CanvasConstant;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 
 public class Camera extends PerspectiveCamera {

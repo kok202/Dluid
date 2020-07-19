@@ -1,14 +1,14 @@
 package org.kok202.dluid.canvas;
 
 import lombok.Data;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.List;
+import java.util.Observer;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -16,30 +16,15 @@ import java.util.stream.Collectors;
 @Data
 public class CanvasFacade {
 
-    /*************************************************************************************************
-     /* Singleton itself
-     *************************************************************************************************/
-    public static void initialize(){
-        CanvasSingleton.getInstance().afterAllWidgetSet();
+    public static void resizingCanvas(double canvasWidth, double canvasHeight){
+        CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneSize().setX(canvasWidth);
+        CanvasSingleton.getInstance().getMainCanvas().getMainScene().refreshSceneSize();
+        CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneSize().setY(canvasHeight);
+        CanvasSingleton.getInstance().getMainCanvas().getMainScene().refreshSceneSize();
     }
 
-    /*************************************************************************************************
-    /* Canvas -> MainContent
-    *************************************************************************************************/
-    public static void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
-        CanvasSingleton.getInstance()
-                .getMainCanvas()
-                .getMainContent()
-                .getBlockInsertionHandler()
-                .hoveringListener(materialInsertionInfoHolder);
-    }
-
-    public static void insertListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
-        CanvasSingleton.getInstance()
-                .getMainCanvas()
-                .getMainContent()
-                .getBlockInsertionHandler()
-                .insertListener(materialInsertionInfoHolder);
+    public static void addObserver(Observer observer){
+        CanvasSingleton.getInstance().getStateMachine().addObserver(observer);
     }
 
     /*************************************************************************************************

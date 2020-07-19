@@ -14,9 +14,9 @@ import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.Dimension;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.application.util.MathUtil;
 import org.kok202.dluid.application.util.TextFieldUtil;
 import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
+import org.kok202.dluid.domain.util.MathUtil;
 
 import java.util.List;
 

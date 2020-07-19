@@ -4,12 +4,12 @@ import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.entity.ExtraBlockProperty;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 import org.kok202.dluid.canvas.entity.ReshapeBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
+import org.kok202.dluid.domain.entity.Layer;
 
 import java.util.ArrayList;
 import java.util.HashMap;

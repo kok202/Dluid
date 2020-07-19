@@ -5,12 +5,12 @@ import lombok.Data;
 import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.entity.enumerator.LayerType;
-import org.kok202.dluid.application.util.MathUtil;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.entity.MergeBlockProperty;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
 import org.kok202.dluid.domain.structure.GraphManager;
 import org.kok202.dluid.domain.structure.GraphNode;
+import org.kok202.dluid.domain.util.MathUtil;
 
 import java.util.List;
 import java.util.Optional;

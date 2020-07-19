@@ -1,8 +1,8 @@
 package org.kok202.dluid.canvas.block.mono;
 
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
+import org.kok202.dluid.domain.entity.Layer;
 
 // Block that only one input and only one output.
 // It doesn't have any technical something, you can think it as just connection edge.

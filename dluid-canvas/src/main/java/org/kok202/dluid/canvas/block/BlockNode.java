@@ -7,14 +7,14 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.entity.ExtraBlockProperty;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.exception.CanNotFindGraphNodeException;
 import org.kok202.dluid.domain.structure.GraphNode;
 

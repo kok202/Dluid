@@ -3,11 +3,11 @@ package org.kok202.dluid.canvas.block.mono;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
+import org.kok202.dluid.domain.entity.Layer;
 
 public abstract class MonoBlockNode extends BlockNode {
     public static final int MONO_BLOCK_INDEX = 0;

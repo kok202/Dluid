@@ -1,8 +1,8 @@
 package org.kok202.dluid.canvas.util;
 
 import javafx.geometry.Point2D;
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.CanvasConstant;
+import org.kok202.dluid.domain.entity.Layer;
 
 public class BlockNodeUtil {
 

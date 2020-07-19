@@ -4,14 +4,14 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.ActivationWrapper;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.canvas.polygon.block.BlockHexahedron;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.ActivationWrapper;
 
 import java.util.Map;
 

@@ -1,8 +1,8 @@
 package org.kok202.dluid.canvas.block.activation;
 
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
+import org.kok202.dluid.domain.entity.Layer;
 
 public class Deconvolution2DBlockNode extends ActivationBlockNode {
     public Deconvolution2DBlockNode(Layer layer) {

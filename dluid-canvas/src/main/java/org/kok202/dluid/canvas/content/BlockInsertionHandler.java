@@ -5,11 +5,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.PickResult;
 import org.kok202.dluid.AppFacade;
-import org.kok202.dluid.CanvasConstant;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.LayerFactory;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.application.content.design.material.insertion.MaterialInsertionInfoHolder;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.polygon.block.HexahedronBottomFace;
@@ -18,6 +15,9 @@ import org.kok202.dluid.canvas.polygon.block.HexahedronVerticalFace;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.Math3D;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.LayerFactory;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 // PickResult is always not null.
 // Although user point at empty space, PickResult returns SubScene node

@@ -1,4 +1,4 @@
-package org.kok202.dluid.application.util;
+package org.kok202.dluid.domain.util;
 
 import java.util.ArrayList;
 import java.util.Collections;

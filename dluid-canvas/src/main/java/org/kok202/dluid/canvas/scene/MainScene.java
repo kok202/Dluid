@@ -6,7 +6,7 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.paint.Color;
 import lombok.Getter;
-import org.kok202.dluid.CanvasConstant;
+import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.domain.structure.Vector2D;
 
 @Getter
