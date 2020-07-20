@@ -21,7 +21,7 @@ protected Object extra;
 
 #### BlockLayer
 BlockLayer is layer type of block. 
-You can get more information about layer data in [here](./layer.md).
+You can get more information about layer data in [here](layer-detail.md).
 
 #### BlockHexahedron
 BlockNode is combination of some hexahedron models.
