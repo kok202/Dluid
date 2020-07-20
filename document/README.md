@@ -1,16 +1,16 @@
 # Index
 ## Archiecture
 - [Module](./architecture/module.md)
-- Observer pattern
+- [Observer pattern](./architecture/observer-pattern.md)
 
 ## Concept
-- Application
-- Materials
-- Components
-- Block
+- [Frame](./concept/frame.md)
+- [Materials](./concept/materials.md)
+- [Components](./concept/components.md)
+- [Block](./concept/block.md)
 - [Dataset](./concept/dataSet.md)
-- [Block - detail](./concept/block.md)
-- [Layer - detail](./concept/layer.md)
+- [Block - detail](concept/block-detail.md)
+- [Layer - detail](concept/layer-detail.md)
 
 ## OpenGL using javaFX
 - [coordinates](./javafx/coordinates.md)
