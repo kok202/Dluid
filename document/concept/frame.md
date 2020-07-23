@@ -1,3 +1,10 @@
+---
+title: Frame
+parent: Concept
+has_children: false
+nav_order: 1
+---
+
 ## Frame
 ![frame](../resources/frame.png)
 Dluid is composed of frames that are outlined above. 

@@ -1,3 +1,10 @@
+---
+title: Polygon
+parent: OpenGL
+has_children: false
+nav_order: 2
+---
+
 ## 3D polygon
 ### Point - Edge - Face - Polygon - Surface
 ![mesh](../resources/mesh.png)
