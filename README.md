@@ -1,6 +1,11 @@
+
 ![main_icon](./document/resources/title.png)
+# Dluid
+[![Englsh](https://img.shields.io/badge/language-English-orange.svg)](README.md)
+[![Korean](https://img.shields.io/badge/language-Korean-blue.svg)](README.md)  
+Deep Learning User Interface Designer
+
 ## Introduction
-DLUID (Deep Learning User Interface Design)  
 Dluid is a learning application for non-specialists in the computer programming but who want to study deep learning.  
 
 - No complex package installation required.
