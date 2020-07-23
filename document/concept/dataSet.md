@@ -1,3 +1,10 @@
+---
+title: Dataset
+parent: Concept
+has_children: true
+nav_order: 5
+---
+
 ## Dataset
 
 There are so different interpretations of what a `dataset` is. 

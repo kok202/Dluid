@@ -89,11 +89,11 @@ For someone who want to study deep learning. try this application with below rec
 ## Requirement 
 This project is developed by `Java`. 
 For that reason, unfortunately, although we try to minimize set up, java must be installed in your computer. 
-So there is a [Java installation guide](./document/java/README.md) for user who want to just use `Dluid` only.  
-Although there is belief guide, java installation process may be different depending on your computer environment. 
+So there is a [Java installation guide](document/java-installation.md) for user who want to just use `Dluid` only.  
+Although there is simple guide, java installation process may be different depending on your computer environment. 
 Please google `install openjdk 8`. There are many detailed articles about the Java installation process.
 This project does not receive Java installation inquiries beyond the prepared Guide document. 
 
 ## Contribution
 Dluid is open source application, so anyone can contribute.
-If you want to contribute for the Dluid, please refer to the [Concept document](./document/README.md) below. 
+If you want to contribute for the Dluid, please refer to the [Concept document](document/index.md) below. 

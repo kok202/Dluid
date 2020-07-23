@@ -1,11 +1,10 @@
-# Index
-## Archiecture
-- [Module](./architecture/module.md)
-- [Observer pattern](./architecture/observer-pattern.md)
-- [Facade](./architecture/facade.md)
-- [Graph and graph node](architecture/graph-and-graph-node.md)
+---
+title: Concept
+has_children: true
+nav_order: 2
+---
 
-## Concept
+# Concept
 - [Frame](./concept/frame.md)
 - [Materials](./concept/materials.md)
 - [Components](./concept/components.md)
@@ -15,10 +14,3 @@
 - [Layer - detail](./concept/layer-detail.md)
 - [Layer binder (dluid-ai)](./concept/layer-binder.md)
 - [Layer builder (dluid-ai)](./concept/layer-builder.md)
-
-
-## OpenGL using javaFX
-- [coordinates](./javafx/coordinates.md)
-- [polygon](./javafx/polygon.md)
-- [texture-mapping](./javafx/texture-mapping.md)
-

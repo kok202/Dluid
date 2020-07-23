@@ -1,3 +1,10 @@
+---
+title: Texture mapping
+parent: OpenGL
+has_children: false
+nav_order: 3
+---
+
 ## Texture mapping
 
 ### Sample texture.  

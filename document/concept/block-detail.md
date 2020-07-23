@@ -1,6 +1,13 @@
-# Block
+---
+title: Block (detail)
+parent: Concept
+has_children: false
+nav_order: 6
+---
 
-#### BlockNode
+## Block (Detail)
+
+### BlockNode
 Conceptually block is same as blockNode, and consist of below data.
 ````
 private BlockInfo blockInfo;
@@ -8,7 +15,7 @@ private Layer blockLayer;
 private List<BlockHexahedron> blockHexahedronList;
 ````
 
-#### BlockInfo
+### BlockInfo
 BlockInfo is structure of block node properties in for creating hexahedron model in canvas like position, node height, textures etc...
 ````
 protected String id;
@@ -19,11 +26,11 @@ protected List<Color[]> colorsList;
 protected Object extra;
 ````
 
-#### BlockLayer
+### BlockLayer
 BlockLayer is layer type of block. 
 You can get more information about layer data in [here](layer-detail.md).
 
-#### BlockHexahedron
+### BlockHexahedron
 BlockNode is combination of some hexahedron models.
 And BlockHexahedron is box polygon which has referencing to BlockNode. 
 Basically blockNode has one hex. 

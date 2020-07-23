@@ -1,4 +1,11 @@
-## Layer
+---
+title: Layer (detail)
+parent: Concept
+has_children: false
+nav_order: 7
+---
+
+## Layer (detail)
 
 ````
 protected final String id;

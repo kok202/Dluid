@@ -1,3 +1,10 @@
+---
+title: Module
+parent: Architecture
+has_children: false
+nav_order: 1
+---
+
 ## Module
 
 Dluid follows layered architecture.

@@ -1,6 +1,17 @@
-# Java installation
+---
+title: Java installation
+has_children: false
+nav_order: 4
+---
 
-## Window
+## Java installation
+This project is developed by `Java`. 
+For that reason, unfortunately, although we try to minimize set up, java must be installed in your computer. 
+Although there is simple guide, java installation process may be different depending on your computer environment. 
+Please google `install openjdk 8`. There are many detailed articles about the Java installation process.
+This project does not receive Java installation inquiries beyond the prepared Guide document. 
+
+### Window
 1. Install JDK  
 First of all you need to install jdk. 
 You might be wondering that you heard you need to install java, but why you should install jdk instead.
@@ -11,7 +22,7 @@ If you just want to using `Dluid` only, you can install jre (`java runtime envir
 2. Unzip jdk file and change directory.
 3.  
 
-## Mac
+### Mac
 1. Install [Brew](https://brew.sh/)  
 Brew is package manager for mac or linux. 
 Brew helps installation of application much easier. 
