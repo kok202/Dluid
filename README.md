@@ -1,9 +1,11 @@
 
 ![main_icon](./document/resources/title.png)
 # Dluid
-[![Englsh](https://img.shields.io/badge/language-English-orange.svg)](README.md)
-[![Korean](https://img.shields.io/badge/language-Korean-blue.svg)](README.md)  
-Deep Learning User Interface Designer
+[![Download](https://img.shields.io/badge/Download-here-darkcyan.svg?style=flat)](https://kok202.github.io/Dluid/)
+[![Englsh](https://img.shields.io/badge/Language-English-orange.svg)](README.md)
+[![Korean](https://img.shields.io/badge/Language-Korean-blue.svg)](README.md) 
+[![Document](https://img.shields.io/badge/Contributions-Document-brightgreen.svg?style=flat)](https://kok202.github.io/Dluid/)  
+Deep Learning User Interface Designer 
 
 ## Introduction
 Dluid is a learning application for non-specialists in the computer programming but who want to study deep learning.  
@@ -101,4 +103,4 @@ This project does not receive Java installation inquiries beyond the prepared Gu
 
 ## Contribution
 Dluid is open source application, so anyone can contribute.
-If you want to contribute for the Dluid, please refer to the [Concept document](document/index.md) below. 
+If you want to contribute for the Dluid, please refer to the [Concept document](https://kok202.github.io/Dluid/) below. 
