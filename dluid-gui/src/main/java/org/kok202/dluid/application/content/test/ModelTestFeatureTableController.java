@@ -8,13 +8,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
-import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.adapter.NumericTableViewAdapter;
 import org.kok202.dluid.application.content.TabModelTestController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.singleton.AppWidgetSingleton;
+import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 
 import java.util.List;

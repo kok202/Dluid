@@ -5,9 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
+import org.kok202.dluid.domain.entity.Layer;
 
 public class ComponentInputParamController extends AbstractLayerComponentController {
 

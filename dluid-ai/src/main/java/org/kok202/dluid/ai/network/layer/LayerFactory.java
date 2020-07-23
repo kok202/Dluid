@@ -1,7 +1,7 @@
 package org.kok202.dluid.ai.network.layer;
 
-import org.kok202.dluid.ai.entity.Layer;
 import org.kok202.dluid.ai.network.layer.builder.*;
+import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.domain.exception.IllegalLayerRequest;
 
 import java.util.ArrayList;

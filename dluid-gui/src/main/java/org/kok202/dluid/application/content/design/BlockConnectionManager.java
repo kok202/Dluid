@@ -23,5 +23,7 @@ public class BlockConnectionManager {
         blockConnectionFollower.setEnd(position);
     }
 
-    public boolean isUpward(){ return (blockConnectionFollower.getStart().getY() - blockConnectionFollower.getEnd().getY()) > 0; }
+    public boolean isUpward() {
+        return (blockConnectionFollower.getStart().getY() - blockConnectionFollower.getEnd().getY()) > 0;
+    }
 }

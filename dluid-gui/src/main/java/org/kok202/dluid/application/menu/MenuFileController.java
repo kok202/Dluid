@@ -7,9 +7,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import lombok.Getter;
 import org.kok202.dluid.AppFacade;
-import org.kok202.dluid.CanvasFacade;
 import org.kok202.dluid.application.common.AbstractMenuController;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
+import org.kok202.dluid.canvas.CanvasFacade;
 
 @Getter
 public class MenuFileController extends AbstractMenuController {

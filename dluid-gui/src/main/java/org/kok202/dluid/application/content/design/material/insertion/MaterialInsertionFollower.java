@@ -2,8 +2,8 @@ package org.kok202.dluid.application.content.design.material.insertion;
 
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.TransferMode;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
 import org.kok202.dluid.application.content.design.material.block.AbstractMaterialController;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 public class MaterialInsertionFollower extends AbstractMaterialController {
     @Override

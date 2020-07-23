@@ -7,11 +7,11 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.AppConstant;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.Dimension;
 import org.kok202.dluid.application.adapter.MenuAdapter;
 import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.application.util.TextFieldUtil;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.Dimension;
 
 public class ComponentDelegateParamController extends AbstractLayerComponentController {
 

@@ -1,8 +1,8 @@
 package org.kok202.dluid.ai.network.layer.binder;
 
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
-import org.kok202.dluid.ai.entity.Layer;
-import org.kok202.dluid.ai.entity.enumerator.LayerType;
+import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 import java.util.List;
 
