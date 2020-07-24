@@ -22,7 +22,7 @@ public class ComponentManager {
     }
 
     public void addCanvasObserver(){
-        CanvasFacade.addObserver(new Reducer() {
+        CanvasFacade.addReducer(new Reducer() {
             @Override
             public boolean support(Action action) {
                 return action.getType() == ActionType.BLOCK_PICK_UP;

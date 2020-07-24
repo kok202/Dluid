@@ -3,7 +3,7 @@
 # Dluid
 [![Download](https://img.shields.io/badge/Download-here-darkcyan.svg?style=flat)](https://kok202.github.io/Dluid/)
 [![Englsh](https://img.shields.io/badge/Language-English-orange.svg)](README.md)
-[![Korean](https://img.shields.io/badge/Language-Korean-blue.svg)](README.md) 
+[![Korean](https://img.shields.io/badge/Language-Korean-blue.svg)](README.md)
 [![Document](https://img.shields.io/badge/Contributions-Document-brightgreen.svg?style=flat)](https://kok202.github.io/Dluid/)  
 Deep Learning User Interface Designer 
 

@@ -4,12 +4,12 @@ import lombok.Data;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.content.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
+import org.kok202.dluid.domain.action.Reducer;
 import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.structure.GraphNode;
 
 import java.util.List;
-import java.util.Observer;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -26,8 +26,8 @@ public class CanvasFacade {
         CanvasSingleton.getInstance().getMainCanvas().getMainScene().refreshSceneSize();
     }
 
-    public static void addObserver(Observer observer){
-        CanvasSingleton.getInstance().getStateMachine().addObserver(observer);
+    public static void addReducer(Reducer reducer){
+        CanvasSingleton.getInstance().getStateMachine().addReducer(reducer);
     }
 
     /*************************************************************************************************

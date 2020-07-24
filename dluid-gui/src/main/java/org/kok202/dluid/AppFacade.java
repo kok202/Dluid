@@ -19,12 +19,12 @@ public class AppFacade {
                 .getComponentContainerController()
                 .getComponentManager()
                 .addCanvasObserver();
-        CanvasFacade.addObserver(new ConnectionStartReducer());
-        CanvasFacade.addObserver(new ConnectionMoveReducer());
-        CanvasFacade.addObserver(new ConnectionReleaseReducer());
+        CanvasFacade.addReducer(new ConnectionStartReducer());
+        CanvasFacade.addReducer(new ConnectionMoveReducer());
+        CanvasFacade.addReducer(new ConnectionReleaseReducer());
     }
 
-    public static void setCanvasResizeSubscriber(){
+    private static void setCanvasResizeSubscriber(){
         AppWidgetSingleton.getInstance().getPrimaryStage().widthProperty().addListener(listener -> resizingCanvas());
         AppWidgetSingleton.getInstance().getPrimaryStage().heightProperty().addListener(listener -> resizingCanvas());
         AppWidgetSingleton.getInstance()

@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 import org.kok202.dluid.canvas.MainCanvas;
 import org.kok202.dluid.canvas.singleton.structure.BlockNodeManager;
-import org.kok202.dluid.canvas.singleton.structure.StateMachine;
+import org.kok202.dluid.domain.structure.StateMachine;
 
 @Data
 public class CanvasSingleton {
