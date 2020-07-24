@@ -2,6 +2,7 @@ package org.kok202.dluid.domain.structure;
 
 import org.kok202.dluid.domain.action.Action;
 import org.kok202.dluid.domain.action.ActionType;
+import org.kok202.dluid.domain.action.Reducer;
 
 import java.util.Observable;
 
@@ -37,5 +38,9 @@ public class StateMachine {
 
     public void dispatchAction(Action action){
         observable.dispatchAction(action);
+    }
+
+    public void addReducer(Reducer reducer){
+        observable.addObserver(reducer);
     }
 }
