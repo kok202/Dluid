@@ -2,13 +2,13 @@ package org.kok202.dluid.model;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kok202.dluid.ai.AIFacade;
-import org.kok202.dluid.application.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.domain.entity.enumerator.Dimension;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.exception.*;
 import org.kok202.dluid.domain.structure.GraphNode;
+import org.kok202.dluid.singleton.AppPropertiesSingleton;
 
 import java.util.List;
 import java.util.Optional;

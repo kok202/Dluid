@@ -1,10 +1,10 @@
 package org.kok202.dluid;
 
-import org.kok202.dluid.application.reducer.ConnectionMoveReducer;
-import org.kok202.dluid.application.reducer.ConnectionReleaseReducer;
-import org.kok202.dluid.application.reducer.ConnectionStartReducer;
-import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 import org.kok202.dluid.canvas.CanvasFacade;
+import org.kok202.dluid.reducer.ConnectionMoveReducer;
+import org.kok202.dluid.reducer.ConnectionReleaseReducer;
+import org.kok202.dluid.reducer.ConnectionStartReducer;
+import org.kok202.dluid.singleton.AppWidgetSingleton;
 
 public class AppFacade {
 
