@@ -1,10 +1,10 @@
-package org.kok202.dluid.canvas.block.mono;
+package org.kok202.dluid.canvas.block.plain;
 
 import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.domain.entity.Layer;
 
-public class InputBlockNode extends MonoBlockNode {
+public class InputBlockNode extends PlainBlockNode {
     public InputBlockNode(Layer layer) {
         super(layer);
         setBlockColor(MONO_BLOCK_INDEX, BlockFace.FRONT, CanvasConstant.COLOR_GREEN);

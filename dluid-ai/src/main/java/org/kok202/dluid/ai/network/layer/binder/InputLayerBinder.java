@@ -6,16 +6,15 @@ import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 import java.util.List;
 
-public class NoopLayerGenerator extends AbstractLayerGenerator {
+public class InputLayerBinder extends AbstractLayerBinder {
     @Override
     public boolean support(Layer layer) {
-        return layer.getType() == LayerType.PIPE_LAYER ||
-                layer.getType() == LayerType.SWITCH_LAYER;
+        return layer.getType() == LayerType.INPUT_LAYER;
     }
 
     @Override
-    public void generate(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
-
+    public void bind(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
+        graphBuilder.addInputs(layer.getId());
     }
 
 }

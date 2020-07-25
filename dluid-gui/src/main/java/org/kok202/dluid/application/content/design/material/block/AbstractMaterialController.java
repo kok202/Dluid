@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.kok202.dluid.application.common.AbstractController;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
-import org.kok202.dluid.domain.structure.Vector2D;
 
 public abstract class AbstractMaterialController extends AbstractController {
     @Getter
@@ -89,8 +88,8 @@ public abstract class AbstractMaterialController extends AbstractController {
         itself.getStyleClass().add("layer-block-half-opacity");
     }
 
-    public void relocatePosition(Vector2D mousePosition) {
-        Point2D mouseCoords = new Point2D(mousePosition.getX(), mousePosition.getY());
+    public void relocatePosition(Point2D mousePosition) {
+        Point2D mouseCoords = mousePosition;
         Point2D localCoords = itself.getParent().sceneToLocal(mouseCoords);
         int relocatedCoordsX = (int) (localCoords.getX() - (itself.getBoundsInLocal().getWidth() / 2));
         int relocatedCoordsY = (int) (localCoords.getY() - (itself.getBoundsInLocal().getHeight() / 2));

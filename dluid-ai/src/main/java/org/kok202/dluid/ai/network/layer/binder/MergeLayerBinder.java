@@ -7,14 +7,14 @@ import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 import java.util.List;
 
-public class MergeLayerGenerator extends AbstractLayerGenerator {
+public class MergeLayerBinder extends AbstractLayerBinder {
     @Override
     public boolean support(Layer layer) {
         return layer.getType() == LayerType.MERGE_LAYER;
     }
 
     @Override
-    public void generate(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
+    public void bind(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
         graphBuilder.addVertex(layer.getId(), new MergeVertex(), parseLayerIds(layerFroms));
     }
 

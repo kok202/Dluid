@@ -7,7 +7,7 @@ import org.kok202.dluid.domain.exception.IllegalLayerRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LayerFactory {
+public class LayerBuilderManager {
 
     private static List<AbstractLayerBuilder> baseLayerBuilders;
 

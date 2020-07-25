@@ -1,4 +1,4 @@
-package org.kok202.dluid.canvas.block.mono;
+package org.kok202.dluid.canvas.block.plain;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -9,11 +9,11 @@ import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.BlockNodeUtil;
 import org.kok202.dluid.domain.entity.Layer;
 
-public abstract class MonoBlockNode extends BlockNode {
+public abstract class PlainBlockNode extends BlockNode {
     public static final int MONO_BLOCK_INDEX = 0;
     public static final int BLOCK_HEXAHEDRON_SIZE = 1;
 
-    public MonoBlockNode(Layer layer) {
+    public PlainBlockNode(Layer layer) {
         super(layer, BLOCK_HEXAHEDRON_SIZE);
     }
 

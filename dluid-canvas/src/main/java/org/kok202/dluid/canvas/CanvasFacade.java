@@ -20,9 +20,9 @@ public class CanvasFacade {
      /* Canvas, state machine
      *************************************************************************************************/
     public static void resizingCanvas(double canvasWidth, double canvasHeight){
-        CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneSize().setX(canvasWidth);
+        CanvasSingleton.getInstance().getMainCanvas().getMainScene().setSceneWidth(canvasWidth);
         CanvasSingleton.getInstance().getMainCanvas().getMainScene().refreshSceneSize();
-        CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneSize().setY(canvasHeight);
+        CanvasSingleton.getInstance().getMainCanvas().getMainScene().setSceneHeight(canvasHeight);
         CanvasSingleton.getInstance().getMainCanvas().getMainScene().refreshSceneSize();
     }
 

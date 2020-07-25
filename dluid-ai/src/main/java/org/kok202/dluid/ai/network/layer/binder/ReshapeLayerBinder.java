@@ -7,7 +7,7 @@ import org.kok202.dluid.domain.entity.enumerator.LayerType;
 
 import java.util.List;
 
-public class ReshapeLayerGenerator extends AbstractLayerGenerator {
+public class ReshapeLayerBinder extends AbstractLayerBinder {
 
     @Override
     public boolean support(Layer layer) {
@@ -15,7 +15,7 @@ public class ReshapeLayerGenerator extends AbstractLayerGenerator {
     }
 
     @Override
-    public void generate(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
+    public void bind(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
         int[] newShape;
         if(layer.getProperties().getOutputDimension().getDimension() == 1){
             newShape = new int[]{

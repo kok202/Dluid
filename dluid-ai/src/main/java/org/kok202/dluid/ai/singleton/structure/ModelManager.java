@@ -4,8 +4,9 @@ import lombok.Getter;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.listener.TrainingEpochListener;
-import org.kok202.dluid.ai.network.LayerGraphManagerConverter;
+import org.kok202.dluid.ai.network.LayerGraphManagerAnalyzer;
 import org.kok202.dluid.ai.network.Model;
+import org.kok202.dluid.ai.network.ModelConverter;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.util.NumericRecordSetUtil;
 import org.kok202.dluid.domain.entity.Layer;
@@ -39,7 +40,12 @@ public class ModelManager {
      /* Initialize
      *************************************************************************************************/
     public void initialize(GraphManager<Layer> layerGraphManager) {
-        models = LayerGraphManagerConverter.convert(layerGraphManager);
+        LayerGraphManagerAnalyzer layerGraphManagerAnalyzer = new LayerGraphManagerAnalyzer();
+        layerGraphManagerAnalyzer.analyze(layerGraphManager);
+
+        // Convert linked computation graph as model.
+        ModelConverter modelConverter = new ModelConverter();
+        models = modelConverter.convert(layerGraphManagerAnalyzer);
     }
 
     public void setTrainListener(TrainingEpochListener trainingEpochListener){

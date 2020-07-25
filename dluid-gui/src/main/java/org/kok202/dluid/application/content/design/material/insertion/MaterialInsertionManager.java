@@ -1,6 +1,7 @@
 package org.kok202.dluid.application.content.design.material.insertion;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -14,7 +15,6 @@ import org.kok202.dluid.canvas.content.MaterialInsertionInfoHolder;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.exception.MultiInputLayerException;
 import org.kok202.dluid.domain.exception.MultiOutputLayerException;
-import org.kok202.dluid.domain.structure.Vector2D;
 
 @Data
 public class MaterialInsertionManager {
@@ -43,7 +43,7 @@ public class MaterialInsertionManager {
     private void initializeMouseEventListener(){
         // seq 1: moving material.material follower
         mainSplitter.setOnDragOver((DragEvent dragEvent) -> {
-            materialInsertionFollower.relocatePosition(new Vector2D(dragEvent.getSceneX(), dragEvent.getSceneY()));
+            materialInsertionFollower.relocatePosition(new Point2D(dragEvent.getSceneX(), dragEvent.getSceneY()));
         });
 
         // seq 2: dragging on middle side
@@ -92,7 +92,7 @@ public class MaterialInsertionManager {
             ClipboardContent clipboardContent = new ClipboardContent();
             clipboardContent.put(MaterialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK, materialInsertionInfoHolder);
             materialInsertionFollower.setInsertionSetting(clipboardContent, layerType);
-            materialInsertionFollower.relocatePosition(new Vector2D(event.getSceneX(), event.getSceneY()));
+            materialInsertionFollower.relocatePosition(new Point2D(event.getSceneX(), event.getSceneY()));
             isBlockInsertionRequested = true;
         };
     }

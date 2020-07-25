@@ -1,10 +1,10 @@
-package org.kok202.dluid.canvas.block.mono;
+package org.kok202.dluid.canvas.block.plain;
 
 import org.kok202.dluid.canvas.CanvasConstant;
 import org.kok202.dluid.canvas.polygon.block.BlockFace;
 import org.kok202.dluid.domain.entity.Layer;
 
-public class BatchNormalizationBlockNode extends MonoBlockNode {
+public class BatchNormalizationBlockNode extends PlainBlockNode {
     public BatchNormalizationBlockNode(Layer layer) {
         super(layer);
         setBlockColor(MONO_BLOCK_INDEX, BlockFace.FRONT, CanvasConstant.COLOR_PURPLE);
