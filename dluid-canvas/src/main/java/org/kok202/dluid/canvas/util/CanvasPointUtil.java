@@ -14,8 +14,8 @@ public class CanvasPointUtil {
         // ex. screen y size = 600
         // ex. mouse y position = 200
         Point2D sceneSize = new Point2D(
-                CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneSize().getX(),
-                CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneSize().getY());
+                CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneWidth(),
+                CanvasSingleton.getInstance().getMainCanvas().getMainScene().getSceneHeight());
         double sceneRatio = sceneSize.getX() / sceneSize.getY();
 
         // mapped to [-1, 0, +1] (ex. mouseRatioFromCenter = -1/3)

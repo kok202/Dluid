@@ -6,18 +6,22 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.paint.Color;
 import lombok.Getter;
+import lombok.Setter;
 import org.kok202.dluid.canvas.CanvasConstant;
-import org.kok202.dluid.domain.structure.Vector2D;
 
 @Getter
 public class MainScene {
+    @Setter
+    private double sceneWidth;
+    @Setter
+    private double sceneHeight;
     private Camera camera;
-    private Vector2D sceneSize;
     private Group sceneRoot;
     private SubScene sceneNode;
 
     public MainScene(double width, double height) {
-        sceneSize = new Vector2D(width, height);
+        sceneWidth = width;
+        sceneHeight = height;
         sceneRoot = new Group();
         sceneRoot.getChildren().add(new AmbientLight(Color.WHITE));
         sceneNode = new SubScene(sceneRoot, width, height, true, SceneAntialiasing.BALANCED);
@@ -27,7 +31,7 @@ public class MainScene {
     }
 
     public void refreshSceneSize(){
-        sceneNode.setWidth(sceneSize.getX());
-        sceneNode.setHeight(sceneSize.getY());
+        sceneNode.setWidth(sceneWidth);
+        sceneNode.setHeight(sceneHeight);
     }
 }

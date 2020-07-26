@@ -38,7 +38,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.7.0</version>
                 <configuration>
-                    <mainClass>org.kok202.dluid.application.Main</mainClass>
+                    <mainClass>org.kok202.dluid.Main</mainClass>
                     <bundler>EXE</bundler>
                 </configuration>
             </plugin>

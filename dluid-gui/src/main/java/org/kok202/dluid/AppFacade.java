@@ -1,10 +1,10 @@
 package org.kok202.dluid;
 
-import org.kok202.dluid.application.reducer.ConnectionMoveReducer;
-import org.kok202.dluid.application.reducer.ConnectionReleaseReducer;
-import org.kok202.dluid.application.reducer.ConnectionStartReducer;
-import org.kok202.dluid.application.singleton.AppWidgetSingleton;
 import org.kok202.dluid.canvas.CanvasFacade;
+import org.kok202.dluid.reducer.ConnectionMoveReducer;
+import org.kok202.dluid.reducer.ConnectionReleaseReducer;
+import org.kok202.dluid.reducer.ConnectionStartReducer;
+import org.kok202.dluid.singleton.AppWidgetSingleton;
 
 public class AppFacade {
 
@@ -19,12 +19,12 @@ public class AppFacade {
                 .getComponentContainerController()
                 .getComponentManager()
                 .addCanvasObserver();
-        CanvasFacade.addObserver(new ConnectionStartReducer());
-        CanvasFacade.addObserver(new ConnectionMoveReducer());
-        CanvasFacade.addObserver(new ConnectionReleaseReducer());
+        CanvasFacade.addReducer(new ConnectionStartReducer());
+        CanvasFacade.addReducer(new ConnectionMoveReducer());
+        CanvasFacade.addReducer(new ConnectionReleaseReducer());
     }
 
-    public static void setCanvasResizeSubscriber(){
+    private static void setCanvasResizeSubscriber(){
         AppWidgetSingleton.getInstance().getPrimaryStage().widthProperty().addListener(listener -> resizingCanvas());
         AppWidgetSingleton.getInstance().getPrimaryStage().heightProperty().addListener(listener -> resizingCanvas());
         AppWidgetSingleton.getInstance()
