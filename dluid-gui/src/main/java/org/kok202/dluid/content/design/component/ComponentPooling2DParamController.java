@@ -114,7 +114,7 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
         MenuAdapter<PoolingTypeWrapper> menuAdapter = new MenuAdapter<>(menuButtonPoolingType);
         menuAdapter.setMenuItemChangedListener(poolingType -> {
             layer.getProperties().setPoolingType(poolingType);
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.max"), PoolingTypeWrapper.MAX);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.sum"), PoolingTypeWrapper.SUM);
@@ -149,7 +149,7 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
         textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 
     @Override

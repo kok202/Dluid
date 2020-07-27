@@ -8,11 +8,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.common.ExceptionHandler;
 import org.kok202.dluid.content.TabsController;
 import org.kok202.dluid.menu.MenuBarController;
+import org.kok202.dluid.reducer.ConnectionMoveReducer;
+import org.kok202.dluid.reducer.ConnectionReleaseReducer;
+import org.kok202.dluid.reducer.ConnectionStartReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.singleton.AppWidgetSingleton;
+import org.kok202.dluid.singleton.AppSingleton;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -32,7 +36,8 @@ public class Main extends Application {
         borderPane.setTop(createTopFrame());
         borderPane.setCenter(createCenterFrame());
         setWidgetOnGlobalWidget();
-        initWindowFrame(primaryStage, borderPane);
+        initializeCanvas();
+        initializeWindowFrame(primaryStage, borderPane);
         showWindowFrame(primaryStage);
     }
 
@@ -52,14 +57,20 @@ public class Main extends Application {
     }
 
     private void setWidgetOnGlobalWidget(){
-        AppWidgetSingleton.getInstance().setPrimaryStage(primaryStage);
-        AppWidgetSingleton.getInstance().setBorderPane(borderPane);
-        AppWidgetSingleton.getInstance().setMenuBarController(menuBarController);
-        AppWidgetSingleton.getInstance().setTabsController(tabsController);
-        AppFacade.initialize();
+        AppSingleton.getInstance().setPrimaryStage(primaryStage);
+        AppSingleton.getInstance().setBorderPane(borderPane);
+        AppSingleton.getInstance().setMenuBarController(menuBarController);
+        AppSingleton.getInstance().setTabsController(tabsController);
     }
 
-    private void initWindowFrame(Stage primaryStage, Parent fxmlRoot){
+    private void initializeCanvas(){
+        setCanvasResizeSubscriber();
+        CanvasFacade.addReducer(new ConnectionStartReducer());
+        CanvasFacade.addReducer(new ConnectionMoveReducer());
+        CanvasFacade.addReducer(new ConnectionReleaseReducer());
+    }
+
+    private void initializeWindowFrame(Stage primaryStage, Parent fxmlRoot){
         Scene scene = new Scene(fxmlRoot,
                 AppPropertiesSingleton.getInstance().getInt("frame.size.width"),
                 AppPropertiesSingleton.getInstance().getInt("frame.size.height"));
@@ -75,4 +86,45 @@ public class Main extends Application {
     private void showWindowFrame(Stage primaryStage){
         primaryStage.show();
     }
+
+    private void setCanvasResizeSubscriber(){
+        AppSingleton.getInstance().getPrimaryStage().widthProperty().addListener(listener -> resizingCanvas());
+        AppSingleton.getInstance().getPrimaryStage().heightProperty().addListener(listener -> resizingCanvas());
+        AppSingleton.getInstance()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getMainSplitter()
+                .getDividers().get(0)
+                .positionProperty()
+                .addListener(listener -> resizingCanvas());
+        AppSingleton.getInstance()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getMainSplitter()
+                .getDividers().get(1)
+                .positionProperty()
+                .addListener(listener -> resizingCanvas());
+    }
+
+    private void resizingCanvas(){
+        double canvasWidth = getCanvasWidgetWidth();
+        double canvasHeight = getCanvasWidgetHeight();
+        CanvasFacade.resizingCanvas(canvasWidth, canvasHeight);
+    }
+
+    private double getCanvasWidgetHeight(){
+        return AppSingleton.getInstance().getPrimaryStage().getHeight() -
+                AppSingleton.getInstance().getMenuBarController().getMenuBar().getHeight() -
+                AppSingleton.getInstance().getTabsController().getTabPane().getTabMaxHeight();
+    }
+
+    private static double getCanvasWidgetWidth(){
+        double[] dividerPositions = AppSingleton.getInstance()
+                .getTabsController()
+                .getTabModelDesignController()
+                .getMainSplitter()
+                .getDividerPositions();
+        return AppSingleton.getInstance().getBorderPane().getWidth() * (dividerPositions[1] - dividerPositions[0]);
+    }
+
 }

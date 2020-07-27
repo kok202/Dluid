@@ -53,6 +53,6 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
         layer.getProperties().setInputSize(value);
         layer.getProperties().setOutputSize(value);
         textFieldOutputSizeX.setText(String.valueOf(value));
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 }

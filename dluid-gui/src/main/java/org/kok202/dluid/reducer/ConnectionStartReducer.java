@@ -4,7 +4,7 @@ import org.kok202.dluid.canvas.content.BlockConnectionPayload;
 import org.kok202.dluid.domain.action.Action;
 import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.action.Reducer;
-import org.kok202.dluid.singleton.AppWidgetSingleton;
+import org.kok202.dluid.singleton.AppSingleton;
 
 import java.util.Observable;
 
@@ -17,19 +17,19 @@ public class ConnectionStartReducer extends Reducer {
     @Override
     public void update(Observable o, Action action) {
         BlockConnectionPayload blockConnectionPayload = (BlockConnectionPayload) action.getPayload();
-        AppWidgetSingleton.getInstance()
+        AppSingleton.getInstance()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getCanvasContainerController()
                 .getBlockConnectionFollower()
                 .setStart(blockConnectionPayload.getStart());
-        AppWidgetSingleton.getInstance()
+        AppSingleton.getInstance()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getCanvasContainerController()
                 .getBlockConnectionFollower()
                 .setEnd(blockConnectionPayload.getEnd());
-        AppWidgetSingleton.getInstance()
+        AppSingleton.getInstance()
                 .getTabsController()
                 .getTabModelDesignController()
                 .getCanvasContainerController()

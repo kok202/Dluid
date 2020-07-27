@@ -67,7 +67,7 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
         MenuAdapter<LossFunctionWrapper> menuAdapter = new MenuAdapter<>(menuButtonLossFunction);
         menuAdapter.setMenuItemChangedListener(lossFunction -> {
             layer.getProperties().setLossFunction(lossFunction);
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.mse"), LossFunctionWrapper.MSE);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.outputFunction.l1"), LossFunctionWrapper.L1);
@@ -83,7 +83,7 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
     protected void textFieldChangedHandler(){
         changeInputSize();
         changeOutputSize();
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 
     private void changeInputSize(){

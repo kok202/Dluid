@@ -7,19 +7,19 @@ import org.kok202.dluid.singleton.AppSingleton;
 
 import java.util.Observable;
 
-public class ConnectionReleaseReducer extends Reducer {
+public class TestResultClearReducer extends Reducer {
     @Override
     public boolean support(Action action) {
-        return action.getType() == ActionType.BLOCK_CONNECTION_RELEASE;
+        return action.getType() == ActionType.TEST_RESULT_CLEAR;
     }
 
     @Override
     public void update(Observable o, Action action) {
         AppSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionFollower()
-                .setVisible(false);
+            .getTabsController()
+            .getTabModelTestController()
+            .getModelTestTestingController()
+            .getModelTestTestingResultTableController()
+            .clearTestResultTableView();
     }
 }

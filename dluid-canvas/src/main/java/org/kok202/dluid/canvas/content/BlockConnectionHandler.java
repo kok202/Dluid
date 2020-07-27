@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import org.kok202.dluid.canvas.CanvasConstant;
+import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.entity.ExtraBlockProperty;
@@ -47,9 +48,7 @@ public class BlockConnectionHandler {
             blockConnectionPayload.setStart(startPoint);
             blockConnectionPayload.setEnd(endPoint);
             blockConnectionPayload.setVisible(true);
-            CanvasSingleton.getInstance()
-                .getStateMachine()
-                .dispatchAction(ActionType.BLOCK_CONNECTION_START, blockConnectionPayload);
+            CanvasFacade.dispatchAction(ActionType.BLOCK_CONNECTION_START, blockConnectionPayload);
         }
         else{
             releaseConnectionProcess();
@@ -67,9 +66,7 @@ public class BlockConnectionHandler {
             blockConnectionPayload.setStart(startPoint);
             blockConnectionPayload.setEnd(endPoint);
             blockConnectionPayload.setVisible(true);
-            CanvasSingleton.getInstance()
-                .getStateMachine()
-                .dispatchAction(ActionType.BLOCK_CONNECTION_MOVE, blockConnectionPayload);
+            CanvasFacade.dispatchAction(ActionType.BLOCK_CONNECTION_MOVE, blockConnectionPayload);
         }
     }
 
@@ -141,9 +138,7 @@ public class BlockConnectionHandler {
     private static void releaseConnectionProcess(){
         isClicked = false;
         pastPickedBlockNode = null;
-        CanvasSingleton.getInstance()
-                .getStateMachine()
-                .dispatchAction(ActionType.BLOCK_CONNECTION_RELEASE);
+        CanvasFacade.dispatchAction(ActionType.BLOCK_CONNECTION_RELEASE);
     }
 
     private static boolean isUpward() {

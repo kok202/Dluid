@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.DirectoryChooser;
 import lombok.Data;
-import org.kok202.dluid.singleton.AppWidgetSingleton;
+import org.kok202.dluid.singleton.AppSingleton;
 
 import java.io.File;
 import java.util.function.Consumer;
@@ -33,7 +33,7 @@ public class DirectoryChooserAdapter {
                 directoryChooser.setTitle("Select folder");
                 directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-                File file = directoryChooser.showDialog(AppWidgetSingleton.getInstance().getPrimaryStage());
+                File file = directoryChooser.showDialog(AppSingleton.getInstance().getPrimaryStage());
                 if(file != null){
                     runCallbackAfterFind(file);
                 }

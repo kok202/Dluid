@@ -3,13 +3,10 @@ package org.kok202.dluid.content.design.component;
 import lombok.Getter;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.content.design.ComponentContainerController;
-import org.kok202.dluid.domain.action.Action;
-import org.kok202.dluid.domain.action.ActionType;
-import org.kok202.dluid.domain.action.Reducer;
 import org.kok202.dluid.domain.entity.Layer;
+import org.kok202.dluid.reducer.RefreshComponentListReducer;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 public class ComponentManager {
     @Getter
@@ -19,25 +16,7 @@ public class ComponentManager {
     public ComponentManager(ComponentContainerController componentContainerController) {
         this.componentList = new ArrayList<>();
         this.componentContainerController = componentContainerController;
-    }
-
-    public void addCanvasObserver(){
-        CanvasFacade.addReducer(new Reducer() {
-            @Override
-            public boolean support(Action action) {
-                return action.getType() == ActionType.BLOCK_PICK_UP;
-            }
-
-            @Override
-            public void update(Observable o, Action action) {
-                Layer layer = (Layer) action.getPayload();
-                if(layer == null)
-                    return;
-                clearComponentContainer();
-                attachComponentBoxOnList(layer);
-                attachComponentBoxOnContainer();
-            }
-        });
+        CanvasFacade.addReducer(new RefreshComponentListReducer());
     }
 
     public void clearComponentContainer(){
@@ -45,7 +24,7 @@ public class ComponentManager {
         componentContainerController.getContainer().getChildren().clear();
     }
 
-    private void attachComponentBoxOnList(Layer layer){
+    public void attachComponentBoxOnList(Layer layer){
         switch (layer.getType()){
             case DENSE_LAYER:
                 componentList.add(new ComponentCommonInfoController(layer));
@@ -118,7 +97,7 @@ public class ComponentManager {
         }
     }
 
-    private void attachComponentBoxOnContainer(){
+    public void attachComponentBoxOnContainer(){
         try {
             for (AbstractComponentController abstractComponentController : componentList) {
                 componentContainerController.getContainer().getChildren().add(abstractComponentController.createView());

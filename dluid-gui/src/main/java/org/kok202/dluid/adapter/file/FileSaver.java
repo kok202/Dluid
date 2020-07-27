@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import lombok.Data;
-import org.kok202.dluid.singleton.AppWidgetSingleton;
+import org.kok202.dluid.singleton.AppSingleton;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public abstract class FileSaver {
                 fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
                 fileChooser.getExtensionFilters().addAll(extensionFilter);
 
-                File file = fileChooser.showSaveDialog(AppWidgetSingleton.getInstance().getPrimaryStage());
+                File file = fileChooser.showSaveDialog(AppSingleton.getInstance().getPrimaryStage());
                 if(file != null){
                     saveContent(file);
                     runCallbackAfterSave();

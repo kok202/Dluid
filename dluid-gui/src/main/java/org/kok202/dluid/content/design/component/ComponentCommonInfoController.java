@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.singleton.AppWidgetSingleton;
+import org.kok202.dluid.singleton.AppSingleton;
 
 public class ComponentCommonInfoController extends AbstractLayerComponentController {
     @FXML private Label labelLayerId;
@@ -36,7 +36,7 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
         buttonDelete.setOnAction((event -> {
             layer.delete();
             CanvasFacade.removeGraphNode(layer.getId());
-            AppWidgetSingleton.getInstance()
+            AppSingleton.getInstance()
                     .getTabsController()
                     .getTabModelDesignController()
                     .getComponentContainerController()
