@@ -12,9 +12,6 @@ import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.common.ExceptionHandler;
 import org.kok202.dluid.content.TabsController;
 import org.kok202.dluid.menu.MenuBarController;
-import org.kok202.dluid.reducer.ConnectionMoveReducer;
-import org.kok202.dluid.reducer.ConnectionReleaseReducer;
-import org.kok202.dluid.reducer.ConnectionStartReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.singleton.AppSingleton;
 
@@ -65,9 +62,6 @@ public class Main extends Application {
 
     private void initializeCanvas(){
         setCanvasResizeSubscriber();
-        CanvasFacade.addReducer(new ConnectionStartReducer());
-        CanvasFacade.addReducer(new ConnectionMoveReducer());
-        CanvasFacade.addReducer(new ConnectionReleaseReducer());
     }
 
     private void initializeWindowFrame(Stage primaryStage, Parent fxmlRoot){

@@ -1,10 +1,8 @@
 package org.kok202.dluid.content.design.component;
 
 import lombok.Getter;
-import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.content.design.ComponentContainerController;
 import org.kok202.dluid.domain.entity.Layer;
-import org.kok202.dluid.reducer.RefreshComponentListReducer;
 
 import java.util.ArrayList;
 
@@ -16,7 +14,6 @@ public class ComponentManager {
     public ComponentManager(ComponentContainerController componentContainerController) {
         this.componentList = new ArrayList<>();
         this.componentContainerController = componentContainerController;
-        CanvasFacade.addReducer(new RefreshComponentListReducer());
     }
 
     public void clearComponentContainer(){

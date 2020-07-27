@@ -1,14 +1,18 @@
 package org.kok202.dluid.reducer;
 
+import lombok.AllArgsConstructor;
 import org.kok202.dluid.canvas.content.BlockConnectionPayload;
+import org.kok202.dluid.content.design.CanvasContainerController;
 import org.kok202.dluid.domain.action.Action;
 import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.action.Reducer;
-import org.kok202.dluid.singleton.AppSingleton;
 
 import java.util.Observable;
 
+@AllArgsConstructor
 public class ConnectionStartReducer extends Reducer {
+    CanvasContainerController canvasContainerController;
+
     @Override
     public boolean support(Action action) {
         return action.getType() == ActionType.BLOCK_CONNECTION_START;
@@ -17,23 +21,8 @@ public class ConnectionStartReducer extends Reducer {
     @Override
     public void update(Observable o, Action action) {
         BlockConnectionPayload blockConnectionPayload = (BlockConnectionPayload) action.getPayload();
-        AppSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionFollower()
-                .setStart(blockConnectionPayload.getStart());
-        AppSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionFollower()
-                .setEnd(blockConnectionPayload.getEnd());
-        AppSingleton.getInstance()
-                .getTabsController()
-                .getTabModelDesignController()
-                .getCanvasContainerController()
-                .getBlockConnectionFollower()
-                .setVisible(blockConnectionPayload.isVisible());
+        canvasContainerController.getBlockConnectionFollower().setStart(blockConnectionPayload.getStart());
+        canvasContainerController.getBlockConnectionFollower().setEnd(blockConnectionPayload.getEnd());
+        canvasContainerController.getBlockConnectionFollower().setVisible(blockConnectionPayload.isVisible());
     }
 }

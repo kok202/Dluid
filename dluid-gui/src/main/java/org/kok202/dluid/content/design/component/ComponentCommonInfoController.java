@@ -6,10 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.canvas.CanvasFacade;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.singleton.AppSingleton;
 
 public class ComponentCommonInfoController extends AbstractLayerComponentController {
     @FXML private Label labelLayerId;
@@ -36,12 +37,7 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
         buttonDelete.setOnAction((event -> {
             layer.delete();
             CanvasFacade.removeGraphNode(layer.getId());
-            AppSingleton.getInstance()
-                    .getTabsController()
-                    .getTabModelDesignController()
-                    .getComponentContainerController()
-                    .getComponentManager()
-                    .clearComponentContainer();
+            AppFacade.dispatchAction(ActionType.REFRESH_COMPONENT_LIST);
         }));
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.title"));
         labelLayerId.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.layerId"));
