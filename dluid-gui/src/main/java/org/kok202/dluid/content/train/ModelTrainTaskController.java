@@ -6,9 +6,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.adapter.LineChartAdapter;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.common.ExceptionHandler;
+import org.kok202.dluid.reducer.RefreshTrainingLogReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.util.TextFieldUtil;
 
@@ -65,6 +67,7 @@ public class ModelTrainTaskController extends AbstractModelTrainController {
         buttonTrainingOneTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.oneTime"));
         buttonTrainingNTime.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.nTime"));
         buttonTrainingStop.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.stop"));
+        AppFacade.addReducer(new RefreshTrainingLogReducer(this));
     }
 
     private void textFieldChangeHandler(){

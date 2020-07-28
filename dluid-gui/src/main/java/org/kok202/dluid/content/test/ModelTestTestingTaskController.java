@@ -11,6 +11,7 @@ import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.common.ExceptionHandler;
 import org.kok202.dluid.content.TabModelTestController;
 import org.kok202.dluid.domain.action.ActionType;
+import org.kok202.dluid.reducer.RefreshTestLogReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 
 import static org.kok202.dluid.domain.entity.enumerator.LayerType.RESHAPE_LAYER;
@@ -46,6 +47,7 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
         labelTestTargetResult.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetResultLayerId"));
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.title"));
         buttonTest.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.test"));
+        AppFacade.addReducer(new RefreshTestLogReducer(this));
     }
 
     public void refreshTestTargetResultLayerInformation(String testInputLayerId){

@@ -4,6 +4,7 @@ import javafx.concurrent.Task;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.ai.listener.TrainingEpochContainer;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.model.ModelStateManager;
 
 public class TrainTask extends Task<TrainProgressContainer> {
@@ -19,12 +20,12 @@ public class TrainTask extends Task<TrainProgressContainer> {
             if(newValue.isExistProgress())
                 modelTrainTaskController.getProgressBarTrainingProgress().setProgress(newValue.getProgress());
         }));
-        AppFacade.setTrainingButtonDisable(false);
+        AppFacade.dispatchAction(ActionType.REFRESH_TRAINING_BUTTON_ENABLE);
     }
 
     @Override
     protected TrainProgressContainer call() {
-        AppFacade.setTrainingButtonDisable(true);
+        AppFacade.dispatchAction(ActionType.REFRESH_TRAINING_BUTTON_DISABLE);
         updateValue(new TrainProgressContainer("Check training possible."));
         ModelStateManager.validateTrainPossible();
         updateValue(new TrainProgressContainer("Check training possible. [Successful]"));
@@ -48,17 +49,17 @@ public class TrainTask extends Task<TrainProgressContainer> {
 
     @Override
     public void succeeded() {
-        AppFacade.setTrainingButtonDisable(false);
         updateValue(new TrainProgressContainer("Training done."));
         int learnedEpoch = AIFacade.getModelLearnedEpochNumber();
         int trainedEpoch = AIFacade.getTrainedEpoch();
         AIFacade.setModelLearnedEpochNumber(learnedEpoch + trainedEpoch);
-        AppFacade.refreshModelInformation();
+        AppFacade.dispatchAction(ActionType.REFRESH_TRAINING_BUTTON_ENABLE);
+        AppFacade.dispatchAction(ActionType.REFRESH_MODEL_INFORMATION);
     }
 
     @Override
     protected void failed() {
-        AppFacade.setTrainingButtonDisable(false);
+        AppFacade.dispatchAction(ActionType.REFRESH_TRAINING_BUTTON_ENABLE);
     }
 
 }

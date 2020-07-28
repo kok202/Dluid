@@ -7,10 +7,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.common.AbstractController;
 import org.kok202.dluid.content.train.ModelInformationController;
 import org.kok202.dluid.content.train.ModelTrainFileLoaderController;
 import org.kok202.dluid.content.train.ModelTrainTaskController;
+import org.kok202.dluid.reducer.RefreshTrainingButtonDisableReducer;
+import org.kok202.dluid.reducer.RefreshTrainingButtonEnableReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 
 public class TabModelTrainController extends AbstractController {
@@ -55,6 +58,8 @@ public class TabModelTrainController extends AbstractController {
         labelTrainFileLoader.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.fileLoader.label"));
         labelTrainTask.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.trainTask.label"));
         setSettingExpandAndDisable(true);
+        AppFacade.addReducer(new RefreshTrainingButtonEnableReducer(this));
+        AppFacade.addReducer(new RefreshTrainingButtonDisableReducer(this));
     }
 
     public void setSettingExpandAndDisable(boolean disable){

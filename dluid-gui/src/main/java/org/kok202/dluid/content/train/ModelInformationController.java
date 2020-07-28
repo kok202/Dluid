@@ -5,12 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.adapter.MenuAdapter;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.domain.entity.enumerator.BiasInitializer;
 import org.kok202.dluid.domain.entity.enumerator.Optimizer;
 import org.kok202.dluid.domain.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.model.ModelStateManager;
+import org.kok202.dluid.reducer.RefreshModelInformationReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 import org.kok202.dluid.util.TextFieldUtil;
 
@@ -56,6 +58,7 @@ public class ModelInformationController extends AbstractModelTrainController {
         labelLearningRate.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.learningRate"));
         labelEpochNumber.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.totalEpoch"));
         buttonInitialize.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.initialize"));
+        AppFacade.addReducer(new RefreshModelInformationReducer(this));
     }
 
     private void textFieldChangeHandler(){

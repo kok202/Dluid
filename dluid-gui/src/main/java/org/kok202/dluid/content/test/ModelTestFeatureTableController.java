@@ -16,6 +16,7 @@ import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.content.TabModelTestController;
 import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
+import org.kok202.dluid.reducer.RefreshTestInputLayerInformationReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
                 .build();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataTable.title"));
         labelTestTarget.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetInputLayerId"));
+        AppFacade.addReducer(new RefreshTestInputLayerInformationReducer(this));
     }
 
     public void refreshTestInputLayerInformation(){
