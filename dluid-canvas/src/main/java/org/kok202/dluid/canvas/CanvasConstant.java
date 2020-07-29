@@ -50,8 +50,6 @@ public class CanvasConstant {
     public static final Color CONTEXT_COLOR_BACKGROUND = COLOR_WHITE;
     public static final Color CONTEXT_COLOR_COORDINATE_AXIS = COLOR_GRAY__;
 
-    public static final int CUBIC_CURVE_OFFSET_X = 1;
-    public static final int CUBIC_CURVE_OFFSET_Y = 1;
     // For escaping pickResult always indicating cubic curve
     public static final Point2D CUBIC_CURVE_END_GAP_WHEN_UPWARD = new Point2D(2, 5);
     public static final Point2D CUBIC_CURVE_END_GAP_WHEN_DOWNWARD = new Point2D(2, -5);

@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 @Data
 public class BlockNodeManager extends GraphManager<BlockNode>{
 
+
     public void removeGraphNode(String layerId) {
         GraphNode<BlockNode> targetBlockNodeGraphNode = findGraphNodeByLayerId(layerId);
         targetBlockNodeGraphNode.getData().getBlockLayer().delete();

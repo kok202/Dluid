@@ -3,6 +3,7 @@ package org.kok202.dluid.content.design.component;
 import javafx.beans.InvalidationListener;
 import javafx.scene.control.TextField;
 import org.kok202.dluid.canvas.CanvasFacade;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.entity.Layer;
 
 public abstract class AbstractLayerComponentController extends AbstractComponentController {
@@ -30,6 +31,6 @@ public abstract class AbstractLayerComponentController extends AbstractComponent
         // Do we need to change the height value of the block node according to the channel?
         // For reshape layers (when output dimension is 2D), we don't know that the y-values of output will be used as the depth of the block or as the height.
         // Because y value can be used as channel or non channel.
-        CanvasFacade.reshapeBlock(layer.getId());
+        CanvasFacade.dispatchAction(ActionType.RESHAPE_BLOCK, layer.getId());
     }
 }

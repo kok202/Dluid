@@ -28,7 +28,7 @@ public class MenuFileController extends AbstractMenuController {
     @Override
     protected void initialize() throws Exception {
         menuItemFileNew.setOnAction(event->{
-            CanvasFacade.removeAllGraphNode();
+            CanvasFacade.dispatchAction(ActionType.REMOVE_ALL_GRAPH_NODE);
             AppFacade.dispatchAction(ActionType.REFRESH_COMPONENT_LIST);
         });
         menuItemFileExit.setOnAction(event->{

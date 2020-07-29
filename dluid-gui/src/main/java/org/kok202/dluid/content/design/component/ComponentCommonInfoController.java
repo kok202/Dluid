@@ -36,7 +36,7 @@ public class ComponentCommonInfoController extends AbstractLayerComponentControl
         textFieldLayerType.setText(layer.getType().getReadableName());
         buttonDelete.setOnAction((event -> {
             layer.delete();
-            CanvasFacade.removeGraphNode(layer.getId());
+            CanvasFacade.dispatchAction(ActionType.REMOVE_GRAPH_NODE, layer.getId());
             AppFacade.dispatchAction(ActionType.REFRESH_COMPONENT_LIST);
         }));
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.common.title"));

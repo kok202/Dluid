@@ -11,6 +11,8 @@ import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.dluid.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.dluid.canvas.polygon.block.HexahedronVerticalFace;
+import org.kok202.dluid.canvas.reducer.MaterialInsertionDoneReducer;
+import org.kok202.dluid.canvas.reducer.MaterialInsertionHoveringReducer;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.Math3D;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
@@ -27,9 +29,10 @@ public class MaterialInsertionHandler {
 
     public MaterialInsertionHandler(Group sceneRoot) {
         this.sceneRoot = sceneRoot;
+        CanvasFacade.addReducer(new MaterialInsertionHoveringReducer(this));
+        CanvasFacade.addReducer(new MaterialInsertionDoneReducer(this));
     }
 
-    // TODO
     public void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
         PickResult pickResult = materialInsertionInfoHolder.getDragEvent().getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
@@ -52,8 +55,7 @@ public class MaterialInsertionHandler {
         }
     }
 
-    // TODO
-    public void insertListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
+    public void doneListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
         PickResult pickResult = materialInsertionInfoHolder.getDragEvent().getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
         if(pickResultNode instanceof HexahedronVerticalFace){

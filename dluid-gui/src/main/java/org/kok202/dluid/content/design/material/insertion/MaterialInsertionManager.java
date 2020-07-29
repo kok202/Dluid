@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import lombok.Data;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.canvas.content.MaterialInsertionInfoHolder;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.entity.enumerator.LayerType;
 import org.kok202.dluid.domain.exception.MultiInputLayerException;
 import org.kok202.dluid.domain.exception.MultiOutputLayerException;
@@ -55,7 +56,7 @@ public class MaterialInsertionManager {
                 // Send dragging event to canvas block handler
                 MaterialInsertionInfoHolder materialInsertionInfoHolder = (MaterialInsertionInfoHolder) dragEvent.getDragboard().getContent(MaterialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK);
                 materialInsertionInfoHolder.setDragEvent(dragEvent);
-                CanvasFacade.hoveringListener(materialInsertionInfoHolder);
+                CanvasFacade.dispatchAction(ActionType.MATERIAL_INSERTION_HOVERING, materialInsertionInfoHolder);
             }
         });
 
@@ -69,7 +70,7 @@ public class MaterialInsertionManager {
                 content.put(materialInsertionInfoHolder.DRAG_FOR_ADD_BLOCK, materialInsertionInfoHolder);
                 dragEvent.getDragboard().setContent(content);
                 dragEvent.setDropCompleted(true);
-                CanvasFacade.insertListener(materialInsertionInfoHolder);
+                CanvasFacade.dispatchAction(ActionType.MATERIAL_INSERTION_DONE, materialInsertionInfoHolder);
             }
         });
 

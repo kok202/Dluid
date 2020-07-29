@@ -2,7 +2,6 @@ package org.kok202.dluid.canvas;
 
 import lombok.Data;
 import org.kok202.dluid.canvas.block.BlockNode;
-import org.kok202.dluid.canvas.content.MaterialInsertionInfoHolder;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.domain.action.Action;
 import org.kok202.dluid.domain.action.ActionType;
@@ -48,48 +47,14 @@ public class CanvasFacade {
     }
 
     /*************************************************************************************************
-     /* Canvas -> MainContent
-     *************************************************************************************************/
-    public static void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
-        CanvasSingleton.getInstance()
-                .getMainCanvas()
-                .getMainContent()
-                .getMaterialInsertionHandler()
-                .hoveringListener(materialInsertionInfoHolder);
-    }
-
-    public static void insertListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
-        CanvasSingleton.getInstance()
-                .getMainCanvas()
-                .getMainContent()
-                .getMaterialInsertionHandler()
-                .insertListener(materialInsertionInfoHolder);
-    }
-
-    /*************************************************************************************************
     /* BlockNodeManager
     *************************************************************************************************/
     public static long getGraphManagerHashCode(){
         return CanvasSingleton.getInstance().getBlockNodeManager().getHashCode();
     }
 
-    public static void reshapeBlock(String layerId){
-        CanvasSingleton.getInstance().getBlockNodeManager().reshapeBlock(layerId);
-    }
-
     public static List<GraphNode<BlockNode>> findAllReachableNode(String layerId){
         return CanvasSingleton.getInstance().getBlockNodeManager().findAllReachableNode(layerId);
-    }
-
-    public static void removeGraphNode(String layerId) {
-        CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(layerId);
-    }
-
-    public static void removeAllGraphNode() {
-        while(!CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes().isEmpty()){
-            GraphNode<BlockNode> blockNodeGraphNode = CanvasSingleton.getInstance().getBlockNodeManager().getGraphNodes().get(0);
-            CanvasSingleton.getInstance().getBlockNodeManager().removeGraphNode(blockNodeGraphNode.getData().getBlockLayer().getId());
-        }
     }
 
     public static List<Layer> findIncomingLayers(String layerId){
