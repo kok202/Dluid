@@ -82,6 +82,6 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
         textFieldInputSizeY.setText(String.valueOf(outputSizeY));
         textFieldOutputSizeX.setText(String.valueOf(outputSizeX));
         textFieldOutputSizeY.setText(String.valueOf(outputSizeY));
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 }

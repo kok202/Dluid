@@ -126,7 +126,7 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
     @Override
     protected void textFieldChangedHandler(){
         refreshInputOutputSize();
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 
     private void initializeMenuButtonInputDimension(){
@@ -143,7 +143,7 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
             anchorPaneOutputSize2D.setVisible(dimension.getDimension() == 2);
             anchorPaneOutputSize3D.setVisible(dimension.getDimension() == 3);
             refreshInputOutputSize();
-            notifyLayerDataChanged();
+            reshapeBlock();
             changeInputOutputLabelByChannelExist(layer.getProperties().getInputDimension().isHasChannel());
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d"), Dimension.ONE_DIMENSION);

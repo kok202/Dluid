@@ -7,9 +7,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Data;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.common.AbstractController;
 import org.kok202.dluid.content.test.ModelTestFeatureController;
 import org.kok202.dluid.content.test.ModelTestTestingController;
+import org.kok202.dluid.reducer.TestEnableReducer;
+import org.kok202.dluid.reducer.TestResultClearReducer;
+import org.kok202.dluid.reducer.TestSucceedReducer;
+import org.kok202.dluid.reducer.TestTargetResultRefreshReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 
 @Data
@@ -44,6 +49,10 @@ public class TabModelTestController extends AbstractController {
         labelTestTask.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.label"));
         setSettingExpandAndDisable(true);
         setTestResultTableExpandAndDisable(true);
+        AppFacade.addReducer(new TestSucceedReducer(this));
+        AppFacade.addReducer(new TestResultClearReducer(this));
+        AppFacade.addReducer(new TestEnableReducer(this));
+        AppFacade.addReducer(new TestTargetResultRefreshReducer(this));
     }
 
     public void setSettingExpandAndDisable(boolean disable){

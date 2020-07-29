@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.common.AbstractMenuController;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
 
 @Getter
@@ -27,8 +28,8 @@ public class MenuFileController extends AbstractMenuController {
     @Override
     protected void initialize() throws Exception {
         menuItemFileNew.setOnAction(event->{
-            CanvasFacade.removeAllGraphNode();
-            AppFacade.clearComponentContainer();
+            CanvasFacade.dispatchAction(ActionType.REMOVE_ALL_GRAPH_NODE);
+            AppFacade.dispatchAction(ActionType.REFRESH_COMPONENT_LIST);
         });
         menuItemFileExit.setOnAction(event->{
             Platform.exit();

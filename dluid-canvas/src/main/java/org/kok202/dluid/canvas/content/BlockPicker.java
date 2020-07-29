@@ -2,9 +2,9 @@ package org.kok202.dluid.canvas.content;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
+import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.polygon.block.HexahedronFace;
-import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
 import org.kok202.dluid.domain.action.Action;
 import org.kok202.dluid.domain.action.ActionType;
@@ -16,9 +16,7 @@ public class BlockPicker {
             // You can find out selected node.
             if (pickResult.getIntersectedNode() instanceof HexahedronFace) {
                 BlockNode blockNode = PickResultNodeUtil.convertToBlockNode(pickResult);
-                CanvasSingleton.getInstance()
-                    .getStateMachine()
-                    .dispatchAction(new Action(ActionType.BLOCK_PICK_UP, blockNode.getBlockLayer()));
+                CanvasFacade.dispatchAction(new Action(ActionType.REFRESH_COMPONENT_LIST, blockNode.getBlockLayer()));
             }
         }
         return mouseEvent;

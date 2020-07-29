@@ -3,6 +3,7 @@ package org.kok202.dluid.content.test;
 import javafx.concurrent.Task;
 import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.ai.AIFacade;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
 import org.kok202.dluid.model.ModelStateManager;
 
@@ -17,7 +18,7 @@ public class TestTask extends Task<TestProgressContainer> {
             if(newValue.isExistProgress())
                 modelTestTestingTaskController.getProgressBarTestProgress().setProgress(newValue.getProgress());
         }));
-        AppFacade.setTestButtonDisable(false);
+        AppFacade.dispatchAction(ActionType.TEST_ENABLE);
     }
 
     @Override
@@ -33,13 +34,12 @@ public class TestTask extends Task<TestProgressContainer> {
 
     @Override
     public void succeeded() {
-        AppFacade.setTestButtonDisable(false);
         updateValue(new TestProgressContainer("Test done."));
-        AppFacade.notifyTestDone();
+        AppFacade.dispatchAction(ActionType.TEST_SUCCEED);
     }
 
     @Override
     public void cancelled() {
-        AppFacade.setTestButtonDisable(false);
+        AppFacade.dispatchAction(ActionType.TEST_ENABLE);
     }
 }

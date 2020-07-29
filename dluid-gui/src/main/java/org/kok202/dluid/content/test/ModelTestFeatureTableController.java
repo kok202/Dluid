@@ -8,14 +8,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.adapter.MenuAdapter;
 import org.kok202.dluid.adapter.NumericTableViewAdapter;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.content.TabModelTestController;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.stream.NumericRecordSet;
+import org.kok202.dluid.reducer.RefreshTestInputLayerInformationReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
-import org.kok202.dluid.singleton.AppWidgetSingleton;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,14 +45,7 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
     @Override
     protected void initialize() throws Exception {
         menuTestTargetAdapter = new MenuAdapter<>(menuButtonTestTarget);
-        menuTestTargetAdapter.setMenuItemChangedListener(testInputLayerId -> {
-            AppWidgetSingleton.getInstance()
-                    .getTabsController()
-                    .getTabModelTestController()
-                    .getModelTestTestingController()
-                    .getModelTestTestingTaskController()
-                    .refreshTestTargetResultLayerInformation(testInputLayerId);
-        });
+        menuTestTargetAdapter.setMenuItemChangedListener(testInputLayerId -> AppFacade.dispatchAction(ActionType.TEST_TARGET_RESULT_REFRESH, testInputLayerId));
         tableViewDataSet.setDisable(true);
         numericTableViewAdapter = NumericTableViewAdapter.builder()
                 .tableView(tableViewDataSet)
@@ -58,6 +53,7 @@ public class ModelTestFeatureTableController extends AbstractModelTestController
                 .build();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataTable.title"));
         labelTestTarget.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetInputLayerId"));
+        AppFacade.addReducer(new RefreshTestInputLayerInformationReducer(this));
     }
 
     public void refreshTestInputLayerInformation(){

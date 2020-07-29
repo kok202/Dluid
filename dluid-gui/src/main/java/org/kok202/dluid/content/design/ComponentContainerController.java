@@ -5,8 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import org.kok202.dluid.AppFacade;
+import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.common.AbstractController;
 import org.kok202.dluid.content.design.component.ComponentManager;
+import org.kok202.dluid.reducer.RefreshComponentListReducer;
 
 @Getter
 public class ComponentContainerController extends AbstractController {
@@ -26,5 +29,7 @@ public class ComponentContainerController extends AbstractController {
 
     @Override
     protected void initialize() throws Exception {
+        AppFacade.addReducer(new RefreshComponentListReducer(this));
+        CanvasFacade.addReducer(new RefreshComponentListReducer(this));
     }
 }

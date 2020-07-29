@@ -51,7 +51,7 @@ public class ComponentFeedforwardParamController extends AbstractLayerComponentC
     protected void textFieldChangedHandler(){
         changeInputSize();
         changeOutputSize();
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 
     private void changeInputSize(){

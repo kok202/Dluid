@@ -55,7 +55,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         MenuAdapter<WeightInitializer> menuAdapter = new MenuAdapter<>(menuButtonWeightInit);
         menuAdapter.setMenuItemChangedListener(weightInit -> {
             layer.getProperties().setWeightInitializer(weightInit);
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.followGlobal"), WeightInitializer.FOLLOW_GLOBAL_SETTING);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.weightInitializer.one"), WeightInitializer.ONES);
@@ -72,7 +72,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         MenuAdapter<BiasInitializer> menuAdapter = new MenuAdapter<>(menuButtonBiasInit);
         menuAdapter.setMenuItemChangedListener(biasInitializer -> {
             layer.getProperties().setBiasInitializer(biasInitializer);
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.followGlobal"), BiasInitializer.FOLLOW_GLOBAL_SETTING);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.biasInitializer.smallValue"), BiasInitializer.SMALL_VALUE);
@@ -85,7 +85,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         MenuAdapter<ActivationWrapper> menuAdapter = new MenuAdapter<>(menuButtonActivationFunction);
         menuAdapter.setMenuItemChangedListener(activation -> {
             layer.getProperties().setActivationFunction(activation);
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.identity"), ActivationWrapper.IDENTITY);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("deepLearning.activationFunction.sigmoid"), ActivationWrapper.SIGMOID);
@@ -101,7 +101,7 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
         sliderDropout.valueProperty().addListener((observable, oldValue, newValue) -> {
             double inputRetainProbability = newValue.doubleValue();
             layer.getProperties().setDropout(inputRetainProbability);
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
     }
 }

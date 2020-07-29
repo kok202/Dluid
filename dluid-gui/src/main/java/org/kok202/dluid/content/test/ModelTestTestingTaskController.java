@@ -10,10 +10,9 @@ import org.kok202.dluid.adapter.MenuAdapter;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.common.ExceptionHandler;
 import org.kok202.dluid.content.TabModelTestController;
+import org.kok202.dluid.domain.action.ActionType;
+import org.kok202.dluid.reducer.RefreshTestLogReducer;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.kok202.dluid.domain.entity.enumerator.LayerType.RESHAPE_LAYER;
 
@@ -48,26 +47,23 @@ public class ModelTestTestingTaskController extends AbstractModelTestController 
         labelTestTargetResult.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.dataSetting.dataLoad.testTargetResultLayerId"));
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.title"));
         buttonTest.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.test"));
+        AppFacade.addReducer(new RefreshTestLogReducer(this));
     }
 
     public void refreshTestTargetResultLayerInformation(String testInputLayerId){
-        List<String> layerIds = CanvasFacade
-                .findAllReachableNode(testInputLayerId)
-                .stream()
+        menuTestTargetResultLayerAdapter.clearMenuItems();
+        CanvasFacade.findAllReachableNode(testInputLayerId).stream()
                 .filter(blockNodeGraphNode ->
                         !blockNodeGraphNode.getData().getBlockLayer().getType().isAssistLayerType() &&
-                        blockNodeGraphNode.getData().getBlockLayer().getType() != RESHAPE_LAYER &&
-                        !blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
+                                blockNodeGraphNode.getData().getBlockLayer().getType() != RESHAPE_LAYER &&
+                                !blockNodeGraphNode.getData().getBlockLayer().getType().isInputLayerType())
                 .map(blockNodeGraphNode -> blockNodeGraphNode.getData().getBlockLayer().getId())
-                .collect(Collectors.toList());
-
-        menuTestTargetResultLayerAdapter.clearMenuItems();
-        layerIds.forEach(layerId -> menuTestTargetResultLayerAdapter.addMenuItem(layerId, layerId));
+                .forEach(layerId -> menuTestTargetResultLayerAdapter.addMenuItem(layerId, layerId));
         menuTestTargetResultLayerAdapter.setDefaultMenuItemLast();
     }
 
     private void buttonTestActionHandler(){
-        AppFacade.clearTestResultTableView();
+        AppFacade.dispatchAction(ActionType.TEST_RESULT_CLEAR);
         TestTask testTask = new TestTask();
         testTask.bindWithComponent(this);
         testTask.exceptionProperty().addListener((observable, oldValue, newValue) -> {

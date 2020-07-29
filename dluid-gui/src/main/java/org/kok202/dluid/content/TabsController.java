@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
+import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.common.AbstractController;
+import org.kok202.dluid.reducer.ModelEnableReducer;
+import org.kok202.dluid.reducer.RefreshTrainingFileLoaderReducer;
 
 @Getter
 public class TabsController extends AbstractController {
@@ -28,6 +31,8 @@ public class TabsController extends AbstractController {
         tabPane.getTabs().add(tabModelDesignController.createView());
         tabPane.getTabs().add(TabModelTrainController.createView());
         tabPane.getTabs().add(TabModelTestController.createView());
+        AppFacade.addReducer(new ModelEnableReducer(this));
+        AppFacade.addReducer(new RefreshTrainingFileLoaderReducer(this));
     }
 
 }

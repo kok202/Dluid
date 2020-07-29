@@ -60,7 +60,7 @@ public class ComponentRecurrentParamController extends AbstractLayerComponentCon
     protected void textFieldChangedHandler(){
         changeInputSize();
         changeOutputSize();
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 
     private void changeInputSize(){

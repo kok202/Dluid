@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import lombok.Data;
-import org.kok202.dluid.singleton.AppWidgetSingleton;
+import org.kok202.dluid.singleton.AppSingleton;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public abstract class FileFinder {
                 fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
                 fileChooser.getExtensionFilters().addAll(extensionFilter);
 
-                File file = fileChooser.showOpenDialog(AppWidgetSingleton.getInstance().getPrimaryStage());
+                File file = fileChooser.showOpenDialog(AppSingleton.getInstance().getPrimaryStage());
                 if(file != null){
                     textField.clear();
                     textField.setText(file.getAbsolutePath());

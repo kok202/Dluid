@@ -92,13 +92,13 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
             ReshapeBlockProperty reshapeBlockProperty = getReshapeBlockProperty();
             reshapeBlockProperty.setPointingIndex(reshapeBlockProperty.getPointingIndex() + 1);
             refreshOutputSize();
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
         buttonOutputSizeChangeDown.setOnAction(actionEvent -> {
             ReshapeBlockProperty reshapeBlockProperty = getReshapeBlockProperty();
             reshapeBlockProperty.setPointingIndex(reshapeBlockProperty.getPointingIndex() - 1);
             refreshOutputSize();
-            notifyLayerDataChanged();
+            reshapeBlock();
         });
         TextFieldUtil.applyPositiveIntegerFilter(AppConstant.DEFAULT_INPUT_SIZE,
                 textFieldInputSize1D,
@@ -184,7 +184,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
     protected void textFieldChangedHandler(){
         refreshInputSize();
         refreshOutputSize();
-        notifyLayerDataChanged();
+        reshapeBlock();
     }
 
     private void initializeMenuButtonInputDimension(){
@@ -199,7 +199,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
             anchorPaneInputSize3D.setVisible(dimension.getDimension() == 3);
             refreshInputSize();
             refreshOutputSize();
-            notifyLayerDataChanged();
+            reshapeBlock();
             changeInputLabelByChannelExist(layer.getProperties().getInputDimension().isHasChannel());
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d"), Dimension.ONE_DIMENSION);
@@ -222,7 +222,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
             anchorPaneOutputSize3D.setVisible(dimension.getDimension() == 3);
             hBoxOutputSizeChange.setVisible(dimension.getDimension() != 1);
             refreshOutputSize();
-            notifyLayerDataChanged();
+            reshapeBlock();
             changeOutputLabelByChannelExist(layer.getProperties().getOutputDimension().isHasChannel());
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d"), Dimension.ONE_DIMENSION);

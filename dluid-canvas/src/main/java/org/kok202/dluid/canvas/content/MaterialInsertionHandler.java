@@ -5,11 +5,14 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.PickResult;
 import org.kok202.dluid.canvas.CanvasConstant;
+import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.canvas.block.BlockNode;
 import org.kok202.dluid.canvas.block.BlockNodeFactory;
 import org.kok202.dluid.canvas.polygon.block.HexahedronBottomFace;
 import org.kok202.dluid.canvas.polygon.block.HexahedronTopFace;
 import org.kok202.dluid.canvas.polygon.block.HexahedronVerticalFace;
+import org.kok202.dluid.canvas.reducer.MaterialInsertionDoneReducer;
+import org.kok202.dluid.canvas.reducer.MaterialInsertionHoveringReducer;
 import org.kok202.dluid.canvas.singleton.CanvasSingleton;
 import org.kok202.dluid.canvas.util.Math3D;
 import org.kok202.dluid.canvas.util.PickResultNodeUtil;
@@ -26,9 +29,10 @@ public class MaterialInsertionHandler {
 
     public MaterialInsertionHandler(Group sceneRoot) {
         this.sceneRoot = sceneRoot;
+        CanvasFacade.addReducer(new MaterialInsertionHoveringReducer(this));
+        CanvasFacade.addReducer(new MaterialInsertionDoneReducer(this));
     }
 
-    // TODO
     public void hoveringListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
         PickResult pickResult = materialInsertionInfoHolder.getDragEvent().getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
@@ -51,8 +55,7 @@ public class MaterialInsertionHandler {
         }
     }
 
-    // TODO
-    public void insertListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
+    public void doneListener(MaterialInsertionInfoHolder materialInsertionInfoHolder){
         PickResult pickResult = materialInsertionInfoHolder.getDragEvent().getPickResult();
         Node pickResultNode = pickResult.getIntersectedNode();
         if(pickResultNode instanceof HexahedronVerticalFace){
@@ -89,9 +92,7 @@ public class MaterialInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkFromNewData(insertedBlockNode, targetBlockNode);
-        CanvasSingleton.getInstance()
-                .getStateMachine()
-                .dispatchAction(ActionType.BLOCK_PICK_UP, insertedBlockNode.getBlockLayer());
+        CanvasFacade.dispatchAction(ActionType.REFRESH_COMPONENT_LIST, insertedBlockNode.getBlockLayer());
     }
 
     private void appendBackToSpecificBlock(LayerType layerType, BlockNode targetBlockNode){
@@ -104,9 +105,7 @@ public class MaterialInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .linkToNewData(targetBlockNode, insertedBlockNode);
-        CanvasSingleton.getInstance()
-                .getStateMachine()
-                .dispatchAction(ActionType.BLOCK_PICK_UP, insertedBlockNode.getBlockLayer());
+        CanvasFacade.dispatchAction(ActionType.REFRESH_COMPONENT_LIST, insertedBlockNode.getBlockLayer());
     }
 
     private void createNewBlock(LayerType layerType, Point3D insertingPoint){
@@ -116,9 +115,7 @@ public class MaterialInsertionHandler {
         CanvasSingleton.getInstance()
                 .getBlockNodeManager()
                 .registerSoloNode(insertedBlockNode);
-        CanvasSingleton.getInstance()
-                .getStateMachine()
-                .dispatchAction(ActionType.BLOCK_PICK_UP, insertedBlockNode.getBlockLayer());
+        CanvasFacade.dispatchAction(ActionType.REFRESH_COMPONENT_LIST, insertedBlockNode.getBlockLayer());
     }
 
     private BlockNode insertLayerBlockModelToCanvas(Layer layer, Point3D insertingPoint){

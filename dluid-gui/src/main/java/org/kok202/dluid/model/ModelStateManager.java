@@ -4,6 +4,7 @@ import org.kok202.dluid.AppFacade;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.canvas.CanvasFacade;
 import org.kok202.dluid.canvas.block.BlockNode;
+import org.kok202.dluid.domain.action.ActionType;
 import org.kok202.dluid.domain.entity.Layer;
 import org.kok202.dluid.domain.exception.ModelIsChangedException;
 import org.kok202.dluid.domain.exception.ModelIsNotInitializeException;
@@ -24,12 +25,12 @@ public class ModelStateManager {
         GraphManager<Layer> layerGraphManager = ModelGraphConverter.convertToLayerGraph(outputGraphNode);
         AIFacade.initializeModel(layerGraphManager);
         AIFacade.setModelLearnedEpochNumber(0);
-        AppFacade.refreshModelInformation();
-        AppFacade.refreshTrainingFileLoader();
-        AppFacade.refreshTrainingLog();
-        AppFacade.refreshTestInputLayerInformation();
-        AppFacade.refreshTestLog();
-        AppFacade.setTrainingAndTestSettingDisable(false);
+        AppFacade.dispatchAction(ActionType.REFRESH_MODEL_INFORMATION);
+        AppFacade.dispatchAction(ActionType.REFRESH_TRAINING_FILE_LOADER);
+        AppFacade.dispatchAction(ActionType.REFRESH_TRAINING_LOG);
+        AppFacade.dispatchAction(ActionType.REFRESH_TEST_LOG);
+        AppFacade.dispatchAction(ActionType.REFRESH_TEST_INPUT_LATYER_INFORMATION);
+        AppFacade.dispatchAction(ActionType.MODEL_ENABLE);
     }
 
     // 1
