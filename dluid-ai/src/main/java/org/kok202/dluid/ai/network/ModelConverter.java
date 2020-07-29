@@ -5,7 +5,7 @@ import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.conf.InputPreProcessor;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.graph.ComputationGraph;
-import org.kok202.dluid.ai.network.layer.LayerBinder;
+import org.kok202.dluid.ai.network.layer.LayerBindManager;
 import org.kok202.dluid.ai.singleton.AISingleton;
 import org.kok202.dluid.ai.util.BiasInitUtil;
 import org.kok202.dluid.ai.util.WeightInitUtil;
@@ -27,7 +27,7 @@ public class ModelConverter {
                     List<org.kok202.dluid.domain.entity.Layer> dluidLayers = new ArrayList<>(layerGraphManagerAnalyzer.getMultiLayerManager().get(inputLayerId).values());
 
                     ComputationGraphConfiguration.GraphBuilder graphBuilder = createDefaultConfiguration();
-                    dluidLayers.forEach(dluidLayer -> LayerBinder.bind(dluidLayer, layerGraphManagerAnalyzer.getLayerFroms(dluidLayer, inputLayerId), graphBuilder));
+                    dluidLayers.forEach(dluidLayer -> LayerBindManager.bind(dluidLayer, layerGraphManagerAnalyzer.getLayerFroms(dluidLayer, inputLayerId), graphBuilder));
                     recycleInputPreProcessor(graphBuilder, dluidLayers);
 
                     ComputationGraphConfiguration computationGraphConfiguration = graphBuilder.build();

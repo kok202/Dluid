@@ -35,7 +35,7 @@ The ai module is the most important module of dluid.
 It has been developed using dl4j.
 Therefore, this module requires a lot of knowledge related to dl4j.
 If you develop this module, you need to focus on the network package.
-For more information, refer to the documents related to [layer binder](../concept/layer-binder.md) and [layer builder](../concept/layer-builder.md).
+For more information, refer to the documents related to [layer binder](../concept/layer-binder-and-builder.md) and [layer builder](../concept/layer-builder.md).
 
 ### dluid-domain
 Domain module is a collection of entities used in the Dluid.

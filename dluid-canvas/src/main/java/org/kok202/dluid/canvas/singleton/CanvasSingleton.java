@@ -3,8 +3,11 @@ package org.kok202.dluid.canvas.singleton;
 import lombok.Data;
 import lombok.NonNull;
 import org.kok202.dluid.canvas.MainCanvas;
+import org.kok202.dluid.canvas.reducer.RemoveAllGraphNodeReducer;
+import org.kok202.dluid.canvas.reducer.RemoveGraphNodeReducer;
+import org.kok202.dluid.canvas.reducer.ReshapeBlockReducer;
 import org.kok202.dluid.canvas.singleton.structure.BlockNodeManager;
-import org.kok202.dluid.canvas.singleton.structure.StateMachine;
+import org.kok202.dluid.domain.structure.StateMachine;
 
 @Data
 public class CanvasSingleton {
@@ -30,5 +33,8 @@ public class CanvasSingleton {
     private CanvasSingleton(){
         blockNodeManager = new BlockNodeManager();
         stateMachine = new StateMachine();
+        stateMachine.addReducer(new RemoveGraphNodeReducer(blockNodeManager));
+        stateMachine.addReducer(new RemoveAllGraphNodeReducer(blockNodeManager));
+        stateMachine.addReducer(new ReshapeBlockReducer(blockNodeManager));
     }
 }

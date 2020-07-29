@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 @Data
 public class BlockNodeManager extends GraphManager<BlockNode>{
 
+
     public void removeGraphNode(String layerId) {
         GraphNode<BlockNode> targetBlockNodeGraphNode = findGraphNodeByLayerId(layerId);
         targetBlockNodeGraphNode.getData().getBlockLayer().delete();
@@ -60,7 +61,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
         return findAllReachableNode(findGraphNodeByLayerId(layerId));
     }
 
-    public void notifyLayerDataChanged(String layerId){
+    public void reshapeBlock(String layerId){
         GraphNode<BlockNode> graphNode = findGraphNodeByLayerId(layerId);
         BlockNode blockNode = graphNode.getData();
         blockNode.reshapeBlockModel();

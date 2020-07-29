@@ -1,7 +1,7 @@
 package org.kok202.dluid.canvas.block;
 
 import org.kok202.dluid.canvas.block.activation.*;
-import org.kok202.dluid.canvas.block.mono.*;
+import org.kok202.dluid.canvas.block.plain.*;
 import org.kok202.dluid.domain.entity.Layer;
 
 public class BlockNodeFactory {
