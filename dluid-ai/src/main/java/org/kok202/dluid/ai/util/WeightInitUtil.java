@@ -7,51 +7,63 @@ import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.AIFacade;
 import org.kok202.dluid.domain.entity.enumerator.WeightInitializer;
 
-import java.util.Optional;
-
 public class WeightInitUtil {
 
     public static void applyWeightInit(BaseLayer.Builder builder, WeightInitializer weightInitializer){
-        if(WeightInitUtil.getDistribution(weightInitializer).isPresent())
-            builder.weightInit(WeightInitUtil.getDistribution(weightInitializer).get());
-        else
-            builder.weightInit(WeightInitUtil.get(weightInitializer));
+        switch(weightInitializer){
+            case ZERO:
+                builder.weightInit(WeightInit.ZERO);
+                break;
+            case ONES:
+                builder.weightInit(WeightInit.ONES);
+                break;
+            case NORMAL:
+                builder.weightInit(WeightInit.NORMAL);
+                break;
+            case UNIFORM:
+                builder.weightInit(WeightInit.UNIFORM);
+                break;
+            case XAVIER:
+                builder.weightInit(WeightInit.XAVIER);
+                break;
+            case DISTRIBUTION_ZERO_TO_ONE:
+                builder.weightInit(new UniformDistribution(0, 1));
+                break;
+            case DISTRIBUTION_PLUS_MINUS_ONE:
+                builder.weightInit(new UniformDistribution(-1, 1));
+                break;
+            case FOLLOW_GLOBAL_SETTING:
+                applyWeightInit(builder, AIFacade.getTrainWeightInitializer());
+                break;
+        }
     }
 
     public static void applyWeightInit(NeuralNetConfiguration.Builder builder, WeightInitializer weightInitializer) {
-        if(WeightInitUtil.getDistribution(weightInitializer).isPresent())
-            builder.weightInit(WeightInitUtil.getDistribution(weightInitializer).get());
-        else
-            builder.weightInit(WeightInitUtil.get(weightInitializer));
-    }
-
-    private static Optional<UniformDistribution> getDistribution(WeightInitializer weightInitializer){
-        if(weightInitializer == WeightInitializer.DISTRIBUTION_ZERO_TO_ONE)
-            return Optional.of(new UniformDistribution(0, 1));
-        else if(weightInitializer == WeightInitializer.DISTRIBUTION_PLUS_MINUS_ONE)
-            return Optional.of(new UniformDistribution(-1, 1));
-        return Optional.empty();
-    }
-
-    private static WeightInit get(WeightInitializer weightInitializer){
         switch(weightInitializer){
             case ZERO:
-                return WeightInit.ZERO;
+                builder.weightInit(WeightInit.ZERO);
+                break;
             case ONES:
-                return WeightInit.ONES;
+                builder.weightInit(WeightInit.ONES);
+                break;
             case NORMAL:
-                return WeightInit.NORMAL;
+                builder.weightInit(WeightInit.NORMAL);
+                break;
             case UNIFORM:
-                return WeightInit.UNIFORM;
+                builder.weightInit(WeightInit.UNIFORM);
+                break;
             case XAVIER:
-                return WeightInit.XAVIER;
+                builder.weightInit(WeightInit.XAVIER);
+                break;
             case DISTRIBUTION_ZERO_TO_ONE:
+                builder.weightInit(new UniformDistribution(0, 1));
+                break;
             case DISTRIBUTION_PLUS_MINUS_ONE:
-                return WeightInit.DISTRIBUTION;
+                builder.weightInit(new UniformDistribution(-1, 1));
+                break;
             case FOLLOW_GLOBAL_SETTING:
-                return get(AIFacade.getTrainWeightInitializer());
-            default:
-                return WeightInit.ZERO;
+                applyWeightInit(builder, AIFacade.getTrainWeightInitializer());
+                break;
         }
     }
 }
