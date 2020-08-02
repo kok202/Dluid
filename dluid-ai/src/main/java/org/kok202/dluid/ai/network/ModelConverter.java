@@ -4,11 +4,13 @@ import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.conf.InputPreProcessor;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.distribution.UniformDistribution;
 import org.deeplearning4j.nn.graph.ComputationGraph;
+import org.deeplearning4j.nn.weights.WeightInit;
 import org.kok202.dluid.ai.network.layer.LayerBindManager;
 import org.kok202.dluid.ai.singleton.AISingleton;
-import org.kok202.dluid.ai.util.BiasInitUtil;
-import org.kok202.dluid.ai.util.WeightInitUtil;
+import org.kok202.dluid.domain.entity.enumerator.BiasInitializer;
+import org.kok202.dluid.domain.entity.enumerator.WeightInitializer;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -57,19 +59,49 @@ public class ModelConverter {
         NeuralNetConfiguration.Builder builder = new NeuralNetConfiguration.Builder();
         builder.seed(AISingleton.getInstance().getModelManager().getModelParameter().getSeed());
         builder.updater(AISingleton.getInstance().getModelManager().getModelParameter().getIUpdater());
-        BiasInitUtil.applyBiasInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getBiasInitializer());
-        WeightInitUtil.applyWeightInit(builder, AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer());
+        apply(builder, AISingleton.getInstance().getModelManager().getModelParameter().getBiasInitializer());
+        apply(builder, AISingleton.getInstance().getModelManager().getModelParameter().getWeightInitializer());
         builder.miniBatch(false);
         return builder.graphBuilder();
     }
 
     private void recycleInputPreProcessor(ComputationGraphConfiguration.GraphBuilder graphBuilder, List<org.kok202.dluid.domain.entity.Layer> dluidLayers){
-        for (int i = 0; i < dluidLayers.size(); i++) {
-            org.kok202.dluid.domain.entity.Layer layer = dluidLayers.get(i);
+        for (org.kok202.dluid.domain.entity.Layer layer : dluidLayers) {
             InputPreProcessor inputPreProcessor = inputPreProcessorRecycleMap.get(layer.getId());
-            if(inputPreProcessor == null)
+            if (inputPreProcessor == null)
                 continue;
             graphBuilder.inputPreProcessor(layer.getId(), inputPreProcessor);
+        }
+    }
+
+    private void apply(NeuralNetConfiguration.Builder builder, BiasInitializer biasInitializer){
+        if(biasInitializer != null)
+            builder.biasInit(biasInitializer.getBias());
+    }
+
+    private void apply(NeuralNetConfiguration.Builder builder, WeightInitializer weightInitializer){
+        switch(weightInitializer){
+            case ZERO:
+                builder.weightInit(WeightInit.ZERO);
+                break;
+            case ONES:
+                builder.weightInit(WeightInit.ONES);
+                break;
+            case NORMAL:
+                builder.weightInit(WeightInit.NORMAL);
+                break;
+            case UNIFORM:
+                builder.weightInit(WeightInit.UNIFORM);
+                break;
+            case XAVIER:
+                builder.weightInit(WeightInit.XAVIER);
+                break;
+            case DISTRIBUTION_ZERO_TO_ONE:
+                builder.weightInit(new UniformDistribution(0, 1));
+                break;
+            case DISTRIBUTION_PLUS_MINUS_ONE:
+                builder.weightInit(new UniformDistribution(-1, 1));
+                break;
         }
     }
 }
