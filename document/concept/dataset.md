@@ -1,7 +1,7 @@
 ---
 title: Dataset
 parent: Concept
-has_children: true
+has_children: false
 nav_order: 2
 ---
 
@@ -67,3 +67,14 @@ And record is
 
 And record set is collection of record.
 So `data set`, `feature set` and `result set` are sub type of record set.
+
+#### * Origin of sample datasource 
+| |link|
+|:---:|:---|
+|iris|https://github.com/deeplearning4j/dl4j-examples/tree/master/dl4j-examples/src/main/resources|
+|housing|https://github.com/chendaniely/pandas_for_everyone/tree/master/data|
+|wine|https://github.com/chendaniely/pandas_for_everyone/tree/master/data|
+|stock|https://github.com/chendaniely/pandas_for_everyone/tree/master/data|
+|mnist|dataset in dl4j.|
+|Stock train data|extracted date from 2014-07-24 to 2016-08-03|  
+|Stock test data|extracted date from 2016-08-04 to 2016-08-25|
