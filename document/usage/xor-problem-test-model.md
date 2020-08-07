@@ -1,5 +1,5 @@
 ---
-title: XOR Problem (3. test model)
+title: 3. Test XOR model
 parent: Usage
 has_children: false
 nav_order: 3

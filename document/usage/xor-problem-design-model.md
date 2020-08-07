@@ -1,5 +1,5 @@
 ---
-title: XOR Problem (1. Design model)
+title:  1. Design XOR Model
 parent: Usage
 has_children: false
 nav_order: 1
