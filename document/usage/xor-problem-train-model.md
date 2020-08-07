@@ -1,5 +1,5 @@
 ---
-title: XOR Problem (2. train model)
+title: 2. Train XOR model
 parent: Usage
 has_children: false
 nav_order: 2

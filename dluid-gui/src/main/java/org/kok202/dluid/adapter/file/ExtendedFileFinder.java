@@ -3,12 +3,12 @@ package org.kok202.dluid.adapter.file;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import org.apache.commons.lang3.StringUtils;
 import org.kok202.dluid.adapter.PopUpExtension;
 import org.kok202.dluid.ai.singleton.structure.ManagedRecordSet;
 import org.kok202.dluid.content.popup.CsvManagementPopUpController;
 import org.kok202.dluid.content.popup.ExcelManagementPopUpController;
 import org.kok202.dluid.singleton.AppPropertiesSingleton;
-import org.nd4j.linalg.io.StringUtils;
 
 public abstract class ExtendedFileFinder extends FileFinder{
 

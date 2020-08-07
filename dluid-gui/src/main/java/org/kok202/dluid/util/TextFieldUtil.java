@@ -2,7 +2,7 @@ package org.kok202.dluid.util;
 
 
 import javafx.scene.control.TextField;
-import org.nd4j.linalg.io.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class TextFieldUtil {
     public static void applyPositiveWithZeroIntegerFilter(TextField textField, int defaultValue){
