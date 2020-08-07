@@ -4,13 +4,12 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import org.kok202.dluid.ai.AIConstant;
-import org.kok202.dluid.ai.util.OptimizerUtil;
 import org.kok202.dluid.domain.entity.enumerator.BiasInitializer;
 import org.kok202.dluid.domain.entity.enumerator.Optimizer;
 import org.kok202.dluid.domain.entity.enumerator.WeightInitializer;
 import org.kok202.dluid.domain.util.RandomUtil;
 import org.nd4j.linalg.factory.Nd4j;
-import org.nd4j.linalg.learning.config.IUpdater;
+import org.nd4j.linalg.learning.config.*;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 @Data
@@ -41,6 +40,28 @@ public class ModelParameter {
     }
 
     public IUpdater getIUpdater(){
-        return OptimizerUtil.getIUpdater(optimizer, learningRate);
+        switch (optimizer){
+            case ADAM:
+                return new Adam(learningRate);
+            case ADA_DELTA:
+                return new AdaDelta();
+            case ADA_GRAD:
+                return new AdaGrad(learningRate);
+            case ADA_MAX:
+                return new AdaMax(learningRate);
+            case AMS_GRAD:
+                return new AMSGrad(learningRate);
+            case NADAM:
+                return new Nadam(learningRate);
+            case NESTEROVS:
+                return new Nesterovs(learningRate);
+            case NOOP:
+                return new NoOp();
+            case RMS_PROP:
+                return new RmsProp(learningRate);
+            case SGD:
+            default:
+                return new Sgd(learningRate);
+        }
     }
 }

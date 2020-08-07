@@ -47,14 +47,11 @@ public class Model {
     }
 
     private void updateParams(Map<String, Layer> multiLayerMap){
-        multiLayerMap.entrySet()
-                .forEach(entry ->{
-                    String layerId = entry.getKey();
-                    Layer layer = entry.getValue();
-                    Layer targetLayer = this.computationGraphLayerMap.get(layerId);
-                    if(targetLayer != null){
-                        targetLayer.setParams(layer.params());
-                    }
-                });
+        multiLayerMap.forEach((layerId, layer) -> {
+            Layer targetLayer = this.computationGraphLayerMap.get(layerId);
+            if (targetLayer != null) {
+                targetLayer.setParams(layer.params());
+            }
+        });
     }
 }
