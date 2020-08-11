@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kokzoz.dluid.ai.AIFacade;
 import org.kokzoz.dluid.canvas.CanvasFacade;
 import org.kokzoz.dluid.canvas.block.BlockNode;
-import org.kokzoz.dluid.domain.entity.enumerator.Dimension;
+import org.kokzoz.dluid.domain.entity.enumerator.DimensionType;
 import org.kokzoz.dluid.domain.entity.enumerator.LayerType;
 import org.kokzoz.dluid.domain.exception.*;
 import org.kokzoz.dluid.domain.structure.GraphNode;
@@ -53,32 +53,28 @@ class ModelGraphValidator {
             if(currentGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER)
                 continue;
 
-            Dimension sourceOutputDimension = currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension();
-            long sourceOutputVolume = currentGraphNode.getData().getBlockLayer().getProperties().getOutputVolume();
+            DimensionType sourceOutputDimensionType = currentGraphNode.getData().getBlockLayer().getProperties().getOutput().getDimensionType();
+            long sourceOutputVolume = currentGraphNode.getData().getBlockLayer().getProperties().getOutput().getVolume();
 
             List<GraphNode<BlockNode>> currentOutgoingGraphNodes = currentGraphNode.getOutgoingNodes();
             for (GraphNode<BlockNode> currentOutgoingGraphNode : currentOutgoingGraphNodes) {
                 while(currentOutgoingGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER){
                     currentOutgoingGraphNode = currentOutgoingGraphNode.getOutgoingNode().get();
                 }
-                Dimension destinationInputDimension = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension();
-                long destinationInputVolume = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume();
-                if (sourceOutputDimension != destinationInputDimension)
+                DimensionType destinationInputDimensionType = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInput().getDimensionType();
+                long destinationInputVolume = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInput().getVolume();
+                if (sourceOutputDimensionType != destinationInputDimensionType)
                     throw new DimensionUnmatchedException(
                             currentGraphNode.getData().getBlockLayer().getId(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputDimension().getComment(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutput(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getId(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputDimension().getComment());
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInput());
                 if (sourceOutputVolume != destinationInputVolume)
                     throw new VolumeUnmatchedException(
                             currentGraphNode.getData().getBlockLayer().getId(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputSize(),
-                            currentGraphNode.getData().getBlockLayer().getProperties().getOutputVolume(),
+                            currentGraphNode.getData().getBlockLayer().getProperties().getOutput(),
                             currentOutgoingGraphNode.getData().getBlockLayer().getId(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputSize(),
-                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInputVolume());
+                            currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInput());
             }
         }
     }

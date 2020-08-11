@@ -16,24 +16,28 @@ public class ReshapeLayerBinder extends AbstractLayerBinder {
 
     @Override
     public void bind(Layer layer, List<Layer> layerFroms, ComputationGraphConfiguration.GraphBuilder graphBuilder) {
-        int[] newShape;
-        if(layer.getProperties().getOutputDimension().getDimension() == 1){
+        int[] newShape = null;
+        if(layer.getProperties().getOutput().getDimension() == 1){
             newShape = new int[]{
-                    -1,
-                    layer.getProperties().getOutputSizeX()};
+                -1,
+                layer.getProperties().getOutput().getX()
+            };
         }
-        else if(layer.getProperties().getOutputDimension().getDimension() == 2){
+        else if(layer.getProperties().getOutput().getDimension() == 2){
+            if(layer.getProperties().getOutput().isHasChannel())
             newShape = new int[]{
-                    -1,
-                    layer.getProperties().getOutputSizeY(),
-                    layer.getProperties().getOutputSizeX()};
+                -1,
+                layer.getProperties().getOutput().getYOrChannel(),
+                layer.getProperties().getOutput().getX()
+            };
         }
         else {
             newShape = new int[]{
-                    -1,
-                    layer.getProperties().getOutputSizeZ(),
-                    layer.getProperties().getOutputSizeY(),
-                    layer.getProperties().getOutputSizeX()};
+                -1,
+                layer.getProperties().getOutput().getZOrChannel(),
+                layer.getProperties().getOutput().getY(),
+                layer.getProperties().getOutput().getX()
+            };
         }
         graphBuilder.addVertex(layer.getId(), new ReshapeVertex(newShape), parseLayerIds(layerFroms));
     }

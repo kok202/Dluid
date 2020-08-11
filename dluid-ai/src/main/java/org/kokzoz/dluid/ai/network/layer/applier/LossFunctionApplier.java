@@ -9,7 +9,7 @@ public class LossFunctionApplier extends AbstractApplier {
 
     @Override
     public boolean support(Builder builder, LayerProperties layerProperties){
-        return builder instanceof OutputLayer.Builder && layerProperties.getInputSize() != null;
+        return builder instanceof OutputLayer.Builder && layerProperties.getLossFunction() != null;
     }
 
     @Override

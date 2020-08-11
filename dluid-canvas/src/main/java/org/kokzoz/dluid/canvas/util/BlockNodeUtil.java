@@ -27,16 +27,18 @@ public class BlockNodeUtil {
     }
 
     public static int getBlockNodeInputX(Layer layer){
-        return layer.getProperties().getInputSizeX();
+        return layer.getProperties().getInput().getX();
     }
 
     public static int getBlockNodeInputY(Layer layer){
-        if(layer.getProperties().getInputDimension().getDimension() == 1)
+        if(layer.getProperties().getInput().getDimension() == 1)
             return 1;
-        else if(layer.getProperties().getInputDimension().getDimension() == 2)
-            return (layer.getProperties().getInputDimension().isHasChannel())? 1 : layer.getProperties().getInputSizeY();
-        else if(layer.getProperties().getInputDimension().getDimension() == 3)
-            return layer.getProperties().getInputSizeY();
+        else if(layer.getProperties().getInput().getDimension() == 2)
+            return (layer.getProperties().getInput().isHasChannel())
+                ? 1
+                : layer.getProperties().getInput().getY();
+        else if(layer.getProperties().getInput().getDimension() == 3)
+            return layer.getProperties().getInput().getY();
         throw new RuntimeException("Can not find block node Y value");
     }
 
@@ -49,28 +51,28 @@ public class BlockNodeUtil {
     }
 
     public static int getBlockNodeOutputX(Layer layer){
-        return layer.getProperties().getOutputSizeX();
+        return layer.getProperties().getOutput().getX();
     }
 
     public static int getBlockNodeOutputY(Layer layer){
-        if(layer.getProperties().getOutputDimension().getDimension() == 1)
+        if(layer.getProperties().getOutput().getDimension() == 1)
             return 1;
-        else if(layer.getProperties().getOutputDimension().getDimension() == 2)
-            return (layer.getProperties().getOutputDimension().isHasChannel())? 1 : layer.getProperties().getOutputSizeY();
-        else if(layer.getProperties().getOutputDimension().getDimension() == 3)
-            return layer.getProperties().getOutputSizeY();
+        else if(layer.getProperties().getOutput().getDimension() == 2)
+            return (layer.getProperties().getOutput().isHasChannel())? 1 : layer.getProperties().getOutput().getY();
+        else if(layer.getProperties().getOutput().getDimension() == 3)
+            return layer.getProperties().getOutput().getY();
         throw new RuntimeException("Can not find block node Y value");
     }
 
     public static double getBlockNodeZ(Layer layer){
-        if(layer.getProperties().getInputDimension().getDimension() == 1)
+        if(layer.getProperties().getInput().getDimension() == 1)
             return CanvasConstant.NODE_DEFAULT_HEIGHT;
-        else if(layer.getProperties().getInputDimension().getDimension() == 2)
-            return (layer.getProperties().getInputDimension().isHasChannel())?
-                    layer.getProperties().getInputSizeY() * CanvasConstant.NODE_DEFAULT_HEIGHT :
+        else if(layer.getProperties().getInput().getDimension() == 2)
+            return (layer.getProperties().getInput().isHasChannel())?
+                    layer.getProperties().getInput().getY() * CanvasConstant.NODE_DEFAULT_HEIGHT :
                     CanvasConstant.NODE_DEFAULT_HEIGHT;
-        else if(layer.getProperties().getInputDimension().getDimension() == 3)
-            return layer.getProperties().getInputSizeZ() * CanvasConstant.NODE_DEFAULT_HEIGHT;
+        else if(layer.getProperties().getInput().getDimension() == 3)
+            return layer.getProperties().getInput().getZ() * CanvasConstant.NODE_DEFAULT_HEIGHT;
         throw new RuntimeException("Can not find block node Z value");
     }
 }

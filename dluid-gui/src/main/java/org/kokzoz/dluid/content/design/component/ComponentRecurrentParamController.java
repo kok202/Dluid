@@ -49,10 +49,10 @@ public class ComponentRecurrentParamController extends AbstractLayerComponentCon
 
     protected void setTextFieldByLayerProperties(){
         detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeY);
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInput().getX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInput().getY()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
         attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeY);
     }
 
@@ -67,12 +67,14 @@ public class ComponentRecurrentParamController extends AbstractLayerComponentCon
         int x = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
         int y = TextFieldUtil.parseInteger(textFieldInputSizeY, 1);
         textFieldOutputSizeX.setText(textFieldInputSizeX.getText());
-        layer.getProperties().setInputSize(x, y);
+        layer.getProperties().getInput().setX(x);
+        layer.getProperties().getInput().setY(y);
     }
 
     private void changeOutputSize(){
         int x = TextFieldUtil.parseInteger(textFieldOutputSizeX, 1);
         int y = TextFieldUtil.parseInteger(textFieldOutputSizeY, 1);
-        layer.getProperties().setOutputSize(x, y);
+        layer.getProperties().getOutput().setX(x);
+        layer.getProperties().getOutput().setY(y);
     }
 }

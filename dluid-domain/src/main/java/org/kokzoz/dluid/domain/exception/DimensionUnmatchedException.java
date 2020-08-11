@@ -1,6 +1,7 @@
 package org.kokzoz.dluid.domain.exception;
 
 import lombok.Getter;
+import org.kokzoz.dluid.domain.entity.Dimension;
 
 import java.util.Arrays;
 
@@ -14,14 +15,14 @@ public class DimensionUnmatchedException extends RuntimeException {
     private String destinationInputSize;
     private String sourceLayerInputDimension;
 
-    public DimensionUnmatchedException(String sourceLayerId, int[] out, String outDimension, String destinationLayerId, int[] in, String inDimension) {
+    public DimensionUnmatchedException(String sourceLayerId, Dimension output, String destinationLayerId, Dimension input) {
         super("LayerType dimension is not matched");
         this.sourceLayerId = sourceLayerId;
-        this.sourceLayerOutputSize = Arrays.toString(out);
-        this.sourceLayerOutputDimension = outDimension;
+        this.sourceLayerOutputSize = Arrays.toString(output.asArray());
+        this.sourceLayerOutputDimension = output.getDimensionType().toString();
         this.destinationLayerId = destinationLayerId;
-        this.destinationInputSize = Arrays.toString(in);
-        this.sourceLayerInputDimension = inDimension;
+        this.destinationInputSize = Arrays.toString(input.asArray());
+        this.sourceLayerInputDimension = input.getDimensionType().toString();
     }
 
 }

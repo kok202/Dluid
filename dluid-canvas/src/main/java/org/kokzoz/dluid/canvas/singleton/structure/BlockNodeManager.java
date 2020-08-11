@@ -89,7 +89,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
 
                     int inputSize = 0;
                     for (Layer incomingLayer : incomingLayers) {
-                        inputSize += incomingLayer.getProperties().getOutputVolume();
+                        inputSize += incomingLayer.getProperties().getOutput().getVolume();
                     }
                     inputSize = Math.max(inputSize, 1);
 
@@ -97,8 +97,10 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                     MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
                     int outputSizeY = recommendedDivisors.get(mergeBlockProperty.getPointingIndex(recommendedDivisors.size()));
                     int outputSizeX = inputSize / outputSizeY;
-                    layer.getProperties().setInputSize(outputSizeX, outputSizeY);
-                    layer.getProperties().setOutputSize(outputSizeX, outputSizeY);
+                    layer.getProperties().getInput().setX(outputSizeX);
+                    layer.getProperties().getInput().setY(outputSizeY);
+                    layer.getProperties().getOutput().setX(outputSizeX);
+                    layer.getProperties().getOutput().setY(outputSizeY);
                     graphNodeBlockNode.getData().reshapeBlockModel();
                 });
     }
@@ -112,20 +114,22 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
                     GraphNode<BlockNode> destinationGraphNodeBlockNode = graphNodeBlockNode.getOutgoingNode().get(); // Exist only one. because it is pipe block.
 
                     if(destinationGraphNodeBlockNode.getData().getBlockLayer().getType() == LayerType.MERGE_LAYER){
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setInputSize(
-                                BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer()),
-                                BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer()));
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setOutputSize(
-                                BlockNodeUtil.getBlockNodeInputX(destinationGraphNodeBlockNode.getData().getBlockLayer()),
-                                BlockNodeUtil.getBlockNodeInputY(destinationGraphNodeBlockNode.getData().getBlockLayer()));
+                        int sourceBlockNodeOutputX = BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer());
+                        int sourceBlockNodeOutputY = BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer());
+                        int destinationBlockNodeInputX = BlockNodeUtil.getBlockNodeInputX(destinationGraphNodeBlockNode.getData().getBlockLayer());
+                        int destinationBlockNodeInputY = BlockNodeUtil.getBlockNodeInputY(destinationGraphNodeBlockNode.getData().getBlockLayer());
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getInput().setX(sourceBlockNodeOutputX);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getInput().setY(sourceBlockNodeOutputY);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getOutput().setX(destinationBlockNodeInputX);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getOutput().setY(destinationBlockNodeInputY);
                     }
                     else{
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setInputSize(
-                                BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer()),
-                                BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer()));
-                        graphNodeBlockNode.getData().getBlockLayer().getProperties().setOutputSize(
-                                BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer()),
-                                BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer()));
+                        int sourceBlockNodeOutputX = BlockNodeUtil.getBlockNodeOutputX(sourceGraphNodeBlockNode.getData().getBlockLayer());
+                        int sourceBlockNodeOutputY = BlockNodeUtil.getBlockNodeOutputY(sourceGraphNodeBlockNode.getData().getBlockLayer());
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getInput().setX(sourceBlockNodeOutputX);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getInput().setY(sourceBlockNodeOutputY);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getOutput().setX(sourceBlockNodeOutputX);
+                        graphNodeBlockNode.getData().getBlockLayer().getProperties().getOutput().setY(sourceBlockNodeOutputY);
                     }
                     graphNodeBlockNode.getData().reshapeBlockModel();
                 });
@@ -168,7 +172,7 @@ public class BlockNodeManager extends GraphManager<BlockNode>{
     private void replaceAllBlockByChannelBlock() {
         getGraphNodes()
                 .stream()
-                .filter(graphNodeBlockNode -> graphNodeBlockNode.getData().getBlockLayer().getProperties().getInputDimension().isHasChannel())
+                .filter(graphNodeBlockNode -> graphNodeBlockNode.getData().getBlockLayer().getProperties().getInput().isHasChannel())
                 .forEach(graphNodeBlockNode -> {
                     double incomingOverlappedY = 0;
                     double outgoingOverlappedY = 0;
