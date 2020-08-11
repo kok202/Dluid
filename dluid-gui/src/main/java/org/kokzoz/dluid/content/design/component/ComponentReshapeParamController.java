@@ -134,8 +134,8 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         changeOutputLabelByChannelExist(layer.getProperties().getOutput().isHasChannel());
     }
 
-    private void changeInputLabelByChannelExist(boolean isChannel) {
-        if(isChannel) {
+    private void changeInputLabelByChannelExist(boolean isHasChannel) {
+        if(isHasChannel) {
             labelInput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
             labelInput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
         }
@@ -145,14 +145,14 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         }
     }
 
-    private void changeOutputLabelByChannelExist(boolean isChannel) {
-        if(isChannel) {
+    private void changeOutputLabelByChannelExist(boolean isHasChannel) {
+        if(isHasChannel) {
             labelOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
             labelOutput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
         }
         else{
-            labelOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
-            labelOutput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+            labelOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.depth"));
+            labelOutput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.depth"));
         }
     }
 
@@ -205,6 +205,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
             changeInputLabelByChannelExist(layer.getProperties().getInput().isHasChannel());
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d"), DimensionType.ONE_DIMENSION);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d.withChannel"), DimensionType.ONE_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d"), DimensionType.TWO_DIMENSION);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d.withChannel"), DimensionType.TWO_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.3d"), DimensionType.THREE_DIMENSION);
@@ -229,6 +230,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
             changeOutputLabelByChannelExist(layer.getProperties().getOutput().isHasChannel());
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d"), DimensionType.ONE_DIMENSION);
+        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d.withChannel"), DimensionType.ONE_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d"), DimensionType.TWO_DIMENSION);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d.withChannel"), DimensionType.TWO_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.3d"), DimensionType.THREE_DIMENSION);

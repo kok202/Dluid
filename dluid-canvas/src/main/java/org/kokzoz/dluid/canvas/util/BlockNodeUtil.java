@@ -31,15 +31,9 @@ public class BlockNodeUtil {
     }
 
     public static int getBlockNodeInputY(Layer layer){
-        if(layer.getProperties().getInput().getDimension() == 1)
-            return 1;
-        else if(layer.getProperties().getInput().getDimension() == 2)
-            return (layer.getProperties().getInput().isHasChannel())
-                ? 1
-                : layer.getProperties().getInput().getY();
-        else if(layer.getProperties().getInput().getDimension() == 3)
-            return layer.getProperties().getInput().getY();
-        throw new RuntimeException("Can not find block node Y value");
+        return layer.getProperties().getInput().getDimension() == 1
+            ? 1
+            : layer.getProperties().getInput().getY();
     }
 
     public static double getBlockNodeBottomX(Layer layer){
@@ -55,13 +49,9 @@ public class BlockNodeUtil {
     }
 
     public static int getBlockNodeOutputY(Layer layer){
-        if(layer.getProperties().getOutput().getDimension() == 1)
-            return 1;
-        else if(layer.getProperties().getOutput().getDimension() == 2)
-            return (layer.getProperties().getOutput().isHasChannel())? 1 : layer.getProperties().getOutput().getY();
-        else if(layer.getProperties().getOutput().getDimension() == 3)
-            return layer.getProperties().getOutput().getY();
-        throw new RuntimeException("Can not find block node Y value");
+        return layer.getProperties().getOutput().getDimension() == 1
+            ? 1
+            : layer.getProperties().getOutput().getY();
     }
 
     public static double getBlockNodeZ(Layer layer){

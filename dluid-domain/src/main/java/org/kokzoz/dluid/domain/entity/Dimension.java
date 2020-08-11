@@ -20,20 +20,11 @@ public class Dimension {
         this.y = y;
         this.z = z;
         this.channel = channel;
-
-        dimension = 0;
-        if(x != 0) dimension++;
-        if(y != 0) dimension++;
-        if(z != 0) dimension++;
-        if(channel != 0) dimension++;
-    }
-
-    public int getYOrChannel(){
-        return hasChannel? y : channel;
-    }
-
-    public int getZOrChannel(){
-        return hasChannel? z : channel;
+        this.dimension = 0;
+        if(x != 0) this.dimension++;
+        if(y != 0) this.dimension++;
+        if(z != 0) this.dimension++;
+        if(channel != 0) this.hasChannel = true;
     }
 
     public void setX(int x) {
@@ -61,33 +52,22 @@ public class Dimension {
 
     public int[] asArray(){
         if(dimension == 1)
-            return new int[]{x};
+            return hasChannel? new int[]{x, channel} : new int[]{x};
         if(dimension == 2)
-            return new int[]{x, getYOrChannel()};
+            return hasChannel? new int[]{x, y, channel} : new int[]{x, y};
         if(dimension == 3)
-            return new int[]{x, y, getZOrChannel()};
+            return hasChannel? new int[]{x, y, z, channel} : new int[]{x, y, z};
         return null;
     }
 
     public void changeDimensionByType(DimensionType dimensionType){
-        switch (dimensionType){
-            case ONE_DIMENSION:
-                dimension = 1;
-                break;
-            case TWO_DIMENSION:
-            case TWO_DIMENSION_WITH_CHANNEL:
-                dimension = 2;
-                break;
-            case THREE_DIMENSION:
-            case THREE_DIMENSION_WITH_CHANNEL:
-                dimension = 3;
-                break;
-        }
+        dimension = dimensionType.getDimension();
+        hasChannel = dimensionType.isHasChannel();
     }
 
     public DimensionType getDimensionType(){
         if(dimension == 1)
-            return DimensionType.ONE_DIMENSION;
+            return hasChannel? DimensionType.ONE_DIMENSION_WITH_CHANNEL : DimensionType.ONE_DIMENSION;
         if(dimension == 2)
             return hasChannel? DimensionType.TWO_DIMENSION_WITH_CHANNEL : DimensionType.TWO_DIMENSION;
         if(dimension == 3)
@@ -97,10 +77,10 @@ public class Dimension {
 
     public int getVolume(){
         int product = 1;
-        if(x != 0) product *= x;
-        if(y != 0) product *= x;
-        if(z != 0) product *= x;
-        if(channel != 0) product *= channel;
+        if(x != 0 && dimension >= 1) product *= x;
+        if(y != 0 && dimension >= 2) product *= y;
+        if(z != 0 && dimension >= 3) product *= z;
+        if(channel != 0 && hasChannel) product *= channel;
         return product;
     }
 }
