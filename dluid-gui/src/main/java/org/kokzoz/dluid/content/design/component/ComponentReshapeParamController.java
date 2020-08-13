@@ -311,6 +311,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
                 set2DInputComponentVisible(true);
                 labelInput2DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
                 labelInput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+                break;
             case TWO_DIMENSION_WITH_CHANNEL:
                 set3DInputComponentVisible(true);
                 labelInput3DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
@@ -353,6 +354,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
                 set2DOutputComponentVisible(true);
                 labelOutput2DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
                 labelOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+                break;
             case TWO_DIMENSION_WITH_CHANNEL:
                 set3DOutputComponentVisible(true);
                 labelOutput3DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));

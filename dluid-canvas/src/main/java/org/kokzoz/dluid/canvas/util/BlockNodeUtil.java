@@ -55,8 +55,6 @@ public class BlockNodeUtil {
     }
 
     public static double getBlockNodeZ(Layer layer){
-        return layer.getProperties().getOutput().isHasChannel()
-            ? layer.getProperties().getOutput().getChannel()
-            : CanvasConstant.NODE_DEFAULT_HEIGHT;
+        return CanvasConstant.NODE_DEFAULT_HEIGHT;
     }
 }

@@ -19,7 +19,7 @@ public class InputApplier extends AbstractApplier {
     public void apply(Builder builder, LayerProperties layerProperties){
         if(builder instanceof ConvolutionLayer.BaseConvBuilder){
             ConvolutionLayer.BaseConvBuilder convolutionLayerBuilder = ((ConvolutionLayer.BaseConvBuilder) builder);
-            convolutionLayerBuilder.nIn(layerProperties.getInput().getChannel()); // channel
+            convolutionLayerBuilder.nIn(layerProperties.getInput().getChannel());
         } if(builder instanceof BaseRecurrentLayer.Builder ){
             BaseRecurrentLayer.Builder baseRecurrentLayerBuilder = ((BaseRecurrentLayer.Builder) builder);
             baseRecurrentLayerBuilder.nIn(layerProperties.getInput().getY());
