@@ -135,15 +135,17 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
         menuAdapter.setMenuItemChangedListener(dimensionType -> {
             layer.getProperties().getInput().changeDimensionByType(dimensionType);
             Dimension inputDimension = layer.getProperties().getInput();
-            anchorPaneInputOutputLabel1D.setVisible(inputDimension.getDimension() == 1);
-            anchorPaneInputOutputLabel2D.setVisible(inputDimension.getDimension() == 2);
-            anchorPaneInputOutputLabel3D.setVisible(inputDimension.getDimension() == 3);
-            anchorPaneInputSize1D.setVisible(inputDimension.getDimension() == 1);
-            anchorPaneInputSize2D.setVisible(inputDimension.getDimension() == 2);
-            anchorPaneInputSize3D.setVisible(inputDimension.getDimension() == 3);
-            anchorPaneOutputSize1D.setVisible(inputDimension.getDimension() == 1);
-            anchorPaneOutputSize2D.setVisible(inputDimension.getDimension() == 2);
-            anchorPaneOutputSize3D.setVisible(inputDimension.getDimension() == 3);
+            int fields = inputDimension.getDimension();
+            fields += inputDimension.isHasChannel()? 1 : 0;
+            anchorPaneInputOutputLabel1D.setVisible(fields == 1);
+            anchorPaneInputOutputLabel2D.setVisible(fields == 2);
+            anchorPaneInputOutputLabel3D.setVisible(fields == 3);
+            anchorPaneInputSize1D.setVisible(fields == 1);
+            anchorPaneInputSize2D.setVisible(fields == 2);
+            anchorPaneInputSize3D.setVisible(fields == 3);
+            anchorPaneOutputSize1D.setVisible(fields == 1);
+            anchorPaneOutputSize2D.setVisible(fields == 2);
+            anchorPaneOutputSize3D.setVisible(fields == 3);
             refreshInputOutputSize();
             reshapeBlock();
             changeInputOutputLabelByChannelExist(layer.getProperties().getInput().isHasChannel());
@@ -152,8 +154,6 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d.withChannel"), DimensionType.ONE_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d"), DimensionType.TWO_DIMENSION);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d.withChannel"), DimensionType.TWO_DIMENSION_WITH_CHANNEL);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.3d"), DimensionType.THREE_DIMENSION);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.3d.withChannel"), DimensionType.THREE_DIMENSION_WITH_CHANNEL);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getInput().getDimensionType());
     }
 

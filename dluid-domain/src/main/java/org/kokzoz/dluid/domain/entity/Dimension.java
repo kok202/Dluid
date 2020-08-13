@@ -70,8 +70,6 @@ public class Dimension {
             return hasChannel? DimensionType.ONE_DIMENSION_WITH_CHANNEL : DimensionType.ONE_DIMENSION;
         if(dimension == 2)
             return hasChannel? DimensionType.TWO_DIMENSION_WITH_CHANNEL : DimensionType.TWO_DIMENSION;
-        if(dimension == 3)
-            return hasChannel? DimensionType.THREE_DIMENSION_WITH_CHANNEL : DimensionType.THREE_DIMENSION;
         return null;
     }
 

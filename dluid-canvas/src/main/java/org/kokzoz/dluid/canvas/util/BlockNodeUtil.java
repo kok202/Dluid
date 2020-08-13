@@ -49,20 +49,14 @@ public class BlockNodeUtil {
     }
 
     public static int getBlockNodeOutputY(Layer layer){
-        return layer.getProperties().getOutput().getDimension() == 1
-            ? 1
-            : layer.getProperties().getOutput().getY();
+        return layer.getProperties().getOutput().getDimension() > 1
+            ? layer.getProperties().getOutput().getY()
+            : 1;
     }
 
     public static double getBlockNodeZ(Layer layer){
-        if(layer.getProperties().getInput().getDimension() == 1)
-            return CanvasConstant.NODE_DEFAULT_HEIGHT;
-        else if(layer.getProperties().getInput().getDimension() == 2)
-            return (layer.getProperties().getInput().isHasChannel())?
-                    layer.getProperties().getInput().getY() * CanvasConstant.NODE_DEFAULT_HEIGHT :
-                    CanvasConstant.NODE_DEFAULT_HEIGHT;
-        else if(layer.getProperties().getInput().getDimension() == 3)
-            return layer.getProperties().getInput().getZ() * CanvasConstant.NODE_DEFAULT_HEIGHT;
-        throw new RuntimeException("Can not find block node Z value");
+        return layer.getProperties().getOutput().isHasChannel()
+            ? layer.getProperties().getOutput().getChannel()
+            : CanvasConstant.NODE_DEFAULT_HEIGHT;
     }
 }
