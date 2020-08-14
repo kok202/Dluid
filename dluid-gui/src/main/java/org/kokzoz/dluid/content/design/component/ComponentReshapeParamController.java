@@ -149,7 +149,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
     private void initializeMenuButtonInputDimension(){
         MenuAdapter<DimensionType> menuAdapter = new MenuAdapter<>(menuButtonInputDimension);
         menuAdapter.setMenuItemChangedListener(dimensionType -> {
-            layer.getProperties().getInput().changeDimensionByType(dimensionType);
+            layer.getProperties().getInput().setType(dimensionType);
             refreshInputComponent(layer.getProperties().getInput());
             refreshInputSize();
             refreshOutputSize();
@@ -159,13 +159,13 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d.withChannel"), DimensionType.ONE_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d"), DimensionType.TWO_DIMENSION);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d.withChannel"), DimensionType.TWO_DIMENSION_WITH_CHANNEL);
-        menuAdapter.setDefaultMenuItem(layer.getProperties().getInput().getDimensionType());
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getInput().getType());
     }
 
     private void initializeMenuButtonOutputDimension(){
         MenuAdapter<DimensionType> menuAdapter = new MenuAdapter<>(menuButtonOutputDimension);
         menuAdapter.setMenuItemChangedListener(dimensionType -> {
-            layer.getProperties().getOutput().changeDimensionByType(dimensionType);
+            layer.getProperties().getOutput().setType(dimensionType);
             refreshOutputComponent(layer.getProperties().getOutput());
             refreshOutputSize();
             reshapeBlock();
@@ -174,11 +174,11 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d.withChannel"), DimensionType.ONE_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d"), DimensionType.TWO_DIMENSION);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d.withChannel"), DimensionType.TWO_DIMENSION_WITH_CHANNEL);
-        menuAdapter.setDefaultMenuItem(layer.getProperties().getOutput().getDimensionType());
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getOutput().getType());
     }
 
     private void initializeInputText(){
-        switch (layer.getProperties().getInput().getDimensionType()){
+        switch (layer.getProperties().getInput().getType()){
             case ONE_DIMENSION:
                 textFieldInputSize1D.setText(String.valueOf(layer.getProperties().getInput().getX()));
                 break;
@@ -199,7 +199,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
     }
 
     private void initializeOutputText(){
-        switch (layer.getProperties().getOutput().getDimensionType()){
+        switch (layer.getProperties().getOutput().getType()){
             case ONE_DIMENSION:
                 textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutput().getX()));
                 break;
@@ -220,7 +220,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
     }
 
     private void refreshInputSize(){
-        switch (layer.getProperties().getInput().getDimensionType()){
+        switch (layer.getProperties().getInput().getType()){
             case ONE_DIMENSION:
                 layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize1D));
                 break;
@@ -246,7 +246,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         int outputSizeY;
         int outputSizeX;
 
-        switch (layer.getProperties().getOutput().getDimensionType()){
+        switch (layer.getProperties().getOutput().getType()){
             case ONE_DIMENSION:
                 layer.getProperties().getOutput().setX(inputVolume);
                 textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutput().getVolume()));
@@ -297,7 +297,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         set1DInputComponentVisible(false);
         set2DInputComponentVisible(false);
         set3DInputComponentVisible(false);
-        switch (inputDimension.getDimensionType()){
+        switch (inputDimension.getType()){
             case ONE_DIMENSION:
                 set1DInputComponentVisible(true);
                 labelInput1DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
@@ -340,7 +340,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         set1DOutputComponentVisible(false);
         set2DOutputComponentVisible(false);
         set3DOutputComponentVisible(false);
-        switch (outputDimension.getDimensionType()){
+        switch (outputDimension.getType()){
             case ONE_DIMENSION:
                 set1DOutputComponentVisible(true);
                 labelOutput1DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));

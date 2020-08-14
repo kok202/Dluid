@@ -53,7 +53,7 @@ class ModelGraphValidator {
             if(currentGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER)
                 continue;
 
-            DimensionType sourceOutputDimensionType = currentGraphNode.getData().getBlockLayer().getProperties().getOutput().getDimensionType();
+            DimensionType sourceOutputDimensionType = currentGraphNode.getData().getBlockLayer().getProperties().getOutput().getType();
             long sourceOutputVolume = currentGraphNode.getData().getBlockLayer().getProperties().getOutput().getVolume();
 
             List<GraphNode<BlockNode>> currentOutgoingGraphNodes = currentGraphNode.getOutgoingNodes();
@@ -61,7 +61,7 @@ class ModelGraphValidator {
                 while(currentOutgoingGraphNode.getData().getBlockLayer().getType() == LayerType.PIPE_LAYER){
                     currentOutgoingGraphNode = currentOutgoingGraphNode.getOutgoingNode().get();
                 }
-                DimensionType destinationInputDimensionType = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInput().getDimensionType();
+                DimensionType destinationInputDimensionType = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInput().getType();
                 long destinationInputVolume = currentOutgoingGraphNode.getData().getBlockLayer().getProperties().getInput().getVolume();
                 if (sourceOutputDimensionType != destinationInputDimensionType)
                     throw new DimensionUnmatchedException(

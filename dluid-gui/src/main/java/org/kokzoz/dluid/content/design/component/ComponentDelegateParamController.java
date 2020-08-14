@@ -133,7 +133,7 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
     private void initializeMenuButtonInputDimension(){
         MenuAdapter<DimensionType> menuAdapter = new MenuAdapter<>(menuButtonInputDimension);
         menuAdapter.setMenuItemChangedListener(dimensionType -> {
-            layer.getProperties().getInput().changeDimensionByType(dimensionType);
+            layer.getProperties().getInput().setType(dimensionType);
             Dimension inputDimension = layer.getProperties().getInput();
             int fields = inputDimension.getDimension();
             fields += inputDimension.isHasChannel()? 1 : 0;
@@ -154,7 +154,7 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d.withChannel"), DimensionType.ONE_DIMENSION_WITH_CHANNEL);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d"), DimensionType.TWO_DIMENSION);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.2d.withChannel"), DimensionType.TWO_DIMENSION_WITH_CHANNEL);
-        menuAdapter.setDefaultMenuItem(layer.getProperties().getInput().getDimensionType());
+        menuAdapter.setDefaultMenuItem(layer.getProperties().getInput().getType());
     }
 
     private void refreshInputOutputSize(){

@@ -19,10 +19,10 @@ public class DimensionUnmatchedException extends RuntimeException {
         super("LayerType dimension is not matched");
         this.sourceLayerId = sourceLayerId;
         this.sourceLayerOutputSize = Arrays.toString(output.asArray());
-        this.sourceLayerOutputDimension = output.getDimensionType().toString();
+        this.sourceLayerOutputDimension = output.getType().toString();
         this.destinationLayerId = destinationLayerId;
         this.destinationInputSize = Arrays.toString(input.asArray());
-        this.sourceLayerInputDimension = input.getDimensionType().toString();
+        this.sourceLayerInputDimension = input.getType().toString();
     }
 
 }

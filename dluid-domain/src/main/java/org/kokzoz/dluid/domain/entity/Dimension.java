@@ -11,8 +11,7 @@ public class Dimension {
     private int y;
     private int z;
     private int channel;
-    private boolean hasChannel;
-    private int dimension;
+    private DimensionType type;
 
     @Builder
     public Dimension(int x, int y, int z, int channel) {
@@ -20,65 +19,81 @@ public class Dimension {
         this.y = y;
         this.z = z;
         this.channel = channel;
-        this.dimension = 0;
-        if(x != 0) this.dimension++;
-        if(y != 0) this.dimension++;
-        if(z != 0) this.dimension++;
-        if(channel != 0) this.hasChannel = true;
+        int dimension = 0;
+        boolean hasChannel = channel == 0;
+        if(dimension == 1 && !hasChannel)
+            type = DimensionType.ONE_DIMENSION;
+        else if(dimension == 1 && hasChannel)
+            type = DimensionType.ONE_DIMENSION_WITH_CHANNEL;
+        else if(dimension == 2 && !hasChannel)
+            type = DimensionType.TWO_DIMENSION;
+        else if(dimension == 2 && hasChannel)
+            type = DimensionType.TWO_DIMENSION_WITH_CHANNEL;
+    }
+
+    public boolean isHasChannel() {
+        return type.isHasChannel();
+    }
+
+    public int getDimension() {
+        return type.getDimension();
     }
 
     public void setX(int x) {
-        if(dimension < 1)
+        if(type.getDimension() < 1)
             throw new OutOfDimensionException(1, "x");
         this.x = x;
     }
 
     public void setY(int y) {
-        if(dimension < 2)
+        if(type.getDimension() < 2)
             throw new OutOfDimensionException(2, "y");
         this.y = y;
     }
 
     public void setZ(int z) {
-        if(dimension < 3)
+        if(type.getDimension() < 3)
             throw new OutOfDimensionException(3, "z");
         this.z = z;
     }
 
     public void setChannel(int channel) {
+        if(!type.isHasChannel())
+            throw new OutOfDimensionException(-1, "channel");
         this.channel = channel;
-        this.hasChannel = true;
+    }
+
+    public void setType(DimensionType type) {
+        this.type = type;
     }
 
     public int[] asArray(){
-        if(dimension == 1)
-            return hasChannel? new int[]{x, channel} : new int[]{x};
-        if(dimension == 2)
-            return hasChannel? new int[]{x, y, channel} : new int[]{x, y};
-        if(dimension == 3)
-            return hasChannel? new int[]{x, y, z, channel} : new int[]{x, y, z};
-        return null;
-    }
-
-    public void changeDimensionByType(DimensionType dimensionType){
-        dimension = dimensionType.getDimension();
-        hasChannel = dimensionType.isHasChannel();
-    }
-
-    public DimensionType getDimensionType(){
-        if(dimension == 1)
-            return hasChannel? DimensionType.ONE_DIMENSION_WITH_CHANNEL : DimensionType.ONE_DIMENSION;
-        if(dimension == 2)
-            return hasChannel? DimensionType.TWO_DIMENSION_WITH_CHANNEL : DimensionType.TWO_DIMENSION;
-        return null;
+        switch (type){
+            case ONE_DIMENSION:
+                return new int[]{x};
+            case ONE_DIMENSION_WITH_CHANNEL:
+                return new int[]{x, channel};
+            case TWO_DIMENSION:
+                return new int[]{x, y};
+            case TWO_DIMENSION_WITH_CHANNEL:
+                return new int[]{x, y, channel};
+            default:
+                return new int[]{};
+        }
     }
 
     public int getVolume(){
-        int product = 1;
-        if(x != 0 && dimension >= 1) product *= x;
-        if(y != 0 && dimension >= 2) product *= y;
-        if(z != 0 && dimension >= 3) product *= z;
-        if(channel != 0 && hasChannel) product *= channel;
-        return product;
+        switch (type){
+            case ONE_DIMENSION:
+                return x;
+            case ONE_DIMENSION_WITH_CHANNEL:
+                return x * channel;
+            case TWO_DIMENSION:
+                return x * y;
+            case TWO_DIMENSION_WITH_CHANNEL:
+                return x * y * channel;
+            default:
+                return 1;
+        }
     }
 }
