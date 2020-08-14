@@ -21,7 +21,7 @@ public class OutputApplier extends AbstractApplier {
         if(builder instanceof ConvolutionLayer.BaseConvBuilder){
             ConvolutionLayer.BaseConvBuilder convolutionLayerBuilder = ((ConvolutionLayer.BaseConvBuilder) builder);
             convolutionLayerBuilder.nOut(layerProperties.getOutput().getChannel());
-        } if(builder instanceof BaseRecurrentLayer.Builder ){
+        } else if(builder instanceof BaseRecurrentLayer.Builder){
             BaseRecurrentLayer.Builder baseRecurrentLayerBuilder = ((BaseRecurrentLayer.Builder) builder);
             baseRecurrentLayerBuilder.nOut(layerProperties.getOutput().getY());
         } else if (builder instanceof RnnOutputLayer.Builder){

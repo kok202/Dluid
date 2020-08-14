@@ -31,9 +31,9 @@ public class BlockNodeUtil {
     }
 
     public static int getBlockNodeInputY(Layer layer){
-        return layer.getProperties().getInput().getDimension() == 1
-            ? 1
-            : layer.getProperties().getInput().getY();
+        return layer.getProperties().getInput().getDimension() > 1
+            ? layer.getProperties().getInput().getY()
+            : 1;
     }
 
     public static double getBlockNodeBottomX(Layer layer){
