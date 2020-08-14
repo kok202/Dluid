@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.kokzoz.dluid.AppConstant;
 import org.kokzoz.dluid.adapter.MenuAdapter;
-import org.kokzoz.dluid.domain.entity.Dimension;
 import org.kokzoz.dluid.domain.entity.Layer;
 import org.kokzoz.dluid.domain.entity.enumerator.DimensionType;
 import org.kokzoz.dluid.singleton.AppPropertiesSingleton;
@@ -79,45 +78,18 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
 
         initializeMenuButtonInputDimension();
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
-        labelInputOutput1DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
-        labelInputOutput2DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
-        labelInputOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
-        labelInputOutput3DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
-        labelInputOutput3DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
-        labelInputOutput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
         labelInput.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutput.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelInputOutputDimension.setText(AppPropertiesSingleton.getInstance().get("frame.component.switch.inputOutputDimension"));
-        changeInputOutputLabelByChannelExist(layer.getProperties().getInput().isHasChannel());
+        refreshComponent(layer.getProperties().getInput().getType());
     }
 
-    private void changeInputOutputLabelByChannelExist(boolean isChannel) {
-        if(isChannel) {
-            labelInputOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
-            labelInputOutput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
-        }
-        else{
-            labelInputOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
-            labelInputOutput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
-        }
-    }
     private void setTextFieldByLayerProperties(){
         detachTextChangedListener(
                 textFieldInputSize1D,
                 textFieldInputSize2DX, textFieldInputSize2DY,
                 textFieldInputSize3DX, textFieldInputSize3DY, textFieldInputSize3DZ);
-        textFieldInputSize1D.setText(String.valueOf(layer.getProperties().getInput().getX()));
-        textFieldInputSize2DX.setText(String.valueOf(layer.getProperties().getInput().getX()));
-        textFieldInputSize2DY.setText(String.valueOf(layer.getProperties().getInput().getY()));
-        textFieldInputSize3DX.setText(String.valueOf(layer.getProperties().getInput().getX()));
-        textFieldInputSize3DY.setText(String.valueOf(layer.getProperties().getInput().getY()));
-        textFieldInputSize3DZ.setText(String.valueOf(layer.getProperties().getInput().getChannel()));
-        textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutput().getX()));
-        textFieldOutputSize2DX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
-        textFieldOutputSize2DY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
-        textFieldOutputSize3DX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
-        textFieldOutputSize3DY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
-        textFieldOutputSize3DZ.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
+        initializeInputOutputText();
         attachTextChangedListener(
                 textFieldInputSize1D,
                 textFieldInputSize2DX, textFieldInputSize2DY,
@@ -126,7 +98,15 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
 
     @Override
     protected void textFieldChangedHandler(){
+        detachTextChangedListener(
+                textFieldInputSize1D,
+                textFieldInputSize2DX, textFieldInputSize2DY,
+                textFieldInputSize3DX, textFieldInputSize3DY, textFieldInputSize3DZ);
         refreshInputOutputSize();
+        attachTextChangedListener(
+                textFieldInputSize1D,
+                textFieldInputSize2DX, textFieldInputSize2DY,
+                textFieldInputSize3DX, textFieldInputSize3DY, textFieldInputSize3DZ);
         reshapeBlock();
     }
 
@@ -134,21 +114,10 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
         MenuAdapter<DimensionType> menuAdapter = new MenuAdapter<>(menuButtonInputDimension);
         menuAdapter.setMenuItemChangedListener(dimensionType -> {
             layer.getProperties().getInput().setType(dimensionType);
-            Dimension inputDimension = layer.getProperties().getInput();
-            int fields = inputDimension.getDimension();
-            fields += inputDimension.isHasChannel()? 1 : 0;
-            anchorPaneInputOutputLabel1D.setVisible(fields == 1);
-            anchorPaneInputOutputLabel2D.setVisible(fields == 2);
-            anchorPaneInputOutputLabel3D.setVisible(fields == 3);
-            anchorPaneInputSize1D.setVisible(fields == 1);
-            anchorPaneInputSize2D.setVisible(fields == 2);
-            anchorPaneInputSize3D.setVisible(fields == 3);
-            anchorPaneOutputSize1D.setVisible(fields == 1);
-            anchorPaneOutputSize2D.setVisible(fields == 2);
-            anchorPaneOutputSize3D.setVisible(fields == 3);
+            layer.getProperties().getOutput().setType(dimensionType);
+            refreshComponent(dimensionType);
             refreshInputOutputSize();
             reshapeBlock();
-            changeInputOutputLabelByChannelExist(layer.getProperties().getInput().isHasChannel());
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d"), DimensionType.ONE_DIMENSION);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.reshape.1d.withChannel"), DimensionType.ONE_DIMENSION_WITH_CHANNEL);
@@ -157,31 +126,114 @@ public class ComponentDelegateParamController extends AbstractLayerComponentCont
         menuAdapter.setDefaultMenuItem(layer.getProperties().getInput().getType());
     }
 
-    private void refreshInputOutputSize(){
-        if(layer.getProperties().getInput().getDimension() == 1){
-            layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize1D));
-            layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize1D));
-            textFieldOutputSize1D.setText(textFieldInputSize1D.getText());
+    private void refreshComponent(DimensionType dimensionType) {
+        set1DComponentVisible(false);
+        set2DComponentVisible(false);
+        set3DComponentVisible(false);
+        switch (dimensionType){
+            case ONE_DIMENSION:
+                set1DComponentVisible(true);
+                labelInputOutput1DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+                break;
+            case ONE_DIMENSION_WITH_CHANNEL:
+                set2DComponentVisible(true);
+                labelInputOutput2DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+                labelInputOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
+                break;
+            case TWO_DIMENSION:
+                set2DComponentVisible(true);
+                labelInputOutput2DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+                labelInputOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+                break;
+            case TWO_DIMENSION_WITH_CHANNEL:
+                set3DComponentVisible(true);
+                labelInputOutput3DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
+                labelInputOutput3DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
+                labelInputOutput3DZ.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
+                break;
+        }
+    }
 
+    private void set1DComponentVisible(boolean visible){
+        anchorPaneInputOutputLabel1D.setVisible(visible);
+        anchorPaneInputSize1D.setVisible(visible);
+        anchorPaneOutputSize1D.setVisible(visible);
+    }
+
+    private void set2DComponentVisible(boolean visible){
+        anchorPaneInputOutputLabel2D.setVisible(visible);
+        anchorPaneInputSize2D.setVisible(visible);
+        anchorPaneOutputSize2D.setVisible(visible);
+    }
+
+    private void set3DComponentVisible(boolean visible){
+        anchorPaneInputOutputLabel3D.setVisible(visible);
+        anchorPaneInputSize3D.setVisible(visible);
+        anchorPaneOutputSize3D.setVisible(visible);
+    }
+
+    private void initializeInputOutputText(){
+        switch (layer.getProperties().getInput().getType()){
+            case ONE_DIMENSION:
+                textFieldInputSize1D.setText(String.valueOf(layer.getProperties().getInput().getX()));
+                textFieldOutputSize1D.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+                break;
+            case ONE_DIMENSION_WITH_CHANNEL:
+                textFieldInputSize2DX.setText(String.valueOf(layer.getProperties().getInput().getX()));
+                textFieldInputSize2DY.setText(String.valueOf(layer.getProperties().getInput().getChannel()));
+                textFieldOutputSize2DX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+                textFieldOutputSize2DY.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
+                break;
+            case TWO_DIMENSION:
+                textFieldInputSize2DX.setText(String.valueOf(layer.getProperties().getInput().getX()));
+                textFieldInputSize2DY.setText(String.valueOf(layer.getProperties().getInput().getY()));
+                textFieldOutputSize2DX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+                textFieldOutputSize2DY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
+                break;
+            case TWO_DIMENSION_WITH_CHANNEL:
+                textFieldInputSize3DX.setText(String.valueOf(layer.getProperties().getInput().getX()));
+                textFieldInputSize3DY.setText(String.valueOf(layer.getProperties().getInput().getY()));
+                textFieldInputSize3DZ.setText(String.valueOf(layer.getProperties().getInput().getChannel()));
+                textFieldOutputSize3DX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+                textFieldOutputSize3DY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
+                textFieldOutputSize3DZ.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
+                break;
         }
-        else if(layer.getProperties().getInput().getDimension() == 2){
-            layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize2DX));
-            layer.getProperties().getInput().setY(TextFieldUtil.parseInteger(textFieldInputSize2DY));
-            layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize2DX));
-            layer.getProperties().getOutput().setY(TextFieldUtil.parseInteger(textFieldInputSize2DY));
-            textFieldOutputSize2DX.setText(textFieldInputSize2DX.getText());
-            textFieldOutputSize2DY.setText(textFieldInputSize2DY.getText());
-        }
-        else{
-            layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize3DX));
-            layer.getProperties().getInput().setY(TextFieldUtil.parseInteger(textFieldInputSize3DY));
-            layer.getProperties().getInput().setChannel(TextFieldUtil.parseInteger(textFieldInputSize3DZ));
-            layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize3DX));
-            layer.getProperties().getOutput().setY(TextFieldUtil.parseInteger(textFieldInputSize3DY));
-            layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSize3DZ));
-            textFieldOutputSize3DX.setText(textFieldInputSize3DX.getText());
-            textFieldOutputSize3DY.setText(textFieldInputSize3DY.getText());
-            textFieldOutputSize3DZ.setText(textFieldInputSize3DZ.getText());
+    }
+
+    private void refreshInputOutputSize(){
+        switch (layer.getProperties().getInput().getType()){
+            case ONE_DIMENSION:
+                layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize1D));
+                layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize1D));
+                break;
+            case ONE_DIMENSION_WITH_CHANNEL:
+                layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize2DX));
+                layer.getProperties().getInput().setChannel(TextFieldUtil.parseInteger(textFieldInputSize2DY));
+                layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize2DX));
+                layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSize2DY));
+                textFieldOutputSize2DX.setText(textFieldInputSize2DX.getText());
+                textFieldOutputSize2DY.setText(textFieldInputSize2DY.getText());
+                break;
+            case TWO_DIMENSION:
+                layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize2DX));
+                layer.getProperties().getInput().setY(TextFieldUtil.parseInteger(textFieldInputSize2DY));
+                layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize2DX));
+                layer.getProperties().getOutput().setY(TextFieldUtil.parseInteger(textFieldInputSize2DY));
+                textFieldOutputSize2DX.setText(textFieldInputSize2DX.getText());
+                textFieldOutputSize2DY.setText(textFieldInputSize2DY.getText());
+                break;
+            case TWO_DIMENSION_WITH_CHANNEL:
+                layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize3DX));
+                layer.getProperties().getInput().setY(TextFieldUtil.parseInteger(textFieldInputSize3DY));
+                layer.getProperties().getInput().setChannel(TextFieldUtil.parseInteger(textFieldInputSize3DZ));
+                layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize3DX));
+                layer.getProperties().getOutput().setY(TextFieldUtil.parseInteger(textFieldInputSize3DY));
+                layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSize3DZ));
+                textFieldOutputSize3DX.setText(textFieldInputSize3DX.getText());
+                textFieldOutputSize3DY.setText(textFieldInputSize3DY.getText());
+                textFieldOutputSize3DZ.setText(textFieldInputSize3DZ.getText());
+                break;
         }
     }
 }

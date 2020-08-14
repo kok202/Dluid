@@ -20,7 +20,10 @@ public class Dimension {
         this.z = z;
         this.channel = channel;
         int dimension = 0;
-        boolean hasChannel = channel == 0;
+        dimension += x != 0 ? 1 : 0;
+        dimension += y != 0 ? 1 : 0;
+        dimension += z != 0 ? 1 : 0;
+        boolean hasChannel = channel != 0;
         if(dimension == 1 && !hasChannel)
             type = DimensionType.ONE_DIMENSION;
         else if(dimension == 1 && hasChannel)

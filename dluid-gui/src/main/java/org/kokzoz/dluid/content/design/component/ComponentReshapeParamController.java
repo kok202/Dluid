@@ -12,7 +12,6 @@ import org.kokzoz.dluid.AppConstant;
 import org.kokzoz.dluid.adapter.MenuAdapter;
 import org.kokzoz.dluid.canvas.CanvasFacade;
 import org.kokzoz.dluid.canvas.entity.ReshapeBlockProperty;
-import org.kokzoz.dluid.domain.entity.Dimension;
 import org.kokzoz.dluid.domain.entity.Layer;
 import org.kokzoz.dluid.domain.entity.enumerator.DimensionType;
 import org.kokzoz.dluid.domain.util.MathUtil;
@@ -120,8 +119,8 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         labelOutput.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
         labelInputDimension.setText(AppPropertiesSingleton.getInstance().get("frame.component.reshape.inputDimension"));
         labelOutputDimension.setText(AppPropertiesSingleton.getInstance().get("frame.component.reshape.outputDimension"));
-        refreshInputComponent(layer.getProperties().getInput());
-        refreshOutputComponent(layer.getProperties().getOutput());
+        refreshInputComponent(layer.getProperties().getInput().getType());
+        refreshOutputComponent(layer.getProperties().getOutput().getType());
     }
 
     private void setTextFieldByLayerProperties(){
@@ -150,7 +149,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         MenuAdapter<DimensionType> menuAdapter = new MenuAdapter<>(menuButtonInputDimension);
         menuAdapter.setMenuItemChangedListener(dimensionType -> {
             layer.getProperties().getInput().setType(dimensionType);
-            refreshInputComponent(layer.getProperties().getInput());
+            refreshInputComponent(dimensionType);
             refreshInputSize();
             refreshOutputSize();
             reshapeBlock();
@@ -166,7 +165,7 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         MenuAdapter<DimensionType> menuAdapter = new MenuAdapter<>(menuButtonOutputDimension);
         menuAdapter.setMenuItemChangedListener(dimensionType -> {
             layer.getProperties().getOutput().setType(dimensionType);
-            refreshOutputComponent(layer.getProperties().getOutput());
+            refreshOutputComponent(dimensionType);
             refreshOutputSize();
             reshapeBlock();
         });
@@ -293,11 +292,11 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         }
     }
 
-    private void refreshInputComponent(Dimension inputDimension) {
+    private void refreshInputComponent(DimensionType dimensionType) {
         set1DInputComponentVisible(false);
         set2DInputComponentVisible(false);
         set3DInputComponentVisible(false);
-        switch (inputDimension.getType()){
+        switch (dimensionType){
             case ONE_DIMENSION:
                 set1DInputComponentVisible(true);
                 labelInput1DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
@@ -336,11 +335,11 @@ public class ComponentReshapeParamController extends AbstractLayerComponentContr
         anchorPaneInputSize3D.setVisible(visible);
     }
 
-    private void refreshOutputComponent(Dimension outputDimension) {
+    private void refreshOutputComponent(DimensionType dimensionType) {
         set1DOutputComponentVisible(false);
         set2DOutputComponentVisible(false);
         set3DOutputComponentVisible(false);
-        switch (outputDimension.getType()){
+        switch (dimensionType){
             case ONE_DIMENSION:
                 set1DOutputComponentVisible(true);
                 labelOutput1DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
