@@ -118,12 +118,10 @@ public class BlockConnectionHandler {
         }
 
         Layer layer = LayerFactory.create(LayerType.PIPE_LAYER);
-        layer.getProperties().setInputSize(
-                BlockNodeUtil.getBlockNodeOutputX(sourceBlockNode.getBlockLayer()),
-                BlockNodeUtil.getBlockNodeOutputY(sourceBlockNode.getBlockLayer()));
-        layer.getProperties().setOutputSize(
-                BlockNodeUtil.getBlockNodeInputX(destinationBlockNode.getBlockLayer()),
-                BlockNodeUtil.getBlockNodeInputY(destinationBlockNode.getBlockLayer()));
+        layer.getProperties().getInput().setX(BlockNodeUtil.getBlockNodeOutputX(sourceBlockNode.getBlockLayer()));
+        layer.getProperties().getInput().setY(BlockNodeUtil.getBlockNodeOutputY(sourceBlockNode.getBlockLayer()));
+        layer.getProperties().getOutput().setX(BlockNodeUtil.getBlockNodeInputX(destinationBlockNode.getBlockLayer()));
+        layer.getProperties().getOutput().setY(BlockNodeUtil.getBlockNodeInputY(destinationBlockNode.getBlockLayer()));
 
         BlockNode pipeBlockNode = BlockNodeFactory.create(layer);
         ExtraBlockProperty extraBlockProperty = pipeBlockNode.getBlockInfo().getExtra();

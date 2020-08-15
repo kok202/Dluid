@@ -26,10 +26,6 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
     private NumericTableViewAdapter numericTableViewAdapter;
     private TestResultDocumentFileSaver testResultDocumentFileSaver;
 
-//    // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
-//    @FXML private Button buttonExportAsImage;
-//    private DirectoryChooserAdapter testResultImageDirectoryChooser;
-
     public ModelTestTestingResultTableController(TabModelTestController tabModelTestController) {
         super(tabModelTestController);
     }
@@ -54,8 +50,6 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.title"));
         checkBoxHighlight.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.classificationFilter"));
         buttonLoadOnTable.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.loadOnTable"));
-//        // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
-//        buttonExportAsImage.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsImage"));
         buttonExportAsDocument.setText(AppPropertiesSingleton.getInstance().get("frame.testTab.testTask.result.saveAsDocument"));
     }
 
@@ -66,10 +60,6 @@ public class ModelTestTestingResultTableController extends AbstractModelTestCont
             checkBoxHighlight.setSelected(false);
             tableViewResultSet.setDisable(false);
         });
-//        // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
-//        testResultImageDirectoryChooser = new DirectoryChooserAdapter(buttonExportAsImage);
-//        testResultImageDirectoryChooser.setCallbackAfterFind(file -> new TestResultImageSaver().popUpWindow(file));
-//        testResultImageDirectoryChooser.initialize();
         testResultDocumentFileSaver = new TestResultDocumentFileSaver(buttonExportAsDocument);
         testResultDocumentFileSaver.initialize();
     }

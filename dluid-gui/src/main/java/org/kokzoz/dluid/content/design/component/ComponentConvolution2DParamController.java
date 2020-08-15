@@ -86,12 +86,12 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
                 textFieldInputSizeX, textFieldKernelSizeX, textFieldStrideSizeX, textFieldPaddingSizeX,
                 textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY,
                 textFieldInputSizeZ, textFieldOutputSizeZ);
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
-        textFieldInputSizeZ.setText(String.valueOf(layer.getProperties().getInputSizeZ()));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
-        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutputSizeZ()));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInput().getX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInput().getY()));
+        textFieldInputSizeZ.setText(String.valueOf(layer.getProperties().getInput().getChannel()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
+        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
         textFieldStrideSizeX.setText(String.valueOf(layer.getProperties().getStrideSize()[0]));
         textFieldStrideSizeY.setText(String.valueOf(layer.getProperties().getStrideSize()[1]));
         textFieldPaddingSizeX.setText(String.valueOf(layer.getProperties().getPaddingSize()[0]));
@@ -112,10 +112,9 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
             throw new ConvolutionOutputIsNegativeException(outputSize);
         }
 
-        layer.getProperties().setInputSize(
-                TextFieldUtil.parseInteger(textFieldInputSizeX),
-                TextFieldUtil.parseInteger(textFieldInputSizeY),
-                TextFieldUtil.parseInteger(textFieldInputSizeZ));
+        layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSizeX));
+        layer.getProperties().getInput().setY(TextFieldUtil.parseInteger(textFieldInputSizeY));
+        layer.getProperties().getInput().setChannel(TextFieldUtil.parseInteger(textFieldInputSizeZ));
         layer.getProperties().setKernelSize(new int[]{
                 TextFieldUtil.parseInteger(textFieldKernelSizeX),
                 TextFieldUtil.parseInteger(textFieldKernelSizeY)});
@@ -125,12 +124,11 @@ public class ComponentConvolution2DParamController extends AbstractConvolutionLa
         layer.getProperties().setPaddingSize(new int[]{
                 TextFieldUtil.parseInteger(textFieldPaddingSizeX),
                 TextFieldUtil.parseInteger(textFieldPaddingSizeY)});
-        layer.getProperties().setOutputSize(
-                outputSize[0],
-                outputSize[1],
-                TextFieldUtil.parseInteger(textFieldOutputSizeZ));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        layer.getProperties().getOutput().setX(outputSize[0]);
+        layer.getProperties().getOutput().setY(outputSize[1]);
+        layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldOutputSizeZ));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
         reshapeBlock();
     }
 

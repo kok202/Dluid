@@ -30,7 +30,7 @@ class ModelTrainValidator {
 
     private static void validateDataSetDimension() throws FeatureSetVolumeUnmatchedException, ResultSetVolumeUnmatchedException {
         BlockNode outputBlockNode = CanvasFacade.findOutputLayer().get().getData();
-        int outputBlockNodeVolume = outputBlockNode.getBlockLayer().getProperties().getOutputVolume();
+        int outputBlockNodeVolume = outputBlockNode.getBlockLayer().getProperties().getOutput().getVolume();
 
         for (Map.Entry<String, DataSetManager> entry : AIFacade.getTrainDataSetManagerMap().entrySet()) {
             String inputLayerId = entry.getKey();
@@ -39,7 +39,7 @@ class ModelTrainValidator {
             int resultSetSize = dataSetManager.getManagedResultRecordSet().getNumericRecordSet().getRecordSize();
             BlockNode inputBlockNode = CanvasFacade.findGraphNodeByLayerId(inputLayerId).getData();
 
-            int inputBlockNodeVolume = inputBlockNode.getBlockLayer().getProperties().getInputVolume();
+            int inputBlockNodeVolume = inputBlockNode.getBlockLayer().getProperties().getInput().getVolume();
 
             if(featureSetSize != inputBlockNodeVolume)
                 throw new FeatureSetVolumeUnmatchedException(inputLayerId, inputBlockNodeVolume, featureSetSize);
