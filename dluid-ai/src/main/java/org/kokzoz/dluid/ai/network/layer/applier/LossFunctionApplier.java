@@ -1,7 +1,7 @@
 package org.kokzoz.dluid.ai.network.layer.applier;
 
+import org.deeplearning4j.nn.conf.layers.BaseOutputLayer;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
-import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.kokzoz.dluid.domain.entity.LayerProperties;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
@@ -9,12 +9,13 @@ public class LossFunctionApplier extends AbstractApplier {
 
     @Override
     public boolean support(Builder builder, LayerProperties layerProperties){
-        return builder instanceof OutputLayer.Builder && layerProperties.getInputSize() != null;
+        return (builder instanceof BaseOutputLayer.Builder ) &&
+                layerProperties.getLossFunction() != null;
     }
 
     @Override
     public void apply(Builder builder, LayerProperties layerProperties){
-        OutputLayer.Builder outputBuilder = ((OutputLayer.Builder) builder);
+        BaseOutputLayer.Builder outputBuilder = ((BaseOutputLayer.Builder) builder);
         switch (layerProperties.getLossFunction()){
             case MSE:
                 outputBuilder.setLossFn(LossFunctions.LossFunction.MSE.getILossFunction());

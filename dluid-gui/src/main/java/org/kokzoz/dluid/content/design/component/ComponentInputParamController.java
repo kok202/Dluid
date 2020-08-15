@@ -37,8 +37,8 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
     }
 
     protected void setTextFieldByLayerProperties() {
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputVolume()));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputVolume()));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInput().getVolume()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getVolume()));
         attachTextChangedListener(textFieldInputSizeX);
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.title"));
@@ -50,8 +50,8 @@ public class ComponentInputParamController extends AbstractLayerComponentControl
     @Override
     protected void textFieldChangedHandler() {
         int value = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
-        layer.getProperties().setInputSize(value);
-        layer.getProperties().setOutputSize(value);
+        layer.getProperties().getInput().setX(value);
+        layer.getProperties().getOutput().setX(value);
         textFieldOutputSizeX.setText(String.valueOf(value));
         reshapeBlock();
     }

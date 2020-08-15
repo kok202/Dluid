@@ -1,6 +1,9 @@
 package org.kokzoz.dluid.canvas.block;
 
 import org.kokzoz.dluid.canvas.block.activation.*;
+import org.kokzoz.dluid.canvas.block.incline.LSTMBlockNode;
+import org.kokzoz.dluid.canvas.block.incline.RNNBlockNode;
+import org.kokzoz.dluid.canvas.block.incline.RNNOutputBlockNode;
 import org.kokzoz.dluid.canvas.block.plain.*;
 import org.kokzoz.dluid.domain.entity.Layer;
 

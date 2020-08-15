@@ -63,7 +63,7 @@ For someone who want to study deep learning. try this application with below rec
 [Lecture 2 (Korean)](https://www.youtube.com/watch?v=BS6O0zOGX4E&list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm)
 
 ## Main version
-#### v0.1.x (2020.01.29)  
+#### v0.1.x (2020.08.15)  
 - Main feature
   - Support layer
     - Input
@@ -72,9 +72,6 @@ For someone who want to study deep learning. try this application with below rec
     - CNN 1D
     - CNN 2D
     - DeCNN 2D
-    - RNN
-    - LSTM
-    - RNN Output
     - Reshape
     - Pooling 1D
     - Pooling 2D
@@ -82,7 +79,6 @@ For someone who want to study deep learning. try this application with below rec
   - Easily create sequence model and test it.
     - Excel, csv data load
     - Visualize learning curve
-    - Confirm test data set
     - Confirm test result and export it  
 
 ## Comment

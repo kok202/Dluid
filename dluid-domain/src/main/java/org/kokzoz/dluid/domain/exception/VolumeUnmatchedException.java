@@ -1,6 +1,7 @@
 package org.kokzoz.dluid.domain.exception;
 
 import lombok.Getter;
+import org.kokzoz.dluid.domain.entity.Dimension;
 
 import java.util.Arrays;
 
@@ -14,14 +15,14 @@ public class VolumeUnmatchedException extends RuntimeException {
     private String destinationInputSize;
     private String destinationInputVolume;
 
-    public VolumeUnmatchedException(String sourceLayerId, int[] out, int outVolume, String destinationLayerId, int[] in, int inVolume) {
+    public VolumeUnmatchedException(String sourceLayerId, Dimension output, String destinationLayerId, Dimension input) {
         super("LayerType volume is not matched");
         this.sourceLayerId = sourceLayerId;
-        this.sourceLayerOutputSize = Arrays.toString(out);
-        this.sourceLayerOutputVolume = String.valueOf(outVolume);
+        this.sourceLayerOutputSize = Arrays.toString(output.asArray());
+        this.sourceLayerOutputVolume = String.valueOf(output.getVolume());
         this.destinationLayerId = destinationLayerId;
-        this.destinationInputSize = Arrays.toString(in);
-        this.destinationInputVolume = String.valueOf(inVolume);
+        this.destinationInputSize = Arrays.toString(input.asArray());
+        this.destinationInputVolume = String.valueOf(input.getVolume());
     }
 
 }

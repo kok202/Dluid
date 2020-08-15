@@ -57,6 +57,18 @@ public class ExceptionHandler {
                     .build()
                     .showAndWait();
         }
+        else if(exception instanceof RecurrentLayerOutputExceedInputException){
+            RecurrentLayerOutputExceedInputException recurrentLayerOutputExceedInputException = ((RecurrentLayerOutputExceedInputException) exception);
+            DialogUtil.builder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title(AppPropertiesSingleton.getInstance().get("frame.dialog.recurrentLayerOutputExceedInputException.title"))
+                    .headerText(String.format(AppPropertiesSingleton.getInstance().get("frame.dialog.recurrentLayerOutputExceedInputException.header"),
+                            recurrentLayerOutputExceedInputException.getInputSize(),
+                            recurrentLayerOutputExceedInputException.getOutputSize()))
+                    .contentText(AppPropertiesSingleton.getInstance().get("frame.dialog.recurrentLayerOutputExceedInputException.content"))
+                    .build()
+                    .showAndWait();
+        }
         else if(exception instanceof VolumeUnmatchedException){
             VolumeUnmatchedException volumeUnmatchedException = ((VolumeUnmatchedException) exception);
             DialogUtil.builder()

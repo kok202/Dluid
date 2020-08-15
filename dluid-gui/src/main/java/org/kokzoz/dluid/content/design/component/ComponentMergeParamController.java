@@ -11,6 +11,7 @@ import org.kokzoz.dluid.canvas.entity.MergeBlockProperty;
 import org.kokzoz.dluid.domain.entity.Layer;
 import org.kokzoz.dluid.domain.util.MathUtil;
 import org.kokzoz.dluid.singleton.AppPropertiesSingleton;
+import org.kokzoz.dluid.util.TextFieldUtil;
 
 import java.util.List;
 
@@ -57,10 +58,10 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
         labelInputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.inputSize"));
         labelOutputSize.setText(AppPropertiesSingleton.getInstance().get("frame.component.default.outputSize"));
 
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInput().getX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInput().getY()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
     }
 
     private void refreshInputOutputSize(){
@@ -68,7 +69,7 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
 
         int inputSize = 0;
         for (Layer incomingLayer : incomingLayers) {
-            inputSize += incomingLayer.getProperties().getOutputVolume();
+            inputSize += incomingLayer.getProperties().getOutput().getVolume();
         }
         inputSize = Math.max(inputSize, 1);
 
@@ -76,8 +77,11 @@ public class ComponentMergeParamController extends AbstractLayerComponentControl
         MergeBlockProperty mergeBlockProperty = (MergeBlockProperty) CanvasFacade.findGraphNodeByLayerId(layer.getId()).getData().getBlockInfo().getExtra();
         int outputSizeY = recommendedDivisors.get(mergeBlockProperty.getPointingIndex(recommendedDivisors.size()));
         int outputSizeX = inputSize / outputSizeY;
-        layer.getProperties().setInputSize(outputSizeX, outputSizeY);
-        layer.getProperties().setOutputSize(outputSizeX, outputSizeY);
+
+        layer.getProperties().getInput().setX(outputSizeX);
+        layer.getProperties().getInput().setY(outputSizeY);
+        layer.getProperties().getOutput().setX(outputSizeX);
+        layer.getProperties().getOutput().setY(outputSizeY);
         textFieldInputSizeX.setText(String.valueOf(outputSizeX));
         textFieldInputSizeY.setText(String.valueOf(outputSizeY));
         textFieldOutputSizeX.setText(String.valueOf(outputSizeX));

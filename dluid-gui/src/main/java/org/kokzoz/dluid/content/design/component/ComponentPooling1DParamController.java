@@ -88,10 +88,10 @@ public class ComponentPooling1DParamController extends AbstractConvolutionLayerC
     @Override
     protected void setTextFieldByLayerProperties(){
         detachTextChangedListener(textFieldInputSizeX, textFieldKernelSize, textFieldStrideSize, textFieldPaddingSize, textFieldInputSizeY);
-        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInputSizeX()));
-        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInputSizeY()));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInput().getX()));
+        textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInput().getChannel()));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
         textFieldKernelSize.setText(String.valueOf(layer.getProperties().getKernelSize()[0]));
         textFieldStrideSize.setText(String.valueOf(layer.getProperties().getStrideSize()[0]));
         textFieldPaddingSize.setText(String.valueOf(layer.getProperties().getPaddingSize()[0]));
@@ -106,13 +106,15 @@ public class ComponentPooling1DParamController extends AbstractConvolutionLayerC
             throw new ConvolutionOutputIsNegativeException(outputSize);
         }
 
-        layer.getProperties().setInputSize(TextFieldUtil.parseInteger(textFieldInputSizeX), TextFieldUtil.parseInteger(textFieldInputSizeY));
+        layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSizeX));
+        layer.getProperties().getInput().setChannel(TextFieldUtil.parseInteger(textFieldInputSizeY));
         layer.getProperties().setKernelSize(new int[]{TextFieldUtil.parseInteger(textFieldKernelSize)});
         layer.getProperties().setStrideSize(new int[]{TextFieldUtil.parseInteger(textFieldStrideSize)});
         layer.getProperties().setPaddingSize(new int[]{TextFieldUtil.parseInteger(textFieldPaddingSize)});
-        layer.getProperties().setOutputSize(outputSize[0], TextFieldUtil.parseInteger(textFieldInputSizeY));
-        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutputSizeX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutputSizeY()));
+        layer.getProperties().getOutput().setX(outputSize[0]);;
+        layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSizeY));
+        textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
         reshapeBlock();
     }
 
