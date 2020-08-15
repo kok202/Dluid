@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import org.kokzoz.dluid.adapter.MenuAdapter;
 import org.kokzoz.dluid.domain.entity.Layer;
 import org.kokzoz.dluid.domain.entity.enumerator.LossFunctionWrapper;
+import org.kokzoz.dluid.domain.exception.RecurrentLayerOutputExceedInputException;
 import org.kokzoz.dluid.singleton.AppPropertiesSingleton;
 import org.kokzoz.dluid.util.TextFieldUtil;
 
@@ -55,12 +56,12 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
     }
 
     protected void setTextFieldByLayerProperties(){
-        detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeY);
+        detachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX);
         textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInput().getX()));
         textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInput().getY()));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
-        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeY);
+        attachTextChangedListener(textFieldInputSizeX, textFieldInputSizeY, textFieldOutputSizeX);
     }
 
     private void initializeMenuButtonLossFunction(){
@@ -81,6 +82,12 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
 
     @Override
     protected void textFieldChangedHandler(){
+        int inputX = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
+        int outputX = TextFieldUtil.parseInteger(textFieldOutputSizeX, 1);
+        if(inputX < outputX){
+            setTextFieldByLayerProperties();
+            throw new RecurrentLayerOutputExceedInputException(inputX, outputX);
+        }
         changeInputSize();
         changeOutputSize();
         reshapeBlock();
@@ -89,9 +96,10 @@ public class ComponentRecurrentOutputParamController extends AbstractLayerCompon
     private void changeInputSize(){
         int x = TextFieldUtil.parseInteger(textFieldInputSizeX, 1);
         int y = TextFieldUtil.parseInteger(textFieldInputSizeY, 1);
-        textFieldOutputSizeX.setText(textFieldInputSizeX.getText());
+        textFieldOutputSizeY.setText(textFieldInputSizeY.getText());
         layer.getProperties().getInput().setX(x);
         layer.getProperties().getInput().setY(y);
+        layer.getProperties().getOutput().setY(y);
     }
 
     private void changeOutputSize(){

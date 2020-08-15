@@ -34,9 +34,6 @@ public class MaterialListAdvancedLayer extends AbstractMaterialList {
         addAbstractMaterialController(new MaterialPooling1DController());
         addAbstractMaterialController(new MaterialPooling2DController());
         addAbstractMaterialController(new MaterialBatchNormalizationController());
-//        // TODO[v2.0.0] : Not a scope of first milestone [v1.0.0]
-//        addAbstractMaterialController(new MaterialMergeController());
-//        addAbstractMaterialController(new MaterialSwitchController());
         addAbstractMaterialControllerToVBox(getLayerListBox(), materialInsertionManager);
         getTitledPane().setText(AppPropertiesSingleton.getInstance().get("frame.material.layers.advanced.title"));
     }
