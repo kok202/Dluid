@@ -19,8 +19,8 @@ You might be wondering that you heard you need to install java, but why you shou
 Jdk is a abbreviation of `java development kit` which is necessary program for developing java application. 
 It's okay to understand `jdk = java`. 
 If you just want to using `Dluid` only, you can install jre (`java runtime environment`) instead of jdk.  
-    - You can download jdk 8 (= 1.8) at here. [Open jdk github](https://github.com/ojdkbuild/ojdkbuild)   
-    - Or just download by this link. [Open jdk 8](https://github.com/ojdkbuild/ojdkbuild/releases/download/java-1.8.0-openjdk-1.8.0.252-2.b09/java-1.8.0-openjdk-1.8.0.252-2.b09.ojdkbuild.windows.x86_64.zip)
+    - You can download jdk 11 at here. [Open jdk github](https://github.com/ojdkbuild/ojdkbuild)   
+    - Or just download by this link. [Open jdk 11](https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.7.10-1/java-11-openjdk-11.0.7.10-1.windows.ojdkbuild.x86_64.zip)
 1. Unzip jdk file and move contents to directory `C:\java\openjdk` 
 1. For example  
   ![java 00](./resources/java/java-00.png)
@@ -58,9 +58,9 @@ brew tap AdoptOpenJDK/openjdk
 
 Paste above in a macOS terminal or linux shell prompt.
 ```
-3. Install OpenJDK 8
+3. Install OpenJDK 11
 ```
-brew cask install adoptopenjdk8
+brew cask install adoptopenjdk11
 
 Paste above in a macOS terminal or linux shell prompt.
 ```
