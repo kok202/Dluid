@@ -18,7 +18,7 @@ dluid-gui -> dluid-ai     -> dluid-domain
 ### dluid-gui
 This module is responsible for the front end of the dluid. 
 It is developed as javafx and draws application components. 
-It then enters the model from the user and forwards it to the ai module for learning and testing.
+User enters the model and forwards it to the ai module for learning and testing.
 Gui module interacts with user most closely.
 And it is also responsible for receiving input from the user and forwarding it to the ai module.
 So through this module user can make ai model train and test.

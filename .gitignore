@@ -22,3 +22,5 @@ tmp/**
 tmp/**/*
 *.tmp
 *.bak
+
+dluid-gui/dependency-reduced-pom.xml

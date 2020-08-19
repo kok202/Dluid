@@ -29,9 +29,6 @@ Dluid support below materials.
   - CNN 1D
   - CNN 2D
   - DeCNN 2D
-  - RNN
-  - LSTM
-  - RNN Output
   - Reshape
   - Pooling 1D
   - Pooling 2D
