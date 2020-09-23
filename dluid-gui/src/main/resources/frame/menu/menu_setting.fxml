@@ -12,5 +12,7 @@
                 <RadioMenuItem fx:id="menuItemSettingLanguageKorean" text="Korean" toggleGroup="$menuSettingLanguageToggleGroup"/>
             </items>
         </Menu>
+        <MenuItem fx:id="menuItemSettingLicense" text="License" >
+        </MenuItem>
     </items>
 </Menu>
