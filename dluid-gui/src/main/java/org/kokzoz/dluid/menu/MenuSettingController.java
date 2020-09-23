@@ -3,6 +3,7 @@ package org.kokzoz.dluid.menu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import lombok.Getter;
 import org.kokzoz.dluid.common.AbstractMenuController;
@@ -14,6 +15,8 @@ import org.kokzoz.dluid.singleton.AppPropertiesSingleton;
 public class MenuSettingController extends AbstractMenuController {
     @FXML
     private Menu menuSettingLanguage;
+    @FXML
+    private MenuItem menuItemSettingLicense;
     @FXML
     private RadioMenuItem menuItemSettingLanguageEnglish;
     @FXML
@@ -35,9 +38,13 @@ public class MenuSettingController extends AbstractMenuController {
             AppConfigurationSingleton.getInstance().getData().setLanguage(Language.KOREAN);
             AppConfigurationSingleton.getInstance().saveData();
         });
+        menuItemSettingLicense.setOnAction(event -> {
+            LicenseWindow.show();
+        });
 
         itself.setText(AppPropertiesSingleton.getInstance().get("frame.menu.setting"));
         menuSettingLanguage.setText(AppPropertiesSingleton.getInstance().get("frame.menu.setting.language"));
+        menuItemSettingLicense.setText(AppPropertiesSingleton.getInstance().get("frame.menu.setting.license"));
         menuItemSettingLanguageEnglish.setText(AppPropertiesSingleton.getInstance().get("frame.menu.setting.language.english"));
         menuItemSettingLanguageKorean.setText(AppPropertiesSingleton.getInstance().get("frame.menu.setting.language.korean"));
     }
