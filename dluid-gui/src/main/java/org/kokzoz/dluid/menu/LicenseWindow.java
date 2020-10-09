@@ -32,14 +32,6 @@ public class LicenseWindow {
     }
 
     private static String[] licenses = new String[]{
-            "org.openjfx.javafx-controls version 11",
-            "https://mvnrepository.com/artifact/org.openjfx/javafx-controls",
-            "GPL 2.0 License",
-            "",
-            "org.openjfx.javafx-fxml version 11",
-            "https://mvnrepository.com/artifact/org.openjfx/javafx-controls",
-            "GPL 2.0 License",
-            "",
             "org.apache.commons.commons-math3 version 3.6.1",
             "https://mvnrepository.com/artifact/org.apache.commons/commons-math3",
             "Apache License 2.0",
