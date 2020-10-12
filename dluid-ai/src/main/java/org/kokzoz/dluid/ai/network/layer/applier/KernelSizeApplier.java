@@ -23,10 +23,10 @@ public class KernelSizeApplier extends AbstractApplier {
             baseConvBuilder.setKernelSize(layerProperties.getKernelSize());
         }else if(builder instanceof Pooling1D.Builder){
             Pooling1D.Builder poolingBuilder = (Pooling1D.Builder) builder;
-            poolingBuilder.setStride(layerProperties.getKernelSize());
+            poolingBuilder.setKernelSize(layerProperties.getKernelSize());
         }else if(builder instanceof Pooling2D.Builder){
             Pooling2D.Builder poolingBuilder = (Pooling2D.Builder) builder;
-            poolingBuilder.setStride(layerProperties.getKernelSize());
+            poolingBuilder.setKernelSize(layerProperties.getKernelSize());
         }
     }
 }
