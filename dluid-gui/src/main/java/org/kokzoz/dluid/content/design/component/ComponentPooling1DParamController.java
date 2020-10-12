@@ -112,7 +112,7 @@ public class ComponentPooling1DParamController extends AbstractConvolutionLayerC
         layer.getProperties().getOutput().setX(outputSize[0]);
         layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSizeY));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
         reshapeBlock();
     }
 

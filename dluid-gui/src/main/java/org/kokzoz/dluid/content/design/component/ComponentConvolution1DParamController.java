@@ -91,7 +91,7 @@ public class ComponentConvolution1DParamController extends AbstractConvolutionLa
         layer.getProperties().setStrideSize(new int[]{TextFieldUtil.parseInteger(textFieldStrideSize)});
         layer.getProperties().setPaddingSize(new int[]{TextFieldUtil.parseInteger(textFieldPaddingSize)});
         layer.getProperties().getOutput().setX(outputSize[0]);
-        layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSizeY));
+        layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldOutputSizeY));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
         reshapeBlock();
     }
