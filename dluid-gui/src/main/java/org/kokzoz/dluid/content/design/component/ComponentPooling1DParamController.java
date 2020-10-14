@@ -79,9 +79,7 @@ public class ComponentPooling1DParamController extends AbstractConvolutionLayerC
             reshapeBlock();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.max"), PoolingTypeWrapper.MAX);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.sum"), PoolingTypeWrapper.SUM);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.avg"), PoolingTypeWrapper.AVG);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.pnorm"), PoolingTypeWrapper.PNORM);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getPoolingType());
     }
 
@@ -111,10 +109,10 @@ public class ComponentPooling1DParamController extends AbstractConvolutionLayerC
         layer.getProperties().setKernelSize(new int[]{TextFieldUtil.parseInteger(textFieldKernelSize)});
         layer.getProperties().setStrideSize(new int[]{TextFieldUtil.parseInteger(textFieldStrideSize)});
         layer.getProperties().setPaddingSize(new int[]{TextFieldUtil.parseInteger(textFieldPaddingSize)});
-        layer.getProperties().getOutput().setX(outputSize[0]);;
+        layer.getProperties().getOutput().setX(outputSize[0]);
         layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSizeY));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
-        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
+        textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
         reshapeBlock();
     }
 

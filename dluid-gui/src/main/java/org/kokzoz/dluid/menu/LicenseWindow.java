@@ -32,6 +32,10 @@ public class LicenseWindow {
     }
 
     private static String[] licenses = new String[]{
+            "openjfx 8",
+            "http://hg.openjdk.java.net/openjfx/8u/rt",
+            "GPL 2.0 License",
+            "",
             "org.apache.commons.commons-math3 version 3.6.1",
             "https://mvnrepository.com/artifact/org.apache.commons/commons-math3",
             "Apache License 2.0",

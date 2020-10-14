@@ -36,7 +36,7 @@ public class MaterialContainerController extends AbstractController {
         abstractMaterialLists.add(new MaterialListAssistantLayer(materialInsertionManager));
         abstractMaterialLists.add(new MaterialListFCNNLayer(materialInsertionManager));
         abstractMaterialLists.add(new MaterialListCNNLayer(materialInsertionManager));
-        abstractMaterialLists.add(new MaterialListRNNLayer(materialInsertionManager)); // TODO : Not perfectly support.
+        // abstractMaterialLists.add(new MaterialListRNNLayer(materialInsertionManager)); // TODO : Not perfectly support.
         abstractMaterialLists.add(new MaterialListAdvancedLayer(materialInsertionManager));
 
         for (AbstractMaterialList abstractMaterialList : abstractMaterialLists) {
