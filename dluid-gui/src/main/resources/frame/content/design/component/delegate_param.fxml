@@ -22,7 +22,7 @@
                             <children>
                                 <Label fx:id="labelInput" text="Input" GridPane.rowIndex="1" />
                                 <Label fx:id="labelOutput" text="Output" GridPane.rowIndex="2" />
-                                <Label fx:id="labelInputOutputDimension" text="Input / output dimension" GridPane.rowIndex="3" />
+                                <Label fx:id="labelInputOutputDimension" text="In/output dimension" GridPane.rowIndex="3" />
 
                                 <!--==================================================================================Value Field==================================================================================-->
                                 <AnchorPane fx:id="anchorPaneInputOutputLabel1D" GridPane.columnIndex="1" GridPane.rowIndex="0" visible="false" >

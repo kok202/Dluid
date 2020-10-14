@@ -23,10 +23,10 @@ public class PaddingSizeApplier extends AbstractApplier {
             baseConvBuilder.setPadding(layerProperties.getPaddingSize());
         }else if(builder instanceof Pooling1D.Builder){
             Pooling1D.Builder poolingBuilder = (Pooling1D.Builder) builder;
-            poolingBuilder.setStride(layerProperties.getPaddingSize());
+            poolingBuilder.setPadding(layerProperties.getPaddingSize());
         }else if(builder instanceof Pooling2D.Builder){
             Pooling2D.Builder poolingBuilder = (Pooling2D.Builder) builder;
-            poolingBuilder.setStride(layerProperties.getPaddingSize());
+            poolingBuilder.setPadding(layerProperties.getPaddingSize());
         }
     }
 }

@@ -1,10 +1,7 @@
 package org.kokzoz.dluid.ai.network.layer.applier;
 
-import org.deeplearning4j.nn.conf.layers.BaseRecurrentLayer;
-import org.deeplearning4j.nn.conf.layers.ConvolutionLayer;
-import org.deeplearning4j.nn.conf.layers.FeedForwardLayer;
+import org.deeplearning4j.nn.conf.layers.*;
 import org.deeplearning4j.nn.conf.layers.Layer.Builder;
-import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.kokzoz.dluid.domain.entity.LayerProperties;
 
 public class OutputApplier extends AbstractApplier {
@@ -27,7 +24,15 @@ public class OutputApplier extends AbstractApplier {
         } else if (builder instanceof RnnOutputLayer.Builder){
             RnnOutputLayer.Builder rnnOutputLayer = ((RnnOutputLayer.Builder) builder);
             rnnOutputLayer.nOut(layerProperties.getOutput().getY());
-        }  else if(builder instanceof FeedForwardLayer.Builder){
+        } else if (builder instanceof BatchNormalization.Builder){
+            if(layerProperties.getOutput().isHasChannel()){
+                BatchNormalization.Builder batchNormalizationBuilder = ((BatchNormalization.Builder) builder);
+                batchNormalizationBuilder.nOut(layerProperties.getOutput().getChannel());
+            } else{
+                BatchNormalization.Builder batchNormalizationBuilder = ((BatchNormalization.Builder) builder);
+                batchNormalizationBuilder.nOut(layerProperties.getOutput().getVolume());
+            }
+        } else if(builder instanceof FeedForwardLayer.Builder){
             FeedForwardLayer.Builder feedForwardLayerBuilder = ((FeedForwardLayer.Builder) builder);
             feedForwardLayerBuilder.nOut(layerProperties.getOutput().getVolume());
         }

@@ -92,7 +92,8 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
     protected void setTextFieldByLayerProperties(){
         detachTextChangedListener(
                 textFieldInputSizeX, textFieldKernelSizeX, textFieldStrideSizeX, textFieldPaddingSizeX,
-                textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY);
+                textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY,
+                textFieldInputSizeZ);
         textFieldInputSizeX.setText(String.valueOf(layer.getProperties().getInput().getX()));
         textFieldInputSizeY.setText(String.valueOf(layer.getProperties().getInput().getY()));
         textFieldInputSizeZ.setText(String.valueOf(layer.getProperties().getInput().getChannel()));
@@ -107,7 +108,8 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
         textFieldKernelSizeY.setText(String.valueOf(layer.getProperties().getKernelSize()[1]));
         attachTextChangedListener(
                 textFieldInputSizeX, textFieldKernelSizeX, textFieldStrideSizeX, textFieldPaddingSizeX,
-                textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY);
+                textFieldInputSizeY, textFieldKernelSizeY, textFieldStrideSizeY, textFieldPaddingSizeY,
+                textFieldInputSizeZ);
     }
 
     private void initializeMenuButtonPoolingType(){
@@ -117,9 +119,7 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
             reshapeBlock();
         });
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.max"), PoolingTypeWrapper.MAX);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.sum"), PoolingTypeWrapper.SUM);
         menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.avg"), PoolingTypeWrapper.AVG);
-        menuAdapter.addMenuItem(AppPropertiesSingleton.getInstance().get("frame.component.pooling.type.pnorm"), PoolingTypeWrapper.PNORM);
         menuAdapter.setDefaultMenuItem(layer.getProperties().getPoolingType());
     }
 
@@ -149,7 +149,7 @@ public class ComponentPooling2DParamController extends AbstractConvolutionLayerC
         layer.getProperties().getOutput().setChannel(TextFieldUtil.parseInteger(textFieldInputSizeZ));
         textFieldOutputSizeX.setText(String.valueOf(layer.getProperties().getOutput().getX()));
         textFieldOutputSizeY.setText(String.valueOf(layer.getProperties().getOutput().getY()));
-        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutput().getX()));
+        textFieldOutputSizeZ.setText(String.valueOf(layer.getProperties().getOutput().getChannel()));
         reshapeBlock();
     }
 

@@ -89,7 +89,7 @@ public class ComponentManager {
             case BATCH_NORMALIZATION:
                 componentList.add(new ComponentCommonInfoController(layer));
                 componentList.add(new ComponentCommonFunctionController(layer));
-                componentList.add(new ComponentDelegateParamController(layer));
+                componentList.add(new ComponentBatchNormalizationParamController(layer));
                 break;
         }
     }
