@@ -18,7 +18,7 @@
         <common-compress.version>1.19</common-compress.version>
         <opencsv.version>4.6</opencsv.version>
         <math3.version>3.6.1</math3.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.13.1</junit.version>
         <commons-io.version>2.5</commons-io.version>
     </properties>
 
