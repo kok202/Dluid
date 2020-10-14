@@ -133,16 +133,6 @@ public class ComponentBatchNormalizationParamController extends AbstractLayerCom
                 set1DComponentVisible(true);
                 labelInputOutput1DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
                 break;
-            case ONE_DIMENSION_WITH_CHANNEL:
-                set2DComponentVisible(true);
-                labelInputOutput2DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
-                labelInputOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.channel"));
-                break;
-            case TWO_DIMENSION:
-                set2DComponentVisible(true);
-                labelInputOutput2DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
-                labelInputOutput2DY.setText(AppPropertiesSingleton.getInstance().get("frame.component.height"));
-                break;
             case TWO_DIMENSION_WITH_CHANNEL:
                 set3DComponentVisible(true);
                 labelInputOutput3DX.setText(AppPropertiesSingleton.getInstance().get("frame.component.width"));
@@ -204,6 +194,7 @@ public class ComponentBatchNormalizationParamController extends AbstractLayerCom
             case ONE_DIMENSION:
                 layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize1D));
                 layer.getProperties().getOutput().setX(TextFieldUtil.parseInteger(textFieldInputSize1D));
+                textFieldOutputSize1D.setText(textFieldInputSize1D.getText());
                 break;
             case ONE_DIMENSION_WITH_CHANNEL:
                 layer.getProperties().getInput().setX(TextFieldUtil.parseInteger(textFieldInputSize2DX));
