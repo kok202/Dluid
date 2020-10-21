@@ -6,8 +6,8 @@ nav_order: 4
 
 ## JDK with OpenJFX
 Requirement 
-- Java 8
-- JavaFX or OpenJFX
+- JDK 8
+- OpenJFX 8
 
 This project was developed using jfx. Most JDKs separate Java environment and Javafx, so you need to install openjfx separately. Therefore, we recommend you to use the zulu jdk containing openjfx.  
 
