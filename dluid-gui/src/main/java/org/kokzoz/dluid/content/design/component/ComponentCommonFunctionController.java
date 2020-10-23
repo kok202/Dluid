@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 import lombok.Getter;
 import org.kokzoz.dluid.adapter.MenuAdapter;
 import org.kokzoz.dluid.domain.entity.Layer;
@@ -98,6 +99,25 @@ public class ComponentCommonFunctionController extends AbstractLayerComponentCon
 
     protected void initializeSliderDropout(){
         sliderDropout.setValue(layer.getProperties().getDropout());
+        sliderDropout.labelFormatterProperty().set(new StringConverter<Double>(){
+            @Override
+            public Double fromString (String value){
+                if (value == null)
+                    return null;
+                value = value.trim();
+                if (value.length() < 1)
+                    return null;
+                return Double.valueOf(value);
+            }
+
+            @Override
+            public String toString (Double value){
+                if (value == null)
+                    return "";
+                int val = (int) (value * 100);
+                return String.format("%d%%", val);
+            }
+        });
         sliderDropout.valueProperty().addListener((observable, oldValue, newValue) -> {
             double inputRetainProbability = newValue.doubleValue();
             layer.getProperties().setDropout(inputRetainProbability);

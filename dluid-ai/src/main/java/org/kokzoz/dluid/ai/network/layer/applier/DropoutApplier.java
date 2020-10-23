@@ -8,12 +8,13 @@ public class DropoutApplier extends AbstractApplier {
 
     @Override
     public boolean support(Builder builder, LayerProperties layerProperties){
-        return builder instanceof BaseLayer.Builder && layerProperties.getDropout() != 0;
+        return builder instanceof BaseLayer.Builder && layerProperties.getDropout() != 1;
     }
 
     @Override
     public void apply(Builder builder, LayerProperties layerProperties){
         BaseLayer.Builder baseLayerBuilder = ((BaseLayer.Builder) builder);
         baseLayerBuilder.dropOut(layerProperties.getDropout());
+        System.out.println(layerProperties.getDropout());
     }
 }

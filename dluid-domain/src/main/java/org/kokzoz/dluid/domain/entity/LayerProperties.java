@@ -3,8 +3,6 @@ package org.kokzoz.dluid.domain.entity;
 import lombok.Data;
 import org.kokzoz.dluid.domain.entity.enumerator.*;
 
-import java.util.Arrays;
-
 @Data
 public class LayerProperties {
     // common properties
@@ -30,7 +28,7 @@ public class LayerProperties {
     LayerProperties(LayerType layerType) {
         weightInitializer = WeightInitializer.FOLLOW_GLOBAL_SETTING;
         activationFunction = ActivationWrapper.IDENTITY;
-        dropout = 0;
+        dropout = 1;
         lossFunction = (layerType != LayerType.RNN_OUTPUT_LAYER)? LossFunctionWrapper.MSE : LossFunctionWrapper.MCXENT;
         poolingType = PoolingTypeWrapper.MAX;
 
