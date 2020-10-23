@@ -92,7 +92,7 @@ public class LicenseWindow {
             "https://mvnrepository.com/artifact/com.jfoenix/jfoenix",
             "Apache License",
             "",
-            "Nanum gothic font",
+            "NanumBarunGothic font",
             "https://help.naver.com/support/contents/contents.help?serviceNo=1074&categoryNo=3497",
             "Copyright (c) 2010, NAVER Corporation under SIL Open Font License, Version 1.1",
             "",
