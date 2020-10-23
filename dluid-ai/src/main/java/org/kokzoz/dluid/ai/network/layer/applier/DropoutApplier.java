@@ -13,8 +13,9 @@ public class DropoutApplier extends AbstractApplier {
 
     @Override
     public void apply(Builder builder, LayerProperties layerProperties){
+        // dropout = 1 => 100% probability of retaining input
+        // dropout = 0 => disallowed
         BaseLayer.Builder baseLayerBuilder = ((BaseLayer.Builder) builder);
         baseLayerBuilder.dropOut(layerProperties.getDropout());
-        System.out.println(layerProperties.getDropout());
     }
 }
