@@ -21,6 +21,7 @@ public class ModelInformationController extends AbstractModelTrainController {
     @FXML private TitledPane titledPane;
     @FXML private Label labelModelName;
     @FXML private Label labelWeightInit;
+    @FXML private Label labelBiasInit;
     @FXML private Label labelOptimizer;
     @FXML private Label labelLearningRate;
     @FXML private Label labelEpochNumber;
@@ -53,7 +54,8 @@ public class ModelInformationController extends AbstractModelTrainController {
 
         titledPane.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.title"));
         labelModelName.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.name"));
-        labelWeightInit.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.initializer"));
+        labelWeightInit.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.weightInitializer"));
+        labelBiasInit.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.biasInitializer"));
         labelOptimizer.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.optimizer"));
         labelLearningRate.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.learningRate"));
         labelEpochNumber.setText(AppPropertiesSingleton.getInstance().get("frame.trainTab.modelInfo.totalEpoch"));
