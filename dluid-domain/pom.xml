@@ -19,7 +19,7 @@
         <opencsv.version>4.6</opencsv.version>
         <math3.version>3.6.1</math3.version>
         <junit.version>4.13.1</junit.version>
-        <commons-io.version>2.5</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
     </properties>
 
     <dependencies>
